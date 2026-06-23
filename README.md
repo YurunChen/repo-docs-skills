@@ -3,7 +3,7 @@
     <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
     Repo-Docs:
   </h1>
-  <p><strong>Keep project understanding alive while agents keep coding.</strong></p>
+  <h3>Keep project understanding alive while agents keep coding.</h3>
 </div>
 
 <p align="center">
