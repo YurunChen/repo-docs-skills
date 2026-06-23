@@ -3,11 +3,11 @@
     <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
     Repo-Docs:
   </h1>
-  <h3>让项目理解跟上 agent 写代码的速度。</h3>
+  <h3>让你跟得上 agent 写出来的代码。</h3>
 </div>
 
 <p align="center">
-  每次 agent 会话改变的不只是代码。Repo-Docs 把决策、进度、未知项和下一步留在仓库里。
+  Vibe coding 让项目长得很快。Repo-Docs 把解释、决策、进度和下一步放回仓库，贴着代码一起走。
 </p>
 
 <p align="center">
@@ -20,34 +20,34 @@
 ## 最新更新
 
 > 新版默认输出到根目录 `project-guide/`，支持中文 guide，也支持空项目的 Seed 模式。
-> 如果 Repo-Docs 帮你少一次上下文重读，欢迎给这个项目一个 star 🌟。
+> 如果 Repo-Docs 帮你跟上 agent 写出来的项目，欢迎给这个项目一个 star 🌟。
 
 ## Repo-Docs 是什么？
 
-`repo-docs` 是一个轻量的 agent skill，用来在项目推进时同步维护项目理解。你提问、改代码、规划下一步、交接给另一个 agent 时，它会把这次会话里有价值的上下文写成 Markdown，放回仓库。
+Vibe coding 让代码出现得很快。文件变了，决策变了，下一步也变了；但为什么这么改、哪些已经确定、哪些只是计划，常常还留在聊天记录里。几轮会话之后，项目还能跑，用户却不一定还能完整说清它为什么长成这样。
 
-它解决的是一个很现实的问题：vibe coding 很快，但项目理解很容易跟不上。Repo-Docs 记录改了什么、为什么改、还有什么没确认、下一个 agent 应该从哪里继续。
+`repo-docs` 做的事很简单：降低用户和 vibe coding 代码之间的理解差距。它让 coding agent 在工作过程中持续维护项目 guide，记录改了什么、为什么改、什么已经决定、什么只是计划、什么还没验证。
 
 ## 为什么需要它？
 
 | 没有 `repo-docs` | 使用 `repo-docs` |
 | --- | --- |
+| 代码变得比你理解得更快 | 解释贴着代码留在仓库里 |
 | 决策散落在聊天记录里 | 决策留在仓库里 |
-| 新 agent 每次从零读项目 | 新 agent 从 `project-guide/` 接手 |
-| 进度靠人回忆 | 进度记录在 `change-log.md` |
+| 进度靠人回忆 | 里程碑记录在 `change-log.md` |
 | 计划和事实混在一起 | 计划、决定、已实现、未确认分开 |
-| 交接需要长篇解释 | 交接指向文档、规则和当前文件 |
+| 再回到项目时要重新读一遍 | `project-guide/` 告诉你当前项目状态 |
 
 ## 核心能力
 
-| 它维护 | 你能看到 |
+| 它维护 | 你可以 |
 | --- | --- |
-| 项目 guide | 这个 repo 是什么、怎么运转、应该改哪里 |
-| 进度记录 | 改了什么、为什么改、怎么验证 |
-| 变更地图 | 下一步做什么、相关文件、风险和检查 |
-| agent 规则 | 下一个 coding agent 不能忘的项目规则 |
-| 空项目 guide | 还没代码时，先记录目标、决策、计划和未知项 |
-| 中文 guide | 通过 `repo-docs-zh` 生成自然中文文档 |
+| 项目 guide | 看懂这个 repo 现在是什么、怎么运转 |
+| 进度记录 | 看到改了什么、为什么改 |
+| 变更地图 | 知道下一步做什么、怎么检查 |
+| agent 规则 | 让后续 coding 会话沿着同一条线走 |
+| 空项目 guide | 在代码出现前先写下目标和计划 |
+| 中文 guide | 通过 `repo-docs-zh` 用自然中文理解项目 |
 
 ## 快速开始
 
@@ -101,8 +101,8 @@ Implemented, Decided, Planned, and Unknown items.
 ```
 
 ```text
-Prepare this repo for handoff. Sync README.md, project-guide/, AGENTS.md,
-and memory pointers so the next agent can continue.
+Help me continue this repo without rereading everything. Sync README.md,
+project-guide/, AGENTS.md, and memory pointers with the current project state.
 ```
 
 ## 输出结构
@@ -149,12 +149,12 @@ project-guide/
 
 ## 支持
 
-如果 Repo-Docs 让你的下一次 agent 会话更容易继续，欢迎给这个 repo 一个 star 🌟。
+如果 Repo-Docs 帮你跟上 agent 写出来的代码，欢迎给这个 repo 一个 star 🌟。
 
 ---
 
 <div align="center">
-  <p><strong>Repo-Docs:</strong> 让项目理解跟上 agent 写代码的速度。</p>
+  <p><strong>Repo-Docs:</strong> 让你跟得上 agent 写出来的代码。</p>
   <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
   <p><em>感谢访问 Repo-Docs。</em></p>
   <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />

@@ -1,19 +1,19 @@
 ---
 name: repo-docs
-description: Use when a user asks to understand a repo, generate or maintain project docs, onboard readers, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep project-guide current.
+description: Use when a user asks to understand a repo, reduce the gap between the user and vibe-coded code, generate or maintain project docs, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep project-guide current.
 ---
 
 # Repo-Docs
 
 ## Core Idea
 
-`repo-docs` exists to help a reader naturally and fluently understand a project. It transfers the repo's mental model by walking a capable newcomer from a familiar user-facing behavior into the design choices, code paths, data contracts, and maintenance decisions behind it.
+`repo-docs` exists to reduce the understanding gap between a user and a project that is changing through vibe coding. Vibe coding can make code move faster than the user's explanation of the project. This skill keeps the explanation close to the code by walking from familiar behavior into the design choices, code paths, data contracts, and maintenance decisions behind it.
 
-Treat documentation as teaching stable project knowledge. Favor coherent project explanation, durable maintenance guidance, and source-backed examples over file inventories, giant reports, chat transcripts, or decorative overview pages.
+Treat documentation as the alignment layer between the user and the project. Favor coherent project explanation, durable maintenance guidance, and source-backed examples over file inventories, giant reports, chat transcripts, or decorative overview pages.
 
 ## First principles
 
-1. **The reader starts with limited context.** Explain the problem, vocabulary, design pressure, and project-specific choices before expecting file names to make sense.
+1. **The user is trying to keep up with a moving project.** Explain the problem, vocabulary, design pressure, and project-specific choices before expecting file names to make sense.
 2. **Understanding should feel continuous.** Each page should carry the reader from "what I can observe or do" to "why the system is shaped this way" to "where the code proves it."
 3. **Source truth wins.** Code, tests, config, data, scripts, artifacts, and current project docs beat memory or older docs. Mark unverified claims as `Unknown` or `未确认`.
 4. **Structure follows understanding.** Add, merge, shorten, or delete pages based on whether they help the reader choose, run, modify, debug, or evaluate the repo.
