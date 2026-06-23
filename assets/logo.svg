@@ -1,0 +1,18 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Repo Docs logo</title>
+  <desc id="desc">A calm elephant curator organizing project knowledge cards.</desc>
+  <rect width="240" height="240" rx="56" fill="#F6F7F4"/>
+  <path d="M70 112C70 75.5 94.5 50 130 50C162.5 50 183 72.5 183 105V139C183 169 161 190 130 190H101C82.5 190 69 176.5 69 158V114C69 113.3 69.3 112.7 70 112Z" fill="#2B2D2F"/>
+  <path d="M72 116C55.5 118.5 45 130 45 146C45 161.5 56.5 173 72 175V116Z" fill="#2B2D2F"/>
+  <path d="M176 116C194.5 118.5 207 131.5 207 149.5C207 166.5 194.5 179.5 176 181V116Z" fill="#2B2D2F"/>
+  <path d="M119 134C119 125.2 126.2 118 135 118H158C166.8 118 174 125.2 174 134V135C174 143.8 166.8 151 158 151H151V162C151 171.4 143.4 179 134 179H127" stroke="#F6F7F4" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="110" cy="104" r="6" fill="#F6F7F4"/>
+  <rect x="70" y="152" width="88" height="52" rx="12" fill="#FFFFFF" stroke="#2B2D2F" stroke-width="6"/>
+  <path d="M88 171H139" stroke="#7CAEA3" stroke-width="7" stroke-linecap="round"/>
+  <path d="M88 187H126" stroke="#C9D1CB" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="54" cy="69" r="7" fill="#7CAEA3"/>
+  <circle cx="83" cy="42" r="5" fill="#C9D1CB"/>
+  <circle cx="191" cy="58" r="6" fill="#7CAEA3"/>
+  <path d="M61 69C78 70 88 78 96 91" stroke="#C9D1CB" stroke-width="4" stroke-linecap="round"/>
+  <path d="M187 61C172 66 162 75 155 90" stroke="#C9D1CB" stroke-width="4" stroke-linecap="round"/>
+</svg>
