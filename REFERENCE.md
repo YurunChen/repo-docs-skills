@@ -145,7 +145,7 @@ Do not convert chat intent into current-state facts. A user saying "we should ad
 For an empty project, prefer this small pack:
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   change-map.md
   change-log.md
@@ -160,7 +160,7 @@ Avoid `modules/`, detailed `flows/`, API references, schema references, and metr
 
 ### Seed main guide
 
-For seed projects, `docs/project-guide/README.md` should answer:
+For seed projects, `project-guide/README.md` should answer:
 
 1. What is the project trying to become?
 2. What is already present in the repo?
@@ -360,7 +360,7 @@ Use source links when possible. Include exact line links when available; otherwi
 
 When the user asks a new question:
 
-1. Read `docs/project-guide/README.md` and any relevant module/reference docs.
+1. Read `project-guide/README.md` and any relevant module/reference docs.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
 3. Decide whether the question reveals stable missing context. For transient run state, one-off debugging, or personal preference, answer in chat; record it in the guide when the user asks.
 4. Patch the smallest relevant doc section when stable guide content is missing or stale.
@@ -370,7 +370,7 @@ When the user asks a new question:
 
 ## Project Change Sync
 
-Use this when code, data, config, scripts, tests, docs, or project architecture changed after the project guide was written. If the current turn made those changes and `docs/project-guide/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
+Use this when code, data, config, scripts, tests, docs, or project architecture changed after the project guide was written. If the current turn made those changes and `project-guide/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
 
 This is an impact audit. Use it to ask "which reader understanding changed?" before touching files.
 
@@ -386,9 +386,9 @@ Different layers serve different readers:
 | --- | --- | --- | --- |
 | Agent memory, when available | The agent across sessions | Personal preferences, cross-project references, recent lessons, and compact reminders. | Thin, current, pointer-heavy. |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents working inside this repo | Hard boundaries, commands, environment rules, red lines, routing tables, and guide maintenance policy. | Short, operational, rule-oriented. |
-| `README.md` and `docs/` | Human teammates, downstream users, and future agents | Onboarding, architecture, operations, integration, APIs, project guide, and references. | Thick authority layer with current facts. |
+| `README.md` and `project-guide/` | Human teammates, downstream users, and future agents | Onboarding, architecture, operations, integration, APIs, project guide, and references. | Thick authority layer with current facts. |
 
-Root agent files are rule manuals. Put details in `docs/`; keep root instructions for facts that prevent future agents from breaking project boundaries. Put historical narratives in `change-log.md`, `references/history.md`, git history, or a project changelog.
+Root agent files are rule manuals. Put details in `project-guide/`; keep root instructions for facts that prevent future agents from breaking project boundaries. Put historical narratives in `change-log.md`, `references/history.md`, git history, or a project changelog.
 
 ### Promotion rule
 
@@ -397,7 +397,7 @@ Agent memory often grows by appending. Docs converge by editing current facts in
 | Memory item | Destination |
 | --- | --- |
 | Same lesson appears repeatedly | Owning guide page, module doc, or root rule. |
-| Item explains how the system works | `docs/`, with memory reduced to a pointer if useful. |
+| Item explains how the system works | `project-guide/`, with memory reduced to a pointer if useful. |
 | Item records a project fact that is now current | Current-state docs plus `change-log.md` when the change is meaningful. |
 | Item is a personal or cross-project preference | Agent memory. |
 
@@ -422,8 +422,8 @@ Before deciding what to change, enumerate the knowledge surface:
 
 1. List agent memory files when the current platform has a memory layer.
 2. For each project touched by the conversation, list the project root.
-3. List `docs/` and confirm missing docs explicitly.
-4. Find nearby Markdown files outside `docs/`, excluding dependency and git folders.
+3. List `project-guide/` and confirm missing guide pages explicitly.
+4. Find nearby Markdown files outside `project-guide/`, excluding dependency and git folders.
 5. Read `README.md`, root `AGENTS.md` / `CLAUDE.md`, current project-guide pages, and relevant docs.
 6. Review the current conversation for durable facts, decisions, and changed behavior.
 
@@ -484,7 +484,7 @@ After edits, summarize by changed layer:
 
 ### Documentation
 - <project>/README.md — ...
-- <project>/docs/... — ...
+- <project>/project-guide/... — ...
 - <project>/AGENTS.md — ...
 
 ### Unresolved
@@ -509,7 +509,7 @@ After edits, summarize by changed layer:
 
 ### Sync checklist
 
-- [ ] If `docs/project-guide/` exists and source/data/config/test behavior changed, sync was considered before final response.
+- [ ] If `project-guide/` exists and source/data/config/test behavior changed, sync was considered before final response.
 - [ ] Every changed source area maps to a current doc or a local caveat beside the affected topic.
 - [ ] Module docs point to current modules.
 - [ ] Main guide includes quick understanding, reproduce/run, and modify-safely reader paths.

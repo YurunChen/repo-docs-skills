@@ -1,6 +1,6 @@
 ---
 name: repo-docs
-description: Use when a user asks to understand a repo, generate or maintain project docs, onboard readers, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep docs/project-guide current.
+description: Use when a user asks to understand a repo, generate or maintain project docs, onboard readers, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep project-guide current.
 ---
 
 # Repo-Docs
@@ -72,7 +72,7 @@ This is inspired by course design, while `repo-docs` remains a living project gu
 Default path:
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   glossary.md
   flows.md              # optional
@@ -119,11 +119,11 @@ Seed mode output should establish a project memory baseline, not pretend impleme
 
 For an empty project, prefer a small scaffold:
 
-- `docs/project-guide/README.md`: project brief, goals, non-goals if known, current empty-state caveat, planned first workflow, and reader paths.
-- `docs/project-guide/change-map.md`: next implementation steps mapped to likely files, risks, and verification checks.
-- `docs/project-guide/change-log.md`: timestamped initialization entry and meaningful user decisions.
-- `docs/project-guide/glossary.md`: only if repeated project terms already exist.
-- `docs/project-guide/references/decisions.md`: optional, for explicit design decisions that would clutter the main guide.
+- `project-guide/README.md`: project brief, goals, non-goals if known, current empty-state caveat, planned first workflow, and reader paths.
+- `project-guide/change-map.md`: next implementation steps mapped to likely files, risks, and verification checks.
+- `project-guide/change-log.md`: timestamped initialization entry and meaningful user decisions.
+- `project-guide/glossary.md`: only if repeated project terms already exist.
+- `project-guide/references/decisions.md`: optional, for explicit design decisions that would clutter the main guide.
 - Root `AGENTS.md` / `CLAUDE.md`: short rule telling future agents to update the guide as planned items become implemented facts.
 
 Avoid creating module docs, detailed flow docs, API references, or metric references until there is enough code, config, data, or explicit architecture to support them. If the user has provided a planned architecture, document it as `Planned` and include the verification needed to promote it to `Implemented`.
@@ -178,7 +178,7 @@ Use three audience layers:
 | --- | --- | --- |
 | Agent memory, when available | The agent across sessions | User preferences, cross-project pointers, recent lessons, and compact reminders. |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents in this repo | Hard boundaries, commands, environment rules, red lines, routing tables, and guide maintenance policy. |
-| `README.md` and `docs/` | Human teammates, downstream users, and future agents | Architecture, onboarding, operations, integration, API/reference material, and project-guide pages. |
+| `README.md` and `project-guide/` | Human teammates, downstream users, and future agents | Architecture, onboarding, operations, integration, API/reference material, and project-guide pages. |
 
 Promote stable knowledge upward. A memory item graduates into docs or root agent instructions when the same lesson repeats, when it explains how the system works, or when it records a now-current project fact. Keep memory as a thin layer of pointers and recent lessons.
 
@@ -186,7 +186,7 @@ Before editing, inspect size and scope: line counts for root agent files, guide 
 
 Sync order:
 
-1. Update `docs/` and `README.md` for external readers.
+1. Update `project-guide/` and `README.md` for external readers.
 2. Update `AGENTS.md` / `CLAUDE.md` with operational rules and guide policy.
 3. Update or shrink agent memory when the platform supports it.
 4. Verify local links, paths, commands, environment variables, dates, and stale relative-time language.
@@ -198,7 +198,7 @@ See [REFERENCE.md](REFERENCE.md) for the full sync matrix, size checks, promotio
 Choose one primary language for the guide and keep the pack consistent.
 
 - Follow an explicit user language request.
-- If `docs/project-guide/` already exists, keep its primary language unless conversion is requested.
+- If `project-guide/` already exists, keep its primary language unless conversion is requested.
 - If building from scratch and no language is specified, use the user's current language.
 - Preserve code identifiers, paths, commands, config keys, API names, class/function names, metrics, protocol fields, and error strings exactly.
 - Prefer one primary language for the guide so future sync work has a single source of truth.

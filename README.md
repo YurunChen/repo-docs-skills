@@ -124,9 +124,9 @@ After a milestone, `repo-docs` can leave behind:
 
 | File | What it preserves |
 | --- | --- |
-| `docs/project-guide/README.md` | Current project mental model |
-| `docs/project-guide/change-log.md` | What changed, why, and how it was verified |
-| `docs/project-guide/change-map.md` | Next edits, likely files, risks, and checks |
+| `project-guide/README.md` | Current project mental model |
+| `project-guide/change-log.md` | What changed, why, and how it was verified |
+| `project-guide/change-map.md` | Next edits, likely files, risks, and checks |
 | `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
 
 ## Modes
@@ -160,7 +160,7 @@ the answer, patch the relevant docs before replying.
 ```
 
 ```text
-Prepare this repo for handoff. Sync README.md, docs/project-guide/, AGENTS.md,
+Prepare this repo for handoff. Sync README.md, project-guide/, AGENTS.md,
 and memory pointers so the next agent can continue.
 ```
 
@@ -169,7 +169,7 @@ and memory pointers so the next agent can continue.
 The default output is a Markdown guide under:
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   glossary.md
   flows.md
@@ -182,7 +182,7 @@ docs/project-guide/
 For seed projects, the guide stays smaller:
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   change-map.md
   change-log.md
@@ -206,7 +206,7 @@ docs/project-guide/
 
 | Layer | Audience | Responsibility |
 | --- | --- | --- |
-| `README.md` and `docs/` | Human teammates, downstream users, future agents | Architecture, onboarding, operations, examples, contracts, references |
+| `README.md` and `project-guide/` | Human teammates, downstream users, future agents | Architecture, onboarding, operations, examples, contracts, references |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents inside the repo | Hard boundaries, commands, environment rules, red lines, guide policy |
 | Agent memory, when available | The agent across sessions | User preferences, recent lessons, cross-project pointers |
 

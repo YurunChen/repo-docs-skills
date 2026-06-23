@@ -1,13 +1,13 @@
 ---
 name: repo-docs-zh
-description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants docs/project-guide maintained with Chinese as the primary language.
+description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants project-guide maintained with Chinese as the primary language.
 ---
 
 # Repo-Docs ZH
 
 ## 职责
 
-这是 `repo-docs` 的中文语言覆盖层。结构判断、证据规则、同步规则和 `docs/project-guide/` 输出形态都继承基座 skill；本文件负责把中文作为主语言，并收紧中文里的讲解标准。
+这是 `repo-docs` 的中文语言覆盖层。结构判断、证据规则、同步规则和 `project-guide/` 输出形态都继承基座 skill；本文件负责把中文作为主语言，并收紧中文里的讲解标准。
 
 中文 guide 的核心目标是让读者自然、流畅地理解项目：先从读者能观察到的行为进入，再讲这个项目为什么存在，设计为什么这样取舍，一条真实路径如何穿过代码、数据、工具、状态和评估，读者以后改动时应该看哪里、怕什么、怎么验证。
 
@@ -41,7 +41,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 | `计划中` | 下一步要做的模块、流程、契约或验证。 |
 | `未确认` | 还没有决定，或缺少证据。 |
 
-空项目默认只建立轻量文档：`docs/project-guide/README.md`、`change-map.md`、`change-log.md`，必要时加 `glossary.md` 或 `references/decisions.md`。除非用户已经明确架构，否则不要创建模块页、详细流程页、API reference 或指标 reference。
+空项目默认只建立轻量文档：`project-guide/README.md`、`change-map.md`、`change-log.md`，必要时加 `glossary.md` 或 `references/decisions.md`。除非用户已经明确架构，否则不要创建模块页、详细流程页、API reference 或指标 reference。
 
 ## 中文风格标准
 
@@ -84,4 +84,4 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 
 ## 输出
 
-默认输出仍是基座 `repo-docs` 的 Markdown 文档包，位置是 `docs/project-guide/`。Markdown 是源文档。用户明确要求 HTML 时，再生成 HTML。
+默认输出仍是基座 `repo-docs` 的 Markdown 文档包，位置是 `project-guide/`。Markdown 是源文档。用户明确要求 HTML 时，再生成 HTML。

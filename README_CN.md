@@ -96,7 +96,7 @@ Implemented, Decided, Planned, and Unknown items.
 ```
 
 ```text
-Prepare this repo for handoff. Sync README.md, docs/project-guide/, AGENTS.md,
+Prepare this repo for handoff. Sync README.md, project-guide/, AGENTS.md,
 and memory pointers so the next agent can continue.
 ```
 
@@ -105,7 +105,7 @@ and memory pointers so the next agent can continue.
 默认输出：
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   glossary.md
   flows.md
@@ -118,7 +118,7 @@ docs/project-guide/
 空项目会更轻量：
 
 ```text
-docs/project-guide/
+project-guide/
   README.md
   change-map.md
   change-log.md
