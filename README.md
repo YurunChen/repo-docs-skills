@@ -68,9 +68,6 @@ needs verification.
 | **Real walkthrough** | trace one command, request, task, or failure end to end |
 | **Progress log** | see what changed and why it changed |
 | **Change map** | know what to do next and how to check it |
-| **Agent rules** | keep future coding sessions on the same track |
-| **Seed docs** | write down goals before code exists |
-| **Chinese docs** | read the project in natural Chinese through `repo-docs-zh` |
 
 ## Demonstration
 
