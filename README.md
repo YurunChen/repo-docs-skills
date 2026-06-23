@@ -1,8 +1,7 @@
-<p align="center">
-  <img src="assets/logo.png" width="128" alt="Repo Docs logo" />
-</p>
-
-<h1 align="center">Repo Docs</h1>
+<h1 align="center">
+  <img src="assets/logo.png" width="56" alt="Repo Docs logo" />
+  Repo Docs
+</h1>
 
 <p align="center">
   <strong>Keep project understanding alive while agents keep coding.</strong>
@@ -22,7 +21,7 @@
 
 ---
 
-`repo-docs` is a Codex/agent skill for maintaining project understanding while
+`repo-docs` is a coding-agent skill for maintaining project understanding while
 the project is being built. As users ask questions, change code, finish
 milestones, or hand work to another agent, `repo-docs` keeps the project guide,
 progress log, change map, and agent instructions aligned with the actual repo.
@@ -104,7 +103,7 @@ Make both repo-docs and repo-docs-zh available in my agent skill directory.
 
 ### Command install
 
-From this project directory, copy the skill files into a Codex-style skill
+From this project directory, copy the skill files into your agent skill
 directory:
 
 ```bash
@@ -183,7 +182,7 @@ After a milestone, `repo-docs` can leave behind:
 ## Built For
 
 - researchers iterating on benchmark, eval, and experiment repos
-- engineers using Codex, Claude Code, Cursor, or other coding agents daily
+- engineers using Claude Code, Cursor, or other coding agents daily
 - teams that need handoffs between humans and agents
 - projects where prompts, scripts, configs, data, and results change together
 - new projects that need a project memory baseline before code exists

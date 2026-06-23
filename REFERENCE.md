@@ -134,7 +134,7 @@ Seed docs must separate intent from implementation:
 | Label | Use when | Example wording |
 | --- | --- | --- |
 | `Implemented` | Existing source, config, test, data, artifact, or command proves it. | `Implemented: README.md exists and defines the project goal.` |
-| `Decided` | The user or current docs explicitly chose it. | `Decided: the first version will target Codex-compatible skills.` |
+| `Decided` | The user or current docs explicitly chose it. | `Decided: the first version will target agent-compatible skills.` |
 | `Planned` | It is a proposed workflow, module, contract, or next step. | `Planned: add an installer script after the skill layout stabilizes.` |
 | `Unknown` / `未确认` | The project has not decided or verified it. | `Unknown: no test strategy has been chosen yet.` |
 
