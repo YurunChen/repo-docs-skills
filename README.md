@@ -14,76 +14,36 @@
 
 <p align="center">
   <a href="#quick-start">Quick Start</a> ·
-  <a href="#example-prompts">Example Prompts</a> ·
-  <a href="#what-it-produces">What It Produces</a> ·
+  <a href="#latest-updates">Latest Updates</a> ·
+  <a href="#what-is-repo-docs">What is Repo Docs?</a> ·
+  <a href="#demonstration">Demonstration</a> ·
   <a href="#quality-bar">Quality Bar</a>
+</p>
+
+<p align="center">
+  <img alt="Living docs" src="https://img.shields.io/badge/living-docs-2f6f5f" />
+  <img alt="Agent skill" src="https://img.shields.io/badge/agent-skill-2b2d2f" />
+  <img alt="Markdown native" src="https://img.shields.io/badge/markdown-native-4f6f8f" />
+  <img alt="Chinese docs" src="https://img.shields.io/badge/中文-docs-7c5cff" />
+</p>
+
+<p align="center">
+  <strong>If your agent-built repos lose context between sessions, star this project.</strong>
 </p>
 
 ---
 
-`repo-docs` is a coding-agent skill for maintaining project understanding while
-the project is being built. As users ask questions, change code, finish
-milestones, or hand work to another agent, `repo-docs` keeps the project guide,
-progress log, change map, and agent instructions aligned with the actual repo.
+## Latest Updates
 
-If your coding-agent workflow often loses project context between sessions,
-star this repo to support better living-doc workflows for agent-built software.
+> Repo Docs is designed for the way coding-agent projects actually evolve:
+> questions, changes, milestones, handoffs, and documentation updates happen in
+> the same loop.
 
-## Why Repo Docs
-
-Vibe coding accelerates implementation, but it also widens the understanding
-gap around a project:
-
-| Without `repo-docs` | With `repo-docs` |
-| --- | --- |
-| Decisions stay buried in chat | Decisions land in project docs |
-| New agents re-read the repo from zero | New agents start from the guide |
-| Progress is remembered informally | Milestones are recorded in `change-log.md` |
-| Planned work mixes with implemented facts | `Planned`, `Decided`, `Implemented`, and `Unknown` stay separate |
-| Handoffs depend on personal memory | Handoffs use docs, `AGENTS.md`, and current source evidence |
-
-`repo-docs` turns user-agent interaction into a living project record. The
-result is not a one-time repo summary. It is a source-backed guide that stays
-updated as the project changes: what exists, why it exists, what changed, what
-is risky, and what should be verified next.
-
-## Core Capabilities
-
-| Capability | What it keeps current |
-| --- | --- |
-| Live project memory | The current project thesis, workflow, contracts, and caveats |
-| Progress log | Meaningful work, decisions, verification, and outcomes in `change-log.md` |
-| Change map | Future edits, likely files, risks, and checks in `change-map.md` |
-| Agent continuity | Repo-specific rules and guide policy in `AGENTS.md` / `CLAUDE.md` |
-| Seed project support | Goals, decisions, planned work, and unknowns before code exists |
-| Chinese guide support | Natural Chinese docs through `repo-docs-zh`, with source identifiers preserved |
-
-## Workflow
-
-```mermaid
-flowchart LR
-  A["User asks or agent changes repo"] --> B["Inspect source truth"]
-  B --> C["Update project guide"]
-  B --> D["Update change-log"]
-  B --> E["Update change-map"]
-  B --> F["Update AGENTS.md / CLAUDE.md"]
-  C --> G["Next human or agent continues"]
-  D --> G
-  E --> G
-  F --> G
-```
-
-Every meaningful interaction either updates the right document or stays out of
-the docs because it is transient.
-
-## Modes
-
-| Mode | Use it when | Output focus |
-| --- | --- | --- |
-| Seed | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
-| Build | The repo needs its first guide | Main workflow, module map, contracts |
-| Sync | Code, docs, data, scripts, or experiments changed | Current docs aligned with source truth |
-| Question refinement | A repo question reveals missing knowledge | Patch the guide, then answer from evidence |
+- **2026-06-23**: Added Seed Project Mode for new or empty repos, separating
+  `Implemented`, `Decided`, `Planned`, and `Unknown` knowledge.
+- **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
+- **2026-06-23**: Published the first README structure, project guide contract,
+  reference standard, and example prompts.
 
 ## Quick Start
 
@@ -91,8 +51,7 @@ There are two common ways to install the skill.
 
 ### Natural-language install
 
-Give this project link to your coding agent and ask it to install the skill for
-your agent runtime:
+Give this project link to your coding agent:
 
 ```text
 Install the repo-docs skill from this project:
@@ -113,11 +72,79 @@ mkdir -p ~/.agents/skills/repo-docs-zh
 cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 ```
 
-After installation, invoke it naturally:
+Then invoke it naturally:
 
 ```text
 Use repo-docs-zh to rebuild this repo's project guide.
 ```
+
+## What is Repo Docs?
+
+`repo-docs` is a coding-agent skill for maintaining project understanding while
+the project is being built. As users ask questions, change code, finish
+milestones, or hand work to another agent, `repo-docs` keeps the project guide,
+progress log, change map, and agent instructions aligned with the actual repo.
+
+Vibe coding accelerates implementation, but it also creates a project memory
+gap. Code changes quickly; the reasons, decisions, risks, and current state
+often stay trapped in chat history. `repo-docs` turns those interactions into
+durable Markdown documentation future humans and agents can continue from.
+
+## Why It Matters
+
+| Without `repo-docs` | With `repo-docs` |
+| --- | --- |
+| Decisions stay buried in chat | Decisions land in project docs |
+| New agents re-read the repo from zero | New agents start from the guide |
+| Progress is remembered informally | Milestones are recorded in `change-log.md` |
+| Planned work mixes with implemented facts | `Planned`, `Decided`, `Implemented`, and `Unknown` stay separate |
+| Handoffs depend on personal memory | Handoffs use docs, `AGENTS.md`, and current source evidence |
+
+## Core Capabilities
+
+| Capability | What it keeps current |
+| --- | --- |
+| **Live project memory** | The current project thesis, workflow, contracts, and caveats |
+| **Progress log** | Meaningful work, decisions, verification, and outcomes in `change-log.md` |
+| **Change map** | Future edits, likely files, risks, and checks in `change-map.md` |
+| **Agent continuity** | Repo-specific rules and guide policy in `AGENTS.md` / `CLAUDE.md` |
+| **Seed project support** | Goals, decisions, planned work, and unknowns before code exists |
+| **Chinese guide support** | Natural Chinese docs through `repo-docs-zh`, with source identifiers preserved |
+
+## Demonstration
+
+A normal coding-agent session becomes a documentation loop:
+
+```mermaid
+flowchart LR
+  A["User asks or agent changes repo"] --> B["Inspect source truth"]
+  B --> C["Update project guide"]
+  B --> D["Update change-log"]
+  B --> E["Update change-map"]
+  B --> F["Update AGENTS.md / CLAUDE.md"]
+  C --> G["Next human or agent continues"]
+  D --> G
+  E --> G
+  F --> G
+```
+
+After a milestone, `repo-docs` can leave behind:
+
+| File | What it preserves |
+| --- | --- |
+| `docs/project-guide/README.md` | Current project mental model |
+| `docs/project-guide/change-log.md` | What changed, why, and how it was verified |
+| `docs/project-guide/change-map.md` | Next edits, likely files, risks, and checks |
+| `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
+
+## Modes
+
+| Mode | Use it when | Output focus |
+| --- | --- | --- |
+| **Seed** | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
+| **Build** | The repo needs its first guide | Main workflow, module map, contracts |
+| **Sync** | Code, docs, data, scripts, or experiments changed | Current docs aligned with source truth |
+| **Question refinement** | A repo question reveals missing knowledge | Patch the guide, then answer from evidence |
 
 ## Example Prompts
 
@@ -171,13 +198,6 @@ docs/project-guide/
   references/
     decisions.md              # optional
 ```
-
-After a milestone, `repo-docs` can leave behind:
-
-- `docs/project-guide/README.md`: current project mental model
-- `docs/project-guide/change-log.md`: what changed and how it was verified
-- `docs/project-guide/change-map.md`: next edits, risks, and checks
-- `AGENTS.md` / `CLAUDE.md`: rules for the next coding agent
 
 ## Built For
 
