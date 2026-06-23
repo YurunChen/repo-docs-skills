@@ -39,8 +39,6 @@
 > questions, changes, milestones, handoffs, and documentation updates happen in
 > the same loop.
 
-- **2026-06-23**: Added Seed Project Mode for new or empty repos, separating
-  `Implemented`, `Decided`, `Planned`, and `Unknown` knowledge.
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
 - **2026-06-23**: Published the first README structure, project guide contract,
   reference standard, and example prompts.
