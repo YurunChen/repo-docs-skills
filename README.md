@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.svg" width="128" alt="Repo Docs logo" />
+  <img src="assets/logo.png" width="128" alt="Repo Docs logo" />
 </p>
 
 <h1 align="center">Repo Docs</h1>
