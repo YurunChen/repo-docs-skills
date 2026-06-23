@@ -3,7 +3,7 @@ name: repo-docs-zh
 description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants docs/project-guide maintained with Chinese as the primary language.
 ---
 
-# Repo Docs ZH
+# Repo-Docs ZH
 
 ## 职责
 

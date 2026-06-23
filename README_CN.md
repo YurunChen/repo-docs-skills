@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img src="assets/logo.png" width="44" alt="Repo Docs logo" />
-  Repo Docs: 让项目理解跟上 agent 写代码的速度。
+  <img src="assets/logo.png" width="44" alt="Repo-Docs logo" />
+  Repo-Docs: 让项目理解跟上 agent 写代码的速度。
 </h1>
 
 <p align="center">
@@ -14,7 +14,7 @@
 
 ---
 
-## Repo Docs 是什么？
+## Repo-Docs 是什么？
 
 `repo-docs` 是一个 coding-agent skill，用来在项目开发过程中持续维护项目理解。用户提问、agent 修改代码、阶段性任务完成、项目交接发生时，`repo-docs` 会让 agent 同步更新项目 guide、`change-log.md`、`change-map.md` 和根目录 agent 规则。
 

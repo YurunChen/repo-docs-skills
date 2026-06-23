@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img src="assets/logo.png" width="44" alt="Repo Docs logo" />
-  Repo Docs: Keep project understanding alive while agents keep coding.
+  <img src="assets/logo.png" width="44" alt="Repo-Docs logo" />
+  Repo-Docs: Keep project understanding alive while agents keep coding.
 </h1>
 
 <p align="center">
@@ -11,7 +11,7 @@
 <p align="center">
   <a href="#quick-start">Quick Start</a> ·
   <a href="#latest-updates">Latest Updates</a> ·
-  <a href="#what-is-repo-docs">What is Repo Docs?</a> ·
+  <a href="#what-is-repo-docs">What is Repo-Docs?</a> ·
   <a href="#demonstration">Demonstration</a> ·
   <a href="#quality-bar">Quality Bar</a>
 </p>
@@ -25,7 +25,7 @@
 
 ## Latest Updates
 
-> Repo Docs is designed for the way coding-agent projects actually evolve:
+> Repo-Docs is designed for the way coding-agent projects actually evolve:
 > questions, changes, milestones, handoffs, and documentation updates happen in
 > the same loop.
 
@@ -66,7 +66,7 @@ Then invoke it naturally:
 Use repo-docs-zh to rebuild this repo's project guide.
 ```
 
-## What is Repo Docs?
+## What is Repo-Docs?
 
 `repo-docs` is a coding-agent skill for maintaining project understanding while
 the project is being built. As users ask questions, change code, finish

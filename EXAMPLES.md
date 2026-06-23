@@ -1,4 +1,4 @@
-# Repo Docs Examples
+# Repo-Docs Examples
 
 ## Example Main Guide Skeleton
 

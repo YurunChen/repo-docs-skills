@@ -3,7 +3,7 @@ name: repo-docs
 description: Use when a user asks to understand a repo, generate or maintain project docs, onboard readers, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep docs/project-guide current.
 ---
 
-# Repo Docs
+# Repo-Docs
 
 ## Core Idea
 
