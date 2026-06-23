@@ -60,14 +60,14 @@ needs verification.
 | Plans and facts blur together | Planned, decided, implemented, and unknown items stay separate |
 | Returning to the repo means rereading everything | `repo-docs/` shows the current project state |
 
-## How It Closes the Gap
+## What It Does
 
-| When the project feels like... | Repo-Docs keeps... |
+| It keeps | So you can |
 | --- | --- |
-| You can see files, but not the path through them | A real walkthrough from observable entry to output |
-| You know the code changed, but not why | A progress log with decisions, reasons, and verification |
-| Plans and implemented facts blur together | Clear status for decided, planned, implemented, and unknown work |
-| You want to continue, but do not know where to touch | A change map with likely files, risks, and checks |
+| **Repo docs** | understand what the repo is and how it works now |
+| **Real walkthrough** | trace one command, request, task, or failure end to end |
+| **Progress log** | see what changed and why it changed |
+| **Change map** | know what to do next and how to check it |
 
 ## Demonstration
 
