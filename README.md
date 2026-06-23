@@ -12,10 +12,10 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start">Quick Start</a> ·
   <a href="#latest-updates">Latest Updates</a> ·
   <a href="#what-is-repo-docs">What is Repo-Docs?</a> ·
   <a href="#demonstration">Demonstration</a> ·
+  <a href="#quick-start">Quick Start</a> ·
   <a href="#quality-bar">Quality Bar</a>
 </p>
 
@@ -35,39 +35,6 @@
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
 - **2026-06-23**: Published the first README structure, project guide contract,
   reference standard, and example prompts.
-
-## Quick Start
-
-There are two common ways to install the skill.
-
-### Natural-language install
-
-Give this project link to your coding agent:
-
-```text
-Install the repo-docs skill from this project:
-https://github.com/YurunChen/Repo-Docs
-
-Make both repo-docs and repo-docs-zh available in my agent skill directory.
-```
-
-### Command install
-
-From this project directory, copy the skill files into your agent skill
-directory:
-
-```bash
-mkdir -p ~/.agents/skills/repo-docs
-cp SKILL.md REFERENCE.md EXAMPLES.md ~/.agents/skills/repo-docs/
-mkdir -p ~/.agents/skills/repo-docs-zh
-cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
-```
-
-Then invoke it naturally:
-
-```text
-Use repo-docs-zh to rebuild this repo's project guide.
-```
 
 ## What is Repo-Docs?
 
@@ -126,6 +93,39 @@ After a milestone, Repo-Docs leaves the repo easier to continue:
 | `repo-docs/change-log.md` | What changed, why, and how it was verified |
 | `repo-docs/change-map.md` | Next edits, likely files, risks, and checks |
 | `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
+
+## Quick Start
+
+There are two common ways to install the skill.
+
+### Natural-language install
+
+Give this project link to your coding agent:
+
+```text
+Install the repo-docs skill from this project:
+https://github.com/YurunChen/Repo-Docs
+
+Make both repo-docs and repo-docs-zh available in my agent skill directory.
+```
+
+### Command install
+
+From this project directory, copy the skill files into your agent skill
+directory:
+
+```bash
+mkdir -p ~/.agents/skills/repo-docs
+cp SKILL.md REFERENCE.md EXAMPLES.md ~/.agents/skills/repo-docs/
+mkdir -p ~/.agents/skills/repo-docs-zh
+cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
+```
+
+Then invoke it naturally:
+
+```text
+Use repo-docs-zh to rebuild this repo's project guide.
+```
 
 ## Modes
 
