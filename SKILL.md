@@ -7,9 +7,9 @@ description: Use when a user asks to understand a repo, reduce the gap between t
 
 ## Core Idea
 
-`repo-docs` exists to reduce the understanding gap between a user and a project that is changing through vibe coding. Vibe coding can make code move faster than the user's explanation of the project. This skill keeps the explanation close to the code by walking from familiar behavior into the design choices, code paths, data contracts, and maintenance decisions behind it.
+`repo-docs` exists to reduce the understanding gap between a user and a project that is changing through vibe coding. Vibe coding can make code move faster than the user's explanation of the project. This skill keeps the explanation close to the code by building a teaching path: start from one real observable workflow, walk through the code/data/state changes that make it happen, then explain the module boundaries and references behind it.
 
-Treat documentation as the alignment layer between the user and the project. Favor coherent project explanation, durable maintenance guidance, and source-backed examples over file inventories, giant reports, chat transcripts, or decorative overview pages.
+Treat documentation as the alignment layer between the user and the project. Favor walkthrough-led understanding, coherent project explanation, durable maintenance guidance, and source-backed examples over file inventories, giant reports, chat transcripts, or decorative overview pages.
 
 ## First principles
 
@@ -26,7 +26,7 @@ Use this skill for four modes:
 | Mode | Trigger | What to do |
 | --- | --- | --- |
 | Seed | User is starting a new project, the repo has no substantive source/runtime files, or the repo only has planning/readme/agent files. | Create a lightweight project brief and living docs scaffold from stated goals, decisions, and current unknowns. Do not present planned behavior as implemented. |
-| Build | User asks to understand a repo, generate docs, or onboard readers. | Create focused repo docs from source evidence. |
+| Build | User asks to understand a repo, generate docs, or onboard readers. | Create focused repo docs from source evidence. For non-Seed repos, first choose one representative real workflow/task/request and build the docs around a walkthrough of that path. |
 | Sync | User says docs are stale, asks to tidy/sync, finishes a milestone, or code/data/config/scripts/tests changed in a repo that already has repo docs. | Reconcile existing repo docs with current source truth. |
 | Question refinement | User asks a non-trivial repo-specific question and repo docs exist. | Read the relevant docs and source, patch stable gaps, then answer. |
 
@@ -49,13 +49,15 @@ A repo-docs page should answer these questions before it remains in the docs pac
 
 ## Learning Arc
 
-Make `repo-docs/` feel like one coherent explanation, even when it spans multiple files:
+Make `repo-docs/` feel like one coherent teaching path, even when it spans multiple files:
 
 ```text
 Observable behavior -> Why it matters -> Real path -> Code evidence -> Change scenario
 ```
 
 Use this arc across the docs package and inside major pages. Start from something the reader can recognize: a command they run, a UI/API request, a task entering the system, a generated artifact, a failure in logs, or a user workflow. Then show why the project exists, how the mainline moves, which boundaries keep it sane, and how a maintainer would safely change it.
+
+For any non-Seed repo, include at least one end-to-end walkthrough before module/reference material. The default walkthrough is `repo-docs/walkthroughs/one-real-run.md`; it should trace a real command, request, task, or failure through input/data, runtime path, state changes, key decisions, output/artifact, change risk, and verification.
 
 Every substantial page should carry a quiet "module brief" in its design, rendered as a separate section only when useful:
 
@@ -74,11 +76,12 @@ Default path:
 ```text
 repo-docs/
   README.md
+  walkthroughs/
+    one-real-run.md      # required for non-Seed repos
   glossary.md
-  flows.md              # optional
+  flows.md              # optional cross-workflow/state map
   change-map.md
   change-log.md
-  flows/                # optional detailed flows
   modules/
   references/
 ```
@@ -87,15 +90,16 @@ This shape is a starting vocabulary. Use fewer files for small repos. Add a page
 
 Design pages by responsibility:
 
-- `README.md`: the repo thesis, reader paths, one real workflow, module map, and caveats.
+- `README.md`: the repo thesis, learning path, first walkthrough link, reader paths, module map, and caveats. Do not spend the opening explaining what repo-docs itself is.
+- `walkthroughs/`: behavior-first teaching paths. Split by real workflows, tasks, requests, failures, or policy boundaries, not by modules.
 - `glossary.md`: repeated terms, overloaded names, and project-specific meanings.
-- `flows.md` or `flows/`: temporal behavior, state transitions, evaluation paths, or multi-step runtime stories.
-- `modules/`: responsibility boundaries, inputs/outputs, state ownership, change points, risks, and examples.
-- `references/`: exact catalogs, schemas, metrics, commands, artifacts, and long tables that would interrupt the teaching narrative.
+- `flows.md` or `flows/`: optional cross-workflow, phase, or state maps when the repo has more than one meaningful path. Do not duplicate the main walkthrough as a second flow page.
+- `modules/`: responsibility boundaries, representative inputs/outputs, state ownership, change points, risks, and one compact example when useful. Each module page should start from the reader confusion and where the module appears in a walkthrough.
+- `references/`: exact catalogs, schemas, metrics, commands, artifacts, tool parameters, exhaustive tables, and other lookup material that would interrupt the teaching narrative.
 - `change-map.md`: future change goals mapped to files, risks, and verification.
 - `change-log.md`: durable recent changes to code, docs, data, experiments, or project understanding.
 
-Fold the teaching narrative into every generated page. Each page should teach its own topic from problem to design to code path to example.
+Fold the teaching narrative into every generated page. Each page should teach its own topic from problem to design to code path to example. Avoid file-index prose in narrative pages, such as `src/a.py does A; src/b.py does B`. If a file catalog is useful, put it in `references/` and keep README, walkthroughs, and module pages behavior-first.
 
 ## Seed Project Mode
 
@@ -139,9 +143,9 @@ Read enough of the repo to support the mental model:
 - Behavior sources: schemas, config, data files, stores, tools, policies, evaluators, output writers.
 - Tests and artifacts: tests that encode behavior, sample outputs, logs, generated artifacts.
 
-Start from the repo's purpose and one real execution path, then pull file evidence where it explains that mainline or a reader decision.
+Start from the repo's purpose and one real execution path, then pull file evidence where it explains that mainline or a reader decision. For Build mode on a non-Seed repo, the first stable artifact after README planning should be `walkthroughs/one-real-run.md`; module and reference pages should grow out of that path.
 
-If no real execution path exists yet, switch to Seed mode. Start from the project thesis, current decisions, planned first workflow, and unknowns. Mark planned content explicitly and record the checks needed to verify it once implementation starts.
+If no real execution path exists yet, switch to Seed mode. Start from the project thesis, current decisions, planned first workflow, and unknowns. Mark planned content explicitly and record the checks needed to verify it once implementation starts. Do not create `walkthroughs/one-real-run.md` for a planned path unless the page title and status make clear that it is planned, not current behavior.
 
 See [REFERENCE.md](REFERENCE.md) for detailed writing standards, document types, and sync checklists. See [EXAMPLES.md](EXAMPLES.md) for expected output shapes.
 
@@ -152,17 +156,18 @@ See [REFERENCE.md](REFERENCE.md) for detailed writing standards, document types,
 1. One-paragraph answer.
 2. Why the repo exists.
 3. Reader paths: understand quickly, reproduce/run, modify safely.
-4. One real workflow from entrypoint to output.
+4. The first walkthrough to read, usually `walkthroughs/one-real-run.md`.
 5. Module map with links.
 6. Current scope, caveats, and source-backed confidence.
 
 For research repos, also cover the research question, method or benchmark design, experiment entrypoints, metrics and denominators, data/task/schema contracts, baselines or compared methods, and output artifacts.
 
-For seed projects, `README.md` should be a project brief rather than an implementation guide. It should state the goal, current repo state, decided constraints, planned first workflow, immediate next steps, and unknowns. Do not include module maps, runtime paths, commands, metrics, or artifact claims unless they are already implemented or explicitly marked `Planned`.
+For seed projects, `README.md` should be a project brief rather than an implementation guide. It should state the goal, current repo state, decided constraints, planned first workflow, immediate next steps, and unknowns. Do not include module maps, runtime paths, commands, metrics, or artifact claims unless they are already implemented or explicitly marked `Planned`. Seed projects do not require `walkthroughs/one-real-run.md` unless a planned workflow is explicit enough to document as `Planned`.
 
 ## Living docs rules
 
-- `modules/*.md` are current contracts for responsibilities, inputs/outputs, state boundaries, change points, and risks.
+- `walkthroughs/*.md` are teaching paths through real behavior. Non-Seed repos should have `walkthroughs/one-real-run.md` before module/reference docs are considered complete.
+- `modules/*.md` are current contracts for responsibilities, inputs/outputs, state boundaries, change points, and risks. They should point back to where the module appears in a walkthrough.
 - `change-map.md` is prospective: future change goal -> files -> risks -> tests.
 - `change-log.md` is retrospective: meaningful user request -> actions -> result -> verification. Keep it recent; archive older entries when it grows past roughly 8 entries or 120 lines.
 - Repo-root `AGENTS.md` or `CLAUDE.md` should contain a short project documentation strategy when `repo-docs/` exists or is created.
@@ -217,9 +222,9 @@ Prefer exact actors and verbs: "the script reads `.env`, then `run_once()` build
 
 Depth standard:
 
-- Explain why a design exists before listing files that implement it.
+- Explain why a design exists before listing files that implement it. In narrative pages, prefer behavior-first explanation over file-by-file inventory.
 - Begin explanations from a recognizable behavior before dropping into internals.
-- Use at least one concrete project-native example when explaining a lifecycle, policy, metric, task contract, or state transition.
+- Use at least one concrete project-native example when explaining a lifecycle, policy, metric, task contract, or state transition. The main walkthrough should use real file names, functions, commands, data records, or tests.
 - Pair important code paths with plain-language translation: what this code receives, what it changes, what downstream code relies on.
 - Prefer applied maintenance scenarios over recall questions: "if you change X, inspect Y and verify Z."
 - Add bridge paragraphs between tables and code paths. A table alone is rarely a teaching document.
@@ -232,7 +237,7 @@ Choose depth by design weight. Expand where the repo has non-obvious constraints
 
 When the user asks a non-trivial repo-specific question and `repo-docs/` exists, treat the question as a documentation-quality test:
 
-- Read the current repo-docs page that should answer it.
+- Read `repo-docs/README.md`, the main walkthrough, and the current repo-docs page that should answer it.
 - Read the source-of-truth code, data, config, test, or artifact behind the answer.
 - If the docs are missing, stale, thin, or misleading, patch the owning page before answering.
 - Answer from the updated docs and source evidence.
@@ -241,12 +246,12 @@ When the user asks a non-trivial repo-specific question and `repo-docs/` exists,
 
 | Goal | Move |
 | --- | --- |
-| Explain the mainline | Start from one real execution path. |
+| Explain the mainline | Start from one real execution path and turn it into `walkthroughs/one-real-run.md`. |
 | Keep ownership clear | Patch the owning page when a question fits an existing responsibility boundary. |
 | Keep prose source-backed | Add evidence or mark the claim as inference. |
 | Keep language synchronized | Use one primary language unless the user asks for parallel docs. |
-| Teach beyond an index | Add design motivation, a concrete example, and the reasoning path from problem to code on the owning page. |
-| Keep depth distributed | Fold explanations into README, modules, flows, and references. |
+| Teach beyond an index | Add design motivation, a concrete walkthrough, and the reasoning path from problem to code on the owning page. |
+| Keep depth distributed | Fold explanations into README, walkthroughs, modules, and references, while keeping lookup tables in references. |
 | Match the repo's concepts | Design repo docs around reader decisions and the repo's responsibility boundaries. |
 | Keep the artifact maintainable | Use Markdown docs as the stable format; borrow learning flow, examples, and code translation from teaching practice. |
 | Translate code into meaning | Explain what the snippet proves and what a maintainer can do with it. |
@@ -256,10 +261,12 @@ When the user asks a non-trivial repo-specific question and `repo-docs/` exists,
 Before finishing, check:
 
 - `repo-docs/README.md` exists and links to supporting docs.
+- Non-Seed repos have `repo-docs/walkthroughs/one-real-run.md`.
 - Local Markdown links resolve.
-- A newcomer can answer: what is this repo, how does one run work, where are the major modules, and where do common changes belong?
+- A newcomer can answer: what is this repo, how does one real run or request move, where are the major modules, and where do common changes belong?
 - For seed projects, planned items are clearly separated from implemented facts, and no missing code path is described as current behavior.
 - A newcomer can explain the design in their own words using repo docs alone.
+- A newcomer can trace one real workflow without opening source code first, then know which source files prove each step.
 - Reader paths for quick understanding, reproduction/run, and safe modification are present.
 - Module docs match current code ownership; stale, duplicate, and tiny orphan docs have been merged, revised, or removed.
 - `change-map.md` teaches future edits; `change-log.md` records meaningful recent work.

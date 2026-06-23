@@ -9,7 +9,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 
 这是 `repo-docs` 的中文语言覆盖层。结构判断、证据规则、同步规则和 `repo-docs/` 输出形态都继承基座 skill；本文件负责把中文作为主语言，并收紧中文里的讲解标准。
 
-中文 repo docs 的核心目标是降低用户和 vibe coding 代码之间的理解差距，让用户理解和真实项目保持对齐。文档要先从用户能观察到的行为进入，再讲这个项目为什么存在，设计为什么这样取舍，一条真实路径如何穿过代码、数据、工具、状态和评估，用户以后改动时应该看哪里、怕什么、怎么验证。
+中文 repo docs 的核心目标是降低用户和 vibe coding 代码之间的理解差距，让用户理解和真实项目保持对齐。文档要像一次带读者读代码的教学过程：先从用户能观察到的行为进入，选择一条真实路径走到底，再讲这个项目为什么存在、设计为什么这样取舍、代码/数据/工具/状态/评估如何串起来，用户以后改动时应该看哪里、怕什么、怎么验证。
 
 ## 必读基座
 
@@ -41,7 +41,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 | `计划中` | 下一步要做的模块、流程、契约或验证。 |
 | `未确认` | 还没有决定，或缺少证据。 |
 
-空项目默认只建立轻量文档：`repo-docs/README.md`、`change-map.md`、`change-log.md`，必要时加 `glossary.md` 或 `references/decisions.md`。除非用户已经明确架构，否则不要创建模块页、详细流程页、API reference 或指标 reference。
+空项目默认只建立轻量文档：`repo-docs/README.md`、`change-map.md`、`change-log.md`，必要时加 `glossary.md` 或 `references/decisions.md`。除非用户已经明确架构，否则不要创建模块页、详细流程页、API reference 或指标 reference。Seed 项目不强制写 `walkthroughs/one-real-run.md`，除非已有明确的计划 workflow。
 
 ## 中文风格标准
 
@@ -56,16 +56,17 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 规则：
 
 - 先判断读者缺什么理解，再决定页面结构、深度和例子。
-- 把 `repo-docs/` 保持为可长期维护的 Markdown 文档包。可以借鉴课程设计里的学习顺序、例子、代码翻译和应用题意识。
-- 每篇重要页面都要有隐性的 brief：读者问题、核心理解、真实路径、源码证据、维护场景。
+- 把 `repo-docs/` 保持为可长期维护的 Markdown 文档包。可以借鉴课程设计里的学习顺序、例子、代码翻译和应用题意识。非 Seed 项目默认先写 `walkthroughs/one-real-run.md`，再写模块页和 reference。
+- walkthrough 数量按真实行为复杂度决定：小 repo 通常 1 个；中等复杂 repo 可写 2-3 个；大 repo 按关键用户行为、failure mode、policy boundary 或数据到输出路径增加。命名按行为，不按模块。
+- 每篇重要页面都要有隐性的 brief：读者问题、核心理解、真实路径、源码证据、维护场景。模块页还要说明它出现在 walkthrough 的哪一步。
 - 保留源码里的真实名词，围绕它们解释，让中文表达服务代码概念。
 - 使用具体、克制、可验证的中文：少用"关键/重要/深刻/体现/彰显/赋能/生态/范式"这类空泛词；控制三连排比、过度加粗、口号式结尾和"不仅...更..."。
 - 没有源码、测试、配置、数据或现有文档支撑的内容，标成 `未确认` 或明确说明是推断。
 - 文风服务事实密度：保留入口、配置、输出、数据契约、指标口径、风险和验证方式。
 - 为读者补齐上下文。先从一个读者能观察到的命令、请求、任务、产物或错误进入，再讲这个项目要解决什么问题，为什么这样拆模块，最后再讲文件和函数。
 - 讲 lifecycle、policy、metric、task contract 或状态变化时，至少给一个项目里的真实例子。
-- 讲关键代码路径时，要配一句白话翻译：这段代码接收什么、改变什么、下游依赖什么。
-- 这个要求适用于每一篇生成文档。README、模块页、流程页和 reference 页都要承担讲解责任。
+- 讲关键代码路径时，要配一句白话翻译：这段代码接收什么、改变什么、下游依赖什么。walkthrough 里的每一步都要做到这一点。
+- 这个要求适用于每一篇生成文档。README、walkthrough、模块页和必要的流程图要承担讲解责任；reference 主要负责查表，不承担主教学路径。`flows.md` 只在多条路径、多阶段或多状态关系需要总图时使用，不能把 `one-real-run.md` 重写一遍。
 - 每篇页面都要回答：这个主题解决什么问题，为什么这样设计，代码从哪里走到哪里，改动时会影响什么，必要时用真实例子辅助说明。
 
 ## 页面判断
@@ -80,8 +81,8 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 | 哪个真实例子能让契约变具体？ | 加一个项目内例子，尤其是指标、策略、任务、状态变化。 |
 | 读完后读者能安全做什么？ | 补修改点、风险和验证方式。 |
 
-合格的中文项目文档会在列文件、列字段、列命令之外，回答这些问题，并把读者带到可行动的理解上。
+合格的中文项目文档会在列文件、列字段、列命令之外，回答这些问题，并把读者带到可行动的理解上。反模式是正文只写“某文件负责什么、另一个文件负责什么”的堆叠式说明；这种文件清单只适合放在 reference，README、walkthrough 和模块页都应按真实行为路径来讲。模块页只保留代表性例子、风险和验证；完整字段表、命令表、task catalog 和 artifact 清单放进 reference。
 
 ## 输出
 
-默认输出仍是基座 `repo-docs` 的 Markdown 文档包，位置是 `repo-docs/`。Markdown 是源文档。用户明确要求 HTML 时，再生成 HTML。
+默认输出仍是基座 `repo-docs` 的 Markdown 文档包，位置是 `repo-docs/`。非 Seed 项目默认包含 `walkthroughs/one-real-run.md`。Markdown 是源文档。用户明确要求 HTML 时，再生成 HTML。

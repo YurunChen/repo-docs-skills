@@ -14,7 +14,7 @@
 
 ## Design Goal
 
-`repo-docs` produces a sustainable project-understanding layer that can grow into a complete knowledge base when completeness remains navigable and useful. A good output first lets a newcomer answer the important questions in about 15 minutes: why the repo exists, how one real run works, how modules divide responsibility, where to change things, and what is risky to touch. The reading experience should feel natural: start from behavior the reader can recognize, then reveal the design and code behind it.
+`repo-docs` produces a sustainable project-understanding layer that can grow into a complete knowledge base when completeness remains navigable and useful. A good output first lets a newcomer answer the important questions in about 15 minutes: why the repo exists, how one real run or request works, how modules divide responsibility, where to change things, and what is risky to touch. The reading experience should feel like a guided code reading session: start from behavior the reader can recognize, walk through a real path end to end, then reveal the module design and references behind it.
 
 Keep stable knowledge in the guide. Handle transient run state, one-off debugging notes, and chat history in chat unless the user explicitly asks to preserve them. Each sync may delete, merge, or shorten docs when that reduces cognitive load.
 
@@ -33,7 +33,7 @@ Observable behavior
   -> Caveats and unknowns
 ```
 
-Each page is a teaching unit. It should answer one durable reader question, such as "how does a task become an evaluated result?" or "where does policy enforcement actually happen?" Pages that mainly catalog files, fields, commands, or classes belong under `references/`; project documentation pages carry a teaching purpose.
+Each page is a teaching unit. It should answer one durable reader question, such as "how does a task become an evaluated result?" or "where does policy enforcement actually happen?" Pages that mainly catalog files, fields, commands, or classes belong under `references/`; project documentation pages carry a teaching purpose. For non-Seed repos, the first teaching unit should be a real walkthrough in `walkthroughs/one-real-run.md`.
 
 Use course-design discipline while keeping the guide a living project document:
 
@@ -259,6 +259,35 @@ Use this to lower the first 15 minutes of confusion. It should include conclusio
 
 For seed projects, use it as a project brief. Keep it honest about the empty state and make the next implementation decisions easy to find.
 
+### Walkthroughs: `walkthroughs/`
+
+Use walkthroughs to teach the repo through real behavior, not through module order. A walkthrough follows a command, request, task, user action, failure, policy boundary, or data record from the moment a reader can observe it to the resulting state, output, or score. For non-Seed repos, create `walkthroughs/one-real-run.md` before writing deep module/reference pages. If the repo has no real observable path yet, use Seed mode and record the path as `Planned` in `README.md` or `change-map.md`; do not present it as `one-real-run.md`.
+
+The default `one-real-run.md` should use this shape:
+
+```text
+observable entry
+-> input/data/request
+-> runtime path
+-> state changes
+-> key decision/policy/evaluation
+-> output/artifact
+-> change risk
+-> verification
+```
+
+Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. A Mermaid diagram can help, but it must be paired with prose that explains the path.
+
+Walkthrough count rules:
+
+| Repo shape | Default walkthroughs | Add more when |
+| --- | --- | --- |
+| Small repo | 1: `one-real-run.md` | A second workflow is materially different. |
+| Medium repo | 2-3 | There are distinct user paths, failure modes, data paths, or policy boundaries. |
+| Large repo | Several focused walkthroughs | Each one teaches a real behavior, not a module. |
+
+Common names include `one-real-run.md`, `first-request.md`, `failure-case.md`, `policy-boundary.md`, and `data-to-output.md`. Choose names from behavior, not architecture.
+
 ### Glossary: `glossary.md`
 
 Use this for names the reader will see repeatedly. Include:
@@ -268,7 +297,7 @@ Use this for names the reader will see repeatedly. Include:
 
 ### Flows: optional `flows.md`
 
-Every `repo-docs/` package must explain at least one real workflow. For small repos, that workflow can live directly in `README.md`; for larger repos, create `flows.md` when a separate map lowers cognitive load better than the main guide alone. Use it especially when the repo has several meaningful workflows, runtime phases, state transitions, or output/evaluation paths. Use it for sequences:
+Every `repo-docs/` package must explain at least one real workflow. For non-Seed repos, the workflow normally lives in `walkthroughs/one-real-run.md`; `flows.md` is an optional map when a separate sequence overview lowers cognitive load better than the main guide and walkthrough alone. Do not create `flows.md` just to retell the same path as `one-real-run.md`. Use it especially when the repo has several meaningful workflows, runtime phases, state transitions, or output/evaluation paths. Use it for sequences:
 
 - startup flow
 - request/task flow
@@ -276,7 +305,7 @@ Every `repo-docs/` package must explain at least one real workflow. For small re
 - evaluation or output flow
 - error/debug flow
 
-Prefer 6-10 steps per flow. Use Mermaid when a visual makes the sequence easier to understand. Keep each Mermaid diagram small, source-backed, and paired with plain-language prose. When `flows.md` exists, keep it as a main map; if it grows past roughly 120 lines, split detailed flows into `flows/<topic>.md` and link to them. If the repo has only one simple workflow that README already explains well, omit `flows.md`. Omission is acceptable only when the main guide still explains the real workflow clearly.
+Prefer 6-10 steps per flow. Use Mermaid when a visual makes the sequence easier to understand. Keep each Mermaid diagram small, source-backed, and paired with plain-language prose. When `flows.md` exists, keep it as a map of relationships between walkthroughs, phases, states, or outputs; if it grows past roughly 120 lines, split detailed flows into `flows/<topic>.md` and link to them. If the repo has only one simple workflow that the walkthrough already explains well, omit `flows.md`. Omission is acceptable only when the main guide still points readers to the real workflow clearly.
 
 For seed projects, omit `flows.md` unless the user has explicitly decided a planned workflow. If included, title it as planned and keep verification checks beside the flow.
 
@@ -302,11 +331,11 @@ Record meaningful user requests and execution results when they change code, doc
 
 ### Module docs
 
-Create one module doc when the module has a clear responsibility and the reader benefits from a separate page. Group files by responsibility. During sync, merge tiny, overlapping, stale, or one-question module docs, and delete docs when the corresponding responsibility disappeared or moved.
+Create one module doc when the module has a clear responsibility and the reader benefits from a separate page. Each module doc must start from the reader confusion it resolves and where this module appears in a walkthrough, then explain responsibility boundaries. Group files by responsibility. During sync, merge tiny, overlapping, stale, or one-question module docs, and delete docs when the corresponding responsibility disappeared or moved.
 
 For seed projects, avoid module docs by default. Planned modules usually belong in `change-map.md` or an optional `references/decisions.md` until files, interfaces, or explicit accepted architecture exist.
 
-Write module docs as explanations of responsibility. A reader should understand why the boundary exists, what inputs cross it, what outputs or state it owns, what code path demonstrates it, and what breaks when the boundary is changed.
+Write module docs as explanations of responsibility. A reader should understand why the boundary exists, what inputs cross it, what outputs or state it owns, what code path demonstrates it, and what breaks when the boundary is changed. Keep module examples representative rather than exhaustive; full field tables, command catalogs, task lists, and artifact inventories belong in `references/`.
 
 Before writing a module doc, hold this brief in mind:
 
@@ -314,7 +343,8 @@ Before writing a module doc, hold this brief in mind:
 | --- | --- |
 | Reader question | What real confusion or decision brings the reader here? |
 | Key insight | What should the reader understand after one minute? |
-| Behavior path | What command/request/state transition makes this module visible? |
+| Where this appears in a walkthrough | Which real command/request/task/failure makes this module visible? |
+| Inputs / state / outputs | What does this module receive, change, persist, return, or protect? |
 | Code evidence | Which source path proves the responsibility and boundary? |
 | Maintenance scenario | If this changes, what should the reader inspect and test? |
 
@@ -344,7 +374,7 @@ Update existing root files. Create `AGENTS.md` when the repo has no root agent i
 
 ### References
 
-Use `references/` for stable details that would clutter the main guide: schemas, metrics, tool parameters, task catalogs, scripts, output artifacts, baseline methods.
+Use `references/` for stable details that would clutter the main guide: schemas, metrics, tool parameters, task catalogs, scripts, output artifacts, baseline methods. References are lookup material, not the main teaching path. If a reference grows a long explanation of why or how behavior works, move that explanation into a walkthrough or module page and keep the reference as a table/catalog. If a module page accumulates exhaustive tables, move those tables down into a reference page and leave only the responsibility, representative example, risk, and verification path in the module page.
 
 ## Evidence Standard
 
@@ -360,7 +390,7 @@ Use source links when possible. Include exact line links when available; otherwi
 
 When the user asks a new question:
 
-1. Read `repo-docs/README.md` and any relevant module/reference docs.
+1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference docs.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
 3. Decide whether the question reveals stable missing context. For transient run state, one-off debugging, or personal preference, answer in chat; record it in the guide when the user asks.
 4. Patch the smallest relevant doc section when stable guide content is missing or stale.
@@ -495,8 +525,8 @@ After edits, summarize by changed layer:
 
 | Change type | Docs to check |
 | --- | --- |
-| New or renamed entrypoint/script | `README.md`, optional `flows.md`, `change-map.md`, relevant module doc |
-| Runtime/session/control-flow change | optional `flows.md`, optional `flows/<topic>.md`, `modules/*runtime*.md`, `README.md` module map |
+| New or renamed entrypoint/script | `README.md`, relevant walkthrough, optional `flows.md`, `change-map.md`, relevant module doc |
+| Runtime/session/control-flow change | relevant walkthrough, optional `flows.md`, optional `flows/<topic>.md`, `modules/*runtime*.md`, `README.md` module map |
 | New tool or changed tool args | `references/tools.md`, tools module doc, `change-map.md`, glossary if term changed |
 | Data/schema/task/config change | data/task module doc, relevant reference doc, local caveat if uncertainty remains, `change-log.md` when user-facing |
 | Policy or metric change | policy/evaluation module doc, metrics reference, main guide confidence/summary |
@@ -513,13 +543,16 @@ After edits, summarize by changed layer:
 - [ ] Every changed source area maps to a current doc or a local caveat beside the affected topic.
 - [ ] Module docs point to current modules.
 - [ ] Main guide includes quick understanding, reproduce/run, and modify-safely reader paths.
+- [ ] Non-Seed repos include `walkthroughs/one-real-run.md`, linked from README.
+- [ ] Walkthroughs use real project names and explain inputs, state changes, outputs, risks, and verification.
+- [ ] Module docs explain where the module appears in a walkthrough before listing responsibility details.
 - [ ] Main guide module map matches the `modules/` directory.
 - [ ] Repo-root agent instruction files mention `repo-docs/` guide synchronization when they exist.
 - [ ] `change-map.md` is prospective and `change-log.md` is retrospective.
 - [ ] `change-log.md` entries use precise local timestamps with date, time, and timezone.
 - [ ] `change-log.md` is recent enough to scan; older entries are archived when needed.
-- [ ] If `flows.md` exists, it is a main map that reduces cognitive load; detailed flows live under `flows/<topic>.md` when useful.
-- [ ] Reference docs contain stable catalogs; module docs contain responsibilities, contracts, and necessary examples for behavior boundaries, transformations, lifecycle, and failure modes.
+- [ ] If `flows.md` exists, it maps relationships between multiple paths, phases, states, or outputs instead of duplicating the main walkthrough; detailed flows live under `flows/<topic>.md` when useful.
+- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain responsibilities, contracts, representative examples, risks, and verification for behavior boundaries, transformations, lifecycle, and failure modes.
 - [ ] Local Markdown links resolve.
 - [ ] Current facts are edited in place; historical notes are used for durable history.
 - [ ] Documentation content sync alignment ran when the user asked for sync, tidy, handoff, milestone closeout, memory refresh, or stale-doc repair.
@@ -537,3 +570,4 @@ The docs are good when a newcomer can answer these in about 15 minutes using the
 7. For research repos: what is the research question, method, metric, data contract, and baseline/ablation story?
 8. What caveats matter for the topic I am reading right now?
 9. For any important rule, contract, transformation, or lifecycle step, what is one concrete example that works and one boundary case that fails?
+10. Can a newcomer trace one real workflow from observable entry to output/artifact without opening source code first?
