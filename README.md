@@ -252,17 +252,19 @@ facts.
 
 ## Acknowledgements
 
-Repo-Docs is inspired by projects and skills that make agent work easier to
-understand and continue:
-
-- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course) by
-  [zarazhangrui](https://github.com/zarazhangrui), for turning codebases into
-  structured learning material.
-- [neat-freak](https://github.com/KKKKhazix/khazix-skills) by
-  [KKKKhazix](https://github.com/KKKKhazix), for keeping agent workspaces clean
-  and handoff-ready.
+- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
+- [neat-freak](https://github.com/KKKKhazix/khazix-skills)
 
 ## Support
 
 If `repo-docs` helps your agent sessions leave cleaner project knowledge behind,
 a GitHub star 🌟 helps others find this workflow.
+
+---
+
+<div align="center">
+  <p><strong>Repo-Docs:</strong> Keep project understanding alive while agents keep coding.</p>
+  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
+  <p><em>Thanks for visiting Repo-Docs.</em></p>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
+</div>

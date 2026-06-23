@@ -139,13 +139,18 @@ docs/project-guide/
 
 ## 致谢
 
-Repo-Docs 受到这些项目和 skill 的启发：
-
-- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course) by
-  [zarazhangrui](https://github.com/zarazhangrui)：把代码库转化成结构化学习材料。
-- [neat-freak](https://github.com/KKKKhazix/khazix-skills) by
-  [KKKKhazix](https://github.com/KKKKhazix)：让 agent 工作区更干净，也更适合交接。
+- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
+- [neat-freak](https://github.com/KKKKhazix/khazix-skills)
 
 ## 支持
 
 如果 `repo-docs` 能让你的 agent 项目留下更干净的项目记忆，欢迎 star 这个 repo。
+
+---
+
+<div align="center">
+  <p><strong>Repo-Docs:</strong> 让项目理解跟上 agent 写代码的速度。</p>
+  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
+  <p><em>感谢访问 Repo-Docs。</em></p>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
+</div>
