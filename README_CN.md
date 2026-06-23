@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/logo.png" width="56" alt="Repo Docs logo" />
+  <img src="assets/logo.png" width="44" alt="Repo Docs logo" />
   Repo Docs
 </h1>
 
