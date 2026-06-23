@@ -137,4 +137,15 @@ docs/project-guide/
 - `Inferred`：由附近证据推断，并明确标记为推断
 - `Unknown` / `未确认`：尚未验证
 
+## 致谢
+
+Repo-Docs 受到这些项目和 skill 的启发：
+
+- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course) by
+  [zarazhangrui](https://github.com/zarazhangrui)：把代码库转化成结构化学习材料。
+- [neat-freak](https://github.com/KKKKhazix/khazix-skills) by
+  [KKKKhazix](https://github.com/KKKKhazix)：让 agent 工作区更干净，也更适合交接。
+
+## 支持
+
 如果 `repo-docs` 能让你的 agent 项目留下更干净的项目记忆，欢迎 star 这个 repo。

@@ -250,6 +250,18 @@ Important claims should be marked by confidence:
 For seed projects, planned work must stay visibly separate from implemented
 facts.
 
+## Acknowledgements
+
+Repo-Docs is inspired by projects and skills that make agent work easier to
+understand and continue:
+
+- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course) by
+  [zarazhangrui](https://github.com/zarazhangrui), for turning codebases into
+  structured learning material.
+- [neat-freak](https://github.com/KKKKhazix/khazix-skills) by
+  [KKKKhazix](https://github.com/KKKKhazix), for keeping agent workspaces clean
+  and handoff-ready.
+
 ## Support
 
 If `repo-docs` helps your agent sessions leave cleaner project knowledge behind,
