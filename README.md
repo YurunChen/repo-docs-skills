@@ -1,8 +1,9 @@
 <div align="center">
-  <h1 style="display: inline-flex; align-items: center; gap: 16px; text-align: left;">
-    <img src="assets/logo.png" height="88" alt="Repo-Docs logo" />
-    <span>Repo-Docs:<br />Keep project understanding alive while agents keep coding.</span>
+  <h1>
+    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
+    Repo-Docs:
   </h1>
+  <h3>Keep project understanding alive while agents keep coding.</h3>
 </div>
 
 <p align="center">

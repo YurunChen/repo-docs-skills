@@ -1,8 +1,9 @@
 <div align="center">
-  <h1 style="display: inline-flex; align-items: center; gap: 16px; text-align: left;">
-    <img src="assets/logo.png" height="88" alt="Repo-Docs logo" />
-    <span>Repo-Docs:<br />让项目理解跟上 agent 写代码的速度。</span>
+  <h1>
+    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
+    Repo-Docs:
   </h1>
+  <h3>让项目理解跟上 agent 写代码的速度。</h3>
 </div>
 
 <p align="center">
