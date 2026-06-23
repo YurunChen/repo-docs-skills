@@ -25,17 +25,6 @@
   <a href="README_CN.md">中文 README</a>
 </p>
 
-<p align="center">
-  <img alt="Living docs" src="https://img.shields.io/badge/living-docs-2f6f5f" />
-  <img alt="Agent skill" src="https://img.shields.io/badge/agent-skill-2b2d2f" />
-  <img alt="Markdown native" src="https://img.shields.io/badge/markdown-native-4f6f8f" />
-  <img alt="repo-docs-zh" src="https://img.shields.io/badge/repo--docs--zh-skill-7c5cff" />
-</p>
-
-<p align="center">
-  <strong>If your agent-built repos lose context between sessions, star this project.</strong>
-</p>
-
 ---
 
 ## Latest Updates
@@ -265,4 +254,4 @@ facts.
 ## Support
 
 If `repo-docs` helps your agent sessions leave cleaner project knowledge behind,
-star the repo. It is the simplest signal that this workflow is worth improving.
+a GitHub star 🌟 helps others find this workflow.
