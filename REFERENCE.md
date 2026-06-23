@@ -333,7 +333,7 @@ Prefer one compact table or snippet over long prose. Examples must be source-bac
 
 ### Agent instruction files
 
-Use repo-root `AGENTS.md` or `CLAUDE.md` to preserve the repo-docs update policy for future agents. Keep this short and operational:
+Use repo-root `AGENTS.md` or `CLAUDE.md` to preserve the `repo-docs/` guide update policy for future agents. Keep this short and operational:
 
 - Where the living guide lives.
 - Which repo-specific questions should refine it.
