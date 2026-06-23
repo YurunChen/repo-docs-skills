@@ -1,9 +1,9 @@
 <div align="center">
-  <h1>
-    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
+  <h3>
+    <img src="assets/logo.png" height="56" alt="Repo-Docs logo" />
     Repo-Docs:
-  </h1>
-  <h3>让项目理解跟上 agent 写代码的速度。</h3>
+  </h3>
+  <p><strong>让项目理解跟上 agent 写代码的速度。</strong></p>
 </div>
 
 <p align="center">
