@@ -1,7 +1,8 @@
-<h1 align="center">
-  <img src="assets/logo.png" width="44" alt="Repo-Docs logo" />
-  Repo-Docs: 让项目理解跟上 agent 写代码的速度。
-</h1>
+<p align="center">
+  <img src="assets/logo.png" width="72" alt="Repo-Docs logo" />
+</p>
+
+<h1 align="center">Repo-Docs: 让项目理解跟上 agent 写代码的速度。</h1>
 
 <p align="center">
   把 coding-agent 对话沉淀成持续维护的项目文档、进度记录、变更地图和交接上下文。
