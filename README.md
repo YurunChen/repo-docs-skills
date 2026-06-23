@@ -1,8 +1,8 @@
 <div align="center">
-  <h3>
-    <img src="assets/logo.png" height="56" alt="Repo-Docs logo" />
+  <h1>
+    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
     Repo-Docs:
-  </h3>
+  </h1>
   <p><strong>Keep project understanding alive while agents keep coding.</strong></p>
 </div>
 
