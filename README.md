@@ -28,13 +28,15 @@
 
 ## Latest Updates
 
-> New: root-level `repo-docs/` output, Chinese docs support, and Seed mode
-> for empty repos. If Repo-Docs helps you keep up with an agent-built project,
-> a GitHub star 🌟 helps more builders find it.
+> New: walkthrough-first repo docs, root-level `repo-docs/` output, Chinese
+> docs support, and Seed mode for empty repos. If Repo-Docs helps you keep up
+> with an agent-built project, a GitHub star 🌟 helps more builders find it.
 
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
+- **2026-06-23**: Added walkthrough-first docs through
+  `repo-docs/walkthroughs/one-real-run.md`.
 - **2026-06-23**: Published the first README structure, repo-docs contract,
-  reference standard, and example prompts.
+  reference standard, and example prompt.
 
 ## What is Repo-Docs?
 
@@ -43,9 +45,10 @@ reason behind a design can stay behind in chat. After a few sessions, the repo
 may still run, but the user can no longer see the full shape of what was built.
 
 `repo-docs` is a small agent skill for reducing that gap. It asks the coding
-agent to keep living repo docs as work happens: what changed, why it
-changed, what is decided, what is only planned, and what still needs
-verification.
+agent to keep living repo docs as work happens, starting from one real
+walkthrough: what the user can observe, how the code/data/state move, what
+changed, why it changed, what is decided, what is only planned, and what still
+needs verification.
 
 ## Why It Matters
 
@@ -62,6 +65,7 @@ verification.
 | It keeps | So you can |
 | --- | --- |
 | **Repo docs** | understand what the repo is and how it works now |
+| **Real walkthrough** | trace one command, request, task, or failure end to end |
 | **Progress log** | see what changed and why it changed |
 | **Change map** | know what to do next and how to check it |
 | **Agent rules** | keep future coding sessions on the same track |
@@ -75,7 +79,7 @@ A normal coding-agent session becomes a documentation loop:
 ```mermaid
 flowchart LR
   A["User asks or agent changes repo"] --> B["Check current files"]
-  B --> C["Update repo docs"]
+  B --> C["Update README and walkthrough"]
   B --> D["Update change-log"]
   B --> E["Update change-map"]
   B --> F["Update AGENTS.md / CLAUDE.md"]
@@ -90,6 +94,7 @@ After a milestone, Repo-Docs leaves the repo easier to continue:
 | File | What it preserves |
 | --- | --- |
 | `repo-docs/README.md` | Current project explanation |
+| `repo-docs/walkthroughs/one-real-run.md` | One real behavior path from entry to output |
 | `repo-docs/change-log.md` | What changed, why, and how it was verified |
 | `repo-docs/change-map.md` | Next edits, likely files, risks, and checks |
 | `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
@@ -132,7 +137,7 @@ Create Chinese repo docs for this repository.
 | Mode | Use it when | Output focus |
 | --- | --- | --- |
 | **Seed** | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
-| **Build** | The repo needs its first docs | Main workflow, module map, contracts |
+| **Build** | The repo needs its first docs | One real walkthrough, module map, contracts |
 | **Sync** | Code, docs, data, scripts, or experiments changed | Current docs match the repo |
 | **Question refinement** | A repo question reveals missing knowledge | Patch the docs, then answer from evidence |
 
@@ -157,8 +162,10 @@ directory:
 ```text
 repo-docs/
   README.md
+  walkthroughs/
+    one-real-run.md      # required for non-Seed repos
   glossary.md
-  flows.md
+  flows.md              # optional cross-workflow/state map
   change-map.md
   change-log.md
   modules/
@@ -192,7 +199,7 @@ repo-docs/
 
 | Layer | Audience | Responsibility |
 | --- | --- | --- |
-| `README.md` and `repo-docs/` | Users, teammates, future agents | Architecture, onboarding, operations, examples, contracts, references |
+| `README.md` and `repo-docs/` | Users, teammates, future agents | Architecture, walkthroughs, onboarding, operations, examples, contracts, references |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents inside the repo | Hard boundaries, commands, environment rules, red lines, repo-docs policy |
 | Agent memory, when available | The agent across sessions | User preferences, recent lessons, cross-project pointers |
 
@@ -218,15 +225,15 @@ repo-docs/
 | `README_CN.md` | Chinese project homepage and quick start. |
 | `SKILL.md` | Main skill entrypoint: triggers, modes, repo-docs shape, writing standard, and verification checklist. |
 | `REFERENCE.md` | Detailed standards for evidence discovery, seed projects, document types, sync strategy, and quality checks. |
-| `EXAMPLES.md` | Lightweight output skeletons for repo docs, module docs, and follow-up behavior. |
+| `EXAMPLES.md` | Lightweight output skeletons for repo docs, walkthroughs, module docs, and follow-up behavior. |
 | `repo-docs-zh/SKILL.md` | Chinese-language overlay for repo docs written in Chinese. |
 
 ## Quality Bar
 
 A good `repo-docs/` docs package is useful after the chat ends. A newcomer should be
-able to read it and explain the repo in their own words, reproduce one real
-workflow, identify the important contracts, and know where to make a safe
-change.
+able to read it and explain the repo in their own words, trace one real
+workflow from observable entry to output, identify the important contracts, and
+know where to make a safe change.
 
 Important claims should be marked by confidence:
 
