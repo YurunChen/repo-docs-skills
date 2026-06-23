@@ -1,8 +1,9 @@
-<p align="center">
-  <img src="assets/logo.png" width="72" alt="Repo-Docs logo" />
-</p>
-
-<h1 align="center">Repo-Docs: Keep project understanding alive while agents keep coding.</h1>
+<div align="center">
+  <h1 style="display: inline-flex; align-items: center; gap: 16px; text-align: left;">
+    <img src="assets/logo.png" height="88" alt="Repo-Docs logo" />
+    <span>Repo-Docs:<br />Keep project understanding alive while agents keep coding.</span>
+  </h1>
+</div>
 
 <p align="center">
   Turn coding-agent conversations into living docs, progress logs, change maps,
