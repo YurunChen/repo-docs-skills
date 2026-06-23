@@ -124,7 +124,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 Then invoke it naturally:
 
 ```text
-Use repo-docs-zh to rebuild this repo's project guide.
+Rebuild this repo's project guide in Chinese.
 ```
 
 ## Modes
@@ -139,17 +139,17 @@ Use repo-docs-zh to rebuild this repo's project guide.
 ## Example Prompts
 
 ```text
-Use repo-docs to create a project guide for this repository.
+Create a project guide for this repository.
 ```
 
 ```text
-Use repo-docs for this empty project. Create a seed guide that separates
-Implemented, Decided, Planned, and Unknown items.
+This is a new empty project. Create a seed guide that separates implemented
+facts, decisions, planned work, and unknowns.
 ```
 
 ```text
-Use repo-docs-zh. Read the current docs and source, then update the guide after
-this refactor. Record what changed in change-log.md.
+Read the current docs and source, then update the guide after this refactor.
+Record what changed in change-log.md.
 ```
 
 ```text

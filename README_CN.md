@@ -76,7 +76,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 安装后可以这样使用：
 
 ```text
-Use repo-docs-zh to rebuild this repo's project guide.
+请用中文重建这个项目的 project guide。
 ```
 
 ## 工作模式
@@ -91,18 +91,17 @@ Use repo-docs-zh to rebuild this repo's project guide.
 ## 示例 Prompt
 
 ```text
-Use repo-docs-zh. Read the current docs and source, then update the guide after
-this refactor. Record what changed in change-log.md.
+请阅读当前文档和源码，在这次重构后更新 guide，并把变化记录到 change-log.md。
 ```
 
 ```text
-Use repo-docs for this empty project. Create a seed guide that separates
-Implemented, Decided, Planned, and Unknown items.
+这是一个刚开始的空项目。请创建 seed guide，并区分已实现事实、已决定事项、
+计划工作和未知项。
 ```
 
 ```text
-Help me continue this repo without rereading everything. Sync README.md,
-repo-docs/, AGENTS.md, and memory pointers with the current project state.
+我想继续做这个项目，但不想重新读一遍所有代码。请把 README.md、repo-docs/、
+AGENTS.md 和必要的记忆指针对齐到当前项目状态。
 ```
 
 ## 输出结构
