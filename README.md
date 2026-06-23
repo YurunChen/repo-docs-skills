@@ -28,12 +28,12 @@
 
 ## Latest Updates
 
-> New: root-level `repo-docs/` output, Chinese guide support, and Seed mode
+> New: root-level `repo-docs/` output, Chinese docs support, and Seed mode
 > for empty repos. If Repo-Docs helps you keep up with an agent-built project,
 > a GitHub star 🌟 helps more builders find it.
 
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
-- **2026-06-23**: Published the first README structure, project guide contract,
+- **2026-06-23**: Published the first README structure, repo-docs contract,
   reference standard, and example prompts.
 
 ## What is Repo-Docs?
@@ -43,7 +43,7 @@ reason behind a design can stay behind in chat. After a few sessions, the repo
 may still run, but the user can no longer see the full shape of what was built.
 
 `repo-docs` is a small agent skill for reducing that gap. It asks the coding
-agent to keep a living project guide as work happens: what changed, why it
+agent to keep living repo docs as work happens: what changed, why it
 changed, what is decided, what is only planned, and what still needs
 verification.
 
@@ -61,12 +61,12 @@ verification.
 
 | It keeps | So you can |
 | --- | --- |
-| **Project guide** | understand what the repo is and how it works now |
+| **Repo docs** | understand what the repo is and how it works now |
 | **Progress log** | see what changed and why it changed |
 | **Change map** | know what to do next and how to check it |
 | **Agent rules** | keep future coding sessions on the same track |
-| **Seed guide** | write down goals before code exists |
-| **Chinese guide** | read the project in natural Chinese through `repo-docs-zh` |
+| **Seed docs** | write down goals before code exists |
+| **Chinese docs** | read the project in natural Chinese through `repo-docs-zh` |
 
 ## Demonstration
 
@@ -75,7 +75,7 @@ A normal coding-agent session becomes a documentation loop:
 ```mermaid
 flowchart LR
   A["User asks or agent changes repo"] --> B["Check current files"]
-  B --> C["Update project guide"]
+  B --> C["Update repo docs"]
   B --> D["Update change-log"]
   B --> E["Update change-map"]
   B --> F["Update AGENTS.md / CLAUDE.md"]
@@ -124,7 +124,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 Then invoke it naturally:
 
 ```text
-Rebuild this repo's project guide in Chinese.
+Create Chinese repo docs for this repository.
 ```
 
 ## Modes
@@ -132,39 +132,26 @@ Rebuild this repo's project guide in Chinese.
 | Mode | Use it when | Output focus |
 | --- | --- | --- |
 | **Seed** | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
-| **Build** | The repo needs its first guide | Main workflow, module map, contracts |
+| **Build** | The repo needs its first docs | Main workflow, module map, contracts |
 | **Sync** | Code, docs, data, scripts, or experiments changed | Current docs match the repo |
-| **Question refinement** | A repo question reveals missing knowledge | Patch the guide, then answer from evidence |
+| **Question refinement** | A repo question reveals missing knowledge | Patch the docs, then answer from evidence |
 
-## Example Prompts
+## Example Prompt
 
-```text
-Create a project guide for this repository.
-```
+Use this once when a project needs its first repo docs:
 
 ```text
-This is a new empty project. Create a seed guide that separates implemented
-facts, decisions, planned work, and unknowns.
+Use the repo-docs skill to create docs for this repository.
 ```
 
-```text
-Read the current docs and source, then update the guide after this refactor.
-Record what changed in change-log.md.
-```
-
-```text
-Answer this architecture question from source evidence. If the guide is missing
-the answer, patch the relevant docs before replying.
-```
-
-```text
-Help me continue this repo without rereading everything. Sync README.md,
-repo-docs/, AGENTS.md, and memory pointers with the current project state.
-```
+After that, keep working naturally. During normal conversations, the agent
+should decide when code changes, architecture questions, stale explanations, or
+milestone handoffs require updating `repo-docs/`, `change-log.md`,
+`change-map.md`, and repo agent instructions.
 
 ## What It Produces
 
-The default output is a Markdown guide under the generated `repo-docs/`
+The default output is a Markdown docs package under the generated `repo-docs/`
 directory:
 
 ```text
@@ -178,7 +165,7 @@ repo-docs/
   references/
 ```
 
-For seed projects, the generated guide stays smaller:
+For seed projects, the generated docs stay smaller:
 
 ```text
 repo-docs/
@@ -206,7 +193,7 @@ repo-docs/
 | Layer | Audience | Responsibility |
 | --- | --- | --- |
 | `README.md` and `repo-docs/` | Users, teammates, future agents | Architecture, onboarding, operations, examples, contracts, references |
-| Root `AGENTS.md` / `CLAUDE.md` | Future agents inside the repo | Hard boundaries, commands, environment rules, red lines, guide policy |
+| Root `AGENTS.md` / `CLAUDE.md` | Future agents inside the repo | Hard boundaries, commands, environment rules, red lines, repo-docs policy |
 | Agent memory, when available | The agent across sessions | User preferences, recent lessons, cross-project pointers |
 
 Docs become the authority for current project understanding. Memory stays thin
@@ -229,14 +216,14 @@ repo-docs/
 | --- | --- |
 | `README.md` | English project homepage and quick start. |
 | `README_CN.md` | Chinese project homepage and quick start. |
-| `SKILL.md` | Main skill entrypoint: triggers, modes, guide shape, writing standard, and verification checklist. |
+| `SKILL.md` | Main skill entrypoint: triggers, modes, repo-docs shape, writing standard, and verification checklist. |
 | `REFERENCE.md` | Detailed standards for evidence discovery, seed projects, document types, sync strategy, and quality checks. |
-| `EXAMPLES.md` | Lightweight output skeletons for a project guide, module doc, and follow-up behavior. |
-| `repo-docs-zh/SKILL.md` | Chinese-language overlay for project guides written in Chinese. |
+| `EXAMPLES.md` | Lightweight output skeletons for repo docs, module docs, and follow-up behavior. |
+| `repo-docs-zh/SKILL.md` | Chinese-language overlay for repo docs written in Chinese. |
 
 ## Quality Bar
 
-A good `repo-docs` guide is useful after the chat ends. A newcomer should be
+A good `repo-docs/` docs package is useful after the chat ends. A newcomer should be
 able to read it and explain the repo in their own words, reproduce one real
 workflow, identify the important contracts, and know where to make a safe
 change.

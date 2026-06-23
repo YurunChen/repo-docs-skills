@@ -1,6 +1,6 @@
 ---
 name: repo-docs
-description: Use when a user asks to understand a repo, reduce the gap between the user and vibe-coded code, generate or maintain project docs, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep the repo-docs/ guide current.
+description: Use when a user asks to understand a repo, reduce the gap between the user and vibe-coded code, generate or maintain repo docs, answer repo-architecture questions, seed docs for a new or empty project, update docs after code/data/config/test changes, sync docs after a milestone, or keep repo docs current.
 ---
 
 # Repo-Docs
@@ -26,9 +26,9 @@ Use this skill for four modes:
 | Mode | Trigger | What to do |
 | --- | --- | --- |
 | Seed | User is starting a new project, the repo has no substantive source/runtime files, or the repo only has planning/readme/agent files. | Create a lightweight project brief and living docs scaffold from stated goals, decisions, and current unknowns. Do not present planned behavior as implemented. |
-| Build | User asks to understand a repo, generate docs, or onboard readers. | Create a focused project guide from source evidence. |
-| Sync | User says docs are stale, asks to tidy/sync, finishes a milestone, or code/data/config/scripts/tests changed in a repo that already has a guide. | Reconcile existing docs with current source truth. |
-| Question refinement | User asks a non-trivial repo-specific question and a guide exists. | Read the guide and source, patch stable gaps, then answer. |
+| Build | User asks to understand a repo, generate docs, or onboard readers. | Create focused repo docs from source evidence. |
+| Sync | User says docs are stale, asks to tidy/sync, finishes a milestone, or code/data/config/scripts/tests changed in a repo that already has repo docs. | Reconcile existing repo docs with current source truth. |
+| Question refinement | User asks a non-trivial repo-specific question and repo docs exist. | Read the relevant docs and source, patch stable gaps, then answer. |
 
 Keep trivial chat, transient run status, and one-off debugging notes as chat answers. When the user asks to sync, tidy, reconcile, hand off, finish a milestone, refresh memory, or make docs ready for the next reader, run the built-in documentation content sync alignment strategy.
 
@@ -45,17 +45,17 @@ Before choosing files or headings, decide what understanding the reader must gai
 | What can a maintainer safely change after reading this? | Connects docs to action. |
 | What remains inferred or unknown? | Keeps confidence honest. |
 
-A guide page should answer these questions before it remains in the guide; otherwise revise its scope, merge it into the owning page, or remove it.
+A repo-docs page should answer these questions before it remains in the docs package; otherwise revise its scope, merge it into the owning page, or remove it.
 
 ## Learning Arc
 
-Make the guide feel like one coherent explanation, even when it spans multiple files:
+Make `repo-docs/` feel like one coherent explanation, even when it spans multiple files:
 
 ```text
 Observable behavior -> Why it matters -> Real path -> Code evidence -> Change scenario
 ```
 
-Use this arc at the guide level and inside major pages. Start from something the reader can recognize: a command they run, a UI/API request, a task entering the system, a generated artifact, a failure in logs, or a user workflow. Then show why the project exists, how the mainline moves, which boundaries keep it sane, and how a maintainer would safely change it.
+Use this arc across the docs package and inside major pages. Start from something the reader can recognize: a command they run, a UI/API request, a task entering the system, a generated artifact, a failure in logs, or a user workflow. Then show why the project exists, how the mainline moves, which boundaries keep it sane, and how a maintainer would safely change it.
 
 Every substantial page should carry a quiet "module brief" in its design, rendered as a separate section only when useful:
 
@@ -65,9 +65,9 @@ Every substantial page should carry a quiet "module brief" in its design, render
 - **Source evidence:** the code, data, tests, config, or artifact proving the claim.
 - **Maintenance scenario:** a realistic change/debug decision the page prepares the reader to make.
 
-This is inspired by course design, while `repo-docs` remains a living project guide. Keep the default artifact as stable Markdown documentation. Add quizzes, lessons, screens, or course scaffolding only when the user asks for a course.
+This is inspired by course design, while `repo-docs` remains a living Markdown docs package. Keep the default artifact as stable Markdown documentation. Add quizzes, lessons, screens, or course scaffolding only when the user asks for a course.
 
-## Guide Design
+## Repo Docs Design
 
 Default path:
 
@@ -83,7 +83,7 @@ repo-docs/
   references/
 ```
 
-This shape is a starting vocabulary. Use fewer files for small repos. Add a page when it gives the reader a distinct concept, behavior path, contract, or maintenance decision that would make the main guide too dense.
+This shape is a starting vocabulary. Use fewer files for small repos. Add a page when it gives the reader a distinct concept, behavior path, contract, or maintenance decision that would make `repo-docs/README.md` too dense.
 
 Design pages by responsibility:
 
@@ -123,12 +123,12 @@ For an empty project, prefer a small scaffold:
 - `repo-docs/change-map.md`: next implementation steps mapped to likely files, risks, and verification checks.
 - `repo-docs/change-log.md`: timestamped initialization entry and meaningful user decisions.
 - `repo-docs/glossary.md`: only if repeated project terms already exist.
-- `repo-docs/references/decisions.md`: optional, for explicit design decisions that would clutter the main guide.
-- Root `AGENTS.md` / `CLAUDE.md`: short rule telling future agents to update the guide as planned items become implemented facts.
+- `repo-docs/references/decisions.md`: optional, for explicit design decisions that would clutter `repo-docs/README.md`.
+- Root `AGENTS.md` / `CLAUDE.md`: short rule telling future agents to update `repo-docs/` as planned items become implemented facts.
 
 Avoid creating module docs, detailed flow docs, API references, or metric references until there is enough code, config, data, or explicit architecture to support them. If the user has provided a planned architecture, document it as `Planned` and include the verification needed to promote it to `Implemented`.
 
-If the project goal is unclear and cannot be inferred from local files or the current conversation, ask the user for the project thesis before writing a seed guide.
+If the project goal is unclear and cannot be inferred from local files or the current conversation, ask the user for the project thesis before writing seed docs.
 
 ## Evidence Discovery
 
@@ -145,7 +145,7 @@ If no real execution path exists yet, switch to Seed mode. Start from the projec
 
 See [REFERENCE.md](REFERENCE.md) for detailed writing standards, document types, and sync checklists. See [EXAMPLES.md](EXAMPLES.md) for expected output shapes.
 
-## Main guide contract
+## Repo Docs README Contract
 
 `README.md` should be short and pyramidal:
 
@@ -165,7 +165,7 @@ For seed projects, `README.md` should be a project brief rather than an implemen
 - `modules/*.md` are current contracts for responsibilities, inputs/outputs, state boundaries, change points, and risks.
 - `change-map.md` is prospective: future change goal -> files -> risks -> tests.
 - `change-log.md` is retrospective: meaningful user request -> actions -> result -> verification. Keep it recent; archive older entries when it grows past roughly 8 entries or 120 lines.
-- Repo-root `AGENTS.md` or `CLAUDE.md` should contain a short project documentation strategy when a guide exists or is created.
+- Repo-root `AGENTS.md` or `CLAUDE.md` should contain a short project documentation strategy when `repo-docs/` exists or is created.
 - Treat nested vendor/reference repos such as `materials/`, `reference/`, dependency snapshots, or copied benchmark repos as external context. Update them when the user is documenting that nested repo itself.
 
 ## Documentation Content Sync Alignment
@@ -177,17 +177,17 @@ Use three audience layers:
 | Layer | Audience | Responsibility |
 | --- | --- | --- |
 | Agent memory, when available | The agent across sessions | User preferences, cross-project pointers, recent lessons, and compact reminders. |
-| Root `AGENTS.md` / `CLAUDE.md` | Future agents in this repo | Hard boundaries, commands, environment rules, red lines, routing tables, and guide maintenance policy. |
-| `README.md` and `repo-docs/` | Human teammates, downstream users, and future agents | Architecture, onboarding, operations, integration, API/reference material, and guide pages. |
+| Root `AGENTS.md` / `CLAUDE.md` | Future agents in this repo | Hard boundaries, commands, environment rules, red lines, routing tables, and repo-docs maintenance policy. |
+| `README.md` and `repo-docs/` | Human teammates, downstream users, and future agents | Architecture, onboarding, operations, integration, API/reference material, and repo-docs pages. |
 
 Promote stable knowledge upward. A memory item graduates into docs or root agent instructions when the same lesson repeats, when it explains how the system works, or when it records a now-current project fact. Keep memory as a thin layer of pointers and recent lessons.
 
-Before editing, inspect size and scope: line counts for root agent files, guide pages, and memory indexes; docs should remain the thick authority layer while memory stays thin. Then inventory relevant files, map each code/data/config/test change to the docs it affects, edit current facts in place, merge duplicate pages, remove stale pages, and record durable changes in `change-log.md`.
+Before editing, inspect size and scope: line counts for root agent files, repo-docs pages, and memory indexes; docs should remain the thick authority layer while memory stays thin. Then inventory relevant files, map each code/data/config/test change to the docs it affects, edit current facts in place, merge duplicate pages, remove stale pages, and record durable changes in `change-log.md`.
 
 Sync order:
 
 1. Update `repo-docs/` and `README.md` for external readers.
-2. Update `AGENTS.md` / `CLAUDE.md` with operational rules and guide policy.
+2. Update `AGENTS.md` / `CLAUDE.md` with operational rules and repo-docs policy.
 3. Update or shrink agent memory when the platform supports it.
 4. Verify local links, paths, commands, environment variables, dates, and stale relative-time language.
 
@@ -195,13 +195,13 @@ See [REFERENCE.md](REFERENCE.md) for the full sync matrix, size checks, promotio
 
 ## Language
 
-Choose one primary language for the guide and keep the pack consistent.
+Choose one primary language for `repo-docs/` and keep the pack consistent.
 
 - Follow an explicit user language request.
 - If `repo-docs/` already exists, keep its primary language unless conversion is requested.
 - If building from scratch and no language is specified, use the user's current language.
 - Preserve code identifiers, paths, commands, config keys, API names, class/function names, metrics, protocol fields, and error strings exactly.
-- Prefer one primary language for the guide so future sync work has a single source of truth.
+- Prefer one primary language for repo docs so future sync work has a single source of truth.
 
 Use `repo-docs-zh` when the user asks for Chinese docs or invokes that skill.
 
@@ -230,12 +230,12 @@ Choose depth by design weight. Expand where the repo has non-obvious constraints
 
 ## Question Refinement
 
-When the user asks a non-trivial repo-specific question and a guide exists, treat the question as a documentation-quality test:
+When the user asks a non-trivial repo-specific question and `repo-docs/` exists, treat the question as a documentation-quality test:
 
-- Read the current guide page that should answer it.
+- Read the current repo-docs page that should answer it.
 - Read the source-of-truth code, data, config, test, or artifact behind the answer.
-- If the guide is missing, stale, thin, or misleading, patch the owning page before answering.
-- Answer from the updated guide and source evidence.
+- If the docs are missing, stale, thin, or misleading, patch the owning page before answering.
+- Answer from the updated docs and source evidence.
 
 ## Quality Moves
 
@@ -247,7 +247,7 @@ When the user asks a non-trivial repo-specific question and a guide exists, trea
 | Keep language synchronized | Use one primary language unless the user asks for parallel docs. |
 | Teach beyond an index | Add design motivation, a concrete example, and the reasoning path from problem to code on the owning page. |
 | Keep depth distributed | Fold explanations into README, modules, flows, and references. |
-| Match the repo's concepts | Design the guide around reader decisions and the repo's responsibility boundaries. |
+| Match the repo's concepts | Design repo docs around reader decisions and the repo's responsibility boundaries. |
 | Keep the artifact maintainable | Use Markdown docs as the stable format; borrow learning flow, examples, and code translation from teaching practice. |
 | Translate code into meaning | Explain what the snippet proves and what a maintainer can do with it. |
 
@@ -255,13 +255,13 @@ When the user asks a non-trivial repo-specific question and a guide exists, trea
 
 Before finishing, check:
 
-- Main guide exists and links to supporting docs.
+- `repo-docs/README.md` exists and links to supporting docs.
 - Local Markdown links resolve.
 - A newcomer can answer: what is this repo, how does one run work, where are the major modules, and where do common changes belong?
 - For seed projects, planned items are clearly separated from implemented facts, and no missing code path is described as current behavior.
-- A newcomer can explain the design in their own words using the guide alone.
+- A newcomer can explain the design in their own words using repo docs alone.
 - Reader paths for quick understanding, reproduction/run, and safe modification are present.
 - Module docs match current code ownership; stale, duplicate, and tiny orphan docs have been merged, revised, or removed.
 - `change-map.md` teaches future edits; `change-log.md` records meaningful recent work.
 - Caveats are placed beside the affected topic.
-- Repo-root agent instructions mention how to keep the guide current when those files exist.
+- Repo-root agent instructions mention how to keep `repo-docs/` current when those files exist.

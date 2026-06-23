@@ -45,11 +45,11 @@ Use course-design discipline while keeping the guide a living project document:
 | Test understanding through application | Prefer change/debug scenarios over recall-style questions. |
 | Keep a module brief | Know the reader question, key insight, source evidence, and example before writing the page. |
 
-Keep quizzes, slides, animations, lesson screens, and visual layout rules for explicit course artifacts. Use Markdown project guides for durable repo understanding.
+Keep quizzes, slides, animations, lesson screens, and visual layout rules for explicit course artifacts. Use Markdown repo docs for durable repo understanding.
 
 ## Pyramid Structure
 
-A good project guide uses a top-down shape:
+A good `repo-docs/` package uses a top-down shape:
 
 ```text
 Main answer
@@ -217,7 +217,7 @@ The main guide should support three paths:
 
 ## Language Mode
 
-`repo-docs` can write the project guide in Chinese or English. Treat language as a pack-level documentation contract.
+`repo-docs` can write repo docs in Chinese or English. Treat language as a pack-level documentation contract.
 
 | Situation | Language choice |
 | --- | --- |
@@ -268,7 +268,7 @@ Use this for names the reader will see repeatedly. Include:
 
 ### Flows: optional `flows.md`
 
-Every project guide must explain at least one real workflow. For small repos, that workflow can live directly in `README.md`; for larger repos, create `flows.md` when a separate map lowers cognitive load better than the main guide alone. Use it especially when the repo has several meaningful workflows, runtime phases, state transitions, or output/evaluation paths. Use it for sequences:
+Every `repo-docs/` package must explain at least one real workflow. For small repos, that workflow can live directly in `README.md`; for larger repos, create `flows.md` when a separate map lowers cognitive load better than the main guide alone. Use it especially when the repo has several meaningful workflows, runtime phases, state transitions, or output/evaluation paths. Use it for sequences:
 
 - startup flow
 - request/task flow
@@ -340,7 +340,7 @@ Use repo-root `AGENTS.md` or `CLAUDE.md` to preserve the `repo-docs/` guide upda
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.
 
-Update existing root files. Create `AGENTS.md` when the repo has no root agent instruction file and a new project guide is being created.
+Update existing root files. Create `AGENTS.md` when the repo has no root agent instruction file and a new `repo-docs/` package is being created.
 
 ### References
 
@@ -370,7 +370,7 @@ When the user asks a new question:
 
 ## Project Change Sync
 
-Use this when code, data, config, scripts, tests, docs, or project architecture changed after the project guide was written. If the current turn made those changes and `repo-docs/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
+Use this when code, data, config, scripts, tests, docs, or project architecture changed after `repo-docs/` was written. If the current turn made those changes and `repo-docs/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
 
 This is an impact audit. Use it to ask "which reader understanding changed?" before touching files.
 
@@ -386,7 +386,7 @@ Different layers serve different readers:
 | --- | --- | --- | --- |
 | Agent memory, when available | The agent across sessions | Personal preferences, cross-project references, recent lessons, and compact reminders. | Thin, current, pointer-heavy. |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents working inside this repo | Hard boundaries, commands, environment rules, red lines, routing tables, and guide maintenance policy. | Short, operational, rule-oriented. |
-| `README.md` and `repo-docs/` | Human teammates, downstream users, and future agents | Onboarding, architecture, operations, integration, APIs, project guide, and references. | Thick authority layer with current facts. |
+| `README.md` and `repo-docs/` | Human teammates, downstream users, and future agents | Onboarding, architecture, operations, integration, APIs, repo docs, and references. | Thick authority layer with current facts. |
 
 Root agent files are rule manuals. Put details in `repo-docs/`; keep root instructions for facts that prevent future agents from breaking project boundaries. Put historical narratives in `change-log.md`, `references/history.md`, git history, or a project changelog.
 
@@ -438,7 +438,7 @@ Think from the changed behavior outward:
 | New API, route, tool, or external surface | Integration guide, architecture, runbook, root command/routing table, relevant reference. |
 | New or renamed environment variable | Runbook, root instructions, setup docs, integration guide when downstream users see it. |
 | New data store, table, schema, task format, or artifact | Architecture/data model, schema reference, module doc, reproduction path. |
-| New feature crossing several modules | README/project guide, architecture, module docs, runbook, change log, handoff notes. |
+| New feature crossing several modules | README, repo docs, architecture, module docs, runbook, change log, handoff notes. |
 | Cross-project contract change | Upstream and downstream docs, SDK/API references, integration examples. |
 | Completed plan or replaced decision | Current docs updated in place; durable history recorded in `change-log.md` or archive. |
 | Terminology or policy change | Glossary, affected module docs, references, root rules when it changes agent behavior. |

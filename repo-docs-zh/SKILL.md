@@ -1,6 +1,6 @@
 ---
 name: repo-docs-zh
-description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants the repo-docs/ guide maintained with Chinese as the primary language.
+description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants repo docs maintained with Chinese as the primary language.
 ---
 
 # Repo-Docs ZH
@@ -9,7 +9,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 
 这是 `repo-docs` 的中文语言覆盖层。结构判断、证据规则、同步规则和 `repo-docs/` 输出形态都继承基座 skill；本文件负责把中文作为主语言，并收紧中文里的讲解标准。
 
-中文 guide 的核心目标是降低用户和 vibe coding 代码之间的理解差距，让用户理解和真实项目保持对齐。文档要先从用户能观察到的行为进入，再讲这个项目为什么存在，设计为什么这样取舍，一条真实路径如何穿过代码、数据、工具、状态和评估，用户以后改动时应该看哪里、怕什么、怎么验证。
+中文 repo docs 的核心目标是降低用户和 vibe coding 代码之间的理解差距，让用户理解和真实项目保持对齐。文档要先从用户能观察到的行为进入，再讲这个项目为什么存在，设计为什么这样取舍，一条真实路径如何穿过代码、数据、工具、状态和评估，用户以后改动时应该看哪里、怕什么、怎么验证。
 
 ## 必读基座
 
@@ -26,7 +26,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 - 源码标识保持原样：文件路径、命令、配置键、API 名、类/函数名、指标名、协议字段、错误字符串、包名和数据集名。
 - 只有中文翻译可能遮住代码概念时，才加括号里的源术语，例如 `执行入口 (entrypoint)` 或 `任务流 (task stream)`。
 - 默认保持单一中文文档包。
-- 现有 guide 是英文时，先修用户请求相关部分；用户要求完整中文转换时，再进行整包转换。
+- 现有 repo docs 是英文时，先修用户请求相关部分；用户要求完整中文转换时，再进行整包转换。
 
 ## 初始空项目规则
 
@@ -56,7 +56,7 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 规则：
 
 - 先判断读者缺什么理解，再决定页面结构、深度和例子。
-- 把 guide 保持为可长期维护的 Markdown 项目指南。可以借鉴课程设计里的学习顺序、例子、代码翻译和应用题意识。
+- 把 `repo-docs/` 保持为可长期维护的 Markdown 文档包。可以借鉴课程设计里的学习顺序、例子、代码翻译和应用题意识。
 - 每篇重要页面都要有隐性的 brief：读者问题、核心理解、真实路径、源码证据、维护场景。
 - 保留源码里的真实名词，围绕它们解释，让中文表达服务代码概念。
 - 使用具体、克制、可验证的中文：少用"关键/重要/深刻/体现/彰显/赋能/生态/范式"这类空泛词；控制三连排比、过度加粗、口号式结尾和"不仅...更..."。
