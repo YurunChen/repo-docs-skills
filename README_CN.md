@@ -52,7 +52,7 @@
 
 ```text
 Install the repo-docs skill from this project:
-<project link>
+https://github.com/YurunChen/Repo-Docs
 
 Make both repo-docs and repo-docs-zh available in my agent skill directory.
 ```
