@@ -28,7 +28,7 @@
 
 ## Latest Updates
 
-> New: root-level `project-guide/` output, Chinese guide support, and Seed mode
+> New: root-level `repo-docs/` output, Chinese guide support, and Seed mode
 > for empty repos. If Repo-Docs helps you keep up with an agent-built project,
 > a GitHub star 🌟 helps more builders find it.
 
@@ -88,7 +88,7 @@ verification.
 | Decisions disappear into chat | Decisions stay in the project |
 | Progress is hard to reconstruct | Milestones are recorded in `change-log.md` |
 | Plans and facts blur together | Planned, decided, implemented, and unknown items stay separate |
-| Returning to the repo means rereading everything | `project-guide/` shows the current project state |
+| Returning to the repo means rereading everything | `repo-docs/` shows the current project state |
 
 ## What It Does
 
@@ -122,9 +122,9 @@ After a milestone, Repo-Docs leaves the repo easier to continue:
 
 | File | What it preserves |
 | --- | --- |
-| `project-guide/README.md` | Current project explanation |
-| `project-guide/change-log.md` | What changed, why, and how it was verified |
-| `project-guide/change-map.md` | Next edits, likely files, risks, and checks |
+| `repo-docs/README.md` | Current project explanation |
+| `repo-docs/change-log.md` | What changed, why, and how it was verified |
+| `repo-docs/change-map.md` | Next edits, likely files, risks, and checks |
 | `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
 
 ## Modes
@@ -159,15 +159,16 @@ the answer, patch the relevant docs before replying.
 
 ```text
 Help me continue this repo without rereading everything. Sync README.md,
-project-guide/, AGENTS.md, and memory pointers with the current project state.
+repo-docs/, AGENTS.md, and memory pointers with the current project state.
 ```
 
 ## What It Produces
 
-The default output is a Markdown guide under:
+The default output is a Markdown guide under the generated `repo-docs/`
+directory:
 
 ```text
-project-guide/
+repo-docs/
   README.md
   glossary.md
   flows.md
@@ -177,10 +178,10 @@ project-guide/
   references/
 ```
 
-For seed projects, the guide stays smaller:
+For seed projects, the generated guide stays smaller:
 
 ```text
-project-guide/
+repo-docs/
   README.md
   change-map.md
   change-log.md
@@ -204,7 +205,7 @@ project-guide/
 
 | Layer | Audience | Responsibility |
 | --- | --- | --- |
-| `README.md` and `project-guide/` | Users, teammates, future agents | Architecture, onboarding, operations, examples, contracts, references |
+| `README.md` and `repo-docs/` | Users, teammates, future agents | Architecture, onboarding, operations, examples, contracts, references |
 | Root `AGENTS.md` / `CLAUDE.md` | Future agents inside the repo | Hard boundaries, commands, environment rules, red lines, guide policy |
 | Agent memory, when available | The agent across sessions | User preferences, recent lessons, cross-project pointers |
 
