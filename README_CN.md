@@ -7,7 +7,7 @@
 </div>
 
 <p align="center">
-  把 coding-agent 对话沉淀成持续维护的项目文档、进度记录、变更地图和交接上下文。
+  每次 agent 会话改变的不只是代码。Repo-Docs 把决策、进度、未知项和下一步留在仓库里。
 </p>
 
 <p align="center">
@@ -17,32 +17,37 @@
 
 ---
 
+## 最新更新
+
+> 新版默认输出到根目录 `project-guide/`，支持中文 guide，也支持空项目的 Seed 模式。
+> 如果 Repo-Docs 帮你少一次上下文重读，欢迎给这个项目一个 star 🌟。
+
 ## Repo-Docs 是什么？
 
-`repo-docs` 是一个 coding-agent skill，用来在项目开发过程中持续维护项目理解。用户提问、agent 修改代码、阶段性任务完成、项目交接发生时，`repo-docs` 会让 agent 同步更新项目 guide、`change-log.md`、`change-map.md` 和根目录 agent 规则。
+`repo-docs` 是一个轻量的 agent skill，用来在项目推进时同步维护项目理解。你提问、改代码、规划下一步、交接给另一个 agent 时，它会把这次会话里有价值的上下文写成 Markdown，放回仓库。
 
-它解决的是 vibe coding 带来的项目理解缺口：代码、脚本、prompt、配置和实验可以在一次会话里快速变化，但为什么这样设计、哪些决策已经确定、哪些风险需要验证，常常只留在聊天记录里。`repo-docs` 把这些内容变成后续人类和 agent 都能继续使用的 Markdown 文档。
+它解决的是一个很现实的问题：vibe coding 很快，但项目理解很容易跟不上。Repo-Docs 记录改了什么、为什么改、还有什么没确认、下一个 agent 应该从哪里继续。
 
 ## 为什么需要它？
 
 | 没有 `repo-docs` | 使用 `repo-docs` |
 | --- | --- |
-| 决策散落在聊天记录里 | 决策进入项目文档 |
-| 新 agent 每次重新读项目 | 新 agent 从 guide 接手 |
-| 进度靠人记 | 进度记录在 `change-log.md` |
-| 计划和已实现混在一起 | `Planned`、`Decided`、`Implemented`、`Unknown` 分开 |
-| 交接依赖口头说明 | 交接依赖 docs、`AGENTS.md` 和源码证据 |
+| 决策散落在聊天记录里 | 决策留在仓库里 |
+| 新 agent 每次从零读项目 | 新 agent 从 `project-guide/` 接手 |
+| 进度靠人回忆 | 进度记录在 `change-log.md` |
+| 计划和事实混在一起 | 计划、决定、已实现、未确认分开 |
+| 交接需要长篇解释 | 交接指向文档、规则和当前文件 |
 
 ## 核心能力
 
-| 能力 | 维护什么 |
+| 它维护 | 你能看到 |
 | --- | --- |
-| 项目记忆 | 当前项目目标、工作流、契约和 caveat |
-| 进度记录 | 在 `change-log.md` 记录重要变更、验证和结果 |
-| 变更地图 | 在 `change-map.md` 维护下一步修改、相关文件、风险和检查 |
-| agent 连续性 | 在 `AGENTS.md` / `CLAUDE.md` 记录下一个 agent 必须知道的规则 |
-| 空项目支持 | 项目还没有代码时，先记录目标、决策、计划和未知项 |
-| 中文 guide | 通过 `repo-docs-zh` 生成中文项目文档，同时保留源码标识 |
+| 项目 guide | 这个 repo 是什么、怎么运转、应该改哪里 |
+| 进度记录 | 改了什么、为什么改、怎么验证 |
+| 变更地图 | 下一步做什么、相关文件、风险和检查 |
+| agent 规则 | 下一个 coding agent 不能忘的项目规则 |
+| 空项目 guide | 还没代码时，先记录目标、决策、计划和未知项 |
+| 中文 guide | 通过 `repo-docs-zh` 生成自然中文文档 |
 
 ## 快速开始
 
@@ -144,7 +149,7 @@ project-guide/
 
 ## 支持
 
-如果 `repo-docs` 能让你的 agent 项目留下更干净的项目记忆，欢迎 star 这个 repo。
+如果 Repo-Docs 让你的下一次 agent 会话更容易继续，欢迎给这个 repo 一个 star 🌟。
 
 ---
 

@@ -7,8 +7,8 @@
 </div>
 
 <p align="center">
-  Turn coding-agent conversations into living docs, progress logs, change maps,
-  and handoff-ready project memory.
+  Every agent session changes more than code. Repo-Docs keeps the decisions,
+  progress, unknowns, and next steps in your repository.
 </p>
 
 <p align="center">
@@ -28,10 +28,9 @@
 
 ## Latest Updates
 
-> Repo-Docs is designed for the way coding-agent projects actually evolve:
-> questions, changes, milestones, handoffs, and documentation updates happen in
-> the same loop.
-> If this workflow is useful, a GitHub star 🌟 helps more agent builders find it.
+> New: root-level `project-guide/` output, Chinese guide support, and Seed mode
+> for empty repos. If Repo-Docs saves you a context reset, a GitHub star 🌟
+> helps more builders find it.
 
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
 - **2026-06-23**: Published the first README structure, project guide contract,
@@ -72,36 +71,35 @@ Use repo-docs-zh to rebuild this repo's project guide.
 
 ## What is Repo-Docs?
 
-`repo-docs` is a coding-agent skill for maintaining project understanding while
-the project is being built. As users ask questions, change code, finish
-milestones, or hand work to another agent, `repo-docs` keeps the project guide,
-progress log, change map, and agent instructions aligned with the actual repo.
+`repo-docs` is a small agent skill that keeps project knowledge alive while work
+happens. When you ask questions, change code, plan the next step, or hand the
+repo to another agent, it turns the useful context from that session into
+Markdown that lives with the code.
 
-Vibe coding accelerates implementation, but it also creates a project memory
-gap. Code changes quickly; the reasons, decisions, risks, and current state
-often stay trapped in chat history. `repo-docs` turns those interactions into
-durable Markdown documentation future humans and agents can continue from.
+It exists for one simple reason: vibe coding moves fast, but understanding often
+falls behind. Repo-Docs closes that gap by recording what changed, why it
+changed, what is still unknown, and where the next agent should continue.
 
 ## Why It Matters
 
 | Without `repo-docs` | With `repo-docs` |
 | --- | --- |
-| Decisions stay buried in chat | Decisions land in project docs |
-| New agents re-read the repo from zero | New agents start from the guide |
-| Progress is remembered informally | Milestones are recorded in `change-log.md` |
-| Planned work mixes with implemented facts | `Planned`, `Decided`, `Implemented`, and `Unknown` stay separate |
-| Handoffs depend on personal memory | Handoffs use docs, `AGENTS.md`, and current source evidence |
+| Decisions disappear into chat | Decisions stay in the repo |
+| New agents start from zero | New agents start from `project-guide/` |
+| Progress is hard to reconstruct | Milestones are recorded in `change-log.md` |
+| Plans and facts blur together | Planned, decided, implemented, and unknown items stay separate |
+| Handoffs need long explanations | Handoffs point to docs, rules, and current files |
 
-## Core Capabilities
+## What It Does
 
-| Capability | What it keeps current |
+| It keeps | So you know |
 | --- | --- |
-| **Live project memory** | The current project thesis, workflow, contracts, and caveats |
-| **Progress log** | Meaningful work, decisions, verification, and outcomes in `change-log.md` |
-| **Change map** | Future edits, likely files, risks, and checks in `change-map.md` |
-| **Agent continuity** | Repo-specific rules and guide policy in `AGENTS.md` / `CLAUDE.md` |
-| **Seed project support** | Goals, decisions, planned work, and unknowns before code exists |
-| **Chinese guide support** | Natural Chinese docs through `repo-docs-zh`, with source identifiers preserved |
+| **Project guide** | what the repo is, how it works, and where to change it |
+| **Progress log** | what changed, why, and how it was checked |
+| **Change map** | what to do next, likely files, risks, and verification |
+| **Agent rules** | what the next coding agent must not forget |
+| **Seed guide** | what is decided and planned before code exists |
+| **Chinese guide** | natural Chinese docs through `repo-docs-zh` |
 
 ## Demonstration
 
@@ -109,7 +107,7 @@ A normal coding-agent session becomes a documentation loop:
 
 ```mermaid
 flowchart LR
-  A["User asks or agent changes repo"] --> B["Inspect source truth"]
+  A["User asks or agent changes repo"] --> B["Check current files"]
   B --> C["Update project guide"]
   B --> D["Update change-log"]
   B --> E["Update change-map"]
@@ -120,7 +118,7 @@ flowchart LR
   F --> G
 ```
 
-After a milestone, `repo-docs` can leave behind:
+After a milestone, Repo-Docs leaves the repo easier to continue:
 
 | File | What it preserves |
 | --- | --- |
@@ -135,7 +133,7 @@ After a milestone, `repo-docs` can leave behind:
 | --- | --- | --- |
 | **Seed** | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
 | **Build** | The repo needs its first guide | Main workflow, module map, contracts |
-| **Sync** | Code, docs, data, scripts, or experiments changed | Current docs aligned with source truth |
+| **Sync** | Code, docs, data, scripts, or experiments changed | Current docs aligned with the repo |
 | **Question refinement** | A repo question reveals missing knowledge | Patch the guide, then answer from evidence |
 
 ## Example Prompts
@@ -193,12 +191,12 @@ project-guide/
 
 ## Built For
 
-- researchers iterating on benchmark, eval, and experiment repos
-- engineers using Claude Code, Cursor, or other coding agents daily
-- teams that need handoffs between humans and agents
-- projects where prompts, scripts, configs, data, and results change together
-- new projects that need a project memory baseline before code exists
-- maintainers who want docs updated as work happens, not after everyone forgets
+- people who use coding agents every day
+- projects that move too quickly for docs to be written later
+- handoffs between humans and agents
+- benchmark, eval, experiment, and prompt-heavy repos
+- new repos that need a memory baseline before code exists
+- maintainers who want the repo to explain itself
 
 ## Documentation Sync Model
 
@@ -258,8 +256,8 @@ facts.
 
 ## Support
 
-If `repo-docs` helps your agent sessions leave cleaner project knowledge behind,
-a GitHub star 🌟 helps others find this workflow.
+If Repo-Docs makes your next agent session easier, a GitHub star 🌟 helps
+others find it.
 
 ---
 
