@@ -21,10 +21,15 @@
 </p>
 
 <p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README_CN.md">中文 README</a>
+</p>
+
+<p align="center">
   <img alt="Living docs" src="https://img.shields.io/badge/living-docs-2f6f5f" />
   <img alt="Agent skill" src="https://img.shields.io/badge/agent-skill-2b2d2f" />
   <img alt="Markdown native" src="https://img.shields.io/badge/markdown-native-4f6f8f" />
-  <img alt="Chinese docs" src="https://img.shields.io/badge/中文-docs-7c5cff" />
+  <img alt="repo-docs-zh" src="https://img.shields.io/badge/repo--docs--zh-skill-7c5cff" />
 </p>
 
 <p align="center">
@@ -224,6 +229,7 @@ and pointer-oriented.
 ```text
 repo-docs/
 ├── README.md
+├── README_CN.md
 ├── SKILL.md
 ├── REFERENCE.md
 ├── EXAMPLES.md
@@ -233,6 +239,8 @@ repo-docs/
 
 | File | Purpose |
 | --- | --- |
+| `README.md` | English project homepage and quick start. |
+| `README_CN.md` | Chinese project homepage and quick start. |
 | `SKILL.md` | Main skill entrypoint: triggers, modes, guide shape, writing standard, and verification checklist. |
 | `REFERENCE.md` | Detailed standards for evidence discovery, seed projects, document types, sync strategy, and quality checks. |
 | `EXAMPLES.md` | Lightweight output skeletons for a project guide, module doc, and follow-up behavior. |
