@@ -31,6 +31,7 @@
 > Repo-Docs is designed for the way coding-agent projects actually evolve:
 > questions, changes, milestones, handoffs, and documentation updates happen in
 > the same loop.
+> If this workflow is useful, a GitHub star 🌟 helps more agent builders find it.
 
 - **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
 - **2026-06-23**: Published the first README structure, project guide contract,
