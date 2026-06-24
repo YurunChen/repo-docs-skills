@@ -1,6 +1,5 @@
 <div align="center">
   <h1>
-    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
     Repo-Docs: Keep up with the code your agents write.
   </h1>
 </div>
@@ -253,7 +252,6 @@ helps others find it.
 
 <div align="center">
   <p><strong>Repo-Docs:</strong> Keep up with the code your agents write.</p>
-  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
   <p><em>Thanks for visiting Repo-Docs.</em></p>
   <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.repo-docs-skills" alt="visitors" />
 </div>

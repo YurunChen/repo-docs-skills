@@ -1,6 +1,5 @@
 <div align="center">
   <h1>
-    <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
     Repo-Docs:
   </h1>
   <h3>让你跟得上 agent 写出来的代码。</h3>
@@ -142,7 +141,6 @@ repo-docs/
 
 <div align="center">
   <p><strong>Repo-Docs:</strong> 让你跟得上 agent 写出来的代码。</p>
-  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
   <p><em>感谢访问 Repo-Docs。</em></p>
   <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.repo-docs-skills" alt="visitors" />
 </div>
