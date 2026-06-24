@@ -18,7 +18,7 @@
 
 Reader outcome, package layers, narrative beats, and prose rhythm are canonical in [SKILL.md](SKILL.md) Content Organization. Page shapes and ownership are in [SKILL.md](SKILL.md) Page Design.
 
-A good guide lets a newcomer answer in about 15 minutes: what the repo is for, what one real run looks like, which ideas matter, where exact contracts live, what is risky to touch, and how to check a change.
+A good guide lets a newcomer answer in about 15 minutes: what the repo is for, what one real run looks like, which ideas matter, where exact contracts live, and how to verify their understanding.
 
 The style target is plain, alive, and technically sharp. Use Andrej Karpathy and Kaiming He as references for the feel: simple words, real mechanism, no pomp, no fake certainty, no long preamble. Explain the idea first. Then show the code.
 
@@ -38,7 +38,7 @@ Use the discipline of a good engineering note while keeping the guide a living p
 | Give the simple model | Say what is happening in normal technical language before using source names. |
 | Show why it exists | Explain the design reason, constraint, tradeoff, or bug it avoids. Do not pretend you know the author's private intent. |
 | Point to code only after the model lands | Source locators should confirm the explanation, not replace it. |
-| End with action | Say what to inspect, what can break, and how to verify. |
+| End with action | Say what to inspect, what assumption the mechanism depends on, and how to verify understanding. |
 
 When a section feels vague, rewrite it around one concrete design reason:
 
@@ -59,7 +59,7 @@ Canonical rules for continuity, headings, content ownership, default page shapes
 
 Write like a real person who understands the code.
 
-The tone should be direct and calm. Short sentences are fine. A little rhythm is good. The page should sound like a maintainer saying, "Here is the idea; here is where it happens; here is what can go wrong." It should not sound like an LLM trying to sound comprehensive.
+The tone should be direct and calm. Short sentences are fine. A little rhythm is good. The page should sound like an engineer saying, "Here is the idea; here is where it happens; here is how you would check you understood it." It should not sound like an LLM trying to sound comprehensive.
 
 "娓娓道来" means the explanation unfolds one reason at a time. It is not looseness, and it is not extra preamble. A strong section can often follow this path: observable situation, design reason, choice, concrete behavior, verification, limitation. If a section starts with a list of modules, it usually skipped the situation and reason.
 
@@ -69,7 +69,7 @@ Use this order at page and section level:
 2. Reason: why this part exists or why the reader should care.
 3. Mechanism: what receives input, changes state, returns output, or protects an invariant.
 4. Path: the actual code/data/config flow that proves it.
-5. Implication: where to change it, how to verify it, or what can break.
+5. Implication: what assumption the mechanism depends on, how to verify it, or what breaks if the model is wrong.
 6. Caveat: what is inferred, unknown, or intentionally out of scope.
 
 For narrative pages, use paragraphs for reasoning. A good paragraph has one point, one reason, and a concrete hook into behavior or source. Use bullets and tables for comparison or lookup. Do not build the whole page out of bullets. Do not turn every walkthrough step into the same stack of `###` reader-state headings when prose and inline locator labels would keep continuity.
@@ -185,7 +185,6 @@ For an empty project, use this status-labeled pack:
 ```text
 repo-docs/
   README.md
-  change-map.md
   change-log.md
   glossary.md
   references/
@@ -216,14 +215,9 @@ Good seed README sections:
 - Next implementation steps
 - Unknowns and verification checks
 
-### Seed change map
+### Seed next steps
 
-`change-map.md` is the most important seed-stage document. Use it to turn intent into actionable next work:
-
-| Goal | Likely files | Safe path | Verification |
-| --- | --- | --- | --- |
-
-`Likely files` can include planned paths, but mark them as planned when they do not exist. Verification should name the future command, test, review, or artifact that will prove the work.
+Record planned implementation work in `README.md` (Next implementation steps) and explicit decisions in `references/decisions.md`. Use `change-log.md` for initialization and decision history. Do not create a separate change-plan page—the guide serves understanding, not maintenance routing.
 
 ### Seed change log
 
@@ -239,7 +233,7 @@ For seed projects, verification may be "docs scaffold created" or "decision reco
 As code appears, promote seed content:
 
 - `Planned` module -> module doc only after files or explicit architecture exist.
-- `Planned` workflow -> current-state walkthrough or flow doc only after an entrypoint, script, or detailed accepted design exists. Until then, keep it in `README.md` or `change-map.md` as `Planned`.
+- `Planned` workflow -> current-state walkthrough or flow doc only after an entrypoint, script, or detailed accepted design exists. Until then, keep it in `README.md` as `Planned`.
 - `Unknown` -> `Planned` when the user chooses a direction.
 - `Planned` -> `Confirmed` only when repo evidence proves it.
 
@@ -251,7 +245,7 @@ The main guide should support three paths:
 | --- | --- |
 | Understand quickly | thesis, why it exists, main workflow, and major concepts |
 | Reproduce or run | commands, config, expected outputs, artifact locations |
-| Modify safely | change map, concepts to understand, files to inspect, risks, tests |
+| Verify understanding | walkthrough verify command, tests named in prose |
 
 Readers also arrive with different expertise, and scaffolding that helps a newcomer slows an expert who already holds the model. Treat plain-model and concept pages as skippable, not mandatory, and let the reading order match expertise:
 
@@ -302,9 +296,9 @@ Markdown is the reading interface. Use it to control rhythm and reduce cognitive
 | Inline labels | Rare disambiguation only; prefer paths and checks woven into prose |
 | Reader-state `###` headings | Long walkthroughs or one dense phase only |
 | Blockquotes | Pull quotes from external docs when needed |
-| Tables | Comparisons, before/after state, risk maps, field lookup |
+| Tables | Comparisons, before/after state, field lookup, phase relationships |
 | Fenced code blocks | Commands, expected output, schemas, config, exact snippets |
-| Mermaid | Multi-path, multi-stage, state, or output relationships, paired with prose |
+| Mermaid / flowchart | Phase order, branches, state handoffs, or multi-path relationships—**when understanding needs a visual anchor**, always paired with prose |
 | `<details>` | Long source details, full tables, long outputs |
 
 When a page feels dense, first ask whether the reader needs a better heading, one small table, or a source detail folded into `<details>`. Do not add visual structure for decoration.
@@ -330,7 +324,7 @@ For benchmark, evaluation, safety, data-heavy, or research repositories, make su
 Do not frame output as a file-count exercise. Use this rule:
 
 ```text
-project spine -> real trace -> readable concept pages -> references -> change map -> change log
+project spine -> real trace -> readable concept pages -> references -> glossary -> change log
 ```
 
 The first-read route for most non-Seed repos should be:
@@ -340,7 +334,7 @@ README.md
 -> walkthroughs/one-real-run.md
 -> modules
 -> references
--> change-map.md
+-> glossary.md
 ```
 
 Each named page serves a durable reader job. The output should feel concise because reader jobs are clear, not because files were skipped.
@@ -351,7 +345,6 @@ Each named page serves a durable reader job. The output should feel concise beca
 | Understand the project model | `README.md` and `walkthroughs/one-real-run.md` |
 | Replay one real behavior | `walkthroughs/one-real-run.md` |
 | Understand a concept introduced by the walkthrough | `modules/<concept>.md` |
-| Decide where and how to change safely | `change-map.md` |
 | Look up exact fields, commands, schemas, tools, metrics, or artifacts | `references/<lookup-job>.md` |
 | Resolve project terminology | `glossary.md` |
 | Compare several workflows or phases | `flows.md` |
@@ -375,7 +368,6 @@ repo-docs/
   README.md
   walkthroughs/
     one-real-run.md
-  change-map.md
   change-log.md
 ```
 
@@ -387,7 +379,7 @@ A large repository or a monorepo with several independent services does not need
 
 - Pick the target: the subsystem the user asked about, or the highest-traffic real workflow. Document that first; do not try to cover every package in one pass.
 - Use one walkthrough per independent surface, named by behavior (`checkout-request.md`, `ingest-to-index.md`), not by service or module.
-- Allow partial coverage. Record what is intentionally not yet documented in `change-map.md` or a short coverage note, with `Planned` or `Unknown` status, so the gap is visible instead of implied complete.
+- Allow partial coverage. Record what is intentionally not yet documented in a short `README.md` coverage note with `Planned` or `Unknown` status, so the gap is visible instead of implied complete.
 - For a monorepo, prefer one `repo-docs/` per independently developed package when packages have separate readers and lifecycles; use a single shared package only when one team reads across all of them.
 - Stop when the reader can trace the targeted workflow end to end. Reading the whole tree is not the goal; a usable model of the chosen path is.
 
@@ -401,12 +393,6 @@ Reader understanding:
 observable behavior -> plain concept -> why it matters -> source locator -> verification
 ```
 
-Change readiness:
-
-```text
-future change goal -> concept to understand -> files to inspect -> risk -> verification command/check
-```
-
 Rules:
 
 - Every narrative page should be readable before the reader knows function names, field names, or file layout.
@@ -414,7 +400,7 @@ Rules:
 - Every walkthrough step carries cause, effect, and the observation that matters before source details—in connected prose.
 - Every exact field, command, schema, tool parameter, metric, artifact, task catalog, or config contract belongs in `references/`.
 - Evidence status stays visible but quiet: one page-level default at the **end** of narrative pages; local labels only where confidence differs.
-- `modules/` pages should exist only when they make a concept easier to understand than leaving it inside the walkthrough. They are reader-facing explanation pages built around one concept, one example, a few source locators, change risk, and verification.
+- `modules/` pages should exist only when they make a concept easier to understand than leaving it inside the walkthrough. They are reader-facing explanation pages built around one concept, one code model example, source locators woven into prose, and—when useful—a short caveat or verify command that confirms understanding.
 - Modules and references are not generated by count. They are generated when they lower cognitive load or make exact lookup easier.
 - During sync, add missing pages when a stable concept or lookup job lacks a readable home; merge pages that explain the same concept.
 
@@ -427,8 +413,8 @@ A readable project model answers only what helps the reader move forward:
 - What problem or workflow does this repo make easier?
 - What real behavior proves the current shape?
 - What concept should the reader remember before seeing code names?
-- Which source path proves the behavior when they need to verify or change it?
-- What caveat or risk should they keep in mind?
+- Which source path proves the behavior when they need to verify understanding?
+- What caveat matters for the mental model?
 
 Keep this explanation short. If it starts to look like a paper summary, fold it back into the walkthrough or concept page that needs it.
 
@@ -443,7 +429,7 @@ Default table:
 
 Use the standard status family for the `Type` column (`Confirmed` / `Inferred` / `Planned` / `Unknown`; see Evidence Standard). When a row leans on material outside the repo, add an inline source note in the evidence cell such as `prior work: ...`, rather than a separate status.
 
-Do not let `evidence-ledger.md` become the main explanation. It is a citation table for the narrative in README, walkthroughs, modules, and change map.
+Do not let `evidence-ledger.md` become the main explanation. It is a citation table for the narrative in README, walkthroughs, and modules.
 
 ## Document Types
 
@@ -454,9 +440,9 @@ Design document types by reader state, not by source-tree structure:
 | "I do not understand this project yet." | Natural first model and next step. | `README.md` |
 | "I want to understand the project idea." | A plain model of the problem, main behavior, and caveats. | README and the main walkthrough |
 | "Show me one real thing working." | A worked example with observable behavior and state changes. | `walkthroughs/one-real-run.md` |
-| "I understand the behavior, but this concept is still fuzzy." | Plain model, code model, source locator, optional change table. | `modules/*.md` |
-| "I know what I need to change." | Goal -> place to inspect -> risk -> test. | `change-map.md` |
+| "I understand the behavior, but this concept is still fuzzy." | Plain model, code model, source locator. | `modules/*.md` |
 | "I need exact names." | Fields, commands, schemas, tools, metrics, artifacts. | `references/*.md` |
+| "These project terms blur together." | Plain meaning for this project; code mapping woven into the same cell. | `glossary.md` |
 
 Every page should provide information scent for the next useful page. If the reader may be lost, tell them where to restart.
 
@@ -471,7 +457,7 @@ Opening prose (under the title) should cover, in order:
 1. What the project does.
 2. What behavior or user problem it exists to study.
 3. What one real example will show the reader, with a link to the walkthrough.
-4. In-text routes: where to go to understand, change, or look up names.
+4. In-text routes: where to go to understand, verify, or look up names.
 
 Add `## Reader Routes` as a table only when the package has several walkthroughs or many reader goals. Small repos can keep all routing in the opening paragraph.
 
@@ -480,14 +466,14 @@ Put caveats in a short closing note—not a separate long `Current Scope` essay 
 Reader paths should be obvious from the opening prose or table:
 
 - New readers follow the main walkthrough.
-- Behavior changes start from `change-map.md`.
 - Exact names live in `references/`.
+- Repeated terms live in `glossary.md`.
 
 For seed projects, use it as a project brief. Keep it honest about the empty state and make the next implementation decisions easy to find.
 
 ### Walkthroughs: `walkthroughs/`
 
-Use walkthroughs to explain the repo through real behavior, not through module order. A walkthrough follows a command, request, task, user action, failure, policy case, or data record from the moment a reader can observe it to the resulting state, output, or score. For non-Seed repos, create `walkthroughs/one-real-run.md` before writing deep module/reference pages. If the repo has no real observable path yet, use Seed mode and record the path as `Planned` in `README.md` or `change-map.md`; do not present it as `one-real-run.md`.
+Use walkthroughs to explain the repo through real behavior, not through module order. A walkthrough follows a command, request, task, user action, failure, policy case, or data record from the moment a reader can observe it to the resulting state, output, or score. For non-Seed repos, create `walkthroughs/one-real-run.md` before writing deep module/reference pages. If the repo has no real observable path yet, use Seed mode and record the path as `Planned` in `README.md`; do not present it as `one-real-run.md`.
 
 The default `one-real-run.md` should read as one continuous explanation. Shape, beats, and ownership: [SKILL.md](SKILL.md) Content Organization and Page Design.
 
@@ -497,13 +483,13 @@ title + opening prose (what you follow + plain model + optional onward links)
 -> closing (end state + one verify command + onward links + evidence status)
 ```
 
-Each `##` phase carries plain model and mechanism in connected prose. Weave paths, functions, and checks into sentences. Put **one** page-level verification block at the end unless a phase needs a different check. Route to modules or references at the opening, closing, or first mention of a new concept—not under every phase.
+Each `##` phase carries plain model and mechanism in connected prose. Weave paths, functions, and checks into sentences. Link to the matching `modules/<concept>.md` in the phase where that concept appears. Put **one** page-level verification block at the end unless a phase needs a different check. Route to `references/` at the opening, closing, or when exact names first become necessary—not as repeated boilerplate under every phase.
 
 See [EXAMPLES.md](EXAMPLES.md) for the default flat walkthrough and the optional expanded shape for long pages.
 
-Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. A Mermaid diagram can help, but it must be paired with prose that explains the path.
+Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. When several phases, branches, or handoffs are hard to hold in prose alone, add a small Mermaid or ASCII flowchart after the plain-model sentence for that section—see [SKILL.md](SKILL.md) Flowcharts when understanding needs them. The diagram teaches the shape; prose still carries why and how to verify.
 
-Optionally, on the newcomer walkthrough only, note one path a maintainer might expect but the code does not take, and why. This makes the design reasoning visible. Use it sparingly: dead-end narration adds reading load, so keep it to one line and never put it on reference or fast-path pages where an expert would only be slowed by it.
+Optionally, on the newcomer walkthrough only, note one path a reader might expect but the code does not take, and why. This makes the design reasoning visible. Use it sparingly: dead-end narration adds reading load, so keep it to one line and never put it on reference or fast-path pages where an expert would only be slowed by it.
 
 Walkthrough count rules:
 
@@ -517,10 +503,18 @@ Common names include `one-real-run.md`, `first-request.md`, `failure-case.md`, `
 
 ### Glossary: `glossary.md`
 
-Use this for names the reader will see repeatedly. Include:
+Use this for names the reader will see repeatedly. Three columns only:
 
-| Term | Plain meaning | In code | Common confusion |
-| --- | --- | --- | --- |
+| Term | Plain meaning | Further reading |
+
+**Plain meaning** carries the whole project-specific explanation—including where the term shows up in code and what it is often confused with. **Further reading** is optional: one inferred external URL for large generic concepts, or `—`.
+
+Rules (see [SKILL.md](SKILL.md) Glossary entries):
+
+- Plain meaning must let the reader continue the guide without opening **Further reading**.
+- At most one URL per row; mark `Inferred` / `推断（外部来源：…）`.
+- Mechanism depth belongs in `modules/<concept>.md`; link from Plain meaning instead of expanding the row.
+- Do not turn glossary into a link farm or duplicate `references/`.
 
 ### Flows: `flows.md`
 
@@ -536,17 +530,6 @@ Prefer 6-10 steps per flow. Use Mermaid when a visual makes the sequence easier 
 
 For seed projects, write flow content only as a planned flow with `Planned` / `计划中` status and verification checks beside the flow.
 
-### Change map: `change-map.md`
-
-Use this for future maintenance paths:
-
-| Goal | Files to inspect | Safe change path | Risk |
-| --- | --- | --- | --- |
-
-Keep it stable, prospective, and action-oriented.
-
-Write goals as user-facing or maintainer-facing intentions before file paths. Prefer "change how delayed feedback reaches memory" over "edit `observation_delivery.py`". For each goal, say in a clause why the named files are the right place to change, so the reader inherits the judgment, not just the location.
-
 ### Change log: `change-log.md`
 
 Use this for past project work:
@@ -558,21 +541,20 @@ Use `YYYY-MM-DD HH:MM TZ` rather than date-only headings. This keeps repeated sa
 
 Record meaningful user requests and execution results when they change code, docs, data, experiments, or project understanding. Keep trivial chat in chat. Keep `change-log.md` recent and readable; when it grows past roughly 8 entries or 120 lines, move older entries to `references/history.md` and link to the archive.
 
-To make later syncs incremental, record the commit each sync covered, for example a `Synced through <commit-sha>` note in the latest entry. The next sync can scope its impact check with `git diff <last-sha>..HEAD` instead of re-reading the whole repository.
+To make later syncs incremental, every sync or material question-driven patch should record **`Synced through <commit-sha>`** (or `同步至 <commit-sha>`) in the latest entry. The next sync scopes with `git diff <last-sha>..HEAD` instead of re-reading the whole repository. The validator warns when `change-log.md` has substance but no sync anchor, and when cited source paths changed after the last anchor (`--repo-root`).
 
 ### Module docs
 
 Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. Shape and beats: [SKILL.md](SKILL.md) Content Organization and Page Design.
 
-For seed projects, planned concepts belong in `change-map.md` or `references/decisions.md` until source evidence exists.
+For seed projects, planned concepts belong in `README.md` or `references/decisions.md` until source evidence exists.
 
 Cover these beats in coherent prose under the title (coverage checklist, not heading names):
 
 1. Reader question and plain model — concept without code names; key insight woven in
 2. Code model — structure, API explanation, short usage example from inspected source
 3. Where the concept appears in the walkthrough
-4. Where to edit in prose (paths/functions)
-5. Link to `change-map.md` for change goals and verification; add `## If you change this` only when a local table is clearer than the map
+4. Where the concept lives in prose (paths/functions); weave edit-order caveats only when they clarify the mechanism
 
 Full field tables and command catalogs belong in `references/`.
 
@@ -585,7 +567,7 @@ Before writing a module doc, hold this brief in mind:
 | Where this appears in a walkthrough | Which real command/request/task/failure makes this concept visible? |
 | Concrete example | What one example makes the concept easy to remember? |
 | Source locator | Which source path proves the behavior? |
-| Maintenance scenario | If this changes, what should the reader inspect and test? |
+| Verification hook | What command, test, or observation confirms the reader understood the mechanism? |
 
 Module docs should include examples when a concept would otherwise stay abstract. Use examples for:
 
@@ -616,18 +598,20 @@ If the user asks to delete only one page or one section, do not remove the whole
 
 ### Agent instruction files
 
-Use repo-root `AGENTS.md` or `CLAUDE.md` to preserve the `repo-docs/` guide update policy for future agents. Keep this short and operational:
+Canonical rule: [SKILL.md](SKILL.md) Root agent files. When `repo-docs/` is created or materially updated, ensure the repository root has an agent instruction file. If none exists, **create `AGENTS.md`**.
+
+Keep the block short and operational:
 
 - Where the living guide lives.
 - Which repo-specific questions should refine it.
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.
 
-Update existing root files. Create `AGENTS.md` when the repo has no root agent instruction file and a new `repo-docs/` package is being created.
+Update an existing root file in place. Do not duplicate the guide into `AGENTS.md`.
 
 ### References
 
-Use `references/` for stable details that would clutter the main guide: schemas, metrics, tool parameters, task catalogs, scripts, output artifacts, baseline methods. References are lookup material, not the main explanation path. If a reference grows a long explanation of why or how behavior works, move that explanation into a walkthrough or module page and keep the reference as a table/catalog. If a module page accumulates exhaustive tables, move those tables down into a reference page and leave only the plain explanation, representative example, source locator, risk, and verification path in the module page.
+Use `references/` for stable details that would clutter the main guide: schemas, metrics, tool parameters, task catalogs, scripts, output artifacts, baseline methods. References are lookup material, not the main explanation path. If a reference grows a long explanation of why or how behavior works, move that explanation into a walkthrough or module page and keep the reference as a table/catalog. If a module page accumulates exhaustive tables, move those tables down into a reference page and leave only the plain explanation, representative example, source locator, and understanding caveats in the module page.
 
 Start each reference page with a one-sentence warning such as:
 
@@ -637,7 +621,7 @@ References should optimize for certainty and scan speed, not explanation flow.
 
 ## Evidence Standard
 
-Use one status family across the package (README, walkthroughs, modules, references, change map, Seed memory):
+Use one status family across the package (README, walkthroughs, modules, references, glossary, change-log, Seed memory):
 
 - **Confirmed / 已确认:** current repo evidence (code, tests, config, data, command output, artifacts) directly shows it.
 - **Inferred / 推断:** reasonable inference from inspected evidence, not directly asserted or tested.
@@ -662,27 +646,27 @@ Code and data statements require extra discipline:
 
 ## Follow-up Question Loop
 
-When the user asks a new question:
+Canonical pipeline: [SKILL.md](SKILL.md) Understanding sync — **interaction-driven**, not a post-hoc doc sprint.
 
-1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference docs.
+During the user ↔ coding agent conversation, when a repo question appears:
+
+1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference/glossary pages.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
-3. Decide whether the question reveals stable missing context. For transient run state, one-off debugging, or personal preference, answer in chat; record it in the guide when the user asks.
-4. Patch the smallest relevant doc section when stable guide content is missing or stale.
-5. If the question reveals a recurring concept, add it to `glossary.md`, `flows.md`, or a relevant reference according to its reader job.
-6. If it reveals an unresolved issue, add a short caveat beside the affected topic. Create a separate questions/risks file when the list is large enough to need its own owner.
-7. Answer the user with the conclusion and link to the updated doc.
+3. Ask whether the question means the guide should already have covered this; apply the stable-gap vs chat-only table.
+4. If stable: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
+5. Answer with the conclusion and a link to the updated section (or to the existing section if no patch was needed).
 
 ## Project Change Sync
 
-Use this when code, data, config, scripts, tests, docs, or project architecture changed after `repo-docs/` was written. If the current turn made those changes and `repo-docs/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
+Canonical pipeline: [SKILL.md](SKILL.md) Understanding sync — judged **per turn** while coding with the user.
 
-This is an impact check. Use it to ask "which reader understanding changed?" before touching files.
-
-When the repo is under git and a prior `change-log.md` recorded the last synced commit, start from `git diff <last-synced-sha>..HEAD`: the changed paths tell you which walkthroughs, concept pages, and references can be stale. Fall back to a full re-read only when no synced-commit marker exists.
+If this conversation changed code, data, config, scripts, tests, or architecture and `repo-docs/` exists, run the pipeline before the final response unless the user asked to leave docs untouched. Do not defer guide fixes to a later "sync session" when the thread already shows which reader model broke.
 
 ## Documentation Content Sync Alignment
 
-Use this strategy when the user asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. Act as a knowledge-base editor: review the whole knowledge system, merge repeated facts, correct stale facts, remove obsolete notes, and keep every reader-facing layer aligned with current code.
+Use this **widened-scope** strategy only when the user explicitly asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. Day-to-day guide maintenance still runs [Understanding sync](SKILL.md#understanding-sync) inside the coding conversation.
+
+Act as a knowledge-base editor: review the whole knowledge system, merge repeated facts, correct stale facts, remove obsolete notes, and keep every reader-facing layer aligned with current code.
 
 ### Knowledge layers
 
@@ -724,7 +708,7 @@ Also compare memory size against docs size when memory exists. Healthy projects 
 
 ### Inventory pass
 
-Before deciding what to change, enumerate the knowledge surface:
+Before deciding which guide pages to update, enumerate the knowledge surface:
 
 1. List agent memory files when the current platform has a memory layer.
 2. For each project touched by the conversation, list the project root.
@@ -778,7 +762,7 @@ For a new capability, cover four reader questions: how to use it, how it works, 
 
 ### Closeout summary
 
-After edits, summarize by changed layer:
+For **widened-scope sync**, handoff, and milestone closeouts—not first-time **Build** delivery (see [SKILL.md](SKILL.md) Build delivery). After edits, summarize by changed layer:
 
 ```text
 ## Sync Complete
@@ -801,9 +785,9 @@ After edits, summarize by changed layer:
 
 | Change type | Docs to check |
 | --- | --- |
-| New or renamed entrypoint/script | `README.md`, relevant walkthrough, `flows.md` for multi-phase changes, `change-map.md`, relevant concept page |
+| New or renamed entrypoint/script | `README.md`, relevant walkthrough, `flows.md` for multi-phase changes, relevant concept page |
 | Runtime/session/control-flow change | relevant walkthrough, `flows.md` or `flows/<topic>.md`, runtime concept page when needed, README route map |
-| New tool or changed tool args | `references/tools.md`, tool concept page when needed, `change-map.md`, glossary if term changed |
+| New tool or changed tool args | `references/tools.md`, tool concept page when needed, glossary if term changed |
 | Data/schema/task/config change | data/task concept page when needed, relevant reference doc, local caveat if uncertainty remains, `change-log.md` when user-facing |
 | Policy or metric change | policy/evaluation concept page when needed, metrics reference, main guide confidence/summary |
 | Memory method change | memory concept page when needed, method reference docs, artifacts reference if outputs changed |
@@ -815,22 +799,21 @@ After edits, summarize by changed layer:
 
 ### Sync checklist
 
-- [ ] If `repo-docs/` exists and source/data/config/test behavior changed, sync was considered before final response.
+- [ ] If `repo-docs/` exists and source/data/config/test behavior changed, Understanding sync ran before final response.
 - [ ] Every changed source area maps to a current doc or a local caveat beside the affected topic.
 - [ ] Module docs explain current concepts that readers actually need.
-- [ ] Main guide includes quick understanding, reproduce/run, and modify-safely reader paths.
+- [ ] Main guide includes quick understanding, reproduce/run, and verify paths.
 - [ ] Non-Seed repos include `walkthroughs/one-real-run.md`, linked from README.
-- [ ] Non-Seed repo-docs packages include `change-map.md`.
 - [ ] Walkthroughs trace real behavior in connected prose; no template `###` stack under every step; no duplicate closing sections that repeat the steps.
 - [ ] README orients the reader without repeating the walkthrough's full plain model.
 - [ ] Module docs deepen concepts without copying walkthrough paragraphs; link back instead.
 - [ ] If module pages exist, the README route map points readers to the useful concept pages.
 - [ ] Repo-root agent instruction files mention `repo-docs/` guide synchronization when they exist.
-- [ ] `change-map.md` is prospective and `change-log.md` is retrospective.
+- [ ] `change-log.md` entries include `Synced through <sha>` after meaningful sync work when git is available.
 - [ ] `change-log.md` entries use precise local timestamps with date, time, and timezone.
 - [ ] `change-log.md` is recent enough to scan; older entries are archived when needed.
 - [ ] If `flows.md` exists, it maps relationships between multiple paths, phases, states, or outputs instead of duplicating the main walkthrough; detailed flows live under `flows/<topic>.md` when useful.
-- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain plain concepts, representative examples, source locators, risks, and verification for transformations, lifecycle, and failure modes.
+- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain plain concepts, representative examples, source locators, and short understanding caveats or verify hooks when they clarify the mechanism.
 - [ ] Local Markdown links resolve.
 - [ ] Current facts are edited in place; historical notes are used for durable history.
 - [ ] Documentation content sync alignment ran when the user asked for sync, tidy, handoff, milestone closeout, memory refresh, or stale-doc repair.
@@ -844,8 +827,8 @@ The docs are good when a newcomer can answer these in about 15 minutes using the
 2. What is the shortest path to understand one real run?
 3. How do I reproduce or run the main experiment/workflow?
 4. Which concepts remain fuzzy after the walkthrough, and which ones deserve separate module pages?
-5. What data contracts or schemas are dangerous to break?
-6. Where would I change tasks, tools, prompts, metrics, outputs, or methods?
+5. What data contracts or schemas does the walkthrough depend on—and where are exact field names?
+6. After reading a concept page, what command or test would confirm I understood the mechanism?
 7. For research repos: what is the research question, method, metric, data contract, and baseline/ablation story?
 8. What caveats matter for the topic I am reading right now?
 9. For any important rule, contract, transformation, or lifecycle step, what is one concrete example that works and one edge case that fails?

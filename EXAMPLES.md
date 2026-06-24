@@ -4,7 +4,7 @@ Default output shapes and finished-page tone targets.
 
 **Canonical logic:** reader outcome, package layers, narrative beats, and prose rhythm live in [SKILL.md](SKILL.md) Content Organization. Page shapes and ownership live in [SKILL.md](SKILL.md) Page Design.
 
-See [Walkthrough Default](#walkthrough-default) and [Tone Target](#tone-target-a-full-narrative-page-english).
+See [Walkthrough Default](#walkthrough-default), [Module caveat example](#module-caveat-example), [Build Delivery Example](#build-delivery-example), and [Tone Target](#tone-target-a-full-narrative-page-english).
 
 ## Standard Non-Seed Structure
 
@@ -16,18 +16,56 @@ repo-docs/
   modules/
   references/
   glossary.md
-  change-map.md
   change-log.md
 ```
 
 Triggered pages such as more walkthroughs, `flows.md`, and `evidence-ledger.md` appear only when a reader problem needs them: multiple real behaviors, several policy cases, phase/state relationships, or a separate evidence table that would otherwise clutter the explanation path.
+
+## Build Delivery Example
+
+Use this as the tone target for the **user-facing reply** after Build—not as a page inside `repo-docs/`.
+
+### Small or Lite package (prose default)
+
+````markdown
+已在 `repo-docs/` 建好首版文档包。读者可以先跟通一条真实运行路径，再按需查概念或字段名，而不必先扫目录树。
+
+**先读这里：** [repo-docs/README.md](repo-docs/README.md) → [一条真实路径](repo-docs/walkthroughs/one-real-run.md)
+
+**本次包含：**
+- 主 walkthrough：消息进入 → 事件 → 审核决定
+- 根目录已新增 `AGENTS.md`，说明何时同步文档
+
+**范围：** Lite 结构；尚无独立 concept 页或 reference 表。  
+**检查：** `validate_repo_docs.py` — 0 errors。
+````
+
+### Standard package with several pages (optional narrow table)
+
+When modules and references make a bullet list hard to scan, add one table—still task-oriented, not a content dump.
+
+````markdown
+`repo-docs/` is ready. You can follow one message from arrival to a moderation decision, then drill into concepts or field names when needed.
+
+**Start here:** [repo-docs/README.md](repo-docs/README.md) → [one real run](repo-docs/walkthroughs/one-real-run.md)
+
+| File | Use it when | Read after |
+| --- | --- | --- |
+| `walkthroughs/one-real-run.md` | You need the end-to-end behavior trace | README |
+| `modules/events.md` | The event handoff is still fuzzy | the normalization phase in the walkthrough |
+| `references/message-schema.md` | You need exact field names | you understand why messages become events |
+| `glossary.md` | Project terms blur together | you have read the walkthrough once |
+
+**Scope:** Covers the inbox path only; admin CLI not documented separately.  
+**Checks:** validator 0 errors; created root `AGENTS.md`.
+````
 
 ## README Skeleton
 
 ````markdown
 # Project Name Repo Docs
 
-This project [what it does in one or two sentences]. [Why that matters / what real behavior proves it.] Follow [one real run from input to output](walkthroughs/one-real-run.md) to see the behavior before the code names make sense. To change behavior, start from [change-map.md](change-map.md). For exact field or command names, use the relevant page under `references/`.
+This project [what it does in one or two sentences]. [Why that matters / what real behavior proves it.] Follow [one real run from input to output](walkthroughs/one-real-run.md) to see the behavior before the code names make sense. For exact field or command names, use the relevant page under `references/`.
 
 Evidence status: Confirmed unless noted.
 ````
@@ -45,13 +83,13 @@ Default shape for `walkthroughs/one-real-run.md`—connected prose, one `##` per
 
 ## [First behavior phase]
 
-[What happens—in normal prose, including cause and effect. Weave paths and functions into sentences: message shape is fixed in `path/to/normalize.py`; later policy code reads that output only.]
+[What happens—in normal prose, including cause and effect. Weave paths and functions into sentences. When this phase introduces a durable concept, link to the matching module in the same paragraph—e.g. if [why the event exists](../modules/events.md) is still fuzzy after this step.]
 
 ## [Next behavior phase]
 
 [Connected prose for the next phase.]
 
-[Closing: end state after the run, one verify command for the whole path, links to concept pages or change-map if still useful.]
+[Closing: end state after the run, one verify command for the whole path, links to concept pages or references if still useful.]
 
 ```bash
 pytest path/to/tests -q
@@ -96,7 +134,7 @@ Use this only when the walkthrough is long (roughly past 120 lines) or one phase
 
 ## Module Doc Skeleton
 
-Default module shape—one coherent prose block; link to `change-map.md` for change work.
+Default module shape—one coherent prose block; weave edit-order caveats only when they clarify the mechanism.
 
 ````markdown
 # [Readable Concept]
@@ -110,7 +148,7 @@ Default module shape—one coherent prose block; link to `change-map.md` for cha
 ...
 ```
 
-[Where to edit: weave `path/to/file` and `function` into a sentence. Change goals and checks: [change-map.md](../change-map.md).]
+[Where the concept lives: weave `path/to/file` and `function` into a sentence. If edit order matters for understanding, say why in the same paragraph.]
 
 Evidence status: Confirmed unless noted.
 ````
@@ -126,6 +164,22 @@ This is lookup material. Read the walkthrough first if the behavior is not clear
 | --- | --- | --- |
 
 Evidence status: Confirmed unless a row says otherwise.
+````
+
+## Root AGENTS.md Skeleton
+
+Create at the **repository root** when no `AGENTS.md`, `CLAUDE.md`, or equivalent agent instruction file exists and you are adding or materially updating `repo-docs/`. If a root agent file already exists, patch that file instead—do not create a second one.
+
+````markdown
+# Agent Instructions
+
+## Repo docs
+
+The living project guide is in `repo-docs/`. Start from `repo-docs/README.md`, then follow `repo-docs/walkthroughs/one-real-run.md` for the main behavior trace.
+
+Before answering repo-architecture, onboarding, or "how does this work" questions, read the relevant guide pages. If the guide is missing, stale, or wrong for current source, update `repo-docs/` in the same turn, then answer from evidence.
+
+During coding with the user: when behavior changes or a question shows the guide did not build the right model, judge whether to patch `repo-docs/` before finishing the turn. Record meaningful guide work in `repo-docs/change-log.md`.
 ````
 
 ## Mini Style Example
@@ -163,7 +217,7 @@ These read as truthful because they name an action, an observation, and the limi
 
 This project turns incoming messages into review decisions. The core idea is simple: a raw message first becomes a stable event. Policy code reads that event and decides whether a human needs to look.
 
-Follow [one message from arrival to review decision](walkthroughs/one-real-run.md) for the full path. To change review rules, start from [change-map.md](change-map.md). Field names live in [message schema](references/message-schema.md).
+Follow [one message from arrival to review decision](walkthroughs/one-real-run.md) for the full path. Field names live in [message schema](references/message-schema.md).
 ````
 
 ### Walkthrough Step (Flat Default)
@@ -193,7 +247,7 @@ event = normalize_message(sender="alice", channel="chat", body="  hello  ")
 # event => {"sender": "alice", "channel": "chat", "body": "hello", "created_at": ...}
 ```
 
-Change field names or normalization rules in `src/messages/normalize.py` and `src/messages/schema.py` before touching `src/policy/checks.py`. Change goals and verification: [change-map.md](../change-map.md).
+Change field names or normalization rules in `src/messages/normalize.py` and `src/messages/schema.py` before touching `src/policy/checks.py`—policy code assumes the normalized event shape.
 
 Evidence status: Confirmed unless noted.
 ````
@@ -215,15 +269,36 @@ This is lookup material. Read [one-real-run.md](../walkthroughs/one-real-run.md)
 Evidence status: Confirmed unless a row says otherwise.
 ````
 
-### Change Map Example
+### Glossary row
+
+Three columns: **Term | Plain meaning | Further reading**. Code pointers and common confusion belong inside Plain meaning.
 
 ````markdown
-# Change Map
+| Term | Plain meaning | Further reading |
+| --- | --- | --- |
+| Event | Stable handoff after normalization; policy reads this record, not the raw message. Lives in `normalize.py` / `schema.py`. Often confused with the incoming message. | — |
+| OTLP | Trace export format this repo uses; spans leave through the configured OTLP endpoint (`OTEL_EXPORTER_OTLP_ENDPOINT`). Not the same path as Prometheus scrape. | Inferred — [OTLP spec](https://opentelemetry.io/docs/specs/otlp/) |
+````
 
-| Goal | Concept to understand | Files to inspect | Reference | Risk | Verification |
-| --- | --- | --- | --- | --- | --- |
-| Add a new message field | [Events](modules/events.md) | `src/messages/schema.py`, `src/messages/normalize.py` | [message schema](references/message-schema.md) | Policy code may assume the old event shape | `pytest tests/test_message_normalization.py tests/test_policy.py -q` |
-| Change review rules | event vs decision | `src/policy/checks.py` | [policy fields](references/policy-fields.md) | Normalization tests may pass while policy behavior changes | `pytest tests/test_policy.py -q` |
+### Module caveat example
+
+When edit order or assumptions matter for **understanding** the mechanism, weave a short caveat into the module page—do not create a separate change-plan page.
+
+````markdown
+# Events
+
+An event is the stable handoff between input code and decision code. Policy reads the normalized event, not the raw message.
+
+The conversion lives in `src/messages/normalize.py` and `src/messages/schema.py`. If you are tracing why a field is missing in policy output, confirm the event record first—`src/policy/checks.py` assumes normalization already happened.
+
+```python
+event = normalize_message(raw_message)
+decision = apply_policy(event)
+```
+
+You saw this handoff in [one-real-run.md](../walkthroughs/one-real-run.md) when the incoming message became a normalized record. Field names: [message schema](../references/message-schema.md).
+
+Evidence status: Confirmed unless noted.
 ````
 
 ## Chinese Full-Page Style Example
@@ -249,7 +324,7 @@ Fictional tone target—not real project evidence. Replace paths, functions, fie
 
 事件固定下来之后，规则代码才开始判断这条消息是否需要人工审核。它读的是事件字段，不再回头看原始消息。规则在 `src/policy/checks.py`。
 
-跑下面命令可验证整条路径；改动目标和风险见 [change-map.md](change-map.md)。
+跑下面命令可验证整条路径。
 
 ```bash
 pytest tests/test_pipeline.py -q
@@ -273,14 +348,14 @@ event = normalize_message(sender="alice", channel="chat", body="  hello  ")
 # event => {"sender": "alice", "channel": "chat", "body": "hello", "created_at": ...}
 ```
 
-改字段名或清洗规则应先动 `src/messages/normalize.py` 和 `src/messages/schema.py`，再动 `src/policy/checks.py`。改动目标与验证见 [change-map.md](../change-map.md)。
+若你在追「为什么策略输出里缺某个字段」，先确认事件记录是否已包含该字段——`src/policy/checks.py` 默认规范化已在 `src/messages/normalize.py` 和 `src/messages/schema.py` 完成。
 
 证据状态：除特别标注外，本页基于当前源码已确认。
 ````
 
 ## Explanation Pass Example
 
-Use this as an internal checklist, or render it when it helps future maintainers.
+Use this as an internal coverage checklist, or render it when scoping which concepts still need a readable home.
 
 | Reader moment | Plain concept | Optional concept page | Exact lookup | Verification |
 | --- | --- | --- | --- | --- |
@@ -291,11 +366,11 @@ Use this as an internal checklist, or render it when it helps future maintainers
 ## Markdown Display Patterns
 
 - Each durable fact lives in one best home; other pages link to it.
-- Walkthrough: behavior-named `##` headings, paths and checks woven into prose, one verify block at page end, routes at opening/closing or first concept mention.
+- Walkthrough: behavior-named `##` headings; link to the matching `modules/<concept>.md` in the phase where that concept appears; add a small flowchart when phases or branches are hard to follow in prose alone; one verify block at page end.
 - README: opening prose with in-text routes; optional `## Reader Routes` table for large packages.
-- Module: plain model and code model in prose + snippet; link `change-map.md` for change work.
+- Module: plain model and code model in prose + snippet; weave edit-order caveats when they clarify understanding.
 - Reference: lookup warning plus table; narrative stays in walkthrough or module.
-- Mermaid and tables support prose; the paragraph still carries the reasoning.
+- Mermaid and tables support prose; the paragraph still carries the reasoning. Use a flowchart when it teaches the model, not when it only repeats the file tree.
 - Every behavior claim points to a test, command, artifact, schema, or source locator.
 
 ## Relationship Map Trigger Example
@@ -330,8 +405,8 @@ These pairs apply the writing standard. The "before" lines are technically corre
 - After: Validation runs first so the rest of the chain can assume a well-formed event. Normalization then collapses the format variants into one shape, which is what lets the policy step stay short: it only ever sees normalized fields.
 
 **Bare locator to an articulated locator**
-- Before: To change scoring, edit `score.py`.
-- After: Scoring lives in `score.py:compute_score`, the one place the weight table and the denominator meet; change the weights there and both the API and the report pick them up.
+- Before: Scoring is in `score.py`.
+- After: Scoring lives in `score.py:compute_score`, where the weight table and denominator meet—if those two disagree, every downstream report reads the wrong score even when the API returns 200.
 
 ## Tone Target: A Full Narrative Page (English)
 
@@ -346,7 +421,7 @@ A message arrives from a user, and a moment later the system has decided to allo
 
 A raw message is whatever the client sent. The system converts it into one normalized event so everything downstream shares one shape. After this step, no later code reads the raw message again—a field missing here is missing for every check that follows.
 
-Conversion lives in `ingest/normalize.py:to_event`; that is the single place to change message shape before policy runs.
+Conversion lives in `ingest/normalize.py:to_event`; that is where the message becomes the single event shape policy code reads.
 
 ## The event runs past the checks
 
@@ -358,7 +433,7 @@ After the run, the system holds one decision record for review history and the U
 pytest tests/test_pipeline.py -q
 ```
 
-Change goals and risks: [change-map.md](change-map.md).
+If edit order matters: say why in the module paragraph (for example, normalize before policy).
 
 Evidence status: Confirmed unless noted.
 ````

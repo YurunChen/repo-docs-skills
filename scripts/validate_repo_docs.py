@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Validate a generated repo-docs package.
 
-Conservative checks for structure, links, routing, and drift toward mechanical
-templates or duplicate closing sections. Does not score prose quality or enforce
-minimal heading counts.
+Conservative checks for structure, links, routing, sync anchors, glossary coverage,
+sync freshness hints, and drift toward mechanical templates.
 """
 
 from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,13 +19,11 @@ REQUIRED_NON_SEED_FILES = [
     "README.md",
     "walkthroughs/one-real-run.md",
     "glossary.md",
-    "change-map.md",
     "change-log.md",
 ]
 REQUIRED_NON_SEED_DIRS = ["modules", "references"]
 REQUIRED_SEED_FILES = [
     "README.md",
-    "change-map.md",
     "change-log.md",
     "glossary.md",
     "references/decisions.md",
@@ -33,7 +31,6 @@ REQUIRED_SEED_FILES = [
 REQUIRED_LITE_FILES = [
     "README.md",
     "walkthroughs/one-real-run.md",
-    "change-map.md",
     "change-log.md",
 ]
 LOCAL_LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -95,6 +92,15 @@ PATH_IN_PROSE_PATTERN = re.compile(
     r"`[^`\n]*(?:/|\\)[^`\n]*\.(?:py|js|ts|tsx|go|rs|java|rb|md|json|ya?ml|toml)[^`\n]*`",
     re.IGNORECASE,
 )
+SYNC_ANCHOR_PATTERN = re.compile(
+    r"Synced through\s+([0-9a-f]{7,40})|同步至\s+([0-9a-f]{7,40})",
+    re.IGNORECASE,
+)
+SOURCE_FILE_IN_TOKEN = re.compile(
+    r"\.(py|js|ts|tsx|go|rs|java|rb|json|ya?ml|toml|md)\b",
+    re.IGNORECASE,
+)
+LOWERCASE_IDENTIFIER = re.compile(r"^[a-z_][a-z0-9_]*$")
 
 
 @dataclass
@@ -183,7 +189,6 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
     findings: list[Finding] = []
     readme = root / "README.md"
     walkthrough = root / "walkthroughs" / "one-real-run.md"
-    change_map = root / "change-map.md"
 
     if readme.is_file():
         text = read_text(readme)
@@ -244,15 +249,6 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
         if "<details" in text.lower() and STEP_PATTERN.search(text):
             findings.append(Finding("WARN", "Main walkthrough uses <details>; confirm the main explanation path is not hidden"))
 
-    if change_map.is_file():
-        text = read_text(change_map)
-        if not lite and "modules/" not in text:
-            findings.append(Finding("WARN", "change-map.md does not point readers to any concept page under modules/"))
-        if not lite and "references/" not in text:
-            findings.append(Finding("WARN", "change-map.md does not point future changes to references/"))
-        if not re.search(r"verify|verification|pytest|test|检查|验证|命令", text, re.IGNORECASE):
-            findings.append(Finding("ERROR", "change-map.md does not include verification language"))
-
     flows = root / "flows.md"
     if flows.is_file():
         text = read_text(flows).lower()
@@ -263,6 +259,138 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
             findings.append(Finding("ERROR", "flows.md exists but the main walkthrough is missing"))
 
     return findings
+
+
+def last_sync_sha(change_log_text: str) -> str | None:
+    matches = list(SYNC_ANCHOR_PATTERN.finditer(change_log_text))
+    if not matches:
+        return None
+    match = matches[-1]
+    return match.group(1) or match.group(2)
+
+
+def narrative_markdown_paths(root: Path) -> list[Path]:
+    paths: list[Path] = []
+    for relative in ("README.md", "walkthroughs/one-real-run.md"):
+        path = root / relative
+        if path.is_file():
+            paths.append(path)
+    modules = root / "modules"
+    if modules.is_dir():
+        paths.extend(sorted(modules.glob("*.md")))
+    return paths
+
+
+def cited_source_paths(root: Path) -> set[str]:
+    cited: set[str] = set()
+    for path in narrative_markdown_paths(root):
+        text = FENCE_PATTERN.sub("", read_text(path))
+        for match in INLINE_CODE_PATTERN.finditer(text):
+            token = match.group(1).strip().split(":", 1)[0].replace("\\", "/")
+            if SOURCE_LOCATOR_PATTERN.match(token) or ("/" in token and SOURCE_FILE_IN_TOKEN.search(token)):
+                cited.add(token)
+    return cited
+
+
+def git_diff_paths(repo_root: Path, since_sha: str) -> set[str] | None:
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--name-only", f"{since_sha}..HEAD"],
+            cwd=repo_root,
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return None
+    if result.returncode != 0:
+        return None
+    return {line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()}
+
+
+def paths_overlap(cited: str, changed: str) -> bool:
+    if cited == changed:
+        return True
+    if cited.startswith(changed + "/") or changed.startswith(cited + "/"):
+        return True
+    return False
+
+
+def check_change_log_anchor(root: Path) -> list[Finding]:
+    path = root / "change-log.md"
+    if not path.is_file():
+        return []
+    text = read_text(path)
+    if len(text.strip()) < 80:
+        return []
+    if SYNC_ANCHOR_PATTERN.search(text):
+        return []
+    return [
+        Finding(
+            "WARN",
+            "change-log.md has no Synced through <sha> / 同步至 <sha> anchor; add one after each sync for incremental updates",
+        )
+    ]
+
+
+def check_sync_freshness(root: Path, repo_root: Path) -> list[Finding]:
+    change_log = root / "change-log.md"
+    if not change_log.is_file():
+        return []
+    sha = last_sync_sha(read_text(change_log))
+    if not sha:
+        return []
+    changed = git_diff_paths(repo_root, sha)
+    if changed is None or not changed:
+        return []
+    cited = cited_source_paths(root)
+    stale = sorted({cited_path for cited_path in cited if any(paths_overlap(cited_path, diff_path) for diff_path in changed)})
+    if not stale:
+        return []
+    preview = ", ".join(stale[:8])
+    suffix = "..." if len(stale) > 8 else ""
+    return [
+        Finding(
+            "WARN",
+            f"source changed since last sync anchor ({sha[:7]}); review narrative pages citing: {preview}{suffix}",
+        )
+    ]
+
+
+def check_glossary_coverage(root: Path) -> list[Finding]:
+    glossary = root / "glossary.md"
+    if not glossary.is_file():
+        return []
+    glossary_text = read_text(glossary).lower()
+    counts: dict[str, int] = {}
+    for path in narrative_markdown_paths(root):
+        if path.name == "README.md":
+            continue
+        text = FENCE_PATTERN.sub("", read_text(path))
+        for match in INLINE_CODE_PATTERN.finditer(text):
+            token = match.group(1).strip()
+            if "/" in token or SOURCE_FILE_IN_TOKEN.search(token):
+                continue
+            if LOWERCASE_IDENTIFIER.match(token):
+                continue
+            if len(token) < 3 or len(token) > 48:
+                continue
+            counts[token] = counts.get(token, 0) + 1
+
+    findings: list[Finding] = []
+    for term, count in sorted(counts.items(), key=lambda item: (-item[1], item[0])):
+        if count < 2:
+            continue
+        if term.lower() in glossary_text:
+            continue
+        findings.append(
+            Finding(
+                "WARN",
+                f"glossary.md has no entry for `{term}` (appears {count}x in narrative pages); add a row if readers confuse it",
+            )
+        )
+    return findings[:5]
 
 
 def contains_any(text: str, needles: list[str]) -> bool:
@@ -523,9 +651,14 @@ def main() -> int:
         findings.extend(check_source_truth_hints(root))
         findings.extend(check_reading_experience(root))
         findings.extend(check_scent(root))
+        findings.extend(check_change_log_anchor(root))
+        if not args.lite:
+            findings.extend(check_glossary_coverage(root))
     if args.repo_root is not None:
         if args.repo_root.is_dir():
             findings.extend(check_source_locators(root, args.repo_root))
+            if not args.seed:
+                findings.extend(check_sync_freshness(root, args.repo_root))
         else:
             findings.append(Finding("ERROR", f"--repo-root is not a directory: {args.repo_root}"))
 
