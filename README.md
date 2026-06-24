@@ -103,7 +103,7 @@ Give this project link to your coding agent:
 
 ```text
 Install the repo-docs skill from this project:
-https://github.com/YurunChen/Repo-Docs
+https://github.com/YurunChen/repo-docs-skills
 
 Make both repo-docs and repo-docs-zh available in my agent skill directory.
 ```
@@ -123,7 +123,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 Then invoke it naturally:
 
 ```text
-Create Chinese repo docs for this repository.
+Use the repo-docs skill to create docs for this repository.
 ```
 
 ## Modes
@@ -252,5 +252,5 @@ helps others find it.
   <p><strong>Repo-Docs:</strong> Keep up with the code your agents write.</p>
   <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
   <p><em>Thanks for visiting Repo-Docs.</em></p>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.repo-docs-skills" alt="visitors" />
 </div>
