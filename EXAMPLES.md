@@ -468,3 +468,69 @@ Create `flows.md` only when the reader needs to compare several paths or states:
 - state before feedback vs state after feedback
 
 Do not create `flows.md` when `one-real-run.md` already explains the only meaningful path.
+
+## Voice: From AI-Tell To Human Narration
+
+These pairs apply the writing standard. The "before" lines are technically correct but read like a generated report; the "after" lines read like a maintainer thinking out loud while showing you the code. Use them as tone targets, not as text to copy.
+
+**Broad praise to a concrete claim**
+- Before: The pipeline is a powerful and robust system that seamlessly handles incoming events.
+- After: Every incoming event goes through the same three steps, so a malformed payload fails in one place instead of halfway down the pipeline.
+
+**"Not X but Y" to a direct positive claim**
+- Before: This is not a queue but a log; consumers do not pop messages but read by offset.
+- After: Consumers read by offset and the log keeps the message, so two consumers can read the same event without racing.
+
+**File index to behavior with reasoning**
+- Before: `router.py` routes requests, `handler.py` handles them, and `store.py` stores results.
+- After: A request lands in the router, which picks a handler by path; the handler does the work and hands the result to the store. When a route returns 404, the router is the first place to look, because it chooses the handler before any handler runs.
+
+**Clipped facts to narration with a transition**
+- Before: Validation runs first. Then normalization. Then policy. Then write.
+- After: Validation runs first so the rest of the chain can assume a well-formed event. Normalization then collapses the format variants into one shape, which is what lets the policy step stay short: it only ever sees normalized fields.
+
+**Bare locator to an articulated locator**
+- Before: To change scoring, edit `score.py`.
+- After: Scoring lives in `score.py:compute_score`, the one place the weight table and the denominator meet; change the weights there and both the API and the report pick them up.
+
+## Tone Target: A Full Narrative Page (English)
+
+Written as a finished page, like the Chinese example above, to set the voice for `walkthroughs/one-real-run.md`. Notice that the paragraphs carry reasoning and transitions, the onward link names what the reader gains, and the source locator says why this is the place to change.
+
+````markdown
+# One real run: how a message becomes a moderation decision
+
+## What you are looking at
+
+A message arrives from a user, and a moment later the system has decided to allow it, hold it, or block it. This page follows one such message from the moment it lands to the decision that gets written down. You do not need any file names yet; we reach for them only where they help you see where a step happens.
+
+## Plain model
+
+The system treats every message the same way: it turns the raw message into a normalized event, runs that event past a set of policy checks, and records the strictest decision any check returned. The decision is a fact the system stores, not a side effect it forgets. Hold that shape in mind and the code will feel familiar when we reach it.
+
+## Step 1: the message becomes an event
+
+A raw message is whatever the client sent, in whatever shape that client happens to use. The first thing the system does is convert it into one normalized event, so everything downstream can stop worrying about client quirks.
+
+> **Notice:** after this step, no later code looks at the raw message again. A field missing here is missing for every check that follows.
+
+You might expect the checks to read the raw message directly and save a step. They do not, because then every check would have to handle every client format, and a new client would mean editing every check. Normalizing once keeps the checks small.
+
+**Source locator.** The conversion is in `ingest/normalize.py:to_event`. This is the right place to change message shape, because it is the single point where raw fields become the event the rest of the system trusts.
+
+## Step 2: the event runs past the checks
+
+Each check looks at the event and returns one of allow, hold, or block. The system does not stop at the first hit; it runs them all and then keeps the strictest result, so one strict check cannot be hidden by a lenient one that happened to run later.
+
+**Source locator.** The checks live in `policy/checks.py`; the strictest-wins combination is `policy/decide.py:resolve`. Change how results combine in `resolve`, not in the individual checks, or two checks will start disagreeing about precedence.
+
+## What changes
+
+After the run, the system holds one decision record for this message: the event, the decision, and which check set it. That record is what the next reader, the audit log, and the UI all read from.
+
+## Verification
+
+Run `pytest tests/test_pipeline.py -q`. Expect the strict-message case to end in `block` and the clean-message case to end in `allow`.
+
+When the way several checks collapse into one decision stays fuzzy, read how the strictest-wins rule works in [the decision concept page](../modules/decision.md).
+````
