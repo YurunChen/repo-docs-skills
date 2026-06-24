@@ -1,13 +1,13 @@
 <div align="center">
   <h1>
     <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
-    Repo-Docs:
+    Repo-Docs
   </h1>
   <h3>让你跟得上 agent 写出来的代码。</h3>
 </div>
 
 <p align="center">
-  Vibe coding 让项目长得很快。Repo-Docs 把解释、决策、进度和下一步放回仓库，贴着代码一起走。
+  Repo-Docs 把快速变化的仓库整理成有证据的 Markdown 文档：先帮人建立可读心智模型，再逐步给出源码定位、reference 契约、改动风险和验证方法。
 </p>
 
 <p align="center">
@@ -17,52 +17,67 @@
 
 ---
 
-## 最新更新
-
-> 新版以真实 walkthrough 为入口，默认输出到根目录 `repo-docs/`，支持中文文档，也支持空项目的 Seed 模式。
-> 如果 Repo-Docs 帮你跟上 agent 写出来的项目，欢迎给这个项目一个 star 🌟。
-
 ## Repo-Docs 是什么？
 
-Vibe coding 让代码出现得很快。文件变了，决策变了，下一步也变了；但为什么这么改、哪些已经确定、哪些只是计划，常常还留在聊天记录里。几轮会话之后，项目还能跑，用户却不一定还能完整说清它为什么长成这样。
+Vibe coding 会让代码变化得很快，用户的项目理解容易跟不上。`repo-docs` 是一个 Codex skill，用来把项目理解贴回源码事实：先沿一条真实 workflow 讲清楚行为，再用可读概念页降低理解成本，最后给出精确 reference、改动地图和验证路径。
 
-`repo-docs` 做的事很简单：降低用户和 vibe coding 代码之间的理解差距。它让 coding agent 在工作过程中持续维护 `repo-docs/` 文档，并先从一条真实 walkthrough 讲起：用户能观察到什么，代码、数据和状态怎么走，改了什么，为什么改，什么已经决定，什么只是计划，什么还没验证。
+默认产物是 `repo-docs/` 里的 Markdown 文档。HTML 或课程材料不是默认输出。
 
-## 为什么需要它？
+## 当前契约
 
-| 没有 `repo-docs` | 使用 `repo-docs` |
+| 原则 | 含义 |
 | --- | --- |
-| 代码变得比你理解得更快 | 解释贴着代码留在仓库里 |
-| 决策散落在聊天记录里 | 决策留在仓库里 |
-| 进度靠人回忆 | 里程碑记录在 `change-log.md` |
-| 计划和事实混在一起 | 计划、决定、已实现、未确认分开 |
-| 再回到项目时要重新读一遍 | `repo-docs/` 告诉你当前项目状态 |
+| walkthrough first | 非 Seed 项目必须用 `walkthroughs/one-real-run.md` 讲一条真实行为路径。 |
+| 可读性第一 | 每篇页面先用人话解释行为，再在读者需要行动时引入代码名词。 |
+| 教学检查 | README、walkthrough、module 和 change-map 都要先建立心智模型，再引入密集代码名词。 |
+| Markdown 展示 | 标题、提示块、表格、代码块、图和折叠区都服务理解节奏。 |
+| reference discipline | 字段、命令、schema、artifact、metric、工具参数等高密度信息放进 `references/`，不要塞进教学正文。 |
+| 证据诚实 | 没有检查过的代码和数据 claim 不能写成事实，要标成推断、计划中或未确认。 |
+| relationship map 按触发生成 | `flows.md` 只用于多 workflow、多阶段、多状态或多输出关系图，不能替代主 walkthrough。 |
 
-## 核心能力
+## 输出结构
 
-| 它维护 | 你可以 |
-| --- | --- |
-| repo docs | 看懂这个 repo 现在是什么、怎么运转 |
-| 真实 walkthrough | 沿着一个命令、请求、任务或失败路径走到底 |
-| 进度记录 | 看到改了什么、为什么改 |
-| 变更地图 | 知道下一步做什么、怎么检查 |
-
-## 快速开始
-
-### 自然语言安装
-
-把项目链接交给你的 coding agent：
+非 Seed 项目标准结构：
 
 ```text
-Install the repo-docs skill from this project:
-https://github.com/YurunChen/Repo-Docs
-
-Make both repo-docs and repo-docs-zh available in my agent skill directory.
+repo-docs/
+  README.md
+  walkthroughs/
+    one-real-run.md
+  modules/
+  references/
+  glossary.md
+  change-map.md
+  change-log.md
 ```
 
-### 命令安装
+Seed 项目在真实运行证据出现前，只写状态化项目记忆：
 
-在项目目录下执行：
+```text
+repo-docs/
+  README.md
+  change-map.md
+  change-log.md
+  glossary.md
+  references/
+    decisions.md
+```
+
+## 教学模型
+
+读者先理解行为，再接触代码名词：README 和 walkthrough 保持低代码密度，module 页用一个概念、一个真实例子和源码定位降低理解成本，reference 承担高密度查表。完整教学规则和 Markdown 展示协议见 [SKILL.md](SKILL.md) 和 [REFERENCE.md](REFERENCE.md)。
+
+## 工作模式
+
+| 模式 | 适用场景 | 输出重点 |
+| --- | --- | --- |
+| Seed | 项目刚开始或几乎没有代码 | 目标、决策、计划、未知项 |
+| Build | 项目需要第一版 repo docs | 真实 walkthrough、可读心智模型、概念页、references |
+| Sync | 代码、文档、数据、脚本或实验变了 | 当前文档和源码事实同步 |
+| Cleanup / removal | 用户要求删除生成文档 | 删除文档和过期根规则 |
+| Question refinement | 一个问题暴露稳定文档缺口 | 先补可复用文档，再基于证据回答 |
+
+## 安装
 
 ```bash
 mkdir -p ~/.agents/skills/repo-docs
@@ -71,86 +86,39 @@ mkdir -p ~/.agents/skills/repo-docs-zh
 cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 ```
 
-安装后可以这样使用：
+使用：
 
 ```text
-请为这个项目创建中文 repo docs。
+使用 repo-docs-zh skill 为这个项目创建中文 repo docs。
 ```
 
-## 工作模式
+## 验证
 
-| 模式 | 适用场景 | 输出重点 |
-| --- | --- | --- |
-| Seed | 项目刚开始或几乎没有代码 | 目标、决策、计划、未知项 |
-| Build | 项目需要第一版 repo docs | 一条真实 walkthrough、模块地图、关键契约 |
-| Sync | 代码、文档、数据、脚本或实验变了 | 当前文档和源码事实同步 |
-| Question refinement | 一个问题暴露文档缺口 | 先补文档，再基于证据回答 |
+本包包含一个轻量验证脚本：
 
-## 示例 Prompt
-
-项目第一次建立文档时，可以明确调用一次：
-
-```text
-使用 repo-docs skill 为这个项目创建文档。
+```bash
+python scripts/validate_repo_docs.py /path/to/repo-docs
 ```
 
-之后正常对话即可。coding agent 应该在代码变化、架构问题、说明过期或阶段交接
-时自行判断是否需要同步 `repo-docs/`、`change-log.md`、`change-map.md` 和
-项目里的 agent 规则文件。
+它检查标准结构、本地链接、主 walkthrough 路由、教学小节提示、change-map 验证语言、reference 漂移，以及 `flows.md` 是否被误用。
 
-## 输出结构
+## 文件说明
 
-默认输出是生成在 `repo-docs/` 目录下的 Markdown 文档包：
-
-```text
-repo-docs/
-  README.md
-  walkthroughs/
-    one-real-run.md      # 非 Seed 项目默认需要
-  glossary.md
-  flows.md              # 可选，用于多路径/多状态总图
-  change-map.md
-  change-log.md
-  modules/
-  references/
-```
-
-空项目生成的文档会更轻量：
-
-```text
-repo-docs/
-  README.md
-  change-map.md
-  change-log.md
-  glossary.md                 # optional
-  references/
-    decisions.md              # optional
-```
+| 文件 | 用途 |
+| --- | --- |
+| `SKILL.md` | 核心 workflow 和硬约束。 |
+| `REFERENCE.md` | 详细写作标准、页面类型、同步规则和质量检查。 |
+| `EXAMPLES.md` | 可复用输出模板、教学示例和 Markdown 展示反模式。 |
+| `repo-docs-zh/SKILL.md` | 中文语言覆盖层。 |
+| `scripts/validate_repo_docs.py` | 本地 repo-docs 文档包验证脚本。 |
 
 ## 质量标准
 
-好的 `repo-docs/` 文档应该在会话结束后仍然有用。新读者应该能通过它理解项目目标，从一个可观察入口追踪到输出或产物，识别关键契约，并知道下一步改哪里、怎么验证。
-
-重要结论需要标明可信度：
-
-- `Confirmed`：有源码、测试、配置、数据、文档或产物支撑
-- `Inferred`：由附近证据推断，并明确标记为推断
-- `Unknown` / `未确认`：尚未验证
-
-## 致谢
-
-- [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
-- [neat-freak](https://github.com/KKKKhazix/khazix-skills)
-
-## 支持
-
-如果 Repo-Docs 帮你跟上 agent 写出来的代码，欢迎给这个 repo 一个 star 🌟。
+好的 repo-docs 文档包应该让新读者不用先打开源码，就能说清项目问题、沿一条真实路径走到输出、理解路径里出现的关键概念、查到精确契约，并知道改动风险和验证方法。
 
 ---
 
 <div align="center">
-  <p><strong>Repo-Docs:</strong> 让你跟得上 agent 写出来的代码。</p>
   <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
-  <p><em>感谢访问 Repo-Docs。</em></p>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
+  <p><strong>Repo-Docs:</strong> 让你跟得上 agent 写出来的代码。</p>
 </div>
