@@ -1,9 +1,8 @@
 <div align="center">
   <h1>
     <img src="assets/logo.png" height="64" alt="Repo-Docs logo" />
-    Repo-Docs:
+    Repo-Docs: Keep up with the code your agents write.
   </h1>
-  <h3>Keep up with the code your agents write.</h3>
 </div>
 
 <p align="center">
