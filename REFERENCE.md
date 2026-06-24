@@ -2,15 +2,7 @@
 
 ## Positioning
 
-`repo-docs` has a focused documentation contract:
-
-| Area | repo-docs | repo-tour |
-| --- | --- | --- |
-| Default output | Markdown documentation pack | Full HTML knowledge pack |
-| Graph | Available when it helps the reader | Required for code architecture facts |
-| Goal | Maintainable human docs | Complete interactive tour |
-| Iteration | User Q&A continuously improves docs | Regenerate or patch a tour artifact |
-| Best for | Onboarding, project understanding, living notes | Deep review, visual architecture tour, archival artifact |
+`repo-docs` is a Markdown documentation pack under `repo-docs/` in the repository. It explains the project in plain technical language, follows one real behavior end to end, deepens named concepts in `modules/`, and keeps exact names in `references/`. The guide is maintained during coding conversations—not regenerated as a separate doc pass.
 
 ## Explanation Design
 

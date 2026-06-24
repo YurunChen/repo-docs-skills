@@ -70,10 +70,10 @@ A normal coding-agent session becomes a documentation loop:
 
 ```mermaid
 flowchart LR
-  A["User asks or agent changes repo"] --> B["Check current files"]
+  A["User asks or agent changes repo"] --> B["Understanding sync check"]
   B --> C["Update README and walkthrough"]
   B --> D["Update change-log"]
-  B --> E["Update change-map"]
+  B --> E["Patch modules / glossary / references"]
   B --> F["Update AGENTS.md / CLAUDE.md"]
   C --> G["User can read the current project"]
   D --> G
@@ -90,8 +90,7 @@ After a milestone, Repo-Docs leaves the repo easier to continue:
 | `repo-docs/modules/` | Deeper explanation of concepts the walkthrough names |
 | `repo-docs/references/` | Exact names, fields, commands, and contracts |
 | `repo-docs/glossary.md` | Plain meanings for repeated project terms |
-| `repo-docs/change-log.md` | What changed, why, and how it was verified |
-| `repo-docs/change-map.md` | Next edits, likely files, risks, and checks |
+| `repo-docs/change-log.md` | What changed, why, sync anchors, and how it was verified |
 | `AGENTS.md` / `CLAUDE.md` | Rules for the next coding agent |
 
 ## Quick Start
@@ -146,8 +145,8 @@ Use the repo-docs skill to create docs for this repository.
 
 After that, keep working naturally. During normal conversations, the agent
 should decide when code changes, architecture questions, stale explanations, or
-milestone handoffs require updating `repo-docs/`, `change-log.md`,
-`change-map.md`, and repo agent instructions.
+milestone handoffs require updating `repo-docs/`, `change-log.md`, and repo
+agent instructions.
 
 ## What It Produces
 
@@ -161,7 +160,6 @@ repo-docs/
     one-real-run.md      # required for non-Seed repos
   glossary.md
   flows.md              # optional cross-workflow/state map
-  change-map.md
   change-log.md
   modules/
   references/
@@ -172,7 +170,6 @@ For seed projects, the generated docs stay smaller:
 ```text
 repo-docs/
   README.md
-  change-map.md
   change-log.md
   glossary.md                 # optional
   references/
@@ -228,7 +225,7 @@ repo-docs/
 A good `repo-docs/` docs package is useful after the chat ends. A newcomer should be
 able to read it and explain the repo in their own words, trace one real
 workflow from observable entry to output, identify the important contracts, and
-know where to make a safe change.
+verify that understanding with a named test or command.
 
 Important claims should be marked by confidence:
 

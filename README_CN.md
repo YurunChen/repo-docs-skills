@@ -90,8 +90,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 ```
 
 之后正常对话即可。coding agent 应该在代码变化、架构问题、说明过期或阶段交接
-时自行判断是否需要同步 `repo-docs/`、`change-log.md`、`change-map.md` 和
-项目里的 agent 规则文件。
+时自行判断是否需要同步 `repo-docs/`、`change-log.md` 和项目里的 agent 规则文件。
 
 ## 输出结构
 
@@ -104,7 +103,6 @@ repo-docs/
     one-real-run.md      # 非 Seed 项目默认需要
   glossary.md
   flows.md              # 可选，用于多路径/多状态总图
-  change-map.md
   change-log.md
   modules/
   references/
@@ -115,7 +113,6 @@ repo-docs/
 ```text
 repo-docs/
   README.md
-  change-map.md
   change-log.md
   glossary.md                 # optional
   references/
@@ -124,7 +121,7 @@ repo-docs/
 
 ## 质量标准
 
-好的 `repo-docs/` 文档应该在会话结束后仍然有用。新读者应该能通过它理解项目目标，从一个可观察入口追踪到输出或产物，识别关键契约，并知道下一步改哪里、怎么验证。
+好的 `repo-docs/` 文档应该在会话结束后仍然有用。新读者应该能通过它理解项目目标，从一个可观察入口追踪到输出或产物，识别关键契约，并用测试或命令验证自己的理解。
 
 重要结论需要标明可信度：
 

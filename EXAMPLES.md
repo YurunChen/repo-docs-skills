@@ -100,35 +100,25 @@ Evidence status: Confirmed unless noted.
 
 ## Walkthrough Expanded Shape (Long Pages Only)
 
-Use this only when the walkthrough is long (roughly past 120 lines) or one phase needs a dense before/after table or several locators. Do not use it as the default for short or medium pages.
+Use this only when the walkthrough is long (roughly past 120 lines) or one phase needs a dense before/after table or several locators. Do not use it as the default for short or medium pages. Keep `##` phase headings; weave mechanism, paths, and checks into connected prose—do not stamp repeated reader-state `###` subheadings.
 
 ````markdown
 ## [human action or event]
 
-### What You Are Looking At
-
-[One or two sentences about the visible behavior.]
-
-### Plain Model
-
-[The concept this step explains, including what changes and what downstream code relies on.]
-
-### What Changes
+[What the reader sees or does, in plain language. Then the mechanism in connected
+prose—weave `path/to/file`, functions, and checks into sentences. If a before/after
+record shape helps, place a small table inside the flow:]
 
 | Before | After |
 | --- | --- |
 | ... | ... |
 
-### Source Locator
-
-- `path/to/file`
-- `function_or_field`
-- `test_name`
-
-### Verification
+[Continue the causal chain. Link to `modules/<concept>.md` when a durable concept
+first matters. Save page-end verification for the walkthrough close unless this
+phase needs its own distinct check.]
 
 ```bash
-...
+pytest path/to/tests -q
 ```
 ````
 
