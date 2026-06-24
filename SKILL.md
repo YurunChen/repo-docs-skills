@@ -46,6 +46,8 @@ For non-Seed repos:
 5. Write `modules/`, `references/`, `glossary.md`, `change-map.md`, and `change-log.md`.
 6. Verify links, source claims, required files, and readability.
 
+For a large repo or monorepo, scope first: document one target subsystem or workflow, name walkthroughs by behavior, and record uncovered areas in `change-map.md`. See [REFERENCE.md](REFERENCE.md).
+
 For Seed repos, write only status-labeled project memory: `README.md`, `change-map.md`, `change-log.md`, `glossary.md`, and `references/decisions.md`. Planned workflows stay in README or change-map until real runtime evidence exists.
 
 ## Canonical Output
@@ -65,6 +67,8 @@ repo-docs/
   change-map.md
   change-log.md
 ```
+
+Lite shape: for a small or single-purpose repo with few concepts and no dense lookup tables, drop `modules/`, `references/`, and `glossary.md` until they are needed, keeping `README.md`, `walkthroughs/one-real-run.md`, `change-map.md`, and `change-log.md`. Validate with `--lite`; [REFERENCE.md](REFERENCE.md) carries the promotion rules.
 
 Triggered pages:
 
@@ -143,7 +147,7 @@ Keep code and data claims consistent with inspected evidence.
 
 ## Sync And Cleanup
 
-When syncing, promote stable knowledge into `repo-docs/`, keep root `AGENTS.md` / `CLAUDE.md` operational and short, and keep memory as pointers when available. Patch current facts in place, merge duplicate pages, remove stale pages, and record meaningful updates in `change-log.md`.
+When syncing, promote stable knowledge into `repo-docs/`, keep root `AGENTS.md` / `CLAUDE.md` operational and short, and keep memory as pointers when available. Patch current facts in place, merge duplicate pages, remove stale pages, and record meaningful updates in `change-log.md`. Record the commit each sync covers in `change-log.md`; on the next sync, scope the impact audit with `git diff <last-sha>..HEAD` instead of re-reading the whole tree.
 
 When deleting repo docs, remove stale guide directories, stale root maintenance policies, and broken guide links. Do not recreate a replacement package in the same turn unless the user asks.
 

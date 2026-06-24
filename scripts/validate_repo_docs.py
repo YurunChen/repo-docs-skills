@@ -29,11 +29,23 @@ REQUIRED_SEED_FILES = [
     "glossary.md",
     "references/decisions.md",
 ]
+REQUIRED_LITE_FILES = [
+    "README.md",
+    "walkthroughs/one-real-run.md",
+    "change-map.md",
+    "change-log.md",
+]
 LOCAL_LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 IMAGE_LINK_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 STEP_PATTERN = re.compile(r"^#{2,4}\s+(step\s+\d+|第\s*\d+\s*步|步骤\s*\d+)", re.IGNORECASE | re.MULTILINE)
 MERMAID_PATTERN = re.compile(r"```mermaid[\s\S]*?```", re.IGNORECASE)
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+)$", re.MULTILINE)
+FENCE_PATTERN = re.compile(r"```[\s\S]*?```")
+INLINE_CODE_PATTERN = re.compile(r"`([^`\n]+)`")
+# A source locator looks like a relative path with at least one slash and a file
+# extension, optionally followed by :line or :line-range. This stays narrow to
+# keep false positives low; bare filenames without a slash are not checked.
+SOURCE_LOCATOR_PATTERN = re.compile(r"^[\w.@-]+(?:/[\w.@-]+)+\.[A-Za-z0-9]{1,8}(?::\d+(?:-\d+)?)?$")
 
 
 @dataclass
@@ -46,6 +58,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate a repo-docs package")
     parser.add_argument("repo_docs", type=Path, help="Path to repo-docs directory")
     parser.add_argument("--seed", action="store_true", help="Validate Seed-mode structure")
+    parser.add_argument(
+        "--lite",
+        action="store_true",
+        help="Validate Lite-mode structure for small or single-purpose repos",
+    )
+    parser.add_argument(
+        "--repo-root",
+        type=Path,
+        default=None,
+        help="Repo root used to verify that cited source locators actually exist",
+    )
     return parser.parse_args()
 
 
@@ -74,13 +97,18 @@ def link_target_exists(source: Path, target: str, root: Path) -> bool:
     return candidate.exists()
 
 
-def check_structure(root: Path, seed: bool) -> list[Finding]:
+def check_structure(root: Path, seed: bool, lite: bool) -> list[Finding]:
     findings: list[Finding] = []
-    required_files = REQUIRED_SEED_FILES if seed else REQUIRED_NON_SEED_FILES
+    if seed:
+        required_files = REQUIRED_SEED_FILES
+    elif lite:
+        required_files = REQUIRED_LITE_FILES
+    else:
+        required_files = REQUIRED_NON_SEED_FILES
     for relative in required_files:
         if not (root / relative).is_file():
             findings.append(Finding("ERROR", f"Missing required file: {relative}"))
-    if not seed:
+    if not seed and not lite:
         for relative in REQUIRED_NON_SEED_DIRS:
             directory = root / relative
             if not directory.is_dir():
@@ -102,7 +130,7 @@ def check_links(root: Path) -> list[Finding]:
     return findings
 
 
-def check_non_seed_routing(root: Path) -> list[Finding]:
+def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
     findings: list[Finding] = []
     readme = root / "README.md"
     walkthrough = root / "walkthroughs" / "one-real-run.md"
@@ -125,16 +153,16 @@ def check_non_seed_routing(root: Path) -> list[Finding]:
             findings.append(Finding("WARN", "Main walkthrough does not include verification language"))
         if "<details" in text.lower() and STEP_PATTERN.search(text):
             findings.append(Finding("WARN", "Main walkthrough uses <details>; confirm the main teaching path is not hidden"))
-        if "modules/" not in text and "../modules/" not in text:
+        if not lite and "modules/" not in text and "../modules/" not in text:
             findings.append(Finding("WARN", "Main walkthrough does not link to any optional concept page under modules/"))
-        if "references/" not in text and "../references/" not in text:
+        if not lite and "references/" not in text and "../references/" not in text:
             findings.append(Finding("WARN", "Main walkthrough does not route to any reference page"))
 
     if change_map.is_file():
         text = read_text(change_map)
-        if "modules/" not in text:
+        if not lite and "modules/" not in text:
             findings.append(Finding("WARN", "change-map.md does not point readers to any concept page under modules/"))
-        if "references/" not in text:
+        if not lite and "references/" not in text:
             findings.append(Finding("WARN", "change-map.md does not point future changes to references/"))
         if not re.search(r"verify|verification|pytest|test|检查|验证|命令", text, re.IGNORECASE):
             findings.append(Finding("ERROR", "change-map.md does not include verification language"))
@@ -214,20 +242,55 @@ def check_source_truth_hints(root: Path) -> list[Finding]:
     return findings
 
 
+def check_source_locators(root: Path, repo_root: Path) -> list[Finding]:
+    """Verify that inline path-like source locators resolve to a real file.
+
+    A locator is checked only when it looks like a relative path with a file
+    extension (e.g. ``src/foo.py`` or ``tests/test_bar.py:42``). It passes if it
+    exists under the repo root, under the repo-docs root, or relative to the
+    citing page, which keeps doc-internal links from producing false warnings.
+    Fenced code blocks are skipped so commands and sample output are not scanned.
+    """
+    findings: list[Finding] = []
+    repo_root = repo_root.resolve()
+    for path in markdown_files(root):
+        relative = path.relative_to(root)
+        text = FENCE_PATTERN.sub("", read_text(path))
+        for match in INLINE_CODE_PATTERN.finditer(text):
+            token = match.group(1).strip()
+            if not SOURCE_LOCATOR_PATTERN.match(token):
+                continue
+            file_part = token.split(":", 1)[0]
+            candidates = [repo_root / file_part, root / file_part, path.parent / file_part]
+            if not any(candidate.exists() for candidate in candidates):
+                findings.append(
+                    Finding("WARN", f"{relative}: source locator `{token}` not found under repo root")
+                )
+    return findings
+
+
 def main() -> int:
     args = parse_args()
     root = args.repo_docs.resolve()
     if not root.is_dir():
         print(f"ERROR: not a directory: {root}")
         return 2
+    if args.seed and args.lite:
+        print("ERROR: choose at most one of --seed and --lite")
+        return 2
 
     findings: list[Finding] = []
-    findings.extend(check_structure(root, args.seed))
+    findings.extend(check_structure(root, args.seed, args.lite))
     findings.extend(check_links(root))
     if not args.seed:
-        findings.extend(check_non_seed_routing(root))
+        findings.extend(check_non_seed_routing(root, lite=args.lite))
         findings.extend(check_teaching_structure(root))
         findings.extend(check_source_truth_hints(root))
+    if args.repo_root is not None:
+        if args.repo_root.is_dir():
+            findings.extend(check_source_locators(root, args.repo_root))
+        else:
+            findings.append(Finding("ERROR", f"--repo-root is not a directory: {args.repo_root}"))
 
     errors = [finding for finding in findings if finding.severity == "ERROR"]
     warnings = [finding for finding in findings if finding.severity == "WARN"]

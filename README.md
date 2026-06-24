@@ -62,6 +62,8 @@ repo-docs/
     decisions.md
 ```
 
+Small or single-purpose repos can use a Lite shape (README, one walkthrough, change-map, change-log) and add `modules/`, `references/`, and `glossary.md` only when a concept or lookup table needs them.
+
 ## Teaching Model
 
 Readers should understand behavior before code names: README and walkthroughs stay narrative and low-density, module pages teach one concept with a real example and source locators, and references hold the dense fields, commands, and schemas. The full teaching rules and Markdown display protocol live in [SKILL.md](SKILL.md) and [REFERENCE.md](REFERENCE.md).
@@ -105,7 +107,7 @@ The package includes a lightweight validator for generated docs:
 python scripts/validate_repo_docs.py /path/to/repo-docs
 ```
 
-It checks standard structure, local links, main walkthrough routing, teaching-section hints, change-map verification language, reference drift, and `flows.md` misuse signals.
+It checks standard structure, local links, main walkthrough routing, teaching-section hints, change-map verification language, reference drift, and `flows.md` misuse signals. Use `--lite` for the small-repo shape, `--seed` for Seed-mode structure, and `--repo-root <repo>` to verify that cited source locators exist in the real tree.
 
 ## Included Files
 

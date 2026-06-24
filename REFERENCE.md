@@ -312,6 +312,31 @@ Merge pages when they teach the same reader concept. Do not merge merely to redu
 
 `change-log.md` is part of the standard package and should stay compact: record meaningful changes to code, docs, data, experiments, or project understanding.
 
+### Lite shape
+
+For a small or single-purpose repo with few durable concepts and no dense lookup tables, the package can be smaller than the standard shape. Drop `modules/`, `references/`, and `glossary.md` until a concept needs its own page or a lookup table appears:
+
+```text
+repo-docs/
+  README.md
+  walkthroughs/
+    one-real-run.md
+  change-map.md
+  change-log.md
+```
+
+This is the same teaching path with fewer pages, not a different contract. Validate it with `python scripts/validate_repo_docs.py <path> --lite`. Promote to the full structure the moment the repo grows a concept worth its own page or a contract worth a reference table.
+
+## Large And Monorepo Scope
+
+A large repository or a monorepo with several independent services does not need one package that documents everything. Scope the work before writing.
+
+- Pick the target: the subsystem the user asked about, or the highest-traffic real workflow. Document that first; do not try to cover every package in one pass.
+- Use one walkthrough per independent surface, named by behavior (`checkout-request.md`, `ingest-to-index.md`), not by service or module.
+- Allow partial coverage. Record what is intentionally not yet documented in `change-map.md` or a short coverage note, with `Planned` or `Unknown` status, so the gap is visible instead of implied complete.
+- For a monorepo, prefer one `repo-docs/` per independently developed package when packages have separate readers and lifecycles; use a single shared package only when one team reads across all of them.
+- Stop when the reader can trace the targeted workflow end to end. Reading the whole tree is not the goal; a usable model of the chosen path is.
+
 ## Teaching Pass
 
 Use the teaching pass after the main walkthrough exists and before considering modules/references complete. The purpose is to keep the docs useful for a human reader, not to prove that every source area has a page.
@@ -485,6 +510,8 @@ Use `YYYY-MM-DD HH:MM TZ` rather than date-only headings. This keeps repeated sa
 
 Record meaningful user requests and execution results when they change code, docs, data, experiments, or project understanding. Keep trivial chat in chat. Keep `change-log.md` recent and readable; when it grows past roughly 8 entries or 120 lines, move older entries to `references/history.md` and link to the archive.
 
+To make later syncs incremental, record the commit each sync covered, for example a `Synced through <commit-sha>` note in the latest entry. The next sync can scope its impact audit with `git diff <last-sha>..HEAD` instead of re-reading the whole repository.
+
 ### Module docs
 
 Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. A module page is a reader-facing concept page. It should start from the reader confusion it resolves and where that concept appears in a walkthrough, then explain the concept in plain language before naming files.
@@ -605,6 +632,8 @@ When the user asks a new question:
 Use this when code, data, config, scripts, tests, docs, or project architecture changed after `repo-docs/` was written. If the current turn made those changes and `repo-docs/` exists, run this check before final response; follow the user's explicit scope when they ask to leave docs untouched.
 
 This is an impact audit. Use it to ask "which reader understanding changed?" before touching files.
+
+When the repo is under git and a prior `change-log.md` recorded the last synced commit, start from `git diff <last-synced-sha>..HEAD`: the changed paths tell you which walkthroughs, concept pages, and references can be stale. Fall back to a full re-read only when no synced-commit marker exists.
 
 ## Documentation Content Sync Alignment
 

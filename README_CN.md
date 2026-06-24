@@ -63,6 +63,8 @@ repo-docs/
     decisions.md
 ```
 
+小型或单一用途的仓库可以用 Lite 结构（README、一条 walkthrough、change-map、change-log），等到出现需要解释的概念或查表时，再补 `modules/`、`references/` 和 `glossary.md`。
+
 ## 教学模型
 
 读者先理解行为，再接触代码名词：README 和 walkthrough 保持低代码密度，module 页用一个概念、一个真实例子和源码定位降低理解成本，reference 承担高密度查表。完整教学规则和 Markdown 展示协议见 [SKILL.md](SKILL.md) 和 [REFERENCE.md](REFERENCE.md)。
@@ -100,7 +102,7 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 python scripts/validate_repo_docs.py /path/to/repo-docs
 ```
 
-它检查标准结构、本地链接、主 walkthrough 路由、教学小节提示、change-map 验证语言、reference 漂移，以及 `flows.md` 是否被误用。
+它检查标准结构、本地链接、主 walkthrough 路由、教学小节提示、change-map 验证语言、reference 漂移，以及 `flows.md` 是否被误用。用 `--lite` 校验小仓库结构，用 `--seed` 校验 Seed 结构，用 `--repo-root <repo>` 核对文档里引用的源码定位在真实仓库中是否存在。
 
 ## 文件说明
 
