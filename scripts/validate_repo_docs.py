@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Validate a generated repo-docs package.
 
-This script is intentionally conservative: it checks structure, links, and
-routing hints that prevent common repo-docs drift. It does not judge prose.
+Conservative checks for structure, links, routing, and drift toward mechanical
+templates or duplicate closing sections. Does not score prose quality or enforce
+minimal heading counts.
 """
 
 from __future__ import annotations
@@ -38,11 +39,22 @@ REQUIRED_LITE_FILES = [
 LOCAL_LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 IMAGE_LINK_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 STEP_PATTERN = re.compile(r"^#{2,4}\s+(step\s+\d+|第\s*\d+\s*步|步骤\s*\d+)", re.IGNORECASE | re.MULTILINE)
+NUMBERED_PHASE_H2_PATTERN = re.compile(r"^##\s+Step\s+\d+\s*:", re.IGNORECASE | re.MULTILINE)
 MERMAID_PATTERN = re.compile(r"```mermaid[\s\S]*?```", re.IGNORECASE)
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+)$", re.MULTILINE)
 FENCE_PATTERN = re.compile(r"```[\s\S]*?```")
 INLINE_CODE_PATTERN = re.compile(r"`([^`\n]+)`")
 LINK_WITH_TEXT_PATTERN = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
+CONFIDENCE_LABEL_PATTERN = re.compile(r"\b(Confirmed|Inferred|Planned|Unknown)\b|已确认|推断|计划中|未确认")
+SOURCEY_INLINE_PATTERN = re.compile(
+    r"/|\.py\b|\.js\b|\.ts\b|\.tsx\b|\.json\b|\.ya?ml\b|\.md\b|\(\.\.\.\)|^[A-Za-z_][A-Za-z0-9_]*\("
+)
+BROAD_VALUE_WORD_PATTERN = re.compile(
+    r"\b(robust|powerful|seamless|extensible|scalable|efficient|comprehensive|"
+    r"important|innovative|advanced|flexible|reliable)\b|"
+    r"鲁棒|强大|无缝|可扩展|高效|全面|重要|先进|灵活|可靠|完善",
+    re.IGNORECASE,
+)
 # Link labels that carry no information scent: they name the act of clicking or
 # the file, not what the reader gains by following the link.
 LOW_SCENT_LABELS = {
@@ -53,6 +65,36 @@ LOW_SCENT_LABELS = {
 # extension, optionally followed by :line or :line-range. This stays narrow to
 # keep false positives low; bare filenames without a slash are not checked.
 SOURCE_LOCATOR_PATTERN = re.compile(r"^[\w.@-]+(?:/[\w.@-]+)+\.[A-Za-z0-9]{1,8}(?::\d+(?:-\d+)?)?$")
+READER_STATE_H3_PATTERN = re.compile(
+    r"^###\s+("
+    r"What You Are Looking At|Plain Model|What To Notice|What Changes|Source Locator|Verification|"
+    r"你正在看什么|白话模型|发生了什么变化|源码定位|验证方法"
+    r")",
+    re.MULTILINE | re.IGNORECASE,
+)
+MODULE_TEMPLATE_H2_PATTERN = re.compile(
+    r"^##\s+("
+    r"Reader Question|Plain Model|Code [Mm]odel|In [Cc]ode|Where You Saw This|One Concrete Example|What To Notice|Source Locator|"
+    r"Change Risk|Verification|Change Risk And Verification|If you change this|"
+    r"读者问题|白话模型|代码模型|在代码中|你在哪里见过|一个真实例子|源码定位|改动风险|验证方法|改动风险与验证|如果你要改"
+    r")",
+    re.MULTILINE | re.IGNORECASE,
+)
+REDUNDANT_WALKTHROUGH_H2_PATTERN = re.compile(
+    r"^##\s+("
+    r"What changes|Change risk|Verification|Plain model|What you are looking at|"
+    r"发生了什么变化|改动风险|验证方法|白话模型|你正在看什么"
+    r")",
+    re.MULTILINE | re.IGNORECASE,
+)
+INLINE_LABEL_PATTERN = re.compile(
+    r"\*\*(Source locator|Verification|Code [Mm]odel|源码定位|验证方法|代码模型)。\*\*",
+    re.IGNORECASE,
+)
+PATH_IN_PROSE_PATTERN = re.compile(
+    r"`[^`\n]*(?:/|\\)[^`\n]*\.(?:py|js|ts|tsx|go|rs|java|rb|md|json|ya?ml|toml)[^`\n]*`",
+    re.IGNORECASE,
+)
 
 
 @dataclass
@@ -150,20 +192,57 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
 
     if walkthrough.is_file():
         text = read_text(walkthrough)
-        if not STEP_PATTERN.search(text) and "Source Locator" not in text and "源码" not in text:
-            findings.append(Finding("WARN", "Main walkthrough has no obvious steps or source locator section"))
-        if not contains_any(text, ["What To Notice", "Notice:", "注意看"]):
-            findings.append(Finding("WARN", "Main walkthrough does not include a What To Notice / Notice teaching cue"))
-        if not contains_any(text, ["Source Locator", "源码定位", "源码"]):
-            findings.append(Finding("WARN", "Main walkthrough does not include source locator language"))
-        if not contains_any(text, ["Verification", "验证方法", "验证"]):
+        has_step = bool(STEP_PATTERN.search(text))
+        has_locator = contains_any(
+            text,
+            [
+                "Source Locator",
+                "Source locator",
+                "源码定位",
+                "**Source locator.**",
+                "**源码定位。**",
+            ],
+        ) or bool(PATH_IN_PROSE_PATTERN.search(text))
+        if not has_step and not has_locator:
+            findings.append(Finding("WARN", "Main walkthrough has no obvious phases or path-like source references"))
+        if not has_locator:
+            findings.append(Finding("WARN", "Main walkthrough does not reference source paths in prose or locator labels"))
+        if not contains_any(text, ["Verification", "验证方法", "验证", "pytest", "npm test", "cargo test", "go test"]):
             findings.append(Finding("WARN", "Main walkthrough does not include verification language"))
+        inline_labels = len(INLINE_LABEL_PATTERN.findall(text))
+        if inline_labels >= 3:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"Main walkthrough repeats inline labels ({inline_labels}x); weave paths and checks into prose instead",
+                )
+            )
+        numbered_phases = len(NUMBERED_PHASE_H2_PATTERN.findall(text))
+        if numbered_phases >= 2:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"Main walkthrough uses numbered Step headings ({numbered_phases}x); prefer behavior-named ## headings",
+                )
+            )
+        fragmented = len(READER_STATE_H3_PATTERN.findall(text))
+        if fragmented >= 3:
+            findings.append(
+                Finding(
+                    "WARN",
+                    "Main walkthrough repeats reader-state ### subheadings; use behavior-named ## headings and prose instead",
+                )
+            )
+        redundant_closing = len(REDUNDANT_WALKTHROUGH_H2_PATTERN.findall(text))
+        if redundant_closing >= 2:
+            findings.append(
+                Finding(
+                    "WARN",
+                    "Main walkthrough has multiple closing/meta ## sections that likely repeat the steps; merge into prose or one closing block",
+                )
+            )
         if "<details" in text.lower() and STEP_PATTERN.search(text):
-            findings.append(Finding("WARN", "Main walkthrough uses <details>; confirm the main teaching path is not hidden"))
-        if not lite and "modules/" not in text and "../modules/" not in text:
-            findings.append(Finding("WARN", "Main walkthrough does not link to any optional concept page under modules/"))
-        if not lite and "references/" not in text and "../references/" not in text:
-            findings.append(Finding("WARN", "Main walkthrough does not route to any reference page"))
+            findings.append(Finding("WARN", "Main walkthrough uses <details>; confirm the main explanation path is not hidden"))
 
     if change_map.is_file():
         text = read_text(change_map)
@@ -191,29 +270,50 @@ def contains_any(text: str, needles: list[str]) -> bool:
     return any(needle.lower() in lowered for needle in needles)
 
 
-def check_teaching_structure(root: Path) -> list[Finding]:
+def check_explanation_structure(root: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     for path in sorted((root / "modules").glob("*.md")) if (root / "modules").is_dir() else []:
         text = read_text(path)
         relative = path.relative_to(root)
-        expected = [
-            ("Reader Question", ["Reader Question", "读者问题", "读者困惑"]),
-            ("Plain Model", ["Plain Model", "白话模型"]),
-            ("Where You Saw This", ["Where You Saw This", "在哪里看到", "出现位置"]),
-            ("Example", ["One Concrete Example", "真实例子", "具体例子"]),
-            ("Verification", ["Verification", "验证方法", "验证"]),
-        ]
-        for label, variants in expected:
-            if not contains_any(text, variants):
-                findings.append(Finding("WARN", f"{relative} is missing teaching section: {label}"))
+
+        has_code_model = contains_any(
+            text,
+            ["Code model", "Code Model", "代码模型", "In code", "在代码中"],
+        ) or "```" in text
+        has_usage_example = "```" in text
+        if has_code_model and not has_usage_example:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative} explains a code shape but has no usage snippet (add a short fenced example)",
+                )
+            )
+
+        inline_labels = len(INLINE_LABEL_PATTERN.findall(text))
+        if inline_labels >= 3:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative} repeats inline labels ({inline_labels}x); weave paths into prose instead",
+                )
+            )
+
+        template_h2 = len(MODULE_TEMPLATE_H2_PATTERN.findall(text))
+        if template_h2 >= 5:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative}: {template_h2} template-style ## headings; merge beats into coherent prose per SKILL Page Design",
+                )
+            )
 
     for path in sorted((root / "references").glob("*.md")) if (root / "references").is_dir() else []:
         text = read_text(path)
         relative = path.relative_to(root)
         headings = "\n".join(HEADING_PATTERN.findall(text))
-        if contains_any(headings, ["Why", "How it works", "Plain Model", "Reader Question", "What To Notice", "为什么", "如何工作", "白话模型", "注意看"]):
-            findings.append(Finding("WARN", f"{relative} contains teaching-style headings; consider moving explanation to walkthroughs/ or modules/"))
+        if contains_any(headings, ["Why", "How it works", "Reader Question", "为什么", "如何工作", "读者问题"]):
+            findings.append(Finding("WARN", f"{relative} contains explanation headings; consider moving them to walkthroughs/ or modules/"))
 
     for path in markdown_files(root):
         text = read_text(path)
@@ -245,6 +345,91 @@ def check_source_truth_hints(root: Path) -> list[Finding]:
             has_locator = "`" in line or "](" in line or re.search(r"\b(src|tests?|scripts?|config|data|docs?|materials?)/", line)
             if not has_locator:
                 findings.append(Finding("WARN", f"{relative}:{lineno} uses Confirmed/已确认 without an obvious source locator"))
+    return findings
+
+
+def first_content_lines(text: str, limit: int = 80) -> str:
+    lines = []
+    for line in FENCE_PATTERN.sub("", text).splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        lines.append(line)
+        if len(lines) >= limit:
+            break
+    return "\n".join(lines)
+
+
+def check_reading_experience(root: Path) -> list[Finding]:
+    """Warn when first-read pages start with code names or confidence labels.
+
+    These are heuristics. The goal is to keep README and walkthrough openings
+    readable before the reader has learned the project's source names.
+    """
+    findings: list[Finding] = []
+    narrative_paths: list[Path] = []
+    for relative in ("README.md", "walkthroughs/one-real-run.md"):
+        path = root / relative
+        if path.is_file():
+            narrative_paths.append(path)
+    modules = root / "modules"
+    if modules.is_dir():
+        narrative_paths.extend(sorted(modules.glob("*.md")))
+
+    for path in narrative_paths:
+        relative = path.relative_to(root)
+        text = read_text(path)
+        opening = first_content_lines(text)
+        inline_tokens = [match.group(1).strip() for match in INLINE_CODE_PATTERN.finditer(opening)]
+        sourcey_tokens = [token for token in inline_tokens if SOURCEY_INLINE_PATTERN.search(token)]
+        if relative == Path("README.md") and len(sourcey_tokens) > 3:
+            findings.append(
+                Finding("WARN", f"{relative}: opening has high code-name density; explain what happens before source names")
+            )
+        elif len(sourcey_tokens) > 6:
+            findings.append(
+                Finding("WARN", f"{relative}: opening has high code-name density; move dense source names later or into references")
+            )
+
+        label_count = len(CONFIDENCE_LABEL_PATTERN.findall(FENCE_PATTERN.sub("", text)))
+        h3_count = len(re.findall(r"^###\s+", text, re.MULTILINE))
+        if relative.parts[0] == "walkthroughs" and h3_count >= 6:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative}: many ### subheadings; prefer behavior-named ## headings and connected prose",
+                )
+            )
+        if relative.parts[0] in {"walkthroughs", "modules"} and label_count > 8:
+            findings.append(
+                Finding("WARN", f"{relative}: many confidence labels; prefer page-level evidence status and local labels only for confidence changes")
+            )
+        if relative == Path("README.md") and label_count > 5:
+            findings.append(
+                Finding("WARN", f"{relative}: many confidence labels in the main guide; keep evidence visible but quiet")
+            )
+
+        readme_meta_h2 = re.compile(
+            r"^##\s+(Project Model|First Path|Current Scope|Plain [Mm]odel|项目模型|首读路径|当前范围)",
+            re.MULTILINE,
+        )
+        if relative == Path("README.md") and len(readme_meta_h2.findall(text)) >= 2:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative}: multiple orienting ## sections; merge thesis, model, and first path into opening prose per SKILL Page Design",
+                )
+            )
+
+        prose = FENCE_PATTERN.sub("", text)
+        broad_words = BROAD_VALUE_WORD_PATTERN.findall(prose)
+        if len(broad_words) > 6:
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative}: many broad value words; prefer concrete actions, observations, checks, or caveats",
+                )
+            )
     return findings
 
 
@@ -334,8 +519,9 @@ def main() -> int:
     findings.extend(check_links(root))
     if not args.seed:
         findings.extend(check_non_seed_routing(root, lite=args.lite))
-        findings.extend(check_teaching_structure(root))
+        findings.extend(check_explanation_structure(root))
         findings.extend(check_source_truth_hints(root))
+        findings.extend(check_reading_experience(root))
         findings.extend(check_scent(root))
     if args.repo_root is not None:
         if args.repo_root.is_dir():

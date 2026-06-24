@@ -7,7 +7,7 @@
 </div>
 
 <p align="center">
-  Repo-Docs 把快速变化的仓库整理成有证据的 Markdown 文档：先帮人建立可读心智模型，再逐步给出源码定位、reference 契约、改动风险和验证方法。
+  Repo-Docs 用人话解释快速变化的仓库，然后把读者带到源码。
 </p>
 
 <p align="center">
@@ -19,22 +19,22 @@
 
 ## Repo-Docs 是什么？
 
-Vibe coding 会让代码变化得很快，用户的项目理解容易跟不上。`repo-docs` 是一个 Codex skill，用来把项目理解贴回源码事实：先沿一条真实 workflow 讲清楚行为，再用可读概念页降低理解成本，最后给出精确 reference、改动地图和验证路径。
+Vibe coding 会让代码变化得很快，用户的项目理解容易跟不上。`repo-docs` 是一个 Codex skill，用来把这个理解补回来。它先抓住仓库里一条真实行为，用正常技术语言讲清楚想法，再给出源码位置、契约、风险和验证方法。
 
-默认产物是 `repo-docs/` 里的 Markdown 文档。HTML 或课程材料不是默认输出。
+默认产物是 `repo-docs/` 里的 Markdown 文档。HTML 或课程式材料不是默认输出。
 
 ## 当前契约
 
 | 原则 | 含义 |
 | --- | --- |
-| walkthrough first | 非 Seed 项目必须用 `walkthroughs/one-real-run.md` 讲一条真实行为路径。 |
-| 可读性第一 | 每篇页面先用人话解释行为，再在读者需要行动时引入代码名词。 |
-| 教学检查 | README、walkthrough、module 和 change-map 都要先建立心智模型，再引入密集代码名词。 |
-| Markdown 展示 | 标题、提示块、表格、代码块、图和折叠区都服务理解节奏。 |
-| reference discipline | 字段、命令、schema、artifact、metric、工具参数等高密度信息放进 `references/`，不要塞进教学正文。 |
-| 证据诚实 | 没有检查过的代码和数据 claim 不能写成事实，要标成推断、计划中或未确认。 |
-| 按气味导航 | 每页都用"读者能得到什么"把人引向下一页；README 给出新人路径和专家快速路径。 |
-| relationship map 按触发生成 | `flows.md` 只用于多 workflow、多阶段、多状态或多输出关系图，不能替代主 walkthrough。 |
+| walkthrough first | 从一条真实行为开始，不从目录树开始。 |
+| 连贯页面设计 | 连续 prose；标题标记真实转折；每个事实有唯一归属——见 SKILL Content Organization 与 Page Design。 |
+| module 代码模型 | 概念页讲结构、API 用法与来自已检查源码的短示例——见 SKILL Content Organization。 |
+| 先讲机制 | README 和 walkthrough 先讲发生了什么，再引入密集源码名词。 |
+| 具体工程表达 | 用具体动作、观察、检查和边界替代泛泛判断。 |
+| reference 承担密度 | 字段、命令、schema、artifact、metric、工具参数放进 `references/`。 |
+| 安静证据 | 源码事实可查；叙事页在**页末**写页面级默认状态，仅局部标注置信度变化。 |
+| 有用导航 | 链接文字说清读者下一步会理解什么，而不是只给文件名。 |
 
 ## 输出结构
 
@@ -66,9 +66,11 @@ repo-docs/
 
 小型或单一用途的仓库可以用 Lite 结构（README、一条 walkthrough、change-map、change-log），等到出现需要解释的概念或查表时，再补 `modules/`、`references/` 和 `glossary.md`。
 
-## 教学模型
+## Explanation Model
 
-读者先理解行为，再接触代码名词：README 和 walkthrough 保持低代码密度，module 页用一个概念、一个真实例子和源码定位降低理解成本，reference 承担高密度查表。完整教学规则和 Markdown 展示协议见 [SKILL.md](SKILL.md) 和 [REFERENCE.md](REFERENCE.md)。
+读者先理解行为，再接触代码名词。叙事页连贯可读，标题在帮助导航时出现。**内容组织逻辑**（读者收获、包层级、叙事节拍）以 [SKILL.md](SKILL.md) Content Organization 为准；页面形态与归属以 [SKILL.md](SKILL.md) Page Design 为准。
+
+文档的真实感来自它说清仓库实际做了什么：脚本读配置，runner 启动会话，checker 抓住缺失字段，测试覆盖一个分支但漏掉另一个分支。完整规则见 [SKILL.md](SKILL.md) 和 [REFERENCE.md](REFERENCE.md)。
 
 ## 工作模式
 
@@ -76,7 +78,7 @@ repo-docs/
 | --- | --- | --- |
 | Seed | 项目刚开始或几乎没有代码 | 目标、决策、计划、未知项 |
 | Build | 项目需要第一版 repo docs | 真实 walkthrough、可读心智模型、概念页、references |
-| Sync | 代码、文档、数据、脚本或实验变了 | 当前文档和源码事实同步 |
+| Sync | 代码、文档、数据、脚本或实验变了 | 当前文档和源码实际表现同步 |
 | Cleanup / removal | 用户要求删除生成文档 | 删除文档和过期根规则 |
 | Question refinement | 一个问题暴露稳定文档缺口 | 先补可复用文档，再基于证据回答 |
 
@@ -85,6 +87,8 @@ repo-docs/
 ```bash
 mkdir -p ~/.agents/skills/repo-docs
 cp SKILL.md REFERENCE.md EXAMPLES.md ~/.agents/skills/repo-docs/
+mkdir -p ~/.agents/skills/repo-docs/scripts
+cp scripts/validate_repo_docs.py ~/.agents/skills/repo-docs/scripts/
 mkdir -p ~/.agents/skills/repo-docs-zh
 cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 ```
@@ -103,21 +107,21 @@ cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 python scripts/validate_repo_docs.py /path/to/repo-docs
 ```
 
-它检查标准结构、本地链接、主 walkthrough 路由、教学小节提示、change-map 验证语言、reference 漂移、`flows.md` 是否被误用，以及导航气味（死胡同页面和无气味链接文字）。用 `--lite` 校验小仓库结构，用 `--seed` 校验 Seed 结构，用 `--repo-root <repo>` 核对文档里引用的源码定位在真实仓库中是否存在。
+它检查标准结构、本地链接、路由、模板化碎裂标题、重复收尾小节、阅读路径提示、change-map 验证语言、置信标签噪声、reference 漂移、`flows.md` 误用与导航气味。用 `--lite` 校验小仓库结构，用 `--seed` 校验 Seed 结构，用 `--repo-root <repo>` 核对文档里引用的源码定位在真实仓库中是否存在。
 
 ## 文件说明
 
 | 文件 | 用途 |
 | --- | --- |
-| `SKILL.md` | 核心 workflow 和硬约束。 |
+| `SKILL.md` | 核心 workflow、内容组织、页面设计与硬约束。 |
 | `REFERENCE.md` | 详细写作标准、页面类型、同步规则和质量检查。 |
-| `EXAMPLES.md` | 可复用输出模板、教学示例和 Markdown 展示反模式。 |
+| `EXAMPLES.md` | 默认输出形态与成稿语气样例。 |
 | `repo-docs-zh/SKILL.md` | 中文语言覆盖层。 |
 | `scripts/validate_repo_docs.py` | 本地 repo-docs 文档包验证脚本。 |
 
 ## 质量标准
 
-好的 repo-docs 文档包应该让新读者不用先打开源码，就能说清项目问题、沿一条真实路径走到输出、理解路径里出现的关键概念、查到精确契约，并知道改动风险和验证方法。
+好的 repo-docs 文档包应该让新读者不用先打开源码，就能说清项目在做什么、沿一条真实路径走到输出、理解关键概念、查到精确契约，并知道哪里容易改坏。
 
 ---
 
