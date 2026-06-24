@@ -14,6 +14,10 @@
   <a href="README_CN.md">中文 README</a>
 </p>
 
+<p align="center">
+  <img src="assets/main.png" alt="Repo-Docs main preview" width="900" />
+</p>
+
 ---
 
 ## 最新更新
