@@ -225,7 +225,6 @@ def check_source_truth_hints(root: Path) -> list[Finding]:
     skip_patterns = [
         "Evidence status: Confirmed unless",
         "Confirmed unless",
-        "普通页面默认使用",
         "| `Confirmed` |",
     ]
 
