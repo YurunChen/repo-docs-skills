@@ -39,6 +39,8 @@ Start with [one-real-run.md](walkthroughs/one-real-run.md). It explains [observa
 | Change behavior | [change-map.md](change-map.md) | concept page, files to inspect, and reference |
 | Look up exact names | relevant reference | source locator |
 
+New here? Take the [full walk through one real run](walkthroughs/one-real-run.md). Already know the domain? Skip the scaffold and jump straight to the [exact request contract](references/message-schema.md).
+
 ## Current Scope And Caveats
 
 - Confirmed: ...
@@ -111,6 +113,10 @@ Expected:
 
 Run: `...`
 Expected: `...`
+
+Optional, newcomer run only: one line on a path a maintainer might expect but the code does not take, and why.
+
+When the [concept the run leans on, named by what you gain](modules/<concept>.md) stays fuzzy, read it next.
 ````
 
 ## Module Doc Skeleton
@@ -141,7 +147,7 @@ This concept appears in [one-real-run.md](../walkthroughs/one-real-run.md) when 
 
 ## Source Locator
 
-- Confirmed: `path/to/file`, `function_or_field`, `test_name`.
+- Confirmed: `path/to/file`, `function_or_field`, `test_name`. This is the right place to change because [the reason the logic lives here, not just where].
 
 ## Change Risk
 

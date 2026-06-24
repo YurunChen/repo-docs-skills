@@ -41,6 +41,13 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 
 中文写作要像有经验的维护者在带新人读代码。每句话都给出具体 claim、观察、风险、证据或过渡，避免大空话和泛泛评价。少用破折号、引号和装饰性强调；少用“不是……而是……”这类低信息量对比句，直接写清正向判断。风格保持干净、流畅、准确。
 
+## 中文导航气味与读者分层
+
+完整规则见基座 `../repo-docs/REFERENCE.md` 的 Navigation Scent 与 Reader Paths，这里只收紧中文措辞：
+
+- 每个内容页（README、walkthrough、module）都要把读者引向下一个最有用的页面，链接文字用中文写清“读者能得到什么”，不要只写文件名，也不要用“见此”“点击”“这里”这类无气味词；不要在每页机械加“下一步”页脚；页面不能是死胡同。
+- 只在 README 的阅读路线里给出两条路径：新人路径（走 walkthrough），和给熟悉领域的人的快速路径（直接去 references / 源码定位，并说明能省到什么）。验证器会对死胡同和无气味链接文字报 WARN。
+
 ## 中文 Markdown 教学展示
 
 完整展示协议见基座 `../repo-docs/REFERENCE.md`。中文增量只在标题词和提示块：

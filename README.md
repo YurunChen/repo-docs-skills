@@ -32,6 +32,7 @@ The default output stays Markdown-first under `repo-docs/`. HTML or course artif
 | Markdown display | Headings, notice blocks, tables, code blocks, diagrams, and details blocks control the learning rhythm. |
 | Reference discipline | Dense fields, commands, schemas, artifacts, metrics, and tool parameters live in `references/`, not the teaching narrative. |
 | Evidence honesty | Uninspected code/data claims stay marked as inferred, planned, or unknown. |
+| Navigation by scent | Each page links onward by what the reader gains; README offers a newcomer path and an expert fast-path. |
 | Relationship maps by trigger | `flows.md` is only for relationships among multiple workflows, phases, states, or outputs; it does not replace the main walkthrough. |
 
 ## Output Shape
@@ -107,7 +108,7 @@ The package includes a lightweight validator for generated docs:
 python scripts/validate_repo_docs.py /path/to/repo-docs
 ```
 
-It checks standard structure, local links, main walkthrough routing, teaching-section hints, change-map verification language, reference drift, and `flows.md` misuse signals. Use `--lite` for the small-repo shape, `--seed` for Seed-mode structure, and `--repo-root <repo>` to verify that cited source locators exist in the real tree.
+It checks standard structure, local links, main walkthrough routing, teaching-section hints, change-map verification language, reference drift, `flows.md` misuse signals, and navigation scent (dead-end pages and low-scent link labels). Use `--lite` for the small-repo shape, `--seed` for Seed-mode structure, and `--repo-root <repo>` to verify that cited source locators exist in the real tree.
 
 ## Included Files
 

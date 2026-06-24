@@ -98,8 +98,10 @@ Use Markdown as a teaching interface, not decoration: learning-state headings (`
 - `modules/`: readable concept pages for things the walkthrough introduces but cannot fully explain without becoming dense.
 - `references/`: high-density lookup material for fields, schemas, commands, artifacts, tools, metrics, data contracts, and task catalogs.
 - `glossary.md`: repeated or project-specific terms.
-- `change-map.md`: future change goals mapped to files, risks, and checks.
+- `change-map.md`: future change goals mapped to files, risks, checks, and why those files are the right place to change.
 - `change-log.md`: durable recent changes and verification results.
+
+Route the reader onward: each content page (README, walkthroughs, modules) links to the genuinely next-most-useful page with an in-prose label that names what the reader gains, never a bare filename or a stamped footer, and no page dead-ends. In README routes, offer a newcomer path and an expert fast-path that names its payoff. The validator warns on dead ends and low-scent labels; see [REFERENCE.md](REFERENCE.md).
 
 ## Writing Standard
 

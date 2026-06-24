@@ -220,6 +220,25 @@ The main guide should support three paths:
 | Reproduce or run | commands, config, expected outputs, artifact locations |
 | Modify safely | change map, concepts to understand, files to inspect, risks, tests |
 
+Readers also arrive with different expertise, and scaffolding that helps a newcomer slows an expert who already holds the model. Treat plain-model and concept pages as skippable, not mandatory, and let the reading order match expertise:
+
+| Reader | Entry point | Guidance level |
+| --- | --- | --- |
+| Newcomer | `walkthroughs/one-real-run.md` | heavy scaffold: plain model before code names |
+| Intermediate | `modules/<concept>.md` | mixed: concept plus source locators |
+| Expert | `references/` and source locators | minimal: contracts and exact names, scaffold skipped |
+
+Offer this as a route in `README.md` only, not as repeated per-page banners. A short newcomer path and an expert fast-path that names its payoff (for example, `Know the domain already? Jump to the request contract in references/`) let a reader skip pages they do not need.
+
+## Navigation Scent
+
+Readers move through the package by following scent: at each link they judge, from the visible label and heading alone, whether the next page is worth the click. The label, not the destination, drives the decision, so a weak label sends readers down the wrong path or makes them give up.
+
+- Every content page (`README.md`, walkthroughs, modules) should route the reader onward to the genuinely next-most-useful page. A page with no onward route is a dead end.
+- Write onward links as natural in-prose links whose label names what the reader gains, not the filename and not the act of clicking. Prefer `see how scoring picks a winner in modules/scoring.md` over `see modules/scoring.md` or `click here`.
+- Scent is a property of how links are written, not a widget. Do not stamp a "Next" footer on every page; place the onward link where the reader actually needs it.
+- The validator enforces this from the author side: it warns on content pages with no onward link and on low-scent labels (a bare filename or words like `here`, `this`, `see`). These checks add no text to the docs.
+
 ## Language Mode
 
 `repo-docs` can write repo docs in Chinese or English. Treat language as a pack-level documentation contract.
@@ -457,6 +476,8 @@ Each step should answer four questions in this order:
 
 Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. A Mermaid diagram can help, but it must be paired with prose that explains the path.
 
+Optionally, on the newcomer walkthrough only, note one path a maintainer might expect but the code does not take, and why. This makes the design reasoning visible. Use it sparingly: dead-end narration adds reading load, so keep it to one line and never put it on reference or fast-path pages where an expert would only be slowed by it.
+
 Walkthrough count rules:
 
 | Repo shape | Default walkthroughs | Add more when |
@@ -497,7 +518,7 @@ Use this for future maintenance paths:
 
 Keep it stable, prospective, and action-oriented.
 
-Write goals as user-facing or maintainer-facing intentions before file paths. Prefer "change how delayed feedback reaches memory" over "edit `observation_delivery.py`".
+Write goals as user-facing or maintainer-facing intentions before file paths. Prefer "change how delayed feedback reaches memory" over "edit `observation_delivery.py`". For each goal, say in a clause why the named files are the right place to change, so the reader inherits the judgment, not just the location.
 
 ### Change log: `change-log.md`
 
@@ -527,7 +548,7 @@ Use this section order unless the page is very short:
 3. `Where You Saw This`: the walkthrough moment that makes this concept visible.
 4. `One Concrete Example`: one source-backed example that makes the concept usable.
 5. `What To Notice`: the observation that prevents the reader from missing the point.
-6. `Source Locator`: files, functions, fields, and tests to inspect.
+6. `Source Locator`: files, functions, fields, and tests to inspect, with a short note on why this is the right place to change, not only where it is.
 7. `Change Risk`: what commonly breaks when changing related code.
 8. `Verification`: focused checks.
 

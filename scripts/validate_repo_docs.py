@@ -42,6 +42,13 @@ MERMAID_PATTERN = re.compile(r"```mermaid[\s\S]*?```", re.IGNORECASE)
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+)$", re.MULTILINE)
 FENCE_PATTERN = re.compile(r"```[\s\S]*?```")
 INLINE_CODE_PATTERN = re.compile(r"`([^`\n]+)`")
+LINK_WITH_TEXT_PATTERN = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
+# Link labels that carry no information scent: they name the act of clicking or
+# the file, not what the reader gains by following the link.
+LOW_SCENT_LABELS = {
+    "here", "this", "that", "see", "click", "click here", "read", "read more",
+    "more", "link", "page", "doc", "docs", "这里", "看这里", "点击", "详情", "见此",
+}
 # A source locator looks like a relative path with at least one slash and a file
 # extension, optionally followed by :line or :line-range. This stays narrow to
 # keep false positives low; bare filenames without a slash are not checked.
@@ -268,6 +275,50 @@ def check_source_locators(root: Path, repo_root: Path) -> list[Finding]:
     return findings
 
 
+def check_scent(root: Path) -> list[Finding]:
+    """Check information scent: content pages should route the reader onward, and
+    onward link labels should name what the reader gains, not the file or the
+    act of clicking. Both are WARN-only and add no text to generated docs; they
+    enforce navigability from the author side. Reference/glossary/change-log are
+    lookup leaves and are not required to route onward.
+    """
+    findings: list[Finding] = []
+    content_paths: list[Path] = []
+    readme = root / "README.md"
+    if readme.is_file():
+        content_paths.append(readme)
+    for sub in ("walkthroughs", "modules"):
+        directory = root / sub
+        if directory.is_dir():
+            content_paths.extend(sorted(directory.glob("*.md")))
+
+    for path in content_paths:
+        relative = path.relative_to(root)
+        text = FENCE_PATTERN.sub("", read_text(path))
+        onward_links = 0
+        for match in LINK_WITH_TEXT_PATTERN.finditer(text):
+            label = match.group(1).strip()
+            target = match.group(2).strip()
+            if target.startswith("#") or re.match(r"^[a-z][a-z0-9+.-]*:", target, re.IGNORECASE):
+                continue
+            path_part = unquote(target.split("#", 1)[0]).strip()
+            if not path_part.endswith(".md"):
+                continue
+            if (path.parent / path_part).resolve() == path.resolve():
+                continue
+            onward_links += 1
+            base = path_part.rsplit("/", 1)[-1]
+            if label.lower() in LOW_SCENT_LABELS or label in (path_part, base, base[:-3]):
+                findings.append(
+                    Finding("WARN", f"{relative}: low-scent link label '{label}' — name what the reader gains, not the file")
+                )
+        if onward_links == 0:
+            findings.append(
+                Finding("WARN", f"{relative}: no onward link to another page (possible dead end)")
+            )
+    return findings
+
+
 def main() -> int:
     args = parse_args()
     root = args.repo_docs.resolve()
@@ -285,6 +336,7 @@ def main() -> int:
         findings.extend(check_non_seed_routing(root, lite=args.lite))
         findings.extend(check_teaching_structure(root))
         findings.extend(check_source_truth_hints(root))
+        findings.extend(check_scent(root))
     if args.repo_root is not None:
         if args.repo_root.is_dir():
             findings.extend(check_source_locators(root, args.repo_root))
