@@ -350,7 +350,9 @@ If the user asks to delete only one page or one section, do not remove the whole
 
 ### Agent instruction files
 
-When `repo-docs/` is created or materially updated, ensure the repository root has an agent instruction file. If none exists, **create `AGENTS.md`**.
+When `repo-docs/` is created or materially updated, search for existing project agent instruction Markdown and make it point future agents back to the guide.
+
+Look for files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, `.cursor/rules/*.md`, or another nearby Markdown file whose filename or heading clearly says it is for coding agents. Patch the files that already govern this repo or package. If none exists, create `AGENTS.md`.
 
 Keep the block short and operational:
 
@@ -360,7 +362,7 @@ Keep the block short and operational:
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.
 
-Update an existing root file in place. Do not duplicate the guide into `AGENTS.md`.
+Update existing agent instruction files in place. Do not duplicate the guide into them.
 
 ### References
 

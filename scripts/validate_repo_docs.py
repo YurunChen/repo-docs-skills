@@ -104,6 +104,13 @@ SYNC_ANCHOR_PATTERN = re.compile(
     r"Synced through\s+([0-9a-f]{7,40})|同步至\s+([0-9a-f]{7,40})",
     re.IGNORECASE,
 )
+REPO_DOCS_RULE_PATTERN = re.compile(r"repo-docs|repo docs|repo 文档|项目理解文档", re.IGNORECASE)
+SYNC_RULE_HINT_PATTERN = re.compile(
+    r"understanding sync|sync check|change-log|stale|patch|同步|更新|过期|变更|维护",
+    re.IGNORECASE,
+)
+AGENT_INSTRUCTION_NAME_PATTERN = re.compile(r"^(AGENTS|CLAUDE|GEMINI)(?:\.override)?\.md$", re.IGNORECASE)
+AGENT_HEADING_PATTERN = re.compile(r"(?m)^#{1,3}\s+.*(agent|coding agent|instructions|指令|规则)", re.IGNORECASE)
 SOURCE_FILE_IN_TOKEN = re.compile(
     r"\.(py|js|ts|tsx|go|rs|java|rb|json|ya?ml|toml|md)\b",
     re.IGNORECASE,
@@ -691,6 +698,57 @@ def check_scent(root: Path) -> list[Finding]:
     return findings
 
 
+def has_repo_docs_sync_rule(path: Path, repo_root: Path) -> bool:
+    text = read_text(path)
+    if REPO_DOCS_RULE_PATTERN.search(text) and SYNC_RULE_HINT_PATTERN.search(text):
+        return True
+    return False
+
+
+def find_agent_instruction_markdown(repo_root: Path) -> list[Path]:
+    paths: list[Path] = []
+
+    for path in sorted(repo_root.glob("*.md")):
+        if AGENT_INSTRUCTION_NAME_PATTERN.match(path.name):
+            paths.append(path)
+            continue
+        text = read_text(path)
+        if AGENT_HEADING_PATTERN.search(text):
+            paths.append(path)
+
+    cursor_rules = repo_root / ".cursor" / "rules"
+    if cursor_rules.is_dir():
+        paths.extend(sorted(cursor_rules.glob("*.md")))
+
+    return paths
+
+
+def check_agent_instruction_sync(repo_root: Path) -> list[Finding]:
+    """Warn when project agent instruction Markdown does not preserve repo-docs sync."""
+    findings: list[Finding] = []
+    active_files = find_agent_instruction_markdown(repo_root)
+
+    if not active_files:
+        findings.append(
+            Finding(
+                "WARN",
+                "repo root has no agent instruction Markdown; Build should create AGENTS.md with repo-docs sync rules",
+            )
+        )
+        return findings
+
+    for path in active_files:
+        if not has_repo_docs_sync_rule(path, repo_root):
+            relative = path.relative_to(repo_root)
+            findings.append(
+                Finding(
+                    "WARN",
+                    f"{relative}: missing repo-docs sync rule for future repo questions and behavior-changing edits",
+                )
+            )
+    return findings
+
+
 def main() -> int:
     args = parse_args()
     root = args.repo_docs.resolve()
@@ -716,6 +774,8 @@ def main() -> int:
     if args.repo_root is not None:
         if args.repo_root.is_dir():
             findings.extend(check_source_locators(root, args.repo_root))
+            if not args.seed:
+                findings.extend(check_agent_instruction_sync(args.repo_root.resolve()))
             if not args.seed:
                 findings.extend(check_sync_freshness(root, args.repo_root))
         else:

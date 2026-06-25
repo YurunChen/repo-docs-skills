@@ -166,7 +166,7 @@ Evidence status: Confirmed unless a row says otherwise.
 
 ## Root AGENTS.md Skeleton
 
-Create at the **repository root** when no `AGENTS.md`, `CLAUDE.md`, or equivalent agent instruction file exists and you are adding or materially updating `repo-docs/`. If a root agent file already exists, patch that file instead—do not create a second one.
+Create at the **repository root** when no existing project agent instruction Markdown governs the repo and you are adding or materially updating `repo-docs/`. If files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, or `.cursor/rules/*.md` already govern the repo, patch those files instead of creating a second source of rules.
 
 ````markdown
 # Agent Instructions

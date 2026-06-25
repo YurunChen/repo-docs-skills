@@ -72,16 +72,20 @@ Use the smallest package that teaches the repo honestly.
 4. Add modules only for concepts the walkthrough cannot explain cleanly inline.
 5. Add references only for exact names or catalogs that would clutter narrative pages.
 6. Add `glossary.md` and `change-log.md`.
-7. Wire the guide into the repo-root agent file: update `AGENTS.md`, `CLAUDE.md`, or create `AGENTS.md` if none exists. The root rule must say that future repo questions and behavior-changing edits should check `repo-docs/`, patch stale guide pages in the same turn when needed, and record meaningful guide work in `repo-docs/change-log.md`.
+7. Wire the guide into the project's agent instruction Markdown. Search for existing files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, or `.cursor/rules/*.md`; patch the ones that clearly govern coding agents for this repo. If none exists, create `AGENTS.md`. The rule must say that future repo questions and behavior-changing edits should check `repo-docs/`, patch stale guide pages in the same turn when needed, and record meaningful guide work in `repo-docs/change-log.md`.
 8. Run the validator and fix structure, link, and evidence problems.
 
 For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
 
-Build is not finished until the next coding agent can maintain the guide without rediscovering the policy. The root agent file is the handoff point: it should point to `repo-docs/README.md`, name the main walkthrough, and tell future agents to run an Understanding Sync check when repo questions or behavior-changing edits appear.
+Build is not finished until the next coding agent can maintain the guide without rediscovering the policy. The project agent instruction Markdown is the handoff point: it should point to `repo-docs/README.md`, name the main walkthrough, and tell future agents to run an Understanding Sync check when repo questions or behavior-changing edits appear.
 
 ## Root Agent File Contract
 
-When Build creates or updates `repo-docs/`, the repo-root `AGENTS.md` or `CLAUDE.md` must include a short `Repo docs` rule. If neither file exists, create `AGENTS.md`.
+When Build creates or updates `repo-docs/`, search the project for agent instruction Markdown before creating anything new. Look for common project files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, and `.cursor/rules/*.md`, plus any nearby Markdown file whose filename or heading clearly says it is for coding agents.
+
+Patch existing agent instruction files that already govern the repo or the package being documented. Do not create extra tool-specific files just to mirror the rule. If no such file exists, create `AGENTS.md` at the project root.
+
+For nested packages, patch the nearest project agent instruction Markdown that governs the generated `repo-docs/` package. If the guide is created at the repository root, use the root file.
 
 The rule should say:
 
