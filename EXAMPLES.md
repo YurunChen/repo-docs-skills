@@ -74,18 +74,18 @@ Optional when the package has many goals or walkthroughs—add `## Reader Routes
 
 ## Walkthrough Default
 
-Default shape for `walkthroughs/one-real-run.md`—connected prose, one `##` per phase, ownership per SKILL Page Design.
+Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered steps, ownership per SKILL Page Design.
 
 ````markdown
 # [Human behavior title]
 
 [Opening: what you are following, plain model in one or two paragraphs, and optional links to concept pages you will need later.]
 
-## [First behavior phase]
+## Step 1: [first behavior]
 
 [What happens—in normal prose, including cause and effect. Weave paths and functions into sentences. When this phase introduces a durable concept, link to the matching module in the same paragraph—e.g. if [why the event exists](../modules/events.md) is still fuzzy after this step.]
 
-## [Next behavior phase]
+## Step 2: [next behavior]
 
 [Connected prose for the next phase.]
 
@@ -100,10 +100,10 @@ Evidence status: Confirmed unless noted.
 
 ## Walkthrough Expanded Shape (Long Pages Only)
 
-Use this only when the walkthrough is long (roughly past 120 lines) or one phase needs a dense before/after table or several locators. Do not use it as the default for short or medium pages. Keep `##` phase headings; weave mechanism, paths, and checks into connected prose—do not stamp repeated reader-state `###` subheadings.
+Use this only when the walkthrough is long (roughly past 120 lines) or one step needs a dense before/after table or several locators. Do not use it as the default for short or medium pages. Keep numbered `## Step N: [behavior]` headings; weave mechanism, paths, and checks into connected prose—do not stamp repeated reader-state `###` subheadings.
 
 ````markdown
-## [human action or event]
+## Step N: [human action or event]
 
 [What the reader sees or does, in plain language. Then the mechanism in connected
 prose—weave `path/to/file`, functions, and checks into sentences. If a before/after
@@ -124,21 +124,29 @@ pytest path/to/tests -q
 
 ## Module Doc Skeleton
 
-Default module shape—one coherent prose block; weave edit-order caveats only when they clarify the mechanism.
+Default module shape. Keep the three sections unless the user explicitly asks for a different format.
 
 ````markdown
 # [Readable Concept]
 
-[Reader question or statement.] [Plain model — no code names yet.] You saw this in [the first real run](../walkthroughs/one-real-run.md) when [...].
+## Plain model
 
-[Code model in prose: structure, what key APIs do, then snippet.]
+[Reader question or statement.] [Explain the concept without code names first. Say what confusion this page removes and where the reader saw the concept in the first real run.]
+
+## Code model
+
+[Explain how this repo represents and uses the concept: structure, key APIs, source locator, then one inspected snippet or command when it helps.]
 
 ```python
 # Short usage example from inspected source
 ...
 ```
 
-[Where the concept lives: weave `path/to/file` and `function` into a sentence. If edit order matters for understanding, say why in the same paragraph.]
+If edit order matters for understanding, say why here in one short caveat.
+
+## Read next
+
+Return to [the first real run](../walkthroughs/one-real-run.md) where this concept first appears. Exact names live in [the relevant reference](../references/reference-name.md). If the next concept matters, link it with a label that says what the reader will learn.
 
 Evidence status: Confirmed unless noted.
 ````
@@ -215,7 +223,7 @@ Follow [one message from arrival to review decision](walkthroughs/one-real-run.m
 Use this inside a walkthrough `##` phase, not the expanded `###` template.
 
 ````markdown
-## A message becomes an event
+## Step 1: a message becomes an event
 
 The system receives one incoming message and turns it into a record that later code can inspect. A message is what the user sent; an event is the stable version inside the system. At this point, no review decision has been made. This step protects later code from raw input differences—policy code reads the event, not the original message text.
 
@@ -261,13 +269,13 @@ Evidence status: Confirmed unless a row says otherwise.
 
 ### Glossary row
 
-Three columns: **Term | Plain meaning | Further reading**. Code pointers and common confusion belong inside Plain meaning.
+Three columns: **Term | Plain meaning | Further reading**. Keep code out unless one lightweight pointer is needed; mechanism belongs in modules and exact names belong in references.
 
 ````markdown
 | Term | Plain meaning | Further reading |
 | --- | --- | --- |
-| Event | Stable handoff after normalization; policy reads this record, not the raw message. Lives in `normalize.py` / `schema.py`. Often confused with the incoming message. | — |
-| OTLP | Trace export format this repo uses; spans leave through the configured OTLP endpoint (`OTEL_EXPORTER_OTLP_ENDPOINT`). Not the same path as Prometheus scrape. | Inferred — [OTLP spec](https://opentelemetry.io/docs/specs/otlp/) |
+| Event | Stable handoff after normalization. Policy reads this record, not the raw incoming message. Often confused with the message itself. | — |
+| OTLP | Trace export format this repo uses. It is different from Prometheus scraping. | Inferred — [OTLP spec](https://opentelemetry.io/docs/specs/otlp/) |
 ````
 
 ### Module caveat example
@@ -356,7 +364,7 @@ Use this as an internal coverage checklist, or render it when scoping which conc
 ## Markdown Display Patterns
 
 - Each durable fact lives in one best home; other pages link to it.
-- Walkthrough: behavior-named `##` headings; link to the matching `modules/<concept>.md` in the phase where that concept appears; add a small flowchart when phases or branches are hard to follow in prose alone; one verify block at page end.
+- Walkthrough: numbered `## Step N: [behavior]` headings; link to the matching `modules/<concept>.md` in the step where that concept appears; add a small flowchart when branches are hard to follow in prose alone; one verify block at page end.
 - README: opening prose with in-text routes; optional `## Reader Routes` table for large packages.
 - Module: plain model and code model in prose + snippet; weave edit-order caveats when they clarify understanding.
 - Reference: lookup warning plus table; narrative stays in walkthrough or module.

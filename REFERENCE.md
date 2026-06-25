@@ -284,7 +284,7 @@ Markdown is the reading interface. Use it to control rhythm and reduce cognitive
 
 | Element | Use for |
 | --- | --- |
-| Phase headings (`##`) | Real behavior beats: `Step 1: a message becomes an event` |
+| Step headings (`##`) | Real behavior beats: `Step 1: a message becomes an event` |
 | Inline labels | Rare disambiguation only; prefer paths and checks woven into prose |
 | Reader-state `###` headings | Long walkthroughs or one dense phase only |
 | Blockquotes | Pull quotes from external docs when needed |
@@ -390,6 +390,7 @@ Rules:
 - Every narrative page should be readable before the reader knows function names, field names, or file layout.
 - Every important walkthrough step should translate code behavior into plain language before giving a source locator.
 - Every walkthrough step carries cause, effect, and the observation that matters before source details—in connected prose.
+- Lower code-name density by order of explanation: behavior first, plain concept next, source names only when they prove or locate the point. Dense lookup belongs in references.
 - Every exact field, command, schema, tool parameter, metric, artifact, task catalog, or config contract belongs in `references/`.
 - Evidence status stays visible but quiet: one page-level default at the **end** of narrative pages; local labels only where confidence differs.
 - `modules/` pages should exist only when they make a concept easier to understand than leaving it inside the walkthrough. They are reader-facing explanation pages built around one concept, one code model example, source locators woven into prose, and—when useful—a short caveat or verify command that confirms understanding.
@@ -432,9 +433,9 @@ Design document types by reader state, not by source-tree structure:
 | "I do not understand this project yet." | Natural first model and next step. | `README.md` |
 | "I want to understand the project idea." | A plain model of the problem, main behavior, and caveats. | README and the main walkthrough |
 | "Show me one real thing working." | A worked example with observable behavior and state changes. | `walkthroughs/one-real-run.md` |
-| "I understand the behavior, but this concept is still fuzzy." | Plain model, code model, source locator. | `modules/*.md` |
+| "I understand the behavior, but this concept is still fuzzy." | Plain model, code model, and where to read next. | `modules/*.md` |
 | "I need exact names." | Fields, commands, schemas, tools, metrics, artifacts. | `references/*.md` |
-| "These project terms blur together." | Plain meaning for this project; code mapping woven into the same cell. | `glossary.md` |
+| "These project terms blur together." | Plain meaning for this project, with little or no code. | `glossary.md` |
 
 Every page should provide information scent for the next useful page. If the reader may be lost, tell them where to restart.
 
@@ -467,19 +468,21 @@ For seed projects, use it as a project brief. Keep it honest about the empty sta
 
 Use walkthroughs to explain the repo through real behavior, not through module order. A walkthrough follows a command, request, task, user action, failure, policy case, or data record from the moment a reader can observe it to the resulting state, output, or score. For non-Seed repos, create `walkthroughs/one-real-run.md` before writing deep module/reference pages. If the repo has no real observable path yet, use Seed mode and record the path as `Planned` in `README.md`; do not present it as `one-real-run.md`.
 
-The default `one-real-run.md` should read as one continuous explanation. Shape, beats, and ownership: [SKILL.md](SKILL.md) Content Organization and Page Design.
+The default `one-real-run.md` should read as one continuous explanation split into numbered steps. Shape, beats, and ownership: [SKILL.md](SKILL.md) Content Organization and Page Design.
 
 ```text
 title + opening prose (what you follow + plain model + optional onward links)
--> ## [behavior name]
+-> ## Step 1: [behavior name]
+-> ## Step 2: [behavior name]
+-> ...
 -> closing (end state + one verify command + onward links + evidence status)
 ```
 
-Each `##` phase carries plain model and mechanism in connected prose. Weave paths, functions, and checks into sentences. Link to the matching `modules/<concept>.md` in the phase where that concept appears. Put **one** page-level verification block at the end unless a phase needs a different check. Route to `references/` at the opening, closing, or when exact names first become necessary—not as repeated boilerplate under every phase.
+Each `## Step N: ...` section carries plain model and mechanism in connected prose. Weave paths, functions, and checks into sentences. Link to the matching `modules/<concept>.md` in the step where that concept appears. Put **one** page-level verification block at the end unless a step needs a different check. Route to `references/` at the opening, closing, or when exact names first become necessary—not as repeated boilerplate under every step.
 
 See [EXAMPLES.md](EXAMPLES.md) for the default flat walkthrough and the optional expanded shape for long pages.
 
-Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. When several phases, branches, or handoffs are hard to hold in prose alone, add a small Mermaid or ASCII flowchart after the plain-model sentence for that section—see [SKILL.md](SKILL.md) Flowcharts when understanding needs them. The diagram teaches the shape; prose still carries why and how to verify.
+Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. When several branches or handoffs are hard to hold in prose alone, add a small Mermaid or ASCII flowchart after the plain-model sentence for that step—see [SKILL.md](SKILL.md) Flowcharts when understanding needs them. The diagram teaches the shape; prose still carries why and how to verify.
 
 Optionally, on the newcomer walkthrough only, note one path a reader might expect but the code does not take, and why. This makes the design reasoning visible. Use it sparingly: dead-end narration adds reading load, so keep it to one line and never put it on reference or fast-path pages where an expert would only be slowed by it.
 
@@ -499,13 +502,13 @@ Use this for names the reader will see repeatedly. Three columns only:
 
 | Term | Plain meaning | Further reading |
 
-**Plain meaning** carries the whole project-specific explanation—including where the term shows up in code and what it is often confused with. **Further reading** is optional: one inferred external URL for large generic concepts, or `—`.
+**Plain meaning** carries the project-specific meaning in reader language. It can mention what the term is often confused with, but it should not become a code mapping. **Further reading** is optional: one inferred external URL for large generic concepts, or `—`.
 
 Rules (see [SKILL.md](SKILL.md) Glossary entries):
 
 - Plain meaning must let the reader continue the guide without opening **Further reading**.
 - At most one URL per row; mark `Inferred` / `推断（外部来源：…）`.
-- Mechanism depth belongs in `modules/<concept>.md`; link from Plain meaning instead of expanding the row.
+- Mechanism depth belongs in `modules/<concept>.md`; exact paths, fields, commands, and schemas belong in `references/`.
 - Do not turn glossary into a link farm or duplicate `references/`.
 
 ### Flows: `flows.md`
@@ -537,16 +540,15 @@ To make later syncs incremental, every sync or material question-driven patch sh
 
 ### Module docs
 
-Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. Shape and beats: [SKILL.md](SKILL.md) Content Organization and Page Design.
+Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. The default module page has exactly three sections: `## Plain model`, `## Code model`, and `## Read next`.
 
 For seed projects, planned concepts belong in `README.md` or `references/decisions.md` until source evidence exists.
 
-Cover these beats in coherent prose under the title (coverage checklist, not heading names):
+Use the sections this way:
 
-1. Reader question and plain model — concept without code names; key insight woven in
-2. Code model — structure, API explanation, short usage example from inspected source
-3. Where the concept appears in the walkthrough
-4. Where the concept lives in prose (paths/functions); weave edit-order caveats only when they clarify the mechanism
+1. `## Plain model`: the reader question and the concept in human terms, before code names.
+2. `## Code model`: how this repo represents and uses the concept, with structure, API explanation, source locators, and a short inspected example when useful.
+3. `## Read next`: where this concept appears in the walkthrough, which reference page holds exact names, and which related concept to read next.
 
 Full field tables and command catalogs belong in `references/`.
 
@@ -796,7 +798,7 @@ For **widened-scope sync**, handoff, and milestone closeouts—not first-time **
 - [ ] Module docs explain current concepts that readers actually need.
 - [ ] Main guide includes quick understanding, reproduce/run, and verify paths.
 - [ ] Non-Seed repos include `walkthroughs/one-real-run.md`, linked from README.
-- [ ] Walkthroughs trace real behavior in connected prose; no template `###` stack under every step; no duplicate closing sections that repeat the steps.
+- [ ] Walkthroughs use numbered `## Step N: [behavior]` sections and connected prose; no template `###` stack under every step; no duplicate closing sections that repeat the steps.
 - [ ] README orients the reader without repeating the walkthrough's full plain model.
 - [ ] Module docs deepen concepts without copying walkthrough paragraphs; link back instead.
 - [ ] If module pages exist, the README route map points readers to the useful concept pages.

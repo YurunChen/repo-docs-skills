@@ -36,7 +36,7 @@ REQUIRED_LITE_FILES = [
 LOCAL_LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
 IMAGE_LINK_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+)\)")
 STEP_PATTERN = re.compile(r"^#{2,4}\s+(step\s+\d+|第\s*\d+\s*步|步骤\s*\d+)", re.IGNORECASE | re.MULTILINE)
-NUMBERED_PHASE_H2_PATTERN = re.compile(r"^##\s+Step\s+\d+\s*:", re.IGNORECASE | re.MULTILINE)
+NUMBERED_STEP_H2_PATTERN = re.compile(r"^##\s+(Step\s+\d+|第\s*\d+\s*步|步骤\s*\d+)\s*[:：]", re.IGNORECASE | re.MULTILINE)
 MERMAID_PATTERN = re.compile(r"```mermaid[\s\S]*?```", re.IGNORECASE)
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+)$", re.MULTILINE)
 FENCE_PATTERN = re.compile(r"```[\s\S]*?```")
@@ -45,6 +45,9 @@ LINK_WITH_TEXT_PATTERN = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
 CONFIDENCE_LABEL_PATTERN = re.compile(r"\b(Confirmed|Inferred|Planned|Unknown)\b|已确认|推断|计划中|未确认")
 SOURCEY_INLINE_PATTERN = re.compile(
     r"/|\.py\b|\.js\b|\.ts\b|\.tsx\b|\.json\b|\.ya?ml\b|\.md\b|\(\.\.\.\)|^[A-Za-z_][A-Za-z0-9_]*\("
+)
+CODE_DENSITY_TOKEN_PATTERN = re.compile(
+    r"`([^`\n]*(?:/|\.py\b|\.js\b|\.ts\b|\.tsx\b|\.json\b|\.ya?ml\b|\.toml\b|\.md\b|\(\.\.\.\)|^[A-Za-z_][A-Za-z0-9_]*\()[^`\n]*)`"
 )
 BROAD_VALUE_WORD_PATTERN = re.compile(
     r"\b(robust|powerful|seamless|extensible|scalable|efficient|comprehensive|"
@@ -71,12 +74,17 @@ READER_STATE_H3_PATTERN = re.compile(
 )
 MODULE_TEMPLATE_H2_PATTERN = re.compile(
     r"^##\s+("
-    r"Reader Question|Plain Model|Code [Mm]odel|In [Cc]ode|Where You Saw This|One Concrete Example|What To Notice|Source Locator|"
+    r"Reader Question|In [Cc]ode|Where You Saw This|One Concrete Example|What To Notice|Source Locator|"
     r"Change Risk|Verification|Change Risk And Verification|If you change this|"
-    r"读者问题|白话模型|代码模型|在代码中|你在哪里见过|一个真实例子|源码定位|改动风险|验证方法|改动风险与验证|如果你要改"
+    r"读者问题|在代码中|你在哪里见过|一个真实例子|源码定位|改动风险|验证方法|改动风险与验证|如果你要改"
     r")",
     re.MULTILINE | re.IGNORECASE,
 )
+MODULE_REQUIRED_H2 = [
+    ("Plain model", re.compile(r"^##\s+(Plain [Mm]odel|白话模型)\s*$", re.MULTILINE)),
+    ("Code model", re.compile(r"^##\s+(Code [Mm]odel|代码模型)\s*$", re.MULTILINE)),
+    ("Read next", re.compile(r"^##\s+(Read [Nn]ext|接下去阅读|接下来阅读)\s*$", re.MULTILINE)),
+]
 REDUNDANT_WALKTHROUGH_H2_PATTERN = re.compile(
     r"^##\s+("
     r"What changes|Change risk|Verification|Plain model|What you are looking at|"
@@ -208,8 +216,10 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
                 "**源码定位。**",
             ],
         ) or bool(PATH_IN_PROSE_PATTERN.search(text))
+        if not has_step:
+            findings.append(Finding("WARN", "Main walkthrough should use numbered Step headings such as `## Step 1: ...`"))
         if not has_step and not has_locator:
-            findings.append(Finding("WARN", "Main walkthrough has no obvious phases or path-like source references"))
+            findings.append(Finding("WARN", "Main walkthrough has no obvious steps or path-like source references"))
         if not has_locator:
             findings.append(Finding("WARN", "Main walkthrough does not reference source paths in prose or locator labels"))
         if not contains_any(text, ["Verification", "验证方法", "验证", "pytest", "npm test", "cargo test", "go test"]):
@@ -222,12 +232,12 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
                     f"Main walkthrough repeats inline labels ({inline_labels}x); weave paths and checks into prose instead",
                 )
             )
-        numbered_phases = len(NUMBERED_PHASE_H2_PATTERN.findall(text))
-        if numbered_phases >= 2:
+        numbered_steps = len(NUMBERED_STEP_H2_PATTERN.findall(text))
+        if has_step and numbered_steps == 0:
             findings.append(
                 Finding(
                     "WARN",
-                    f"Main walkthrough uses numbered Step headings ({numbered_phases}x); prefer behavior-named ## headings",
+                    "Main walkthrough step headings should include a behavior name after a colon, e.g. `## Step 1: a message becomes an event`",
                 )
             )
         fragmented = len(READER_STATE_H3_PATTERN.findall(text))
@@ -235,7 +245,7 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    "Main walkthrough repeats reader-state ### subheadings; use behavior-named ## headings and prose instead",
+                    "Main walkthrough repeats reader-state ### subheadings; use numbered Step headings and prose instead",
                 )
             )
         redundant_closing = len(REDUNDANT_WALKTHROUGH_H2_PATTERN.findall(text))
@@ -404,6 +414,9 @@ def check_explanation_structure(root: Path) -> list[Finding]:
     for path in sorted((root / "modules").glob("*.md")) if (root / "modules").is_dir() else []:
         text = read_text(path)
         relative = path.relative_to(root)
+        for label, pattern in MODULE_REQUIRED_H2:
+            if not pattern.search(text):
+                findings.append(Finding("WARN", f"{relative} is missing module section: {label}"))
 
         has_code_model = contains_any(
             text,
@@ -432,7 +445,7 @@ def check_explanation_structure(root: Path) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    f"{relative}: {template_h2} template-style ## headings; merge beats into coherent prose per SKILL Page Design",
+                    f"{relative}: {template_h2} module ## headings; keep the default Plain model / Code model / Read next shape unless extra sections reduce confusion",
                 )
             )
 
@@ -488,11 +501,25 @@ def first_content_lines(text: str, limit: int = 80) -> str:
     return "\n".join(lines)
 
 
-def check_reading_experience(root: Path) -> list[Finding]:
-    """Warn when first-read pages start with code names or confidence labels.
+def section_text(text: str, heading_pattern: str) -> str:
+    match = re.search(heading_pattern, text, re.IGNORECASE | re.MULTILINE)
+    if not match:
+        return ""
+    start = match.end()
+    next_heading = re.search(r"^##\s+", text[start:], re.MULTILINE)
+    end = start + next_heading.start() if next_heading else len(text)
+    return text[start:end]
 
-    These are heuristics. The goal is to keep README and walkthrough openings
-    readable before the reader has learned the project's source names.
+
+def code_density_count(text: str) -> int:
+    return len(CODE_DENSITY_TOKEN_PATTERN.findall(FENCE_PATTERN.sub("", text)))
+
+
+def check_reading_experience(root: Path) -> list[Finding]:
+    """Warn when source names appear before the reader has a handle.
+
+    These are heuristics. They do not enforce a fixed number; they catch places
+    where narrative pages are likely doing lookup work too early.
     """
     findings: list[Finding] = []
     narrative_paths: list[Path] = []
@@ -519,13 +546,30 @@ def check_reading_experience(root: Path) -> list[Finding]:
                 Finding("WARN", f"{relative}: opening has high code-name density; move dense source names later or into references")
             )
 
+        if relative.parts[0] == "modules":
+            plain = section_text(text, r"^##\s+(Plain [Mm]odel|白话模型)\s*$")
+            code_model = section_text(text, r"^##\s+(Code [Mm]odel|代码模型)\s*$")
+            read_next = section_text(text, r"^##\s+(Read [Nn]ext|接下去阅读|接下来阅读)\s*$")
+            if code_density_count(plain) > 2:
+                findings.append(
+                    Finding("WARN", f"{relative}: Plain model has high code-name density; move source names to Code model")
+                )
+            if code_density_count(code_model) > 12:
+                findings.append(
+                    Finding("WARN", f"{relative}: Code model is dense; consider moving lookup material to references/")
+                )
+            if len(LINK_WITH_TEXT_PATTERN.findall(read_next)) > 4:
+                findings.append(
+                    Finding("WARN", f"{relative}: Read next has many links; route to the next useful page, not a link list")
+                )
+
         label_count = len(CONFIDENCE_LABEL_PATTERN.findall(FENCE_PATTERN.sub("", text)))
         h3_count = len(re.findall(r"^###\s+", text, re.MULTILINE))
         if relative.parts[0] == "walkthroughs" and h3_count >= 6:
             findings.append(
                 Finding(
                     "WARN",
-                    f"{relative}: many ### subheadings; prefer behavior-named ## headings and connected prose",
+                    f"{relative}: many ### subheadings; keep numbered Step headings and connected prose",
                 )
             )
         if relative.parts[0] in {"walkthroughs", "modules"} and label_count > 8:

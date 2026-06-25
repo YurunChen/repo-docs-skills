@@ -33,16 +33,17 @@ description: Use when the user asks for repo-docs in Chinese, mentions repo-docs
 - 参考 Karpathy / Kaiming He 式表达：简单、直接、有观察、有边界。
 - 参考 Anthropic harness 博客：现象 → 设计原因 → 机制 → 结果 → 验证或局限；每段只推进一个因果节点。
 - 先动作后抽象；判断后跟观察；术语前先给抓手。
+- 降低代码名词密度靠解释顺序，不靠把证据藏起来。先给读者一个抓手：用户动作、可见状态变化、白话概念或读者已经有的问题；这个抓手站住后，再给最少量能证明当前说法的路径、函数、命令或产物。高密度字段、命令、schema、artifact 和指标放到 reference。
 - 路径、函数、测试命令写进正文句子，少用 `**源码定位。**` `**验证方法。**` 行内标签。
 - 流程图服务理解，不替代叙事：见基座 [Flowcharts when understanding needs them](../repo-docs/SKILL.md#flowcharts-when-understanding-needs-them)。
-- 术语表仅三列：`Term | Plain meaning | Further reading`。代码指代、易混说法写进 Plain meaning；通用大概念最多一条 `推断（外部来源：URL）`，否则填 `—`；机制放 module。
-- walkthrough 某一阶段引入持久概念时，在**该阶段正文**链到对应 `modules/<concept>.md`；`references/`、`glossary.md` 在首次需要时出现。
+- 术语表仅三列：`Term | Plain meaning | Further reading`。Plain meaning 先解释这个词在项目里的意思，默认少放或不放代码；易混说法可以写进去。需要机制去 module，需要字段、路径、命令、schema 查表去 reference。通用大概念最多一条 `推断（外部来源：URL）`，否则填 `—`。
+- walkthrough 某一步引入持久概念时，在**该步骤正文**链到对应 `modules/<concept>.md`；`references/`、`glossary.md` 在首次需要时出现。
 
 展示增量（包层级与节拍见基座 Content Organization）：
 
 - README：开场白话 + 文内链到 walkthrough、references、glossary；复杂项目可加 `## Reader Routes` 表。
-- walkthrough：`## [行为名]`，段落承载机制；多阶段、分支或状态交接单靠 prose 难跟住时，可在该段落后加**小流程图**（Mermaid 或简短 ASCII），先有白话模型再上图；概念在哪个阶段出现，就在该阶段链到对应 module；页末一次验证命令。
-- module：白话 + 代码模型（结构、API、snippet）写进 prose；若改动顺序影响理解，在同段用一句 caveat 说明原因。
+- walkthrough：默认用 `## Step 1: [行为名]`、`## Step 2: [行为名]` 这样的编号步骤。每一步用段落承载机制；分支或状态交接单靠 prose 难跟住时，可在该步骤后加**小流程图**（Mermaid 或简短 ASCII），先有白话模型再上图；概念在哪一步出现，就在该步骤链到对应 module；页末一次验证命令。
+- module：默认分成 `## 白话模型`、`## 代码模型`、`## 接下去阅读` 三节。白话模型先让技术新人理解概念；代码模型再讲结构、API、已检查源码里的短示例和源码位置；接下去阅读把读者带回 walkthrough、reference 或下一个概念。若改动顺序影响理解，在相关小节里用一句 caveat 说明原因。
 
 ## 理解同步（Understanding sync）
 

@@ -11,7 +11,7 @@ description: Use when a user asks to understand a repo, reduce the gap between t
 
 The job is not to list files. It is not to summarize every module. It is not to prove that the agent inspected a lot of code. The job is to explain the project in plain technical language, then show the source evidence only when the reader is ready for it.
 
-Write like a strong engineer explaining the repo to another strong engineer who has not seen it yet. The style should feel close to Andrej Karpathy or Kaiming He: direct, concrete, low-ego, and grounded in the actual mechanism. Start with the idea. Use simple words. Then point to the code.
+Write like a careful mentor explaining the repo to a technical newcomer. The style should feel close to Andrej Karpathy or Kaiming He: direct, concrete, low-ego, and grounded in the actual mechanism. Start with the idea. Use simple words. Then point to the code.
 
 Calibrate the style against strong agent docs and technical blogs:
 
@@ -49,25 +49,25 @@ Build non-Seed docs in this order (see [Build Order](#build-order)):
 | --- | --- | --- |
 | `README.md` | Orient and choose a path | Thesis, plain model, in-text routes (+ optional `## Reader Routes` table) |
 | `walkthroughs/one-real-run.md` | Follow one real behavior end to end | Opening plain model, `##` per phase, locators, verification |
-| `modules/<concept>.md` | Deepen one concept the walkthrough named | Plain model, **code model**, source locator |
+| `modules/<concept>.md` | Deepen one concept the walkthrough named | `## Plain model`, `## Code model`, `## Read next` |
 | `references/` | Look up exact names | Lookup warning + table |
-| `glossary.md` | Define repeated terms | `Term | Plain meaning | Further reading` — code mapping and confusion live in Plain meaning |
+| `glossary.md` | Define repeated terms | `Term | Plain meaning | Further reading` — reader meaning first, little or no code |
 | `change-log.md` | Record guide evolution and sync anchors | Timestamped entries |
 
 Each durable fact has one home; other pages link. Field catalogs, command lists, and schema tables belong in `references/`, not in walkthrough or module narrative.
 
 ### Glossary entries
 
-`glossary.md` helps the reader **disambiguate repeated names in this project**—not restate an industry encyclopedia.
+`glossary.md` helps the reader **disambiguate repeated names in this project**—not restate an industry encyclopedia and not map terms to code.
 
 Default row—three columns only:
 
 | Term | Plain meaning | Further reading |
 
-- **Plain meaning** — how this project uses the term, in connected prose. Weave in where it appears in code and what readers confuse it with; do not split those into extra columns.
+- **Plain meaning** — how this project uses the term, in connected prose. Keep it readable without code. Mention common confusion when it helps.
 - **Further reading** — at most one optional URL when a generic concept is large (official spec or primary doc). Mark `Inferred` / `推断（外部来源：…）`. Use `—` when the row stands alone without external help. External material does not upgrade repo behavior to `Confirmed`.
 
-If the reader still needs mechanism or call patterns in **this** codebase, put that in `modules/<concept>.md` and link from **Plain meaning**—do not grow the glossary into a module.
+If the reader needs mechanism, call patterns, paths, fields, or exact names, send them to `modules/<concept>.md` or `references/`. Do not grow the glossary into a module or a code index.
 
 Skip **Further reading** when Plain meaning alone is enough.
 
@@ -75,13 +75,13 @@ Skip **Further reading** when Plain meaning alone is enough.
 
 Coverage checklists for the author—not mandatory heading names.
 
-**Walkthrough:** plain model → mechanism with paths and checks woven into prose → page-end verification and onward links when needed.
+**Walkthrough:** opening plain model → `## Step 1: [behavior]`, `## Step 2: [behavior]`, ... → mechanism with paths and checks woven into prose → page-end verification and onward links when needed.
 
-**Module:** reader question and plain model (key insight woven in) → code model (structure, API explanation, usage snippet) → walkthrough link → where the concept lives in prose. When edit order or assumptions matter for understanding, weave a short caveat into the same paragraph—do not add a separate change-plan page.
+**Module:** use exactly three default sections: `## Plain model`, `## Code model`, and `## Read next`. The plain model explains the concept without code names. The code model shows how this repo represents and uses the concept, with source locators and one short inspected example when useful. Read next routes the reader back to the walkthrough, relevant reference page, or next concept. When edit order or assumptions matter for understanding, weave a short caveat into the relevant section—do not add a separate change-plan page.
 
 **Code model** — how the repo represents and uses the concept: structure, what key APIs do, and one short usage example from inspected source. Teaching material, not a walkthrough retelling and not an exhaustive `references/` table.
 
-A strong code model block often runs: structure (sentence or small table) → API explanation → one fenced snippet, CLI line, or record shape from inspected source. Use a short **Code model.** label only when the page is long; otherwise weave the snippet after the plain model. Omit the code model when the concept is one obvious file and the walkthrough already showed the call pattern.
+The `## Code model` section often runs: structure (sentence or small table) → API explanation → one fenced snippet, CLI line, or record shape from inspected source. Keep it short. Omit the snippet only when the concept is one obvious file and the walkthrough already showed the call pattern; still keep the `## Code model` section and say why the walkthrough is enough.
 
 Verification: **once at the walkthrough end** unless one phase has a meaningfully different check.
 
@@ -230,7 +230,7 @@ Triggered pages:
 
 - `README.md`: tell the reader what the project is, why it exists, what to read first, and where to go by goal.
 - `walkthroughs/`: follow one real behavior from observable entry to output.
-- `modules/`: explain one durable concept that appears in a walkthrough.
+- `modules/`: explain one durable concept that appears in a walkthrough. Default sections are `## Plain model`, `## Code model`, and `## Read next`.
 - `references/`: hold dense exact names and lookup material.
 - `glossary.md`: define repeated project terms; optional one inferred further-reading link per row when a generic concept is large—see [Glossary entries](#glossary-entries).
 - `change-log.md`: record meaningful guide work and sync anchors.
@@ -274,24 +274,26 @@ Good repo docs are **readable, coherent, and reasonably structured**—not maxim
 Design choices, in order:
 
 1. **Continuity** — paragraphs and transitions carry the explanation; each section advances one beat.
-2. **Headings** — mark real phase changes or reader-job shifts; never stamp the same template label under every step.
+2. **Headings** — walkthroughs use numbered `Step N` headings for the main path; modules use their fixed learning sections; avoid repeated reader-state subheadings under each step.
 3. **Ownership** — each durable fact has one best home; other pages link to it.
 
 ### Continuity and headings
 
-Write like a strong engineering post: concrete situation → design reason → mechanism → check → caveat. Good transitions: "this leaves one problem", "the current code handles that by", "the check that matters is".
+Write like a careful mentor explaining a project to a technical newcomer: concrete situation → design reason → mechanism → check → caveat. Good transitions: "this leaves one problem", "the current code handles that by", "the check that matters is".
 
 Default walkthrough flow:
 
 ```text
 title + opening prose (what you follow + plain model + optional onward links)
--> ## [behavior name] (one heading per meaningful phase; no mandatory "Step N" prefix)
+-> ## Step 1: [behavior name]
+-> ## Step 2: [behavior name]
+-> ...
 -> optional closing (end state + one verify command + onward links + evidence status)
 ```
 
-Inside each phase: connected prose—weave paths, functions, and checks into sentences. Key observations stay in the same paragraph flow. For long pages (roughly past 120 lines) or one dense phase, use the expanded shape in [EXAMPLES.md](EXAMPLES.md).
+Inside each step: connected prose—weave paths, functions, and checks into sentences. Key observations stay in the same paragraph flow. For long pages (roughly past 120 lines) or one dense step, use the expanded shape in [EXAMPLES.md](EXAMPLES.md).
 
-Add a `##` when it helps the reader navigate a real transition—not to satisfy a template checklist. A complex concept module may need several sections; a simple one reads well as one prose block plus page-end evidence status.
+Add a step only for a meaningful transition in the real run. Do not split every internal helper call into its own step.
 
 ### Content ownership
 
@@ -313,22 +315,38 @@ Reasonable defaults—not rigid caps. Add sections when they improve clarity; me
 | Page | Typical shape |
 | --- | --- |
 | `README.md` | Opening prose with in-text routes (+ optional `## Reader Routes` table when many walkthroughs or goals) |
-| `walkthroughs/one-real-run.md` | Opening prose + one `##` per phase + optional flowchart when phases/branches need a visual anchor + closing (verify + links + evidence status) |
-| `modules/<concept>.md` | Plain model → code model (structure + API + snippet) → link to walkthrough |
+| `walkthroughs/one-real-run.md` | Opening prose + `## Step N: [behavior]` per meaningful step + optional flowchart when branches need a visual anchor + closing (verify + links + evidence status) |
+| `modules/<concept>.md` | `## Plain model` → `## Code model` → `## Read next` |
 | `references/*.md` | Lookup warning + table |
 | `glossary.md`, `change-log.md` | Title + table or entry list |
 
 ## Code-Name Density
 
-The reader should understand the idea before seeing many source names.
+Lower code-name density by changing the order of explanation, not by hiding evidence.
 
-- README first screen: almost no paths, functions, fields, or schemas. Link to the walkthrough.
-- Walkthrough opening: explain the behavior and plain model before source locators.
-- Walkthrough steps: each `##` step should move the story forward in prose—what happens, what changes, then where the code lives—without splitting every layer into its own subheading.
-- Module pages: plain model, then code model with structure, API explanation, and a short inspected usage example; weave edit-order caveats only when they clarify the mechanism.
-- References: high code-name density is expected.
+Principle: give the reader a handle before each source name. A handle can be a user action, a visible state change, a plain concept, or a question the reader already has. Once the handle lands, introduce the smallest number of code names needed to prove or locate that point.
 
-If a paragraph needs many paths to make sense, it probably belongs in `references/` or later in the page.
+Use this sequence:
+
+```text
+observable behavior
+-> plain concept
+-> why the concept matters
+-> one or two source names that prove it
+-> exact lookup only when the reader asks for it
+```
+
+Apply it by page type:
+
+- README opens with the project idea and the first route. It should not teach paths, functions, schemas, or commands.
+- `one-real-run.md` opens with the run in human terms. Each `Step N` then names only the source objects needed for that step.
+- Module `Plain model` explains the concept without source names unless one project term is unavoidable.
+- Module `Code model` is where source names become useful: structure, API use, source locator, and one short inspected example.
+- Module `Read next` routes the reader to the next useful page; it is not a link dump.
+- Glossary explains words with little or no code. If a term needs paths, fields, or call patterns, that explanation belongs in a module or reference.
+- References hold dense lookup material: fields, commands, schemas, artifacts, metrics, task ids, and tool parameters.
+
+If a paragraph needs several paths, functions, fields, and commands to make sense, the explanation is probably doing lookup work. Move the exact names to `references/`, then keep the narrative page focused on what happens and why it matters.
 
 ## Evidence Rules
 
