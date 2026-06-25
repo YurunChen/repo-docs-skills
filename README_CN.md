@@ -220,21 +220,7 @@ repo-docs/
     └── SKILL.md
 ```
 
-| 文件 | 用途 |
-| --- | --- |
-| `README.md` | 英文项目主页和快速开始。 |
-| `README_CN.md` | 中文项目主页和快速开始。 |
-| `SKILL.md` | 主 skill 入口：触发条件、模式、repo-docs 形态、写作标准和验证清单。 |
-| `REFERENCE.md` | 详细规则文件的路由页。 |
-| `WRITING.md` | 解释设计、写作风格和证据发现。 |
-| `PAGE_RULES.md` | 阅读路径、页面类型、语言模式和输出结构规则。 |
-| `SCOPE_MODES.md` | Seed 模式、大仓库/monorepo 范围和特殊仓库说明。 |
-| `SYNC_RULES.md` | 问题驱动更新、项目变更同步和大范围文档同步。 |
-| `QUALITY_RULES.md` | 证据标签、源码事实和最终质量标准。 |
-| `EXAMPLES.md` | repo docs、walkthrough、module docs 和后续行为的轻量输出骨架。 |
-| `scripts/validate_repo_docs.py` | 维护中的 repo-docs validator。 |
-| `validate_repo_docs.py` | 兼容旧调用方式的 validator 包装入口。 |
-| `repo-docs-zh/SKILL.md` | 用于中文 repo docs 的中文覆盖层。 |
+文件职责见 [SKILL.md](SKILL.md) Document Contract。
 
 ## 质量标准
 

@@ -246,21 +246,7 @@ and pointer-oriented.
     └── SKILL.md
 ```
 
-| File | Purpose |
-| --- | --- |
-| `README.md` | English project homepage and quick start. |
-| `README_CN.md` | Chinese project homepage and quick start. |
-| `SKILL.md` | Main skill entrypoint: triggers, modes, repo-docs shape, writing standard, and verification checklist. |
-| `REFERENCE.md` | Routing page for detailed rule files. |
-| `WRITING.md` | Explanation design, writing style, and evidence discovery. |
-| `PAGE_RULES.md` | Reader paths, page types, language mode, and output shape rules. |
-| `SCOPE_MODES.md` | Seed mode, large/monorepo scope, and specialized repo notes. |
-| `SYNC_RULES.md` | Question-driven updates, project-change sync, and widened docs sync. |
-| `QUALITY_RULES.md` | Evidence labels, source truth, and final quality bar. |
-| `EXAMPLES.md` | Lightweight output skeletons for repo docs, walkthroughs, module docs, and follow-up behavior. |
-| `scripts/validate_repo_docs.py` | Maintained repo-docs validator. |
-| `validate_repo_docs.py` | Compatibility wrapper for older validator invocations. |
-| `repo-docs-zh/SKILL.md` | Chinese-language overlay for repo docs written in Chinese. |
+File roles: [SKILL.md](SKILL.md) Document Contract.
 
 ## Quality Bar
 

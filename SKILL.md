@@ -14,9 +14,9 @@ Do not make a tree tour. Build a reader model: what problem the repo solves, one
 ## Load Order
 
 1. Read this file first.
-2. Open [REFERENCE.md](REFERENCE.md) as the routing page only when the task needs detailed rules.
-3. From that router, open only the needed topic file: writing, page rules, scope/modes, sync, or quality.
-4. Open [EXAMPLES.md](EXAMPLES.md) only when the task needs finished-page tone or output-shape examples.
+2. Open [REFERENCE.md](REFERENCE.md) for task routing when detailed rules are needed.
+3. Open only the topic file the router points to.
+4. Open [EXAMPLES.md](EXAMPLES.md) only for finished-page tone or output-shape examples.
 5. Prefer bundled scripts over rewriting deterministic checks.
 
 ## Document Contract
