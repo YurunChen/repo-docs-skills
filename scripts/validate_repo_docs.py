@@ -439,7 +439,7 @@ def check_explanation_structure(root: Path) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    f"{relative} explains a code shape but has no usage snippet (add a short fenced example)",
+                    f"{relative} explains a code shape but has no minimal fenced example or command",
                 )
             )
 

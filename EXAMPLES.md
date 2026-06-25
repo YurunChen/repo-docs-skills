@@ -135,10 +135,10 @@ Default module shape. Keep the three sections unless the user explicitly asks fo
 
 ## Code model
 
-[Explain how this repo represents and uses the concept: structure, key APIs, source locator, then one inspected snippet or command when it helps.]
+[Explain how this repo represents and uses the concept: structure, key APIs, source locator, then the smallest inspected snippet or command needed to make the mechanism concrete.]
 
 ```python
-# Short usage example from inspected source
+# Minimal usage example from inspected source
 ...
 ```
 

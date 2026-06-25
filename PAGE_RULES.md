@@ -303,10 +303,12 @@ For seed projects, planned concepts belong in `README.md` or `references/decisio
 Use the sections this way:
 
 1. `## Plain model`: the reader question and the concept in human terms, before code names.
-2. `## Code model`: how this repo represents and uses the concept, with structure, API explanation, source locators, and a short inspected example when useful.
+2. `## Code model`: how this repo represents and uses the concept, with structure, API explanation, source locators, and the smallest inspected code block or command needed to make the mechanism concrete.
 3. `## Read next`: where this concept appears in the walkthrough, which reference page holds exact names, and which related concept to read next.
 
 Full field tables and command catalogs belong in `references/`.
+
+The code block in `## Code model` is not a mini source dump. Use it when the reader needs to see a call shape, data shape, branch, lifecycle handoff, or command to understand the concept. Keep it short, inspectable, and tied to prose. If a source locator plus explanation is enough, do not add a code block just to satisfy form.
 
 Before writing a module doc, hold this brief in mind:
 
