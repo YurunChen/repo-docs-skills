@@ -77,6 +77,23 @@ Use the smallest package that teaches the repo honestly.
 
 For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
 
+Build is not finished until the next coding agent can maintain the guide without rediscovering the policy. The root agent file is the handoff point: it should point to `repo-docs/README.md`, name the main walkthrough, and tell future agents to run an Understanding Sync check when repo questions or behavior-changing edits appear.
+
+## Root Agent File Contract
+
+When Build creates or updates `repo-docs/`, the repo-root `AGENTS.md` or `CLAUDE.md` must include a short `Repo docs` rule. If neither file exists, create `AGENTS.md`.
+
+The rule should say:
+
+- The living guide is in `repo-docs/`; start with `repo-docs/README.md`.
+- The main behavior trace lives in `repo-docs/walkthroughs/one-real-run.md` when that file exists.
+- Before answering architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer.
+- If the guide is missing, stale, or wrong for current source, patch the smallest owning page in the same turn before answering.
+- When code, config, data, scripts, tests, or behavior change, run an Understanding Sync check before finishing unless the user asked not to touch docs.
+- Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
+
+Keep this root rule short. Do not copy the guide into `AGENTS.md` or `CLAUDE.md`; those files route future agents back to `repo-docs/`.
+
 ## Modes
 
 `repo-docs/` is maintained **during the user ↔ coding agent conversation**, not in a separate offline pass. **Except Build, Seed, and Cleanup, run [Understanding Sync](#understanding-sync) each turn** when `repo-docs/` exists. Modes name common situations—not detached jobs. Detail: [SCOPE_MODES.md](SCOPE_MODES.md), [SYNC_RULES.md](SYNC_RULES.md).
@@ -98,6 +115,21 @@ Patch the smallest owning page when this turn changed behavior-bearing source, d
 Do not patch for one-off debug state, local environment quirks, or personal preference unless the user asks to preserve it.
 
 Every material sync updates `repo-docs/change-log.md` with the trigger, changed pages, verification, and `Synced through <sha>` when git is available.
+
+Use this loop during coding-agent interaction:
+
+1. Read the current guide page that should already answer the question or describe the changed behavior.
+2. Inspect the source, config, data, tests, command output, or artifact that proves the current behavior.
+3. Decide whether the gap is durable. Durable means a future reader would likely misunderstand the repo, not merely miss a one-off debugging detail.
+4. Patch the owning page:
+   - behavior path changed -> walkthrough
+   - concept changed or became clearer -> module
+   - exact field, command, config, schema, metric, or artifact changed -> reference
+   - term meaning changed -> glossary
+   - material guide sync happened -> change log
+   - root agent routing is missing or stale -> `AGENTS.md` / `CLAUDE.md`
+5. Run the smallest useful check: validator, link check, relevant test, command, or source inspection.
+6. Answer the user from the updated guide or from the inspected source, and mention what changed if docs were patched.
 
 ## Writing Rules
 
