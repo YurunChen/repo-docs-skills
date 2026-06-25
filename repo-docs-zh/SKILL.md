@@ -82,19 +82,7 @@ Bad:
 
 ## Agent Instruction Block
 
-Follow the main `repo-docs` rule for searching existing agent instruction Markdown. When the project docs are Chinese, write the `Repo docs` block in Chinese unless the existing agent instruction file is clearly English-only.
-
-Default Chinese block:
-
-```markdown
-## Repo docs
-
-项目的长期理解文档在 `repo-docs/`。先读 `repo-docs/README.md`；如果 `repo-docs/walkthroughs/one-real-run.md` 存在，把它作为主行为路径。
-
-回答架构、上手、或“这里是怎么工作的”这类问题前，先读相关 guide 页面，并检查当前源码。若 guide 缺失、过时或和当前源码不一致，先在同一轮更新最小 owning page，再回答。
-
-当代码、配置、数据、脚本、测试或行为发生变化时，结束前做一次 Understanding Sync 检查。只更新会误导下一个读者的 guide 页面。有意义的 guide 更新要写入 `repo-docs/change-log.md`，包含验证方式；git 可用时写 `Synced through <sha>`。
-```
+Use the main `repo-docs` English `Repo docs` block for `AGENTS.md` and other agent instruction Markdown. Chinese mode changes the reader-facing guide, not the agent instruction language.
 
 ## Build Delivery
 
