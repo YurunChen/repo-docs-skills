@@ -355,6 +355,7 @@ When `repo-docs/` is created or materially updated, ensure the repository root h
 Keep the block short and operational:
 
 - Where the living guide lives.
+- That future repo questions and behavior-changing edits should trigger a `repo-docs/` sync check.
 - Which repo-specific questions should refine it.
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.

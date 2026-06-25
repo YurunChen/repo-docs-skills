@@ -72,7 +72,7 @@ Use the smallest package that teaches the repo honestly.
 4. Add modules only for concepts the walkthrough cannot explain cleanly inline.
 5. Add references only for exact names or catalogs that would clutter narrative pages.
 6. Add `glossary.md` and `change-log.md`.
-7. Wire the guide into the repo-root agent file: update `AGENTS.md`, `CLAUDE.md`, or create `AGENTS.md` if none exists.
+7. Wire the guide into the repo-root agent file: update `AGENTS.md`, `CLAUDE.md`, or create `AGENTS.md` if none exists. The root rule must say that future repo questions and behavior-changing edits should check `repo-docs/`, patch stale guide pages in the same turn when needed, and record meaningful guide work in `repo-docs/change-log.md`.
 8. Run the validator and fix structure, link, and evidence problems.
 
 For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
