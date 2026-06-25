@@ -1,82 +1,92 @@
 ---
 name: repo-docs-zh
-description: Use when the user asks for repo-docs in Chinese, mentions repo-docs-zh, wants Chinese project documentation, or wants repo docs maintained with Chinese as the primary language.
+description: Generate and maintain repo-docs with Chinese as the primary reader language while preserving source identifiers for lookup. Use when the user asks for Chinese repo docs, mentions repo-docs-zh, wants repo documentation in Chinese, or wants an existing repo-docs package localized for Chinese readers.
 ---
 
 # Repo-Docs ZH
 
-## 定位
+## Position
 
-`repo-docs` 的中文语言覆盖层。结构、页面设计、证据、同步、输出形态均以基座 skill 为准；本文件只规定中文表达与中文读者体验。
+This is the Chinese-language overlay for `repo-docs`. Structure, page ownership, evidence rules, sync behavior, and validation come from `../repo-docs/SKILL.md`. This overlay only changes language and Chinese reader experience.
 
-行动前读基座（同级安装）：
+Before acting, read:
 
-1. `../repo-docs/SKILL.md` — 核心思想、**Content Organization**、**Understanding sync**、模式、构建顺序、**Page Design**、证据、验证
-2. `../repo-docs/REFERENCE.md` — 各页面细则、同步、质量条（内容组织与页面设计以 SKILL 为准）
-3. `../repo-docs/EXAMPLES.md` — 默认成稿形态与语气样例
+1. `../repo-docs/SKILL.md`
+2. `../repo-docs/REFERENCE.md` as the topic router only when detailed rules are needed
+3. The routed topic file only when needed
+4. `../repo-docs/EXAMPLES.md` only for output shape or tone examples needed by the task
 
-内容组织与页面设计**只在** `../repo-docs/SKILL.md` 定义。本文件只规定中文表达。
+## Core Principle
 
-## 中文语言规则
+Chinese repo-docs are not English docs translated line by line. They should rebuild the reader's conceptual handles in Chinese.
 
-- 标题、解释、阅读路径、例子、注意事项和 change-log 条目使用中文。
-- 源码标识保持原样：路径、命令、配置键、API 名、类/函数名、指标名、协议字段、错误字符串、包名和数据集名。
-- 只有中文可能遮住代码概念时，才加括号源术语，例如 `执行入口 (entrypoint)`。
-- 默认单一中文文档包；多 walkthrough 或复杂路由时再考虑 `## Reader Routes` 表。
-- 用户要求删除 repo docs 时，删除文档包和根 `AGENTS.md` / `CLAUDE.md` 中仍指向它的规则；同一轮不自动重建，除非用户明确要求。
-- 创建或实质性更新 `repo-docs/` 后：若仓库根目录没有 `AGENTS.md`、`CLAUDE.md` 等等价 agent 说明文件，**在根目录创建 `AGENTS.md`**；若已有则只增补简短的 repo-docs 维护块。
+Chinese carries understanding: what this thing is, why it exists, what happens, and how to check it. English identifiers carry lookup: paths, commands, fields, API names, class/function names, metric names, package names, and dataset names.
 
-## 中文可读性
+## Language Rules
 
-目标：可读、连贯、有机制判断——不是更短，也不是模板填空。
+- Use Chinese for titles, explanations, reading paths, examples, caveats, and change-log entries.
+- Keep source identifiers exact. Do not translate paths, commands, keys, API names, class/function names, metric names, error strings, package names, or dataset names.
+- First introduce repeated project terms as `中文名（English term）` or `中文名（source identifier）`; later prefer the Chinese name.
+- README route sections use `## 阅读路径`, not `## Reader Routes`.
+- Glossary columns are exactly `术语 | 项目里的意思 | 延伸阅读`.
+- Narrative page evidence note: `证据状态：除特别标注外，本页基于当前源码已确认。`
 
-- 参考 Karpathy / Kaiming He 式表达：简单、直接、有观察、有边界。
-- 参考 Anthropic harness 博客：现象 → 设计原因 → 机制 → 结果 → 验证或局限；每段只推进一个因果节点。
-- 先动作后抽象；判断后跟观察；术语前先给抓手。
-- 降低代码名词密度靠解释顺序，不靠把证据藏起来。先给读者一个抓手：用户动作、可见状态变化、白话概念或读者已经有的问题；这个抓手站住后，再给最少量能证明当前说法的路径、函数、命令或产物。高密度字段、命令、schema、artifact 和指标放到 reference。
-- 路径、函数、测试命令写进正文句子，少用 `**源码定位。**` `**验证方法。**` 行内标签。
-- 流程图服务理解，不替代叙事：见基座 [Flowcharts when understanding needs them](../repo-docs/SKILL.md#flowcharts-when-understanding-needs-them)。
-- 术语表仅三列：`Term | Plain meaning | Further reading`。Plain meaning 先解释这个词在项目里的意思，默认少放或不放代码；易混说法可以写进去。需要机制去 module，需要字段、路径、命令、schema 查表去 reference。通用大概念最多一条 `推断（外部来源：URL）`，否则填 `—`。
-- walkthrough 某一步引入持久概念时，在**该步骤正文**链到对应 `modules/<concept>.md`；`references/`、`glossary.md` 在首次需要时出现。
+## Chinese Handles And Source Locators
 
-展示增量（包层级与节拍见基座 Content Organization）：
+Use a Chinese reader handle before a source locator.
 
-- README：开场白话 + 文内链到 walkthrough、references、glossary；复杂项目可加 `## Reader Routes` 表。
-- walkthrough：默认用 `## Step 1: [行为名]`、`## Step 2: [行为名]` 这样的编号步骤。每一步用段落承载机制；分支或状态交接单靠 prose 难跟住时，可在该步骤后加**小流程图**（Mermaid 或简短 ASCII），先有白话模型再上图；概念在哪一步出现，就在该步骤链到对应 module；页末一次验证命令。
-- module：默认分成 `## 白话模型`、`## 代码模型`、`## 接下去阅读` 三节。白话模型先让技术新人理解概念；代码模型再讲结构、API、已检查源码里的短示例和源码位置；接下去阅读把读者带回 walkthrough、reference 或下一个概念。若改动顺序影响理解，在相关小节里用一句 caveat 说明原因。
+| Type | Use in Chinese docs |
+| --- | --- |
+| 读者句柄 | The narrative subject, such as “导入流程”, “会话层”, “结果汇总”, “运行脚本”. |
+| 源码定位符 | Paths, functions, classes, fields, commands, artifact paths. Link directly with a Chinese label when one locator supports one claim. |
+| 精确查表名 | Metrics, schema keys, tool parameters, artifact file names. Usually belongs in `references/`. |
+| 外部术语 | Terms like benchmark, agent, workspace, protocol, memory. First mention gets a Chinese handle; later prefer Chinese when the term appears in the inspected repo. |
 
-## 理解同步（Understanding sync）
+Default locator rule:
 
-文档维护嵌在**用户 ↔ coding agent 的对话过程**里：每轮根据交互判断 guide 是否过时、是否存在稳定理解缺口，需要则**当轮**最小补丁，不等到单独的「同步文档」任务。
+- Prefer a Chinese visible label that links to the source file over showing the raw path as visible text.
+- Use inline code only for short identifiers that matter to the mechanism.
+- Create `references/source-map.md` only when many related source locations repeat across pages or need one lookup table.
+- Never make a long path the visible link text in narrative prose.
 
-代码变更与用户提问共用基座 [Understanding sync](../repo-docs/SKILL.md#understanding-sync)：
+Good:
 
-- 核心问题：**今天读 guide 的读者会在哪里误解？**
-- 稳定缺口 → 最小补丁到对应 narrative 页；`change-log.md` 记 `同步至 <sha>`（有 git 时）
-- 一次性调试 / 个人偏好 → 默认只答 chat
-- 同类理解问题再次出现 → 视为稳定缺口，当轮落盘
+- 运行脚本负责选择运行模式和输入来源。
+- 会话层先取上下文，再记录本轮真实产生的输出。
+- 汇总器从最终状态读取完成情况和错误原因。
 
-完成前运行 `python scripts/validate_repo_docs.py <path-to-repo-docs> --repo-root <repo-root>`：结构、链接、同步锚点、术语表、锚点后源码变更提示等。
+Bad:
 
-## 中文证据规则
+- `packages/app/scripts/run_example.sh` 是入口。
+- `Session.run_task(...)` handles context and scheduled observations.
+- `ResultCollector.collect(...)` records output status.
 
-继承基座 [Evidence Rules](../repo-docs/SKILL.md#evidence-rules)：`已确认 / 推断 / 计划中 / 未确认`；外部来源用 `推断（外部来源：…）`。
+## Readability Rules
 
-- 叙事页在**页末**写一行：`证据状态：除特别标注外，本页基于当前源码已确认。`
-- 证据标签服务信任，不充当正文目录；局部只在置信度变化时标注。
-- 未实际检查过的路径、字段、命令、产物、测试不能写成证据；与旧文档冲突时以当前代码/数据为准并写 caveat。
+- A paragraph should still make sense after removing backticked identifiers. If not, rewrite around Chinese actions first.
+- Lower code-name density by changing explanation order, not by hiding evidence.
+- Give the reader a concrete handle first: a user action, visible state change, plain concept, or question they already have.
+- 中文技术文档的真人感是具体、直接、敢标未确认；不要为了“有灵魂”加入第一人称、金句或情绪化评价。
+- 成稿前做一次去 AI 表达：删掉“此外”“值得注意”“至关重要”“关键作用”“彰显”等空转词，少用破折号和粗体小标题。
+- 避免让“不仅……而且……”或“不是……而是……”承担主解释；改成正面机制句。
+- Put dense fields, command lists, schemas, artifacts, and metrics in `references/`.
+- Flowcharts support prose; they do not replace it.
+- A walkthrough step links to the module where a durable concept first matters.
 
-## 输出与验证
+## Page Shape Notes
 
-默认输出：`repo-docs/` Markdown 包（结构见基座 SKILL Output Shape）。验证见上文「理解同步」与基座 Verification。
+- README: Chinese opening prose plus links to walkthroughs, references, and glossary. Add `## 阅读路径` only when multiple goals need a table.
+- Walkthrough: numbered `## Step N: 行为名` headings; prose explains mechanism; verification appears once near the end.
+- Module: keep `## 白话模型`, `## 代码模型`, `## 接下去阅读`.
+- Reference: lookup table only; if it starts explaining why behavior exists, move that explanation to a walkthrough or module.
 
-## Build 交付说明
+## Build Delivery
 
-**Build** 或首次创建文档包后，用短 prose 向用户交付（约 8–15 行），详见基座 [Build delivery](../repo-docs/SKILL.md#build-delivery) 与 [EXAMPLES Build delivery example](../repo-docs/EXAMPLES.md#build-delivery-example)：
+After first build, reply in Chinese with:
 
-1. 读者现在能做什么  
-2. 从哪读起：`repo-docs/README.md` → 主 walkthrough  
-3. 包里关键文件各管什么（路径 + 半句，不抄正文）  
-4. 范围、未覆盖项、validator / `AGENTS.md` 状态  
+1. what readers can now understand or follow;
+2. where to start: `repo-docs/README.md` -> main walkthrough;
+3. key pages and their jobs;
+4. scope, uncovered areas, validator result, and root agent-file status.
 
-小/Lite 包用列表；module/reference 多时可加窄表（文件 / 何时用 / 先读什么）。扩大范围的 sync / handoff / milestone 收尾用 REFERENCE Closeout summary，不用 Build 交付形态。
+Keep the reply short. Durable guide history belongs in `repo-docs/change-log.md`.

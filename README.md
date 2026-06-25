@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#latest-updates">Latest Updates</a> ·
+  <a href="#current-shape">Current Shape</a> ·
   <a href="#what-is-repo-docs">What is Repo-Docs?</a> ·
   <a href="#demonstration">Demonstration</a> ·
   <a href="#quick-start">Quick Start</a> ·
@@ -22,23 +22,17 @@
   <a href="README_CN.md">中文 README</a>
 </p>
 
-<p align="center">
-  <img src="assets/main.png" alt="Repo-Docs main preview" width="900" />
-</p>
-
 ---
 
-## Latest Updates
+## Current Shape
 
-> New: walkthrough-first repo docs, root-level `repo-docs/` output, Chinese
-> docs support, and Seed mode for empty repos. If Repo-Docs helps you keep up
-> with an agent-built project, a GitHub star 🌟 helps more builders find it.
+Repo-Docs supports walkthrough-first repo docs, root-level `repo-docs/` output,
+Chinese docs through `repo-docs-zh`, and Seed mode for empty repos.
 
-- **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
-- **2026-06-23**: Added walkthrough-first docs through
-  `repo-docs/walkthroughs/one-real-run.md`.
-- **2026-06-23**: Published the first README structure, repo-docs contract,
-  reference standard, and example prompt.
+- Chinese overlay support lives in `repo-docs-zh`.
+- Walkthrough-first docs start at `repo-docs/walkthroughs/one-real-run.md`.
+- The package includes the README structure, repo-docs contract, reference
+  standard, examples, and validator.
 
 ## What is Repo-Docs?
 
@@ -54,17 +48,23 @@ needs verification.
 
 ## What It Does
 
-**You understand the repo before you memorize paths.**  
-Pick one real thing it does and follow it end to end. Name the few ideas that actually matter. Then show where that behavior lives in code—and how you'd check you got it right. No directory tour. No pretending you've read everything.
+Repo-Docs starts with one thing the repo really does. It follows that behavior
+end to end, names the few ideas that matter, then points to the code and checks
+that prove the path. A reader should understand the behavior before memorizing
+paths.
 
-**The explanation stays in the tree.**  
-Docs land in `repo-docs/` as plain Markdown: a walkthrough, concept pages, a glossary, lookup tables. Not slides. Not a dump of every file. Something your future self—or the next agent—can open cold and still follow.
+The explanation stays in the tree. Docs land in `repo-docs/` as plain Markdown:
+a walkthrough, concept pages, a glossary, and lookup tables. The next person
+should be able to open the repo cold and keep going.
 
-**Docs move with the code.**  
-You don't pause the session to "write documentation." When the repo shifts, or a question shows the write-up is behind reality, the skill patches the smallest page that fixes the misunderstanding—same thread, same conversation.
+Docs move with the code. When the repo shifts, or a question shows the write-up
+is behind reality, the skill patches the smallest page that fixes the
+misunderstanding in the same conversation.
 
-**Questions improve the guide.**  
-Ask how something works. If the answer isn't in the docs yet, the skill reads source, updates the right page, and replies with a link to where that understanding now lives.
+Questions improve the guide. If the answer is not in the docs yet, the skill
+reads source, updates the right page, and replies with the page that now owns
+that understanding. For Chinese docs, `repo-docs-zh` keeps Chinese as the
+explanation language and source terms as lookup anchors.
 
 ## Demonstration
 
@@ -112,12 +112,14 @@ Make both repo-docs and repo-docs-zh available in my agent skill directory.
 
 ### Command install
 
-From this project directory, copy the skill files into your agent skill
+From the source repository root, copy the skill files into your agent skill
 directory:
 
 ```bash
-mkdir -p ~/.agents/skills/repo-docs
-cp SKILL.md REFERENCE.md EXAMPLES.md ~/.agents/skills/repo-docs/
+mkdir -p ~/.agents/skills/repo-docs/scripts
+cp SKILL.md REFERENCE.md WRITING.md PAGE_RULES.md SCOPE_MODES.md SYNC_RULES.md QUALITY_RULES.md EXAMPLES.md ~/.agents/skills/repo-docs/
+cp scripts/validate_repo_docs.py ~/.agents/skills/repo-docs/scripts/
+cp validate_repo_docs.py ~/.agents/skills/repo-docs/
 mkdir -p ~/.agents/skills/repo-docs-zh
 cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
 ```
@@ -128,14 +130,25 @@ Then invoke it naturally:
 Use the repo-docs skill to create docs for this repository.
 ```
 
+## Validation
+
+```bash
+python scripts/validate_repo_docs.py /path/to/repo-docs --repo-root /path/to/repo
+```
+
+Use `--lite` or `--seed` for smaller shapes. `--repo-root` checks source locators and post-anchor drift.
+
 ## Modes
+
+Except **Build**, **Seed**, and **Cleanup**, the default is an [Understanding sync](SKILL.md#understanding-sync) check each turn when `repo-docs/` exists.
 
 | Mode | Use it when | Output focus |
 | --- | --- | --- |
 | **Seed** | The project is new or nearly empty | Goals, decisions, planned work, unknowns |
-| **Build** | The repo needs its first docs | One real walkthrough, module map, contracts |
-| **Sync** | Code, docs, data, scripts, or experiments changed | Current docs match the repo |
-| **Question refinement** | A repo question reveals missing knowledge | Patch the docs, then answer from evidence |
+| **Build** | The repo needs its first docs | One real walkthrough, concept pages, references |
+| **Sync** | The interaction shows the guide may be stale | Patch the reader model in the same thread |
+| **Cleanup / removal** | The user asks to delete generated docs | Remove docs and stale root pointers |
+| **Question refinement** | A repo question shows the guide built the wrong model | Smallest stable patch, then answer with a link |
 
 ## Example Prompt
 
@@ -145,45 +158,56 @@ Use this once when a project needs its first repo docs:
 Use the repo-docs skill to create docs for this repository.
 ```
 
-After that, keep working naturally. During normal conversations, the agent
-should decide when code changes, architecture questions, stale explanations, or
-milestone handoffs require updating `repo-docs/`, `change-log.md`, and repo
-agent instructions.
+After that, keep working naturally. When `repo-docs/` exists, the agent runs an
+understanding sync check each turn—patching the guide in the same thread when code
+changes or a question shows a stale reader model. Explicit sync, tidy, or handoff
+requests widen scope per `SYNC_RULES.md`.
 
 ## What It Produces
 
-The default output is a Markdown docs package under the generated `repo-docs/`
-directory:
+**Standard** (default for non-Seed repos):
 
 ```text
 repo-docs/
   README.md
   walkthroughs/
-    one-real-run.md      # required for non-Seed repos
-  glossary.md
-  flows.md              # optional cross-workflow/state map
-  change-log.md
+    one-real-run.md
   modules/
   references/
+  glossary.md
+  change-log.md
 ```
 
-For seed projects, the generated docs stay smaller:
+**Lite** (small repos with little durable terminology):
+
+```text
+repo-docs/
+  README.md
+  walkthroughs/
+    one-real-run.md
+  change-log.md
+```
+
+**Seed** (until real runtime evidence exists):
 
 ```text
 repo-docs/
   README.md
   change-log.md
-  glossary.md                 # optional
+  glossary.md
   references/
-    decisions.md              # optional
+    decisions.md
 ```
+
+Triggered when a reader problem needs them: additional walkthroughs, `flows.md`
+(relationship map only—not a retelling of `one-real-run.md`), `evidence-ledger.md`.
 
 ## Built For
 
 - people who want to stay in control while using coding agents
 - projects that change faster than they can be explained in chat
-- users who want to review and steer agent-built code
-- benchmark, eval, experiment, and prompt-heavy repos
+- users who want to review and steer generated or fast-changing code
+- apps, libraries, tools, data pipelines, research repos, and benchmarks
 - new repos that need a memory baseline before code exists
 - maintainers who want the repo to explain itself
 
@@ -203,12 +227,21 @@ and pointer-oriented.
 ## What's Included
 
 ```text
-repo-docs/
-├── README.md
-├── README_CN.md
-├── SKILL.md
-├── REFERENCE.md
-├── EXAMPLES.md
+<skills-dir>/
+├── repo-docs/
+│   ├── README.md
+│   ├── README_CN.md
+│   ├── SKILL.md
+│   ├── REFERENCE.md
+│   ├── WRITING.md
+│   ├── PAGE_RULES.md
+│   ├── SCOPE_MODES.md
+│   ├── SYNC_RULES.md
+│   ├── QUALITY_RULES.md
+│   ├── EXAMPLES.md
+│   ├── validate_repo_docs.py
+│   └── scripts/
+│       └── validate_repo_docs.py
 └── repo-docs-zh/
     └── SKILL.md
 ```
@@ -218,8 +251,15 @@ repo-docs/
 | `README.md` | English project homepage and quick start. |
 | `README_CN.md` | Chinese project homepage and quick start. |
 | `SKILL.md` | Main skill entrypoint: triggers, modes, repo-docs shape, writing standard, and verification checklist. |
-| `REFERENCE.md` | Detailed standards for evidence discovery, seed projects, document types, sync strategy, and quality checks. |
+| `REFERENCE.md` | Routing page for detailed rule files. |
+| `WRITING.md` | Explanation design, writing style, and evidence discovery. |
+| `PAGE_RULES.md` | Reader paths, page types, language mode, and output shape rules. |
+| `SCOPE_MODES.md` | Seed mode, large/monorepo scope, and specialized repo notes. |
+| `SYNC_RULES.md` | Question-driven updates, project-change sync, and widened docs sync. |
+| `QUALITY_RULES.md` | Evidence labels, source truth, and final quality bar. |
 | `EXAMPLES.md` | Lightweight output skeletons for repo docs, walkthroughs, module docs, and follow-up behavior. |
+| `scripts/validate_repo_docs.py` | Maintained repo-docs validator. |
+| `validate_repo_docs.py` | Compatibility wrapper for older validator invocations. |
 | `repo-docs-zh/SKILL.md` | Chinese-language overlay for repo docs written in Chinese. |
 
 ## Quality Bar
@@ -229,11 +269,9 @@ able to read it and explain the repo in their own words, trace one real
 workflow from observable entry to output, identify the important contracts, and
 verify that understanding with a named test or command.
 
-Important claims should be marked by confidence:
-
-- `Confirmed`: backed by code, tests, config, data, docs, or artifacts
-- `Inferred`: reasoned from nearby evidence and named as inference
-- `Unknown` / `未确认`: awaiting verification
+Mark confidence quietly: one page-level note at the end of narrative pages
+(`Evidence status: Confirmed unless noted.`). Use `Confirmed`, `Inferred`,
+`Planned`, and `Unknown` only where confidence differs.
 
 For seed projects, planned work must stay visibly separate from implemented
 facts.
@@ -243,15 +281,6 @@ facts.
 - [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 - [neat-freak](https://github.com/KKKKhazix/khazix-skills)
 
-## Support
-
-If Repo-Docs helps you keep up with the code your agents create, a GitHub star 🌟
-helps others find it.
-
----
-
 <div align="center">
   <p><strong>Repo-Docs:</strong> Keep up with the code your agents write.</p>
-  <p><em>Thanks for visiting Repo-Docs.</em></p>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.repo-docs-skills" alt="visitors" />
 </div>

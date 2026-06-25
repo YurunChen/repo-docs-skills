@@ -19,7 +19,7 @@ repo-docs/
   change-log.md
 ```
 
-Triggered pages such as more walkthroughs, `flows.md`, and `evidence-ledger.md` appear only when a reader problem needs them: multiple real behaviors, several policy cases, phase/state relationships, or a separate evidence table that would otherwise clutter the explanation path.
+Triggered pages such as more walkthroughs, `flows.md`, and `evidence-ledger.md` appear only when a reader problem needs them: multiple real behaviors, several cases, phase/state relationships, or a separate evidence table that would otherwise clutter the explanation path.
 
 ## Build Delivery Example
 
@@ -33,7 +33,7 @@ Use this as the tone target for the **user-facing reply** after Build—not as a
 **先读这里：** [repo-docs/README.md](repo-docs/README.md) → [一条真实路径](repo-docs/walkthroughs/one-real-run.md)
 
 **本次包含：**
-- 主 walkthrough：消息进入 → 事件 → 审核决定
+- 主 walkthrough：输入进入 → 规范化记录 → 结果写出
 - 根目录已新增 `AGENTS.md`，说明何时同步文档
 
 **范围：** Lite 结构；尚无独立 concept 页或 reference 表。  
@@ -45,15 +45,15 @@ Use this as the tone target for the **user-facing reply** after Build—not as a
 When modules and references make a bullet list hard to scan, add one table—still task-oriented, not a content dump.
 
 ````markdown
-`repo-docs/` is ready. You can follow one message from arrival to a moderation decision, then drill into concepts or field names when needed.
+`repo-docs/` is ready. You can follow one input from entry to written result, then drill into concepts or field names when needed.
 
 **Start here:** [repo-docs/README.md](repo-docs/README.md) → [one real run](repo-docs/walkthroughs/one-real-run.md)
 
 | File | Use it when | Read after |
 | --- | --- | --- |
 | `walkthroughs/one-real-run.md` | You need the end-to-end behavior trace | README |
-| `modules/events.md` | The event handoff is still fuzzy | the normalization phase in the walkthrough |
-| `references/message-schema.md` | You need exact field names | you understand why messages become events |
+| `modules/normalized-record.md` | The normalized record handoff is still fuzzy | the normalization phase in the walkthrough |
+| `references/input-schema.md` | You need exact field names | you understand why inputs become records |
 | `glossary.md` | Project terms blur together | you have read the walkthrough once |
 
 **Scope:** Covers the inbox path only; admin CLI not documented separately.  
@@ -83,7 +83,7 @@ Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered step
 
 ## Step 1: [first behavior]
 
-[What happens—in normal prose, including cause and effect. Weave paths and functions into sentences. When this phase introduces a durable concept, link to the matching module in the same paragraph—e.g. if [why the event exists](../modules/events.md) is still fuzzy after this step.]
+[What happens, in normal prose, including cause and effect. Weave paths and functions into sentences. When this phase introduces a durable concept, link to the matching module in the same paragraph. For example, link to why the normalized record exists if that concept is still fuzzy after this step.]
 
 ## Step 2: [next behavior]
 
@@ -192,15 +192,15 @@ For longer explanations, let the paragraph unfold like an engineering post: a re
 
 **Style target — architecture as behavior:**
 
-> The first problem appears before scoring starts: a user request is too loose for the evaluator to grade directly. The repo handles that by turning the request into a stable task record. After that point, the runner and evaluator read the same contract, so a scoring failure can usually be traced to either the normalized task or the check that consumed it.
+> The first problem appears before processing starts: the user input is too loose for the runner to use directly. The repo handles that by turning the input into a stable task record. After that point, the runner and checker read the same contract, so a failure can usually be traced to either the normalized task or the check that consumed it.
 
 Source locators follow once the reader has this model.
 
 ### Concrete Expression Example
 
-**Evaluator as a second pass:**
+**Checker as a second pass:**
 
-> The generator can produce an output that looks finished while the main action is still broken. The evaluator gives the repo a second pass: it opens the result, performs the action a user would try, and records the first place the behavior diverges from the contract.
+> A generator can produce an output that looks finished while the main action is still broken. The checker gives the repo a second pass: it opens the result, performs the action a user would try, and records the first place the behavior diverges from the contract.
 
 **Config as runtime choice:**
 
@@ -211,11 +211,11 @@ These read as truthful because they name an action, an observation, and the limi
 ### README First Screen
 
 ````markdown
-# Inbox Rules Repo Docs
+# Import Tool Repo Docs
 
-This project turns incoming messages into review decisions. The core idea is simple: a raw message first becomes a stable event. Policy code reads that event and decides whether a human needs to look.
+This project turns an input file into a written result. The core idea is simple: raw input first becomes a normalized record. The runner reads that record, applies the configured steps, and writes the result.
 
-Follow [one message from arrival to review decision](walkthroughs/one-real-run.md) for the full path. Field names live in [message schema](references/message-schema.md).
+Follow [one input from load to result](walkthroughs/one-real-run.md) for the full path. Field names live in [input schema](references/input-schema.md).
 ````
 
 ### Walkthrough Step (Flat Default)
@@ -223,29 +223,29 @@ Follow [one message from arrival to review decision](walkthroughs/one-real-run.m
 Use this inside a walkthrough `##` phase, not the expanded `###` template.
 
 ````markdown
-## Step 1: a message becomes an event
+## Step 1: input becomes a record
 
-The system receives one incoming message and turns it into a record that later code can inspect. A message is what the user sent; an event is the stable version inside the system. At this point, no review decision has been made. This step protects later code from raw input differences—policy code reads the event, not the original message text.
+The system receives one input item and turns it into a record that later code can inspect. The input is whatever the caller provided; the record is the stable version inside the system. At this point, no result has been written. This step protects later code from raw input differences.
 
-After normalization, the system holds an event with sender, channel, timestamp, and cleaned body. Message shape is owned by `src/messages/normalize.py` and `normalize_message(...)`; every later check trusts that output. If [why the event exists](../modules/events.md) is still fuzzy, read that concept page; exact fields are in [message schema](../references/message-schema.md).
+After normalization, the system holds a record with id, source, created time, and cleaned payload. Record shape is owned by `src/inputs/normalize.py` and `normalize_input(...)`; every later step trusts that output. If [why the normalized record exists](../modules/normalized-record.md) is still fuzzy, read that concept page; exact fields are in [input schema](../references/input-schema.md).
 ````
 
 ### Module Concept Page (Flat Default)
 
 ````markdown
-# Events
+# Normalized records
 
-Why does the repo create an event before it checks policy? An event is the stable handoff between input code and decision code—it keeps later logic from depending on raw message formatting. It is evidence for decision code, not the decision itself. You saw this in [one-real-run.md](../walkthroughs/one-real-run.md) when the incoming message became a normalized record.
+Why does the repo create a normalized record before it runs the main logic? A normalized record is the stable handoff between input code and processing code. It keeps later logic from depending on raw file, request, or row formatting. You saw this in [one-real-run.md](../walkthroughs/one-real-run.md) when raw input became one record shape.
 
-`normalize_message(...)` in `src/messages/normalize.py` builds the event dict; `src/messages/schema.py` defines the fields policy code reads. Callers pass raw message text plus channel metadata; the function returns a dict policy can consume without knowing the original wire format.
+`normalize_input(...)` in `src/inputs/normalize.py` builds the record dict; `src/inputs/schema.py` defines the fields processing code reads. Callers pass raw input plus source metadata; the function returns a dict later steps can consume without knowing the original wire format.
 
 ```python
-# From tests/test_message_normalization.py — representative call
-event = normalize_message(sender="alice", channel="chat", body="  hello  ")
-# event => {"sender": "alice", "channel": "chat", "body": "hello", "created_at": ...}
+# From tests/test_input_normalization.py, representative call
+record = normalize_input(source="upload", payload={"name": "  demo  "})
+# record => {"id": "...", "source": "upload", "name": "demo", "created_at": ...}
 ```
 
-Change field names or normalization rules in `src/messages/normalize.py` and `src/messages/schema.py` before touching `src/policy/checks.py`—policy code assumes the normalized event shape.
+Change field names or normalization rules in `src/inputs/normalize.py` and `src/inputs/schema.py` before touching downstream processing code. Later steps assume the normalized record shape.
 
 Evidence status: Confirmed unless noted.
 ````
@@ -253,16 +253,16 @@ Evidence status: Confirmed unless noted.
 ### Reference Lookup Page
 
 ````markdown
-# Message Schema Reference
+# Input Schema Reference
 
-This is lookup material. Read [one-real-run.md](../walkthroughs/one-real-run.md) first if you do not yet understand why messages become events.
+This is lookup material. Read [one-real-run.md](../walkthroughs/one-real-run.md) first if you do not yet understand why raw inputs become records.
 
 | Field | Meaning | Used by |
 | --- | --- | --- |
-| `sender` | Normalized sender identifier | policy checks |
-| `channel` | Message surface such as email or chat | routing checks |
-| `body` | Cleaned message text | content checks |
-| `created_at` | Event timestamp | review history output |
+| `id` | Stable record identifier | result writer |
+| `source` | Input origin such as CLI, upload, or API | routing logic |
+| `payload` | Cleaned input data | processing steps |
+| `created_at` | Record creation time | audit or run output |
 
 Evidence status: Confirmed unless a row says otherwise.
 ````
@@ -274,7 +274,7 @@ Three columns: **Term | Plain meaning | Further reading**. Keep code out unless 
 ````markdown
 | Term | Plain meaning | Further reading |
 | --- | --- | --- |
-| Event | Stable handoff after normalization. Policy reads this record, not the raw incoming message. Often confused with the message itself. | — |
+| Normalized record | Stable handoff after input parsing. Later code reads this record, not the raw input. Often confused with the original file, request, or row. | — |
 | OTLP | Trace export format this repo uses. It is different from Prometheus scraping. | Inferred — [OTLP spec](https://opentelemetry.io/docs/specs/otlp/) |
 ````
 
@@ -283,44 +283,44 @@ Three columns: **Term | Plain meaning | Further reading**. Keep code out unless 
 When edit order or assumptions matter for **understanding** the mechanism, weave a short caveat into the module page—do not create a separate change-plan page.
 
 ````markdown
-# Events
+# Normalized records
 
-An event is the stable handoff between input code and decision code. Policy reads the normalized event, not the raw message.
+A normalized record is the stable handoff between input code and processing code. Later steps read the record, not the raw input.
 
-The conversion lives in `src/messages/normalize.py` and `src/messages/schema.py`. If you are tracing why a field is missing in policy output, confirm the event record first—`src/policy/checks.py` assumes normalization already happened.
+The conversion lives in `src/inputs/normalize.py` and `src/inputs/schema.py`. If you are tracing why a field is missing in output, confirm the record first; downstream code assumes normalization already happened.
 
 ```python
-event = normalize_message(raw_message)
-decision = apply_policy(event)
+record = normalize_input(raw_input)
+result = process_record(record)
 ```
 
-You saw this handoff in [one-real-run.md](../walkthroughs/one-real-run.md) when the incoming message became a normalized record. Field names: [message schema](../references/message-schema.md).
+You saw this handoff in [one-real-run.md](../walkthroughs/one-real-run.md) when raw input became a normalized record. Field names: [input schema](../references/input-schema.md).
 
 Evidence status: Confirmed unless noted.
 ````
 
 ## Chinese Full-Page Style Example
 
-Use these as tone targets for `repo-docs-zh`. They are intentionally written as finished pages, not skeletons.
+Use these as tone targets for `repo-docs-zh`. They are intentionally written as finished pages, not skeletons. The Chinese prose should build the reader's model first; source names appear only after the model lands, as locators or exact evidence.
 
 ### `walkthroughs/one-real-run.md`
 
 Fictional tone target—not real project evidence. Replace paths, functions, fields, tests, and outputs with inspected evidence in real docs.
 
 ````markdown
-# 一条真实路径：一条消息如何变成审核决定
+# 一条真实路径：输入如何变成结果
 
-这一页只跟一条消息走到底。这个项目最重要的动作，是把用户发来的原始消息变成一个稳定事件，再让规则代码读取这个事件，判断它是否需要人工审核。路径可以记成三步：消息进入 → 生成事件 → 做出决定。若「事件」这个概念还抽象，读完本页后看 [事件](../modules/events.md)。
+这一页只跟一条输入走到底。这个项目最重要的动作，是把原始输入变成稳定记录，再让处理代码读取这个记录并写出结果。路径可以记成三步：输入进入 → 生成记录 → 写出结果。若「规范化记录」这个概念还抽象，读完本页后看 [规范化记录](../modules/normalized-record.md)。
 
-## 消息先变成事件
+## 输入先变成记录
 
-系统收到一条消息后，第一件事不是判断它是否违规，而是把它整理成事件。消息是入口，事件是交接物；只要事件形状稳定，后面的审核规则就可以专心判断内容，而不是处理输入来源的差异。这一步还没有产生审核决定，只是把后面规则要读取的东西固定下来。
+系统收到输入后，第一件事不是写结果，而是把它整理成记录。输入是入口，记录是交接物；只要记录形状稳定，后面的处理步骤就可以专心做自己的事，而不是处理输入来源的差异。这一步还没有产生结果，只是把后面步骤要读取的东西固定下来。
 
-归一化之后，系统手里有的是带有 `sender`、`channel`、`body`、`created_at` 的事件。消息形状由 `src/messages/normalize.py` 里的 `normalize_message(...)` 负责；后面所有规则都信任这一步的输出。字段名见 [消息 schema](../references/message-schema.md)。
+归一化之后，系统手里有的是带有 `id`、`source`、`payload`、`created_at` 的记录。记录形状由 `src/inputs/normalize.py` 里的 `normalize_input(...)` 负责；后面所有步骤都信任这一步的输出。字段名见 [输入 schema](../references/input-schema.md)。
 
-## 规则读取事件并做出审核决定
+## 处理步骤读取记录并写出结果
 
-事件固定下来之后，规则代码才开始判断这条消息是否需要人工审核。它读的是事件字段，不再回头看原始消息。规则在 `src/policy/checks.py`。
+记录固定下来之后，处理代码才开始计算结果。它读的是记录字段，不再回头看原始输入。处理步骤在 `src/process/steps.py`。
 
 跑下面命令可验证整条路径。
 
@@ -331,22 +331,22 @@ pytest tests/test_pipeline.py -q
 证据状态：除特别标注外，本页基于当前源码已确认。
 ````
 
-### `modules/events.md`
+### `modules/normalized-record.md`
 
 ````markdown
-# 事件
+# 规范化记录
 
-为什么项目不直接拿原始消息做审核，而要先创建一个事件？事件是输入代码和审核代码之间的交接物：它把后面需要的信息整理成稳定结构，让规则代码只面对一套字段。事件是审核结论的输入，不是结论本身。在 [一条真实路径](../walkthroughs/one-real-run.md) 里，消息进入后先被整理成事件——那一步还没有做审核。
+为什么项目不直接拿原始输入做处理，而要先创建一个规范化记录？记录是输入代码和处理代码之间的交接物：它把后面需要的信息整理成稳定结构，让后续步骤只面对一套字段。记录是结果的输入，不是结果本身。在 [一条真实路径](../walkthroughs/one-real-run.md) 里，输入进入后先被整理成记录；那一步还没有写出结果。
 
-`normalize_message(...)` 在 `src/messages/normalize.py` 里把原始消息整理成事件 dict；字段定义在 `src/messages/schema.py`。调用方传入 sender、channel、body 等原始输入，返回供规则代码读取的稳定结构。
+`normalize_input(...)` 在 `src/inputs/normalize.py` 里把原始输入整理成记录 dict；字段定义在 `src/inputs/schema.py`。调用方传入 source、payload 等原始输入，返回供处理代码读取的稳定结构。
 
 ```python
-# 来自 tests/test_message_normalization.py 的代表性用法
-event = normalize_message(sender="alice", channel="chat", body="  hello  ")
-# event => {"sender": "alice", "channel": "chat", "body": "hello", "created_at": ...}
+# 来自 tests/test_input_normalization.py 的代表性用法
+record = normalize_input(source="upload", payload={"name": "  demo  "})
+# record => {"id": "...", "source": "upload", "name": "demo", "created_at": ...}
 ```
 
-若你在追「为什么策略输出里缺某个字段」，先确认事件记录是否已包含该字段——`src/policy/checks.py` 默认规范化已在 `src/messages/normalize.py` 和 `src/messages/schema.py` 完成。
+若你在追「为什么输出里缺某个字段」，先确认记录是否已包含该字段；后续处理代码默认规范化已在 `src/inputs/normalize.py` 和 `src/inputs/schema.py` 完成。
 
 证据状态：除特别标注外，本页基于当前源码已确认。
 ````
@@ -377,7 +377,7 @@ Create `flows.md` only when the reader needs to compare several paths or states:
 
 - startup flow vs request flow
 - success path vs failure path
-- authoring path vs evaluation path
+- input path vs output path
 - state before feedback vs state after feedback
 
 Do not create `flows.md` when `one-real-run.md` already explains the only meaningful path.
@@ -391,47 +391,47 @@ These pairs apply the writing standard. The "before" lines are technically corre
 - After: Every incoming event goes through the same three steps, so a malformed payload fails in one place instead of halfway down the pipeline.
 
 **"Not X but Y" to a direct positive statement**
-- Before: This is not a queue but a log; consumers do not pop messages but read by offset.
-- After: Consumers read by offset and the log keeps the message, so two consumers can read the same event without racing.
+- Before: This is not a queue but a log; consumers do not pop items but read by offset.
+- After: Consumers read by offset and the log keeps the item, so two consumers can read the same record without racing.
 
 **File index to behavior with reasoning**
 - Before: `router.py` routes requests, `handler.py` handles them, and `store.py` stores results.
 - After: A request lands in the router, which picks a handler by path; the handler does the work and hands the result to the store. When a route returns 404, the router is the first place to look, because it chooses the handler before any handler runs.
 
 **Clipped facts to narration with a transition**
-- Before: Validation runs first. Then normalization. Then policy. Then write.
-- After: Validation runs first so the rest of the chain can assume a well-formed event. Normalization then collapses the format variants into one shape, which is what lets the policy step stay short: it only ever sees normalized fields.
+- Before: Validation runs first. Then normalization. Then processing. Then write.
+- After: Validation runs first so the rest of the chain can assume a well-formed input. Normalization then collapses the format variants into one shape, which keeps the processing step short: it only ever sees normalized fields.
 
 **Bare locator to an articulated locator**
-- Before: Scoring is in `score.py`.
-- After: Scoring lives in `score.py:compute_score`, where the weight table and denominator meet—if those two disagree, every downstream report reads the wrong score even when the API returns 200.
+- Before: Result building is in `result.py`.
+- After: Result building lives in `result.py:build_result`, where the normalized record and output fields meet; if those two disagree, every downstream report reads the wrong value even when the API returns 200.
 
 ## Tone Target: A Full Narrative Page (English)
 
 Default walkthrough shape. Headings name behavior phases; paths and checks live in prose.
 
 ````markdown
-# How a message becomes a moderation decision
+# How an input becomes a result
 
-A message arrives from a user, and a moment later the system has decided to allow it, hold it, or block it. This page follows one such message from arrival to the written decision. The system turns each raw message into a normalized event, runs policy checks on that event, and stores the strictest result. If [strictest-wins](../modules/decision.md) is still fuzzy, read that concept page after this walkthrough.
+An input arrives, and a moment later the system has written a result. This page follows one input from arrival to output. The system turns raw input into a normalized record, runs processing steps on that record, and stores the result. If [result assembly](../modules/result-assembly.md) is still fuzzy, read that concept page after this walkthrough.
 
-## The message becomes an event
+## The input becomes a record
 
-A raw message is whatever the client sent. The system converts it into one normalized event so everything downstream shares one shape. After this step, no later code reads the raw message again—a field missing here is missing for every check that follows.
+Raw input is whatever the caller provided. The system converts it into one normalized record so everything downstream shares one shape. After this step, no later code reads the raw input again; a field missing here is missing for every step that follows.
 
-Conversion lives in `ingest/normalize.py:to_event`; that is where the message becomes the single event shape policy code reads.
+Conversion lives in `ingest/normalize.py:to_record`; that is where the input becomes the single record shape processing code reads.
 
-## The event runs past the checks
+## The record runs through the steps
 
-Each check returns allow, hold, or block. The system keeps the strictest result, so one strict check cannot be hidden by a lenient one that ran later. Checks live in `policy/checks.py`; combination logic is `policy/decide.py:resolve`.
+Each step adds or checks one part of the result. The writer only receives the normalized record and step outputs, so output formatting stays separate from input parsing. Steps live in `process/steps.py`; result assembly is `results/write.py:build_result`.
 
-After the run, the system holds one decision record for review history and the UI. Verify the full path:
+After the run, the system holds one result artifact for downstream readers. Verify the full path:
 
 ```bash
 pytest tests/test_pipeline.py -q
 ```
 
-If edit order matters: say why in the module paragraph (for example, normalize before policy).
+If edit order matters: say why in the module paragraph (for example, normalize before processing).
 
 Evidence status: Confirmed unless noted.
 ````

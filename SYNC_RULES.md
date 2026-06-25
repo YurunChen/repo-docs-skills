@@ -1,0 +1,176 @@
+# Repo-Docs Sync Rules
+
+## Follow-up Question Loop
+
+Canonical pipeline: [Understanding sync](SKILL.md#understanding-sync) — **interaction-driven**, not a post-hoc doc sprint.
+
+During the user ↔ coding agent conversation, when a repo question appears:
+
+1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference/glossary pages.
+2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
+3. Ask whether the question means the guide should already have covered this; apply the stable-gap vs chat-only table.
+4. If stable: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
+5. Answer with the conclusion and a link to the updated section (or to the existing section if no patch was needed).
+
+## Project Change Sync
+
+Canonical pipeline: [Understanding sync](SKILL.md#understanding-sync) — judged **per turn** while coding with the user.
+
+If this conversation changed code, data, config, scripts, tests, or architecture and `repo-docs/` exists, run the pipeline before the final response unless the user asked to leave docs untouched. Do not defer guide fixes to a later "sync session" when the thread already shows which reader model broke.
+
+## Documentation Content Sync Alignment
+
+Use this **widened-scope** strategy only when the user explicitly asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. Day-to-day guide maintenance still runs [Understanding sync](SKILL.md#understanding-sync) inside the coding conversation.
+
+Act as a knowledge-base editor: review the whole knowledge system, merge repeated facts, correct stale facts, remove obsolete notes, and keep every reader-facing layer aligned with current code.
+
+### Knowledge layers
+
+Different layers serve different readers:
+
+| Layer | Audience | Responsibility | Healthy shape |
+| --- | --- | --- | --- |
+| Agent memory, when available | The agent across sessions | Personal preferences, cross-project references, recent lessons, and compact reminders. | Thin, current, pointer-heavy. |
+| Root `AGENTS.md` / `CLAUDE.md` | Future agents working inside this repo | Hard constraints, commands, environment rules, red lines, routing tables, and guide maintenance policy. | Short, operational, rule-oriented. |
+| `README.md` and `repo-docs/` | Human teammates, downstream users, and future agents | Onboarding, architecture, operations, integration, APIs, repo docs, and references. | Thick authority layer with current facts. |
+
+Root agent files are rule manuals. Put details in `repo-docs/`; keep root instructions for facts that prevent future agents from breaking project constraints. Put historical narratives in `change-log.md`, `references/history.md`, git history, or a project changelog.
+
+### Promotion rule
+
+Agent memory often grows by appending. Docs converge by editing current facts in place. Use promotion to keep memory thin:
+
+| Memory item | Destination |
+| --- | --- |
+| Same lesson appears repeatedly | Owning guide page, module doc, or root rule. |
+| Item explains how the system works | `repo-docs/`, with memory reduced to a pointer if useful. |
+| Item records a project fact that is now current | Current-state docs plus `change-log.md` when the change is meaningful. |
+| Item is a personal or cross-project preference | Agent memory. |
+
+The deciding question: will the next maintainer, teammate, downstream integrator, or future agent need this knowledge to understand or operate the project? If yes, make docs the source of truth.
+
+### Size and freshness check
+
+Run size checks before content sync:
+
+| File or area | Target | Action when large |
+| --- | --- | --- |
+| `AGENTS.md` / `CLAUDE.md` | About 300 lines or 15KB | Compress to rules, command tables, red lines, and doc pointers. Move detailed mechanisms into docs. |
+| Memory index, when present | At most 200 lines and 25KB | Promote stable knowledge into docs; leave compact pointers and recent lessons. |
+| Single memory file | About 100 lines | Split recent lessons or promote stable mechanism content. |
+| Single docs page | About 1500 lines | Split by concept, workflow, module, or reference type; add an index page. |
+
+Also compare memory size against docs size when memory exists. Healthy projects have docs as the heavier authority layer and memory as the lighter routing layer.
+
+### Inventory pass
+
+Before deciding which guide pages to update, enumerate the knowledge surface:
+
+1. List agent memory files when the current platform has a memory layer.
+2. For each project touched by the conversation, list the project root.
+3. List `repo-docs/` and confirm missing guide pages explicitly.
+4. Find nearby Markdown files outside `repo-docs/`, excluding dependency and git folders.
+5. Read `README.md`, root `AGENTS.md` / `CLAUDE.md`, current guide pages, and relevant docs.
+6. Review the current conversation for durable facts, decisions, and changed behavior.
+
+Keep an internal file inventory with each file marked as evaluated, changed, or left current.
+
+### Impact mapping
+
+Think from the changed behavior outward:
+
+| Change | Docs to align |
+| --- | --- |
+| New API, route, tool, or external surface | Integration guide, architecture, runbook, root command/routing table, relevant reference. |
+| New or renamed environment variable | Runbook, root instructions, setup docs, integration guide when downstream users see it. |
+| New data store, table, schema, task format, or artifact | Architecture/data model, schema reference, module doc, reproduction path. |
+| New feature crossing several concepts | README, repo docs, architecture, concept docs, runbook, change log, handoff notes. |
+| Cross-project contract change | Upstream and downstream docs, SDK/API references, integration examples. |
+| Completed plan or replaced decision | Current docs updated in place; durable history recorded in `change-log.md` or archive. |
+| Terminology or rule change | Glossary, affected module docs, references, root rules when it changes agent behavior. |
+
+For a new capability, cover four reader questions: how to use it, how it works, how to operate it, and how to know it shipped.
+
+### Editing principles
+
+- Prefer reducing, merging, and editing current facts in place.
+- Add new text where it changes a reader decision or prevents a future mistake.
+- Keep root agent files operational: constraints, commands, environment, permissions, routing, red lines, and guide policy.
+- Keep docs reader-facing: onboarding, architecture, operations, integration, examples, contracts, and references.
+- Use absolute calendar dates, not relative phrases such as "today" or "recently".
+- Keep API tables, environment tables, glossary entries, and command references current.
+- For memory, promote stable knowledge into docs and leave compact pointers when useful.
+- For cross-project changes, run the inventory and impact mapping for each affected project.
+
+### Sync checklist
+
+- [ ] Size checks ran for root agent files, docs pages, and memory indexes when present.
+- [ ] Stable memory knowledge graduated into docs or root rules.
+- [ ] Root agent instructions contain operational rules and guide policy.
+- [ ] README and docs explain how to understand, run, integrate, and operate the project.
+- [ ] Changed APIs/routes appear in integration and architecture docs.
+- [ ] Changed environment variables appear in setup/runbook docs and root instructions.
+- [ ] Changed data models or schemas appear in architecture and reference docs.
+- [ ] Cross-project effects are reflected in every affected project.
+- [ ] Relative-time language such as today, yesterday, recently, 今天, 昨天, 最近 has been replaced with absolute dates.
+- [ ] Local links, paths, commands, tool names, and environment variables resolve against the current repo.
+- [ ] The final summary lists actual changed files and any unresolved item.
+
+### Closeout summary
+
+For **widened-scope sync**, handoff, and milestone closeouts—not first-time **Build** handoff (see [SKILL.md](SKILL.md#delivery)). After edits, summarize by changed layer:
+
+```text
+## Sync Complete
+
+### Memory
+- Updated: ...
+- Added: ...
+- Removed: ...
+
+### Documentation
+- <project>/README.md — ...
+- <project>/repo-docs/... — ...
+- <project>/AGENTS.md — ...
+
+### Unresolved
+- ...
+```
+
+### Change impact map
+
+| Change type | Docs to check |
+| --- | --- |
+| New or renamed entrypoint/script | `README.md`, relevant walkthrough, `flows.md` for multi-phase changes, relevant concept page |
+| Runtime/session/control-flow change | relevant walkthrough, `flows.md` or `flows/<topic>.md`, runtime concept page when needed, README route map |
+| New tool or changed tool args | `references/tools.md`, tool concept page when needed, glossary if term changed |
+| Data/schema/task/config change | data/task concept page when needed, relevant reference doc, local caveat if uncertainty remains, `change-log.md` when user-facing |
+| Rule or metric change | rule/evaluation concept page when needed, metrics reference, main guide confidence/summary |
+| Memory method change | memory concept page when needed, method reference docs, artifacts reference if outputs changed |
+| Output/log artifact change | logging/artifacts concept page when needed, artifacts reference, run/debug sections |
+| Concept moved/deleted/merged | corresponding `modules/*.md`, README route map, links from other docs, `change-log.md` |
+| Terminology changed | `glossary.md`, main guide, affected module/reference docs |
+| User-facing docs generated or reorganized | `README.md`, affected docs, repo-root agent instruction files, `change-log.md`, `references/history.md` if archiving |
+| Research experiment or baseline change | research overview/main guide, entrypoint docs, metrics reference, artifacts reference, reproduction path |
+
+### Sync checklist
+
+- [ ] If `repo-docs/` exists and source/data/config/test behavior changed, Understanding sync ran before final response.
+- [ ] Every changed source area maps to a current doc or a local caveat beside the affected topic.
+- [ ] Module docs explain current concepts that readers actually need.
+- [ ] Main guide includes quick understanding, reproduce/run, and verify paths.
+- [ ] Non-Seed repos include `walkthroughs/one-real-run.md`, linked from README.
+- [ ] Walkthroughs use numbered `## Step N: [behavior]` sections and connected prose; no template `###` stack under every step; no duplicate closing sections that repeat the steps.
+- [ ] README orients the reader without repeating the walkthrough's full plain model.
+- [ ] Module docs deepen concepts without copying walkthrough paragraphs; link back instead.
+- [ ] If module pages exist, the README route map points readers to the useful concept pages.
+- [ ] Repo-root agent instruction files mention `repo-docs/` guide synchronization when they exist.
+- [ ] `change-log.md` entries include `Synced through <sha>` after meaningful sync work when git is available.
+- [ ] `change-log.md` entries use precise local timestamps with date, time, and timezone.
+- [ ] `change-log.md` is recent enough to scan; older entries are archived when needed.
+- [ ] If `flows.md` exists, it maps relationships between multiple paths, phases, states, or outputs instead of duplicating the main walkthrough; detailed flows live under `flows/<topic>.md` when useful.
+- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain plain concepts, representative examples, source locators, and short understanding caveats or verify hooks when they clarify the mechanism.
+- [ ] Local Markdown links resolve.
+- [ ] Current facts are edited in place; historical notes are used for durable history.
+- [ ] Documentation content sync alignment ran when the user asked for sync, tidy, handoff, milestone closeout, memory refresh, or stale-doc repair.
+- [ ] Cleanup/removal requests removed stale guide paths, links, and root guide-maintenance policies instead of leaving future agents pointed at missing docs.

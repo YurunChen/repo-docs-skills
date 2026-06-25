@@ -143,7 +143,7 @@ def markdown_files(root: Path) -> list[Path]:
     return sorted(path for path in root.rglob("*.md") if path.is_file())
 
 
-def link_target_exists(source: Path, target: str, root: Path) -> bool:
+def link_target_exists(source: Path, target: str, root: Path, repo_root: Path | None = None) -> bool:
     target = target.strip()
     if not target or target.startswith("#"):
         return True
@@ -153,11 +153,16 @@ def link_target_exists(source: Path, target: str, root: Path) -> bool:
     if not path_part:
         return True
     candidate = (source.parent / path_part).resolve()
-    try:
-        candidate.relative_to(root.resolve())
-    except ValueError:
-        return False
-    return candidate.exists()
+    allowed_roots = [root.resolve()]
+    if repo_root is not None:
+        allowed_roots.append(repo_root.resolve())
+    for allowed_root in allowed_roots:
+        try:
+            candidate.relative_to(allowed_root)
+        except ValueError:
+            continue
+        return candidate.exists()
+    return False
 
 
 def check_structure(root: Path, seed: bool, lite: bool) -> list[Finding]:
@@ -181,13 +186,13 @@ def check_structure(root: Path, seed: bool, lite: bool) -> list[Finding]:
     return findings
 
 
-def check_links(root: Path) -> list[Finding]:
+def check_links(root: Path, repo_root: Path | None = None) -> list[Finding]:
     findings: list[Finding] = []
     for path in markdown_files(root):
         text = read_text(path)
         links = LOCAL_LINK_PATTERN.findall(text) + IMAGE_LINK_PATTERN.findall(text)
         for target in links:
-            if not link_target_exists(path, target, root):
+            if not link_target_exists(path, target, root, repo_root):
                 relative = path.relative_to(root)
                 findings.append(Finding("ERROR", f"Broken local link in {relative}: {target}"))
     return findings
@@ -214,8 +219,15 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
                 "源码定位",
                 "**Source locator.**",
                 "**源码定位。**",
+                "source-map.md",
             ],
         ) or bool(PATH_IN_PROSE_PATTERN.search(text))
+        source_link_targets = [
+            target
+            for target in LOCAL_LINK_PATTERN.findall(text)
+            if SOURCE_FILE_IN_TOKEN.search(target) or "/" in target and target.startswith("..")
+        ]
+        has_locator = has_locator or bool(source_link_targets)
         if not has_step:
             findings.append(Finding("WARN", "Main walkthrough should use numbered Step headings such as `## Step 1: ...`"))
         if not has_step and not has_locator:
@@ -237,7 +249,7 @@ def check_non_seed_routing(root: Path, lite: bool = False) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    "Main walkthrough step headings should include a behavior name after a colon, e.g. `## Step 1: a message becomes an event`",
+                    "Main walkthrough step headings should include a behavior name after a colon, e.g. `## Step 1: input becomes a record`",
                 )
             )
         fragmented = len(READER_STATE_H3_PATTERN.findall(text))
@@ -473,6 +485,7 @@ def check_source_truth_hints(root: Path) -> list[Finding]:
     skip_patterns = [
         "Evidence status: Confirmed unless",
         "Confirmed unless",
+        "证据状态：除特别标注外",
         "| `Confirmed` |",
     ]
 
@@ -618,6 +631,8 @@ def check_source_locators(root: Path, repo_root: Path) -> list[Finding]:
     repo_root = repo_root.resolve()
     for path in markdown_files(root):
         relative = path.relative_to(root)
+        if relative == Path("change-log.md"):
+            continue
         text = FENCE_PATTERN.sub("", read_text(path))
         for match in INLINE_CODE_PATTERN.finditer(text):
             token = match.group(1).strip()
@@ -688,7 +703,7 @@ def main() -> int:
 
     findings: list[Finding] = []
     findings.extend(check_structure(root, args.seed, args.lite))
-    findings.extend(check_links(root))
+    findings.extend(check_links(root, args.repo_root if args.repo_root is not None and args.repo_root.is_dir() else None))
     if not args.seed:
         findings.extend(check_non_seed_routing(root, lite=args.lite))
         findings.extend(check_explanation_structure(root))
