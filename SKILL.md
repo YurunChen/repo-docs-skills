@@ -157,6 +157,18 @@ Use [WRITING.md](WRITING.md) for voice and explanation rules. The short version:
 - Use flowcharts only for phase handoffs, branching paths, or state changes.
 - Put page-level evidence status at the end of narrative pages: `Evidence status: Confirmed unless noted.`
 
+## Finish Checklist
+
+Before delivery, confirm:
+
+- The reader can start from `repo-docs/README.md` and reach the main walkthrough.
+- `walkthroughs/one-real-run.md` follows one real behavior with numbered steps.
+- Module pages use `Plain model`, `Code model`, and `Read next` when they exist.
+- Exact fields, commands, schemas, metrics, and artifacts live in `references/`, not in the main narrative.
+- Project agent instruction Markdown contains the `Repo docs` sync rule, or `AGENTS.md` was created.
+- `change-log.md` records meaningful guide work and includes `Synced through <sha>` when git is available.
+- The validator ran, or the reason it could not run is stated.
+
 ## Verification
 
 Before finishing, check structure, local links, source links, narrative flow, module ownership, and reference-page lookup behavior.
