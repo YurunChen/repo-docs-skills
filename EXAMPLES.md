@@ -366,7 +366,7 @@ Use this as an internal coverage checklist, or render it when scoping which conc
 - Each durable fact lives in one best home; other pages link to it.
 - Walkthrough: numbered `## Step N: [behavior]` headings; link to the matching `modules/<concept>.md` in the step where that concept appears; add a small flowchart when branches are hard to follow in prose alone; one verify block at page end.
 - README: opening prose with in-text routes; optional `## Reader Routes` table for large packages.
-- Module: plain model and code model in prose + snippet; weave edit-order caveats when they clarify understanding.
+- Module: default three H2 sections (`## Plain model`, `## Code model`, `## Read next`); snippet in Code model when it helps; weave edit-order caveats there when they clarify understanding.
 - Reference: lookup warning plus table; narrative stays in walkthrough or module.
 - Mermaid and tables support prose; the paragraph still carries the reasoning. Use a flowchart when it teaches the model, not when it only repeats the file tree.
 - Every behavior claim points to a test, command, artifact, schema, or source locator.

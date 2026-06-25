@@ -240,6 +240,15 @@ repo-docs/
 - [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 - [neat-freak](https://github.com/KKKKhazix/khazix-skills)
 
+## 支持
+
+如果 Repo-Docs 帮你跟上 agent 写出来的代码，欢迎给这个 repo 一个 star 🌟。
+
+---
+
 <div align="center">
   <p><strong>Repo-Docs:</strong> 让你跟得上 agent 写出来的代码。</p>
+  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
+  <p><em>感谢访问 Repo-Docs。</em></p>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
 </div>

@@ -273,6 +273,16 @@ facts.
 - [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 - [neat-freak](https://github.com/KKKKhazix/khazix-skills)
 
+## Support
+
+If Repo-Docs helps you keep up with the code your agents create, a GitHub star 🌟
+helps others find it.
+
+---
+
 <div align="center">
   <p><strong>Repo-Docs:</strong> Keep up with the code your agents write.</p>
+  <img src="assets/logo.png" height="96" alt="Repo-Docs logo" />
+  <p><em>Thanks for visiting Repo-Docs.</em></p>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=YurunChen.Repo-Docs" alt="visitors" />
 </div>
