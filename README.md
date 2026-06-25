@@ -69,8 +69,9 @@ misunderstanding in the same conversation.
 
 Questions improve the guide. If the answer is not in the docs yet, the skill
 reads source, updates the right page, and replies with the page that now owns
-that understanding. For Chinese docs, `repo-docs-zh` keeps Chinese as the
-explanation language and source terms as lookup anchors.
+that understanding. For Chinese-first teams or personal projects,
+`repo-docs-zh` writes a more Chinese-native guide: Chinese carries the
+explanation, while source terms stay as lookup anchors.
 
 ## Demonstration
 
