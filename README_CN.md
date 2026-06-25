@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="#当前特性">当前特性</a> ·
+  <a href="#最新更新">最新更新</a> ·
   <a href="#repo-docs-是什么">Repo-Docs 是什么？</a> ·
   <a href="#演示">演示</a> ·
   <a href="#快速开始">快速开始</a> ·
@@ -21,16 +21,21 @@
   <a href="README_CN.md">中文 README</a>
 </p>
 
+<p align="center">
+  <img src="assets/main.png" alt="Repo-Docs main preview" width="900" />
+</p>
+
 ---
 
-## 当前特性
+## 最新更新
 
-Repo-Docs 支持以真实 walkthrough 为入口，默认输出到根目录
-`repo-docs/`，通过 `repo-docs-zh` 生成中文文档，也支持空项目的 Seed 模式。
+> 新版以真实 walkthrough 为入口，默认输出到根目录 `repo-docs/`，支持中文文档，也支持空项目的 Seed 模式。
+> 如果 Repo-Docs 帮你跟上 agent 写出来的项目，欢迎给这个项目一个 star 🌟。
 
-- 中文覆盖层由 `repo-docs-zh` 承担。
-- walkthrough-first 文档从 `repo-docs/walkthroughs/one-real-run.md` 开始。
-- 包内包含 README 结构、repo-docs 契约、reference 标准、示例和 validator。
+- **2026-06-23**：通过 `repo-docs-zh` 增加中文覆盖层支持。
+- **2026-06-23**：增加 walkthrough-first 文档形态，入口是
+  `repo-docs/walkthroughs/one-real-run.md`。
+- **2026-06-23**：发布第一版 README 结构、repo-docs 契约、reference 标准和示例 prompt。
 
 ## Repo-Docs 是什么？
 

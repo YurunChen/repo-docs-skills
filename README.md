@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="#current-shape">Current Shape</a> ·
+  <a href="#latest-updates">Latest Updates</a> ·
   <a href="#what-is-repo-docs">What is Repo-Docs?</a> ·
   <a href="#demonstration">Demonstration</a> ·
   <a href="#quick-start">Quick Start</a> ·
@@ -22,17 +22,23 @@
   <a href="README_CN.md">中文 README</a>
 </p>
 
+<p align="center">
+  <img src="assets/main.png" alt="Repo-Docs main preview" width="900" />
+</p>
+
 ---
 
-## Current Shape
+## Latest Updates
 
-Repo-Docs supports walkthrough-first repo docs, root-level `repo-docs/` output,
-Chinese docs through `repo-docs-zh`, and Seed mode for empty repos.
+> New: walkthrough-first repo docs, root-level `repo-docs/` output, Chinese
+> docs support, and Seed mode for empty repos. If Repo-Docs helps you keep up
+> with an agent-built project, a GitHub star 🌟 helps more builders find it.
 
-- Chinese overlay support lives in `repo-docs-zh`.
-- Walkthrough-first docs start at `repo-docs/walkthroughs/one-real-run.md`.
-- The package includes the README structure, repo-docs contract, reference
-  standard, examples, and validator.
+- **2026-06-23**: Added Chinese overlay support through `repo-docs-zh`.
+- **2026-06-23**: Added walkthrough-first docs through
+  `repo-docs/walkthroughs/one-real-run.md`.
+- **2026-06-23**: Published the first README structure, repo-docs contract,
+  reference standard, and example prompt.
 
 ## What is Repo-Docs?
 
