@@ -6,9 +6,7 @@
 
 ## Explanation Design
 
-`repo-docs` should feel like a capable engineer explaining the repo at a whiteboard, then pointing to the exact code. The first job is understanding. The second job is verification.
-
-Reader outcome, package layers, narrative beats, and prose rhythm are canonical in [SKILL.md](SKILL.md) Content Organization. Page shapes and ownership are in [SKILL.md](SKILL.md) Page Design.
+`repo-docs` should feel like a capable engineer explaining the repo at a whiteboard, then pointing to the exact code. The first job is understanding. The second job is verification. Page ownership lives in [PAGE_RULES.md](PAGE_RULES.md); this file only governs how the explanation should sound and unfold.
 
 A good guide lets a newcomer answer in about 15 minutes: what the repo is for, what one real run looks like, which ideas matter, where exact contracts live, and how to verify their understanding.
 
@@ -43,10 +41,6 @@ When a section feels vague, rewrite it around one concrete design reason:
 
 The main document should orient the reader enough to choose the next useful page. Use Markdown as a clear technical note, not as a course UI or a compliance form.
 
-## Page Design
-
-Canonical rules for continuity, headings, content ownership, default page shapes, and narrative beats live in [SKILL.md](SKILL.md) Content Organization and Page Design. The subsections below add page-type specifics only.
-
 ## Writing Style
 
 Write like a real person who understands the code.
@@ -68,7 +62,7 @@ For narrative pages, use paragraphs for reasoning. A good paragraph has one poin
 
 Use first-person only when the repo or project history actually supports it. Otherwise write from the project: "the runner does this because", "the current check catches", "this leaves". The style should feel human without inventing an authorial diary.
 
-Do not let source confidence labels become the prose rhythm. Default evidence status belongs at the **end** of narrative pages (see [SKILL.md](SKILL.md) Evidence Rules). Use local labels only where confidence changes or where a statement would be surprising without explicit evidence.
+Do not let source confidence labels become the prose rhythm. Default evidence status belongs at the **end** of narrative pages; [QUALITY_RULES.md](QUALITY_RULES.md) defines the label family. Use local labels only where confidence changes or where a statement would be surprising without explicit evidence.
 
 Concrete engineering prose is the default. This is the expression strategy behind the Anthropic harness post: it uses everyday engineering verbs, attaches judgments to observations, introduces terms after the reader has a concrete problem in mind, and keeps uncertainty visible. Apply that at sentence level:
 

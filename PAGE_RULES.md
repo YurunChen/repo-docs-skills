@@ -199,7 +199,7 @@ The full package should preserve the explanation order defined above. Do not ski
 
 ### Main guide: `README.md`
 
-Use this to lower the first 15 minutes of confusion. Follow [SKILL.md](SKILL.md) Page Design for shape.
+Use this to lower the first 15 minutes of confusion. Keep the shape aligned with [SKILL.md](SKILL.md#page-ownership): README orients, the walkthrough teaches one real behavior, modules deepen concepts, references hold exact lookup material.
 
 Opening prose (under the title) should cover, in order:
 
@@ -224,7 +224,7 @@ For seed projects, use it as a project brief. Keep it honest about the empty sta
 
 Use walkthroughs to explain the repo through real behavior, not through module order. A walkthrough follows a command, request, task, user action, failure, rule case, or data record from the moment a reader can observe it to the resulting state, output, or result value. For non-Seed repos, create `walkthroughs/one-real-run.md` before writing deep module/reference pages. If the repo has no real observable path yet, use Seed mode and record the path as `Planned` in `README.md`; do not present it as `one-real-run.md`.
 
-The default `one-real-run.md` should read as one continuous explanation split into numbered steps. Shape, beats, and ownership: [SKILL.md](SKILL.md) Content Organization and Page Design.
+The default `one-real-run.md` should read as one continuous explanation split into numbered steps. Shape, beats, and ownership follow [SKILL.md](SKILL.md#page-ownership) and the page-type rules here.
 
 ```text
 title + opening prose (what you follow + plain model + optional onward links)
@@ -238,7 +238,7 @@ Each `## Step N: ...` section carries plain model and mechanism in connected pro
 
 See [EXAMPLES.md](EXAMPLES.md) for the default flat walkthrough and the optional expanded shape for long pages.
 
-Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. When several branches or handoffs are hard to hold in prose alone, add a small Mermaid or ASCII flowchart after the plain-model sentence for that step—see [SKILL.md](SKILL.md) Flowcharts when understanding needs them. The diagram teaches the shape; prose still carries why and how to verify.
+Write the walkthrough with real project names: commands, files, functions, config keys, data records, test names, artifacts, routes, or UI actions. For each step, say what it receives, what it changes, and what downstream code relies on. When several branches or handoffs are hard to hold in prose alone, add a small Mermaid or ASCII flowchart after the plain-model sentence for that step. The diagram teaches the shape; prose still carries why and how to verify.
 
 Optionally, on the newcomer walkthrough only, note one path a reader might expect but the code does not take, and why. This makes the design reasoning visible. Use it sparingly: dead-end narration adds reading load, so keep it to one line and never put it on reference or fast-path pages where an expert would only be slowed by it.
 
@@ -260,7 +260,7 @@ Use this for names the reader will see repeatedly. Three columns only:
 
 **Plain meaning** carries the project-specific meaning in reader language. It can mention what the term is often confused with, but it should not become a code mapping. **Further reading** is optional: one inferred external URL for large generic concepts, or `—`.
 
-Rules (see [SKILL.md](SKILL.md) Glossary entries):
+Rules:
 
 - Plain meaning must let the reader continue the guide without opening **Further reading**.
 - At most one URL per row; mark `Inferred` / `推断（外部来源：…）`.
@@ -348,7 +348,7 @@ If the user asks to delete only one page or one section, do not remove the whole
 
 ### Agent instruction files
 
-Canonical rule: [SKILL.md](SKILL.md) Root agent files. When `repo-docs/` is created or materially updated, ensure the repository root has an agent instruction file. If none exists, **create `AGENTS.md`**.
+When `repo-docs/` is created or materially updated, ensure the repository root has an agent instruction file. If none exists, **create `AGENTS.md`**.
 
 Keep the block short and operational:
 

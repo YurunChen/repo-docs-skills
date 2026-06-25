@@ -602,7 +602,7 @@ def check_reading_experience(root: Path) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    f"{relative}: multiple orienting ## sections; merge thesis, model, and first path into opening prose per SKILL Page Design",
+                    f"{relative}: multiple orienting ## sections; merge thesis, model, and first path into opening prose per PAGE_RULES.md",
                 )
             )
 

@@ -252,7 +252,7 @@ and pointer-oriented.
     └── SKILL.md
 ```
 
-File roles: [SKILL.md](SKILL.md) Document Contract.
+File roles: [Document Contract](SKILL.md#document-contract).
 
 ## Quality Bar
 

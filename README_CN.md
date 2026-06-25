@@ -225,11 +225,11 @@ repo-docs/
     └── SKILL.md
 ```
 
-文件职责见 [SKILL.md](SKILL.md) Document Contract。
+文件职责见 [Document Contract](SKILL.md#document-contract)。
 
 ## 质量标准
 
-好的 `repo-docs/` 文档应该在会话结束后仍然有用。新读者应该能通过它理解项目目标，从一个可观察入口追踪到输出或产物，识别关键契约，并用测试或命令验证自己的理解。
+好的 `repo-docs/` 文档应该在会话结束后仍然有用。新读者应该能通过它理解项目目标，从一个可观察入口追踪到输出或产物，识别主要契约，并用测试或命令验证自己的理解。
 
 置信度标注要安静：叙事页在**页末**写一行页面级默认状态（`证据状态：除特别标注外，本页基于当前源码已确认。`）。只有置信度变化处才标 `Confirmed`、`Inferred`、`Planned`、`Unknown`。
 

@@ -2,7 +2,7 @@
 
 Default output shapes and finished-page tone targets.
 
-**Canonical logic:** reader outcome, package layers, narrative beats, and prose rhythm live in [SKILL.md](SKILL.md) Content Organization. Page shapes and ownership live in [SKILL.md](SKILL.md) Page Design.
+**Canonical logic:** package shape and page ownership live in [SKILL.md](SKILL.md) and [PAGE_RULES.md](PAGE_RULES.md). Voice and explanation rhythm live in [WRITING.md](WRITING.md). This file only shows finished shapes.
 
 See [Walkthrough Default](#walkthrough-default), [Module caveat example](#module-caveat-example), [Build Delivery Example](#build-delivery-example), and [Tone Target](#tone-target-a-full-narrative-page-english).
 
@@ -74,7 +74,7 @@ Optional when the package has many goals or walkthroughs—add `## Reader Routes
 
 ## Walkthrough Default
 
-Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered steps, ownership per SKILL Page Design.
+Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered steps, and the page ownership defined in [PAGE_RULES.md](PAGE_RULES.md).
 
 ````markdown
 # [Human behavior title]
@@ -310,7 +310,7 @@ Fictional tone target—not real project evidence. Replace paths, functions, fie
 ````markdown
 # 一条真实路径：输入如何变成结果
 
-这一页只跟一条输入走到底。这个项目最重要的动作，是把原始输入变成稳定记录，再让处理代码读取这个记录并写出结果。路径可以记成三步：输入进入 → 生成记录 → 写出结果。若「规范化记录」这个概念还抽象，读完本页后看 [规范化记录](../modules/normalized-record.md)。
+这一页只跟一条输入走到底。这个项目的主要动作，是把原始输入变成稳定记录，再让处理代码读取这个记录并写出结果。路径可以记成三步：输入进入 → 生成记录 → 写出结果。若「规范化记录」这个概念还抽象，读完本页后看 [规范化记录](../modules/normalized-record.md)。
 
 ## 输入先变成记录
 

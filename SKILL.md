@@ -19,6 +19,8 @@ Do not make a tree tour. Build a reader model: what problem the repo solves, one
 4. Open [EXAMPLES.md](EXAMPLES.md) only for finished-page tone or output-shape examples.
 5. Prefer bundled scripts over rewriting deterministic checks.
 
+Keep the routing narrow. `SKILL.md` defines the contract; topic files carry the detailed rules. If a detail appears in two places, keep it in the topic file and leave a pointer here.
+
 ## Document Contract
 
 | File | Role |
@@ -99,12 +101,11 @@ Every material sync updates `repo-docs/change-log.md` with the trigger, changed 
 
 ## Writing Rules
 
-- Use concrete engineering prose: situation -> reason -> mechanism -> check -> caveat.
+Use [WRITING.md](WRITING.md) for voice and explanation rules. The short version:
+
+- Start with the situation a reader can recognize, then explain the reason, mechanism, check, and caveat.
 - Keep README and walkthrough openings low in code names.
 - Never let a path, function, field, or metric carry the explanation.
-- Link with reader handles, not raw paths as visible text.
-- Before delivery, make a voice pass: remove broad praise, filler, rule-of-three padding, negative parallelisms, chatbot phrasing, decorative emphasis, and generic upbeat closers.
-- For technical docs, natural voice means plain, specific, and accountable. Do not add first-person personality unless the page is explicitly editorial.
 - Use flowcharts only for phase handoffs, branching paths, or state changes.
 - Put page-level evidence status at the end of narrative pages: `Evidence status: Confirmed unless noted.`
 
