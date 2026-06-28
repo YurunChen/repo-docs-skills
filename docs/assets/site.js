@@ -37,7 +37,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".hero-install-top span": "repo-docs install prompt",
         "[data-copy-install]": "Copy",
         ".hero-actions .button-primary": "Explore live output",
-        ".hero-actions .button-secondary": "Contribute",
+        ".hero-actions a[href='https://github.com/YurunChen/repo-docs-skills']": "GitHub",
+        ".hero-actions a[href='#contribute']": "Contribute",
         ".contrast-title": "Vibe coding moves faster than memory.",
         ".contrast-lead":
           "Repo-Docs is not a file-tree tour or a chat transcript. It keeps a small project guide beside the source so the next reader can follow proof, not guesswork.",
@@ -172,7 +173,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".hero-install-top span": "repo-docs 安装提示词",
         "[data-copy-install]": "复制",
         ".hero-actions .button-primary": "查看真实输出",
-        ".hero-actions .button-secondary": "参与贡献",
+        ".hero-actions a[href='https://github.com/YurunChen/repo-docs-skills']": "GitHub",
+        ".hero-actions a[href='#contribute']": "参与贡献",
         ".contrast-title": "Vibe coding 让代码跑得比记忆更快。",
         ".contrast-lead":
           "Repo-Docs 不是文件树导览，也不是聊天记录整理。它把一份小型项目指南留在源码旁边，让下一位读者跟着证据走，而不是靠猜。",
