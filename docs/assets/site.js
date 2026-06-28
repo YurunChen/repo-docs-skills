@@ -58,7 +58,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".ledger-row[data-step='anchor'] span": "Move exact lookup into references with source evidence.",
         ".ledger-row[data-step='repair'] strong": "Repair",
         ".ledger-row[data-step='repair'] span": "When code drifts, update the smallest owning page.",
-        "#artifacts-title": "What comes out of the workshop",
+        ".hotspot-workshop": "Artifacts",
+        "#artifacts-title": "What Repo-Docs generates",
         ".workshop-copy > p":
           "The result is not a single long README. It is a small set of pages with different jobs, so narrative and lookup do not fight each other.",
         ".inventory-card:nth-child(1) .inventory-rarity": "Scroll",
@@ -184,7 +185,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".ledger-row[data-step='anchor'] span": "把精确查找信息放进参考页，并附上源码证据。",
         ".ledger-row[data-step='repair'] strong": "修补",
         ".ledger-row[data-step='repair'] span": "代码漂移时，只更新最小的归属页面。",
-        "#artifacts-title": "工坊会产出什么",
+        ".hotspot-workshop": "产物",
+        "#artifacts-title": "Repo-Docs 会生成什么",
         ".workshop-copy > p":
           "结果不是一篇超长 README，而是一组各司其职的小页面，让叙事和查找互不抢位。",
         ".inventory-card:nth-child(1) .inventory-rarity": "卷轴",
@@ -708,43 +710,30 @@ https://github.com/YurunChen/repo-docs-skills
       reduceMotion: "(prefers-reduced-motion: reduce)"
     },
     (context) => {
-      const { isDesktop, reduceMotion } = context.conditions;
+      const { reduceMotion } = context.conditions;
       if (reduceMotion) return;
 
-      gsap.from(".site-nav", { y: -20, duration: 0.4, ease: "steps(4)" });
+      gsap.from(".site-nav", { y: -12, opacity: 0, duration: 0.36, ease: easeOut });
       gsap.from(".hero-atlas .hero-copy > *", {
-        y: 28,
+        y: 18,
+        opacity: 0,
         stagger: 0.07,
         delay: 0.08,
         ease: easeOut
       });
       gsap.from(".hero-stage > *", {
-        y: 32,
-        stagger: 0.1,
+        y: 18,
+        opacity: 0,
+        stagger: 0.08,
         delay: 0.18,
         ease: easeOut
       });
       gsap.from(".world-strip article", {
-        y: 16,
+        y: 10,
+        opacity: 0,
         stagger: 0.08,
         delay: 0.4,
-        ease: "steps(3)"
-      });
-
-      gsap.to(".hero-map img", {
-        y: isDesktop ? -10 : -5,
-        duration: 2.4,
-        ease: "steps(4, end)",
-        repeat: -1,
-        yoyo: true
-      });
-
-      gsap.to(".aurora", {
-        x: isDesktop ? 24 : 12,
-        duration: 8,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true
+        ease: easeOut
       });
 
       const revealTargets = document.querySelectorAll(
@@ -757,12 +746,13 @@ https://github.com/YurunChen/repo-docs-skills
             if (!entry.isIntersecting) return;
             gsap.fromTo(
               entry.target,
-              { y: 20 },
+              { y: 12, opacity: 0.92 },
               {
                 y: 0,
-                duration: 0.45,
+                opacity: 1,
+                duration: 0.42,
                 ease: easeOut,
-                clearProps: "transform"
+                clearProps: "transform,opacity"
               }
             );
             activeObserver.unobserve(entry.target);
