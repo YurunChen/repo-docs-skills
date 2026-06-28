@@ -9,10 +9,10 @@
   </p>
   <p>
     <a href="http://xhslink.com/o/9M27ebWDaD3">
-      <img alt="小红书" src="https://img.shields.io/static/v1?style=for-the-badge&amp;label=XIAOHONGSHU&amp;message=xhslink.com%2Fo%2F9M27ebWDaD3&amp;color=ff2442&amp;labelColor=07111f" />
+      <img alt="小红书" src="https://img.shields.io/badge/Xiaohongshu-Post-ff2442?style=for-the-badge&amp;labelColor=555" />
     </a>
     <a href="https://yurunchen.github.io/repo-docs-skills/">
-      <img alt="项目主页" src="https://img.shields.io/static/v1?style=for-the-badge&amp;label=PROJECT%20HOME&amp;message=yurunchen.github.io%2Frepo-docs-skills&amp;color=5fb3ff&amp;labelColor=07111f" />
+      <img alt="项目主页" src="https://img.shields.io/badge/Project%20Page-Online-27a36f?style=for-the-badge&amp;labelColor=555" />
     </a>
   </p>
 </div>
