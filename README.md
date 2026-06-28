@@ -9,7 +9,7 @@
   </p>
   <p>
     <a href="http://xhslink.com/o/9M27ebWDaD3">
-      <img alt="Xiaohongshu" src="https://img.shields.io/badge/Xiaohongshu-Post-ff2442?style=for-the-badge&amp;labelColor=555" />
+      <img alt="RedNote(小红书)" src="https://img.shields.io/badge/RedNote(%E5%B0%8F%E7%BA%A2%E4%B9%A6)-Post-ff2442?style=for-the-badge&amp;labelColor=555" />
     </a>
     <a href="https://yurunchen.github.io/repo-docs-skills/">
       <img alt="Project homepage" src="https://img.shields.io/badge/Project%20Page-Online-27a36f?style=for-the-badge&amp;labelColor=555" />
@@ -214,6 +214,8 @@ A good Repo-Docs package is useful after the chat ends.
 ```
 
 ## Acknowledgements
+
+Repo Docs Skills is developed by the [AI4GC Lab](https://ai4gc.org/) at Zhejiang University.
 
 - [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 - [neat-freak](https://github.com/KKKKhazix/khazix-skills)

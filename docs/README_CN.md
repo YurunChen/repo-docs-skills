@@ -9,7 +9,7 @@
   </p>
   <p>
     <a href="http://xhslink.com/o/9M27ebWDaD3">
-      <img alt="小红书" src="https://img.shields.io/badge/Xiaohongshu-Post-ff2442?style=for-the-badge&amp;labelColor=555" />
+      <img alt="RedNote(小红书)" src="https://img.shields.io/badge/RedNote(%E5%B0%8F%E7%BA%A2%E4%B9%A6)-Post-ff2442?style=for-the-badge&amp;labelColor=555" />
     </a>
     <a href="https://yurunchen.github.io/repo-docs-skills/">
       <img alt="项目主页" src="https://img.shields.io/badge/Project%20Page-Online-27a36f?style=for-the-badge&amp;labelColor=555" />
@@ -210,6 +210,8 @@ python scripts/validate_repo_docs.py /path/to/repo-docs --repo-root /path/to/rep
 ```
 
 ## 致谢
+
+Repo Docs Skills 由浙江大学 [AI4GC Lab](https://ai4gc.org/) 开发。
 
 - [codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 - [neat-freak](https://github.com/KKKKhazix/khazix-skills)

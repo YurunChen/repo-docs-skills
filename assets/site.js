@@ -26,7 +26,7 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#artifacts']": "Artifacts",
         ".nav-links a[href='#cases']": "Cases",
         ".nav-links a[href='#quests']": "Modes",
-        ".nav-links a[href='#install']": "Install",
+        ".nav-links a[href='#contribute']": "Contribute",
         ".nav-action": "Docs",
         ".eyebrow-text": "An evidence atlas for agent-built code.",
         ".hero-serif": "Keep up with the code",
@@ -36,9 +36,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".hero-aside": "Understand the repo before you memorize paths.",
         ".hero-install-top span": "repo-docs install prompt",
         "[data-copy-install]": "Copy",
-        "[data-copy-install-secondary]": "Copy prompt",
         ".hero-actions .button-primary": "Explore live output",
-        ".hero-actions .button-secondary": "Install skill",
+        ".hero-actions .button-secondary": "Contribute",
         ".contrast-title": "Vibe coding moves faster than memory.",
         ".contrast-lead":
           "Repo-Docs is not a file-tree tour or a chat transcript. It keeps a small project guide beside the source so the next reader can follow proof, not guesswork.",
@@ -134,13 +133,14 @@ https://github.com/YurunChen/repo-docs-skills
         ".loop-step:nth-child(3) p": "Update the owning page only when the gap is durable.",
         ".loop-step:nth-child(4) strong": "Answer",
         ".loop-step:nth-child(4) p": "Reply from evidence and leave the repo easier to continue.",
-        ".install-copy .section-note": "Quick start",
-        "#install-title": "Add Repo-Docs to your agent skill directory.",
+        ".install-copy .section-note": "Open source",
+        "#contribute-title": "Help make repo understanding easier to maintain.",
         ".install-copy p:not(.section-note)":
-          "Use the English or Chinese skill, then ask your coding agent to build or sync docs for the repository you are working in.",
-        ".terminal-top": "repo-docs install prompt",
-        ".terminal-actions .button-primary": "Open install notes",
-        ".terminal-actions .button-secondary": "View contract",
+          "Repo-Docs is open source. Issues, examples, documentation fixes, and pull requests are welcome, especially when they make agent-built repositories easier to understand.",
+        ".terminal-top": "open source contribution",
+        ".contribution-snippet": "Issues: bugs, stale docs, missing workflows\nPRs: fixes, examples, guide improvements",
+        ".terminal-actions .button-primary": "Open issue",
+        ".terminal-actions .button-secondary": "Send PR",
         ".site-footer p": "Keep up with the code your agents write.",
         ".footer-links a[href='README.md']": "English README",
         ".footer-links a[href='README_CN.md']": "Chinese README",
@@ -161,7 +161,7 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#artifacts']": "产物",
         ".nav-links a[href='#cases']": "案例",
         ".nav-links a[href='#quests']": "模式",
-        ".nav-links a[href='#install']": "安装",
+        ".nav-links a[href='#contribute']": "贡献",
         ".nav-action": "文档",
         ".eyebrow-text": "给 agent 写出来的代码，留一张可验证的证据地图。",
         ".hero-serif": "让你跟得上 agent",
@@ -171,9 +171,8 @@ https://github.com/YurunChen/repo-docs-skills
         ".hero-aside": "先理解仓库，再记路径。",
         ".hero-install-top span": "repo-docs 安装提示词",
         "[data-copy-install]": "复制",
-        "[data-copy-install-secondary]": "复制提示词",
         ".hero-actions .button-primary": "查看真实输出",
-        ".hero-actions .button-secondary": "安装 skill",
+        ".hero-actions .button-secondary": "参与贡献",
         ".contrast-title": "Vibe coding 让代码跑得比记忆更快。",
         ".contrast-lead":
           "Repo-Docs 不是文件树导览，也不是聊天记录整理。它把一份小型项目指南留在源码旁边，让下一位读者跟着证据走，而不是靠猜。",
@@ -265,13 +264,14 @@ https://github.com/YurunChen/repo-docs-skills
         ".loop-step:nth-child(3) p": "只有当缺口会持续存在时，才更新归属页面。",
         ".loop-step:nth-child(4) strong": "回答",
         ".loop-step:nth-child(4) p": "基于证据回答，并让仓库更容易继续接手。",
-        ".install-copy .section-note": "快速开始",
-        "#install-title": "把 Repo-Docs 安装到你的 agent skill 目录。",
+        ".install-copy .section-note": "开源贡献",
+        "#contribute-title": "一起让 repo 理解更容易维护。",
         ".install-copy p:not(.section-note)":
-          "使用英文或中文 skill，然后让编码 agent 为当前仓库 build 或 sync 文档。",
-        ".terminal-top": "repo-docs 安装提示词",
-        ".terminal-actions .button-primary": "打开英文说明",
-        ".terminal-actions .button-secondary": "查看契约",
+          "Repo-Docs 是开源项目。欢迎提交 issue、示例、文档修正和 PR，尤其是能让 agent 写出来的仓库更容易理解的改进。",
+        ".terminal-top": "开源贡献",
+        ".contribution-snippet": "Issues: bug、过期文档、缺失 workflow\nPRs: 修复、示例、guide 改进",
+        ".terminal-actions .button-primary": "提交 issue",
+        ".terminal-actions .button-secondary": "提交 PR",
         ".site-footer p": "让你跟得上 agent 写出来的代码。",
         ".footer-links a[href='README.md']": "英文 README",
         ".footer-links a[href='README_CN.md']": "中文 README",
@@ -602,7 +602,7 @@ https://github.com/YurunChen/repo-docs-skills
       }
     };
 
-    document.querySelectorAll("[data-copy-install], [data-copy-install-secondary]").forEach((button) => {
+    document.querySelectorAll("[data-copy-install]").forEach((button) => {
       button.addEventListener("click", () => copyHandler(button));
     });
   };
