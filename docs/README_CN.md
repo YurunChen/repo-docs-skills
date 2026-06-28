@@ -1,13 +1,6 @@
-<p align="center">
-  <a href="README.md">English README</a> |
-  <a href="SKILL.md">Skill contract</a> |
-  <a href="index.html">交互式主页</a> |
-  <a href="#30-秒安装">安装</a>
-</p>
-
 <div align="center">
   <img src="assets/logo.png" width="86" alt="Repo-Docs logo" />
-  <h1>Repo-Docs</h1>
+  <h1>Repo-Docs: 让你跟得上 agent 写出来的代码。</h1>
   <p><strong>给 agent 写出来的代码，留一张可验证的证据地图。</strong></p>
   <p>
     Vibe coding 让代码跑得很快，但理解常常还留在聊天里。Repo-Docs
@@ -22,6 +15,13 @@
 </div>
 
 <p align="center">
+  <a href="README.md">English README</a> |
+  <a href="SKILL.md">Skill contract</a> |
+  <a href="index.html">交互式主页</a> |
+  <a href="#30-秒安装">安装</a>
+</p>
+
+<p align="center">
   <a href="#为什么现在需要它"><strong>为什么现在</strong></a> |
   <a href="#repo-docs-循环"><strong>工作循环</strong></a> |
   <a href="#它会生成什么"><strong>产物</strong></a> |
@@ -30,9 +30,9 @@
 
 <p align="center">
   <img
-    src="assets/repo-docs-evidence-atlas.png"
-    alt="Repo-Docs 证据地图：源码、命令、walkthrough、reference 和项目记忆围绕一本打开的 guide 连接起来"
-    width="960"
+    src="assets/main.png"
+    alt="Repo-Docs main preview"
+    width="900"
   />
 </p>
 
@@ -85,66 +85,30 @@ agent 痕迹会被单一信号漏掉。
 
 ```mermaid
 flowchart LR
-  A["真实需求或代码变化"] --> B["追踪一条可观察行为"]
-  B --> C["命名稳定概念"]
-  C --> D["把结论锚到源码、测试、命令、数据或产物"]
-  D --> E["写入最小归属页面"]
-  E --> F["记录验证方式和同步锚点"]
-  F --> G["下一个读者或 agent 从当前理解开始"]
-  G --> A
+  A["用户提问或 agent 修改仓库"] --> B["理解同步检查"]
+  B --> C["更新 README 和 walkthrough"]
+  B --> D["更新 change-log"]
+  B --> E["补 modules / glossary / references"]
+  B --> F["更新 AGENTS.md / CLAUDE.md"]
+  C --> G["用户可以读取当前项目"]
+  D --> G
+  E --> G
+  F --> G
 ```
 
 这个循环刻意保守。好的同步不是把所有页面都润色一遍，而是修掉最容易误导下一个读者的那一页。
 
 ## 它会生成什么
 
-<table>
-  <tr>
-    <td width="46%" valign="top">
-      <img
-        src="assets/repo-docs-pixel-workshop.png"
-        alt="Repo-Docs 工作台，包含文件夹、卷轴、reference 箱和验证清单"
-        width="100%"
-      />
-    </td>
-    <td width="54%" valign="top">
-      <table>
-        <tr>
-          <th>产物</th>
-          <th>职责</th>
-        </tr>
-        <tr>
-          <td><code>repo-docs/README.md</code></td>
-          <td>帮读者定位项目，并指向第一条有用路径。</td>
-        </tr>
-        <tr>
-          <td><code>walkthroughs/one-real-run.md</code></td>
-          <td>沿着一条真实行为，从入口讲到输出。</td>
-        </tr>
-        <tr>
-          <td><code>modules/</code></td>
-          <td>解释 walkthrough 中出现的稳定概念。</td>
-        </tr>
-        <tr>
-          <td><code>references/</code></td>
-          <td>保存命令、schema、字段、工具和 source map。</td>
-        </tr>
-        <tr>
-          <td><code>glossary.md</code></td>
-          <td>把项目内重复术语翻译成白话。</td>
-        </tr>
-        <tr>
-          <td><code>change-log.md</code></td>
-          <td>记录文档更新、验证方式和 sync anchor。</td>
-        </tr>
-        <tr>
-          <td><code>AGENTS.md</code> / <code>CLAUDE.md</code></td>
-          <td>告诉未来 coding agent 什么时候、怎么保持文档同步。</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+| 产物 | 职责 |
+| --- | --- |
+| `repo-docs/README.md` | 帮读者定位项目，并指向第一条有用路径。 |
+| `walkthroughs/one-real-run.md` | 沿着一条真实行为，从入口讲到输出。 |
+| `modules/` | 解释 walkthrough 中出现的稳定概念。 |
+| `references/` | 保存命令、schema、字段、工具和 source map。 |
+| `glossary.md` | 把项目内重复术语翻译成白话。 |
+| `change-log.md` | 记录文档更新、验证方式和 sync anchor。 |
+| `AGENTS.md` / `CLAUDE.md` | 告诉未来 coding agent 什么时候、怎么保持文档同步。 |
 
 ## 30 秒安装
 

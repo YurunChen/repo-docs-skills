@@ -1,13 +1,6 @@
-<p align="center">
-  <a href="README_CN.md">Chinese README</a> |
-  <a href="SKILL.md">Skill contract</a> |
-  <a href="index.html">Interactive atlas</a> |
-  <a href="#install-in-30-seconds">Install</a>
-</p>
-
 <div align="center">
   <img src="assets/logo.png" width="86" alt="Repo-Docs logo" />
-  <h1>Repo-Docs</h1>
+  <h1>Repo-Docs: Keep up with the code your agents write.</h1>
   <p><strong>An evidence atlas for agent-built code.</strong></p>
   <p>
     Vibe coding makes code move faster than memory. Repo-Docs turns each real
@@ -22,6 +15,13 @@
 </div>
 
 <p align="center">
+  <a href="README_CN.md">Chinese README</a> |
+  <a href="SKILL.md">Skill contract</a> |
+  <a href="index.html">Interactive atlas</a> |
+  <a href="#install-in-30-seconds">Install</a>
+</p>
+
+<p align="center">
   <a href="#why-this-exists-now"><strong>Why now</strong></a> |
   <a href="#the-repo-docs-loop"><strong>The loop</strong></a> |
   <a href="#what-it-builds"><strong>Artifacts</strong></a> |
@@ -30,9 +30,9 @@
 
 <p align="center">
   <img
-    src="assets/repo-docs-evidence-atlas.png"
-    alt="Repo-Docs evidence atlas showing source, commands, walkthroughs, references, and memory connected around an open guide"
-    width="960"
+    src="assets/main.png"
+    alt="Repo-Docs main preview"
+    width="900"
   />
 </p>
 
@@ -87,13 +87,15 @@ repeatable way to preserve the reasoning layer inside the repository itself.
 
 ```mermaid
 flowchart LR
-  A["Real request or code change"] --> B["Trace one observable behavior"]
-  B --> C["Name the durable concepts"]
-  C --> D["Anchor claims to source, tests, commands, data, or artifacts"]
-  D --> E["Write the smallest owning page"]
-  E --> F["Record verification and sync anchor"]
-  F --> G["Next reader or agent starts from current understanding"]
-  G --> A
+  A["User asks or agent changes repo"] --> B["Understanding sync check"]
+  B --> C["Update README and walkthrough"]
+  B --> D["Update change-log"]
+  B --> E["Patch modules / glossary / references"]
+  B --> F["Update AGENTS.md / CLAUDE.md"]
+  C --> G["User can read the current project"]
+  D --> G
+  E --> G
+  F --> G
 ```
 
 The loop is intentionally conservative. A good update touches the page that
@@ -101,53 +103,15 @@ would otherwise mislead the next reader, not every page that could be polished.
 
 ## What It Builds
 
-<table>
-  <tr>
-    <td width="46%" valign="top">
-      <img
-        src="assets/repo-docs-pixel-workshop.png"
-        alt="Repo-Docs workshop with folders, scrolls, reference crates, and verification checklist"
-        width="100%"
-      />
-    </td>
-    <td width="54%" valign="top">
-      <table>
-        <tr>
-          <th>Artifact</th>
-          <th>Job</th>
-        </tr>
-        <tr>
-          <td><code>repo-docs/README.md</code></td>
-          <td>Orient the reader and point to the first useful path.</td>
-        </tr>
-        <tr>
-          <td><code>walkthroughs/one-real-run.md</code></td>
-          <td>Follow one real behavior from observable entry to output.</td>
-        </tr>
-        <tr>
-          <td><code>modules/</code></td>
-          <td>Explain durable concepts the walkthrough names.</td>
-        </tr>
-        <tr>
-          <td><code>references/</code></td>
-          <td>Hold exact commands, schemas, fields, tools, and source maps.</td>
-        </tr>
-        <tr>
-          <td><code>glossary.md</code></td>
-          <td>Translate repeated project terms into plain meaning.</td>
-        </tr>
-        <tr>
-          <td><code>change-log.md</code></td>
-          <td>Record meaningful guide work, verification, and sync anchors.</td>
-        </tr>
-        <tr>
-          <td><code>AGENTS.md</code> / <code>CLAUDE.md</code></td>
-          <td>Tell future coding agents when and how to keep docs current.</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+| Artifact | Job |
+| --- | --- |
+| `repo-docs/README.md` | Orient the reader and point to the first useful path. |
+| `walkthroughs/one-real-run.md` | Follow one real behavior from observable entry to output. |
+| `modules/` | Explain durable concepts the walkthrough names. |
+| `references/` | Hold exact commands, schemas, fields, tools, and source maps. |
+| `glossary.md` | Translate repeated project terms into plain meaning. |
+| `change-log.md` | Record meaningful guide work, verification, and sync anchors. |
+| `AGENTS.md` / `CLAUDE.md` | Tell future coding agents when and how to keep docs current. |
 
 ## Install In 30 Seconds
 
