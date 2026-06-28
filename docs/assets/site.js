@@ -14,9 +14,9 @@ https://github.com/YurunChen/repo-docs-skills
   const TEXT = {
     en: {
       lang: "en",
-      title: "Repo-Docs - Evidence atlas for agent-built code",
+      title: "Repo-Docs — Keep up with the code your agents write.",
       description:
-        "Repo-Docs is a coding-agent skill that turns fast AI code changes into walkthroughs, evidence pages, references, and sync rules that live beside the source.",
+        "Vibe coding makes code move faster than memory. Repo-Docs turns each real run into walkthroughs, concepts, references, and sync rules that live beside the source.",
       copied: "Install prompt copied",
       copyFailed: "Copy failed - select text manually",
       loadingFile: "Loading generated file...",
@@ -25,31 +25,43 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#map']": "Map",
         ".nav-links a[href='#artifacts']": "Artifacts",
         ".nav-links a[href='#cases']": "Cases",
-        ".nav-links a[href='#quests']": "Quests",
+        ".nav-links a[href='#quests']": "Modes",
         ".nav-links a[href='#install']": "Install",
         ".nav-action": "Docs",
-        ".eyebrow-text": "Evidence atlas for agent-built code",
-        ".hero-serif": "Map code chaos",
-        ".hero-pixel": "into repo docs.",
-        ".hero-lead": "Turn AI code runs into walkthroughs, evidence, references, and sync rules.",
+        ".eyebrow-text": "An evidence atlas for agent-built code.",
+        ".hero-serif": "Keep up with the code",
+        ".hero-pixel": "your agents write.",
+        ".hero-lead":
+          "Vibe coding makes code move faster than memory. Repo-Docs turns each real run into walkthroughs, concepts, references, and sync rules that live beside the source.",
+        ".hero-aside": "Understand the repo before you memorize paths.",
         ".hero-install-top span": "repo-docs install prompt",
         "[data-copy-install]": "Copy",
-        ".hero-actions .button-primary": "Install skill",
-        ".hero-actions .button-secondary": "View contract",
+        "[data-copy-install-secondary]": "Copy prompt",
+        ".hero-actions .button-primary": "Explore live output",
+        ".hero-actions .button-secondary": "Install skill",
+        ".contrast-title": "Vibe coding moves faster than memory.",
+        ".contrast-lead":
+          "Repo-Docs is not a file-tree tour or a chat transcript. It keeps a small project guide beside the source so the next reader can follow proof, not guesswork.",
+        ".contrast-tag--dim": "Without repo-docs",
+        ".contrast-card--before li:nth-child(1)": "Code changed quickly, but the reason stayed in chat.",
+        ".contrast-card--before li:nth-child(2)": "Files exist, yet no one can explain the real behavior path.",
+        ".contrast-card--before li:nth-child(3)": "README, source, tests, and agent memory drift apart.",
+        ".contrast-card--before li:nth-child(4)": "The next agent starts by rediscovering the same context.",
+        ".contrast-tag--bright": "With repo-docs",
+        ".contrast-card--after li:nth-child(1)": "A walkthrough of one real run from entry to output.",
+        ".contrast-card--after li:nth-child(2)": "Concept pages for the few ideas that actually matter.",
+        ".contrast-card--after li:nth-child(3)": "Reference pages for commands, fields, schemas, and evidence.",
+        ".contrast-card--after li:nth-child(4)": "A sync rule that keeps future answers tied to current source.",
         ".agents-label": "Works with",
-        ".world-strip article:nth-child(1) span": "Start tile",
+        ".world-strip article:nth-child(1) span": "Observe first",
         ".world-strip article:nth-child(1) strong": "One real behavior before file inventory.",
-        ".world-strip article:nth-child(2) span": "Proof path",
+        ".world-strip article:nth-child(2) span": "Evidence path",
         ".world-strip article:nth-child(2) strong": "Commands, contracts, and source links stay attached.",
-        ".world-strip article:nth-child(3) span": "Sync shrine",
+        ".world-strip article:nth-child(3) span": "Minimal sync",
         ".world-strip article:nth-child(3) strong": "Only the stale page gets patched.",
-        "#map-title": "The skill builds a map from the route the code actually took.",
+        "#map-title": "Keep understanding tied to the path code actually took.",
         ".map-section .section-copy p":
-          "Vibe coding gets the app moving quickly. Repo-Docs makes the path durable by writing down what happened, why it matters, and where the next reader can verify it.",
-        ".map-route [data-step='observe']": "Observe",
-        ".map-route [data-step='name']": "Name",
-        ".map-route [data-step='anchor']": "Anchor",
-        ".map-route [data-step='repair']": "Repair",
+          "Observe one real behavior, name the concepts, anchor lookup in source evidence, then repair only the page that drifted. The loop keeps repo docs current without another full rewrite.",
         ".ledger-row[data-step='observe'] strong": "Observe",
         ".ledger-row[data-step='observe'] span": "Run a behavior through source, tests, data, or UI.",
         ".ledger-row[data-step='name'] strong": "Name",
@@ -62,29 +74,25 @@ https://github.com/YurunChen/repo-docs-skills
         "#artifacts-title": "What Repo-Docs generates",
         ".workshop-copy > p":
           "The result is not a single long README. It is a small set of pages with different jobs, so narrative and lookup do not fight each other.",
-        ".inventory-card:nth-child(1) .inventory-rarity": "Scroll",
-        ".inventory-card:nth-child(1) h3": "Walkthrough scrolls",
+        ".inventory-card:nth-child(1) h3": "Walkthroughs",
         ".inventory-card:nth-child(1) p": "Follow one behavior from entry point to output.",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dt": "Depth",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dd": "Route",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dt": "Proof",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dd": "High",
-        ".inventory-card:nth-child(2) .inventory-rarity": "Tablet",
-        ".inventory-card:nth-child(2) h3": "Module tablets",
+        ".inventory-card:nth-child(2) h3": "Module pages",
         ".inventory-card:nth-child(2) p": "Name the concepts and ownership boundaries.",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dt": "Scope",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dd": "Concept",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dt": "Drift",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dd": "Low",
-        ".inventory-card:nth-child(3) .inventory-rarity": "Crate",
-        ".inventory-card:nth-child(3) h3": "Reference crates",
+        ".inventory-card:nth-child(3) h3": "References",
         ".inventory-card:nth-child(3) p": "Store commands, schemas, fields, and exact links.",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dt": "Lookup",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dd": "Exact",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dt": "Links",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dd": "Source",
-        ".inventory-card:nth-child(4) .inventory-rarity": "Beacon",
-        ".inventory-card:nth-child(4) h3": "Sync beacons",
+        ".inventory-card:nth-child(4) h3": "Sync rules",
         ".inventory-card:nth-child(4) p": "Tell future agents how to keep pages current.",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dt": "Trigger",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dd": "Drift",
@@ -98,7 +106,7 @@ https://github.com/YurunChen/repo-docs-skills
         "#case-panel-aider .case-tree-head strong": "repo-docs/ terminal edit run",
         "#case-panel-bolt .case-tree-head strong": "repo-docs/ chat streaming path",
         "#case-panel-tabby .case-tree-head strong": "repo-docs/ completion service path",
-        "#quest-title": "Four quests, one rule: prove before writing.",
+        "#quest-title": "Four modes, one rule: prove before writing.",
         ".quest-heading p":
           "Repo-Docs changes shape with the state of the project, but it keeps the same evidence discipline each time.",
         ".quest-advisor > p": "What happened?",
@@ -117,7 +125,7 @@ https://github.com/YurunChen/repo-docs-skills
         ".quest-board [data-quest='refine'] span": "Refine",
         ".quest-board [data-quest='refine'] h3":
           "Adjust the guide when a repo question reveals the wrong reader model.",
-        "#path-title": "A small loop that keeps the atlas alive.",
+        "#path-title": "A small loop that keeps the guide current.",
         ".loop-step:nth-child(1) strong": "Read",
         ".loop-step:nth-child(1) p": "Open the guide page that should answer the question.",
         ".loop-step:nth-child(2) strong": "Inspect",
@@ -127,13 +135,13 @@ https://github.com/YurunChen/repo-docs-skills
         ".loop-step:nth-child(4) strong": "Answer",
         ".loop-step:nth-child(4) p": "Reply from evidence and leave the repo easier to continue.",
         ".install-copy .section-note": "Quick start",
-        "#install-title": "Drop the atlas into your agent skill directory.",
+        "#install-title": "Add Repo-Docs to your agent skill directory.",
         ".install-copy p:not(.section-note)":
           "Use the English or Chinese skill, then ask your coding agent to build or sync docs for the repository you are working in.",
         ".terminal-top": "repo-docs install prompt",
         ".terminal-actions .button-primary": "Open install notes",
-        ".terminal-actions .button-secondary": "Chinese notes",
-        ".site-footer p": "A living evidence atlas for agent-built repositories.",
+        ".terminal-actions .button-secondary": "View contract",
+        ".site-footer p": "Keep up with the code your agents write.",
         ".footer-links a[href='README.md']": "English README",
         ".footer-links a[href='README_CN.md']": "Chinese README",
         ".footer-links a[href='SKILL.md']": "Skill contract"
@@ -141,9 +149,9 @@ https://github.com/YurunChen/repo-docs-skills
     },
     zh: {
       lang: "zh-CN",
-      title: "Repo-Docs - 面向 Agent 代码仓库的证据地图",
+      title: "Repo-Docs — 让你跟得上 agent 写出来的代码。",
       description:
-        "Repo-Docs 是一个 coding-agent skill，把快速的 AI 代码改动沉淀成 walkthrough、证据页、参考页和同步规则，并让它们留在源码旁边。",
+        "Vibe coding 让代码跑得很快，但理解常常还留在聊天里。Repo-Docs 把一次真实运行写成 walkthrough、概念页、reference 和同步规则，让解释跟源码一起留在仓库里。",
       copied: "安装提示词已复制",
       copyFailed: "复制失败，请手动选择文本",
       loadingFile: "正在加载生成文件...",
@@ -155,28 +163,40 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#quests']": "模式",
         ".nav-links a[href='#install']": "安装",
         ".nav-action": "文档",
-        ".eyebrow-text": "面向 Agent 代码仓库的证据地图",
-        ".hero-serif": "把代码混沌",
-        ".hero-pixel": "变成仓库文档",
-        ".hero-lead": "把 AI 编码过程沉淀成 walkthrough、证据页、参考页和同步规则。",
+        ".eyebrow-text": "给 agent 写出来的代码，留一张可验证的证据地图。",
+        ".hero-serif": "让你跟得上 agent",
+        ".hero-pixel": "写出来的代码。",
+        ".hero-lead":
+          "Vibe coding 让代码跑得很快，但理解常常还留在聊天里。Repo-Docs 把一次真实运行写成 walkthrough、概念页、reference 和同步规则，让解释跟源码一起留在仓库里。",
+        ".hero-aside": "先理解仓库，再记路径。",
         ".hero-install-top span": "repo-docs 安装提示词",
         "[data-copy-install]": "复制",
-        ".hero-actions .button-primary": "安装 skill",
-        ".hero-actions .button-secondary": "查看契约",
+        "[data-copy-install-secondary]": "复制提示词",
+        ".hero-actions .button-primary": "查看真实输出",
+        ".hero-actions .button-secondary": "安装 skill",
+        ".contrast-title": "Vibe coding 让代码跑得比记忆更快。",
+        ".contrast-lead":
+          "Repo-Docs 不是文件树导览，也不是聊天记录整理。它把一份小型项目指南留在源码旁边，让下一位读者跟着证据走，而不是靠猜。",
+        ".contrast-tag--dim": "没有 repo-docs",
+        ".contrast-card--before li:nth-child(1)": "代码已经变了，但为什么这么变还留在聊天记录里。",
+        ".contrast-card--before li:nth-child(2)": "文件很多，却没人能说清一条真实行为怎么从入口走到输出。",
+        ".contrast-card--before li:nth-child(3)": "README、源码、测试和 agent memory 互相漂移。",
+        ".contrast-card--before li:nth-child(4)": "下一个 agent 又要重新发现同一批上下文。",
+        ".contrast-tag--bright": "有了 repo-docs",
+        ".contrast-card--after li:nth-child(1)": "一条真实运行的 walkthrough，从可观察入口讲到产物。",
+        ".contrast-card--after li:nth-child(2)": "少数真正支撑设计的概念页。",
+        ".contrast-card--after li:nth-child(3)": "命令、字段、schema、工具和证据的 reference 页。",
+        ".contrast-card--after li:nth-child(4)": "让未来 agent 按当前源码同步文档的根规则。",
         ".agents-label": "支持",
-        ".world-strip article:nth-child(1) span": "起点",
+        ".world-strip article:nth-child(1) span": "先观察",
         ".world-strip article:nth-child(1) strong": "先追踪一个真实行为，再整理文件清单。",
         ".world-strip article:nth-child(2) span": "证据路径",
         ".world-strip article:nth-child(2) strong": "命令、契约和源码链接始终跟着叙事。",
-        ".world-strip article:nth-child(3) span": "同步节点",
+        ".world-strip article:nth-child(3) span": "最小同步",
         ".world-strip article:nth-child(3) strong": "只修补真正过期的那一页。",
-        "#map-title": "它沿着代码真实走过的路线生成地图。",
+        "#map-title": "让理解始终跟着代码真实走过的路径。",
         ".map-section .section-copy p":
-          "Vibe coding 让应用先跑起来。Repo-Docs 把这条路径写成可保存的文档：发生了什么、为什么重要、下一位读者去哪里验证。",
-        ".map-route [data-step='observe']": "观察",
-        ".map-route [data-step='name']": "命名",
-        ".map-route [data-step='anchor']": "锚定",
-        ".map-route [data-step='repair']": "修补",
+          "先观察一个真实行为，再命名概念、把查找锚到源码证据，最后只修补漂移的那一页。这个循环让 repo docs 保持新鲜，而不必整本重写。",
         ".ledger-row[data-step='observe'] strong": "观察",
         ".ledger-row[data-step='observe'] span": "沿着源码、测试、数据或 UI 跑通一个真实行为。",
         ".ledger-row[data-step='name'] strong": "命名",
@@ -189,29 +209,25 @@ https://github.com/YurunChen/repo-docs-skills
         "#artifacts-title": "Repo-Docs 会生成什么",
         ".workshop-copy > p":
           "结果不是一篇超长 README，而是一组各司其职的小页面，让叙事和查找互不抢位。",
-        ".inventory-card:nth-child(1) .inventory-rarity": "卷轴",
-        ".inventory-card:nth-child(1) h3": "Walkthrough 卷轴",
+        ".inventory-card:nth-child(1) h3": "Walkthrough",
         ".inventory-card:nth-child(1) p": "沿着一个行为从入口追到输出。",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dt": "深度",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dd": "路径",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dt": "证据",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dd": "高",
-        ".inventory-card:nth-child(2) .inventory-rarity": "碑片",
-        ".inventory-card:nth-child(2) h3": "模块碑片",
+        ".inventory-card:nth-child(2) h3": "模块页",
         ".inventory-card:nth-child(2) p": "命名概念和归属边界。",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dt": "范围",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dd": "概念",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dt": "漂移",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dd": "低",
-        ".inventory-card:nth-child(3) .inventory-rarity": "资料箱",
-        ".inventory-card:nth-child(3) h3": "参考资料箱",
+        ".inventory-card:nth-child(3) h3": "参考页",
         ".inventory-card:nth-child(3) p": "保存命令、schema、字段和精确链接。",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dt": "查找",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dd": "精确",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dt": "链接",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dd": "源码",
-        ".inventory-card:nth-child(4) .inventory-rarity": "信标",
-        ".inventory-card:nth-child(4) h3": "同步信标",
+        ".inventory-card:nth-child(4) h3": "同步规则",
         ".inventory-card:nth-child(4) p": "告诉未来的 agent 如何保持页面新鲜。",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dt": "触发",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dd": "漂移",
@@ -240,7 +256,7 @@ https://github.com/YurunChen/repo-docs-skills
         ".quest-board [data-quest='seed'] h3": "在代码出现前，分清计划、未知和已确认事实。",
         ".quest-board [data-quest='refine'] span": "校准",
         ".quest-board [data-quest='refine'] h3": "当仓库问题暴露读者模型错误时，调整指南。",
-        "#path-title": "一个小循环，让证据地图保持鲜活。",
+        "#path-title": "一个小循环，让指南保持最新。",
         ".loop-step:nth-child(1) strong": "读取",
         ".loop-step:nth-child(1) p": "打开本该回答问题的指南页面。",
         ".loop-step:nth-child(2) strong": "检查",
@@ -250,13 +266,13 @@ https://github.com/YurunChen/repo-docs-skills
         ".loop-step:nth-child(4) strong": "回答",
         ".loop-step:nth-child(4) p": "基于证据回答，并让仓库更容易继续接手。",
         ".install-copy .section-note": "快速开始",
-        "#install-title": "把这张证据地图放进你的 agent skill 目录。",
+        "#install-title": "把 Repo-Docs 安装到你的 agent skill 目录。",
         ".install-copy p:not(.section-note)":
           "使用英文或中文 skill，然后让编码 agent 为当前仓库 build 或 sync 文档。",
         ".terminal-top": "repo-docs 安装提示词",
         ".terminal-actions .button-primary": "打开英文说明",
-        ".terminal-actions .button-secondary": "打开中文说明",
-        ".site-footer p": "面向 Agent 代码仓库的活证据地图。",
+        ".terminal-actions .button-secondary": "查看契约",
+        ".site-footer p": "让你跟得上 agent 写出来的代码。",
         ".footer-links a[href='README.md']": "英文 README",
         ".footer-links a[href='README_CN.md']": "中文 README",
         ".footer-links a[href='SKILL.md']": "Skill 契约"
@@ -574,20 +590,20 @@ https://github.com/YurunChen/repo-docs-skills
   };
 
   const initCopyInstall = () => {
-    const copyBtn = document.querySelector("[data-copy-install]");
-    const installCode = document.querySelector("#install-snippet-code");
-    if (!copyBtn || !installCode) return;
-
-    copyBtn.addEventListener("click", async () => {
+    const copyHandler = async (button) => {
       try {
         await navigator.clipboard.writeText(INSTALL_TEXT[getLanguage()]);
         showToast(TEXT[getLanguage()].copied);
         if (canAnimate()) {
-          window.gsap.fromTo(copyBtn, { scale: 1 }, { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 });
+          window.gsap.fromTo(button, { scale: 1 }, { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 });
         }
       } catch {
         showToast(TEXT[getLanguage()].copyFailed);
       }
+    };
+
+    document.querySelectorAll("[data-copy-install], [data-copy-install-secondary]").forEach((button) => {
+      button.addEventListener("click", () => copyHandler(button));
     });
   };
 
@@ -652,16 +668,10 @@ https://github.com/YurunChen/repo-docs-skills
   const initLedgerMap = () => {
     const ledger = document.querySelector(".pixel-ledger");
     const rows = document.querySelectorAll(".ledger-row[data-step]");
-    const chips = document.querySelectorAll(".map-route [data-step]");
     if (!rows.length) return;
 
     const highlight = (step) => {
       rows.forEach((row) => row.classList.toggle("is-active", row.dataset.step === step));
-      chips.forEach((chip) => {
-        const active = chip.dataset.step === step;
-        chip.classList.toggle("is-active", active);
-        chip.setAttribute("aria-pressed", active ? "true" : "false");
-      });
     };
 
     const clear = () => highlight("");
@@ -674,10 +684,6 @@ https://github.com/YurunChen/repo-docs-skills
     if (ledger) {
       ledger.addEventListener("mouseleave", clear);
     }
-
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => highlight(chip.dataset.step));
-    });
   };
 
   document.querySelectorAll(".case-repo-tree").forEach((caseNode) => {
@@ -696,6 +702,44 @@ https://github.com/YurunChen/repo-docs-skills
   initCaseTabs();
   initQuestAdvisor();
   initLedgerMap();
+
+  const initNavScrollSpy = () => {
+    const nav = document.querySelector(".site-nav");
+    const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    if (!links.length) return;
+
+    const sections = links
+      .map((link) => {
+        const id = link.getAttribute("href");
+        const section = id ? document.querySelector(id) : null;
+        return section ? { link, section } : null;
+      })
+      .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const onScroll = () => {
+      if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 12);
+
+      const marker = window.scrollY + (nav?.offsetHeight || 0) + 80;
+      let current = "";
+
+      sections.forEach(({ link, section }) => {
+        if (section.offsetTop <= marker) {
+          current = link.getAttribute("href") || current;
+        }
+      });
+
+      links.forEach((link) => {
+        link.classList.toggle("is-active", Boolean(current) && link.getAttribute("href") === current);
+      });
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  };
+
+  initNavScrollSpy();
 
   if (!window.gsap) return;
 
@@ -719,13 +763,6 @@ https://github.com/YurunChen/repo-docs-skills
         opacity: 0,
         stagger: 0.07,
         delay: 0.08,
-        ease: easeOut
-      });
-      gsap.from(".hero-stage > *", {
-        y: 18,
-        opacity: 0,
-        stagger: 0.08,
-        delay: 0.18,
         ease: easeOut
       });
       gsap.from(".world-strip article", {
