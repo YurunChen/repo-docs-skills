@@ -18,6 +18,7 @@
   <a href="README_CN.md">Chinese README</a> |
   <a href="SKILL.md">Skill contract</a> |
   <a href="index.html">Interactive atlas</a> |
+  <a href="http://xhslink.com/o/9M27ebWDaD3">Xiaohongshu</a> |
   <a href="#install-in-30-seconds">Install</a>
 </p>
 

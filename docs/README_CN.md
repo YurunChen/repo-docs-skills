@@ -18,6 +18,7 @@
   <a href="README.md">English README</a> |
   <a href="SKILL.md">Skill contract</a> |
   <a href="index.html">交互式主页</a> |
+  <a href="http://xhslink.com/o/9M27ebWDaD3">小红书</a> |
   <a href="#30-秒安装">安装</a>
 </p>
 
