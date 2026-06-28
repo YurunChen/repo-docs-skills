@@ -8,17 +8,19 @@
     the source.
   </p>
   <p>
-    <img alt="Skill" src="https://img.shields.io/badge/skill-repo--docs-07111f?style=for-the-badge&amp;labelColor=07111f&amp;color=27d3a2" />
-    <img alt="Output" src="https://img.shields.io/badge/output-living%20repo%20docs-07111f?style=for-the-badge&amp;labelColor=07111f&amp;color=f5b84b" />
-    <img alt="Evidence" src="https://img.shields.io/badge/evidence-source%20anchored-07111f?style=for-the-badge&amp;labelColor=07111f&amp;color=5fb3ff" />
+    <a href="http://xhslink.com/o/9M27ebWDaD3">
+      <img alt="Xiaohongshu" src="https://img.shields.io/static/v1?style=for-the-badge&amp;label=XIAOHONGSHU&amp;message=xhslink.com%2Fo%2F9M27ebWDaD3&amp;color=ff2442&amp;labelColor=07111f" />
+    </a>
+    <a href="https://yurunchen.github.io/repo-docs-skills/">
+      <img alt="Project homepage" src="https://img.shields.io/static/v1?style=for-the-badge&amp;label=PROJECT%20HOME&amp;message=yurunchen.github.io%2Frepo-docs-skills&amp;color=5fb3ff&amp;labelColor=07111f" />
+    </a>
   </p>
 </div>
 
 <p align="center">
   <a href="README_CN.md">Chinese README</a> |
   <a href="SKILL.md">Skill contract</a> |
-  <a href="index.html">Interactive atlas</a> |
-  <a href="http://xhslink.com/o/9M27ebWDaD3">Xiaohongshu</a> |
+  <a href="https://yurunchen.github.io/repo-docs-skills/">Project homepage</a> |
   <a href="#install-in-30-seconds">Install</a>
 </p>
 
