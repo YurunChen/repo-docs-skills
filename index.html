@@ -6,12 +6,12 @@
     <title>Repo-Docs — Keep up with the code your agents write.</title>
     <meta
       name="description"
-      content="Vibe coding makes code move faster than memory. Repo-Docs turns each real run into walkthroughs, concepts, references, and sync rules that live beside the source."
+      content="Repo-Docs helps turn real coding runs into small, source-backed pages that stay beside the repository."
     />
     <meta property="og:title" content="Repo-Docs — Keep up with the code your agents write." />
     <meta
       property="og:description"
-      content="An evidence atlas for agent-built code. Understand the repo before you memorize paths."
+      content="A source-backed guide for agent-built code. Start with understanding, then follow the paths."
     />
     <meta property="og:image" content="assets/repo-docs-pixel-kingdom.png" />
     <link rel="icon" href="assets/logo.png" />
@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/site.css?v=20260628-contribute" />
+    <link rel="stylesheet" href="assets/site.css?v=20260628-reference-site-polish3" />
   </head>
   <body>
     <div class="pixel-toast" role="status" aria-live="polite"></div>
@@ -56,17 +56,18 @@
           <div class="hero-copy">
             <p class="eyebrow">
               <span class="eyebrow-pip" aria-hidden="true"></span>
-              <span class="eyebrow-text">An evidence atlas for agent-built code.</span>
+              <span class="eyebrow-text">A source-backed guide for agent-built code.</span>
             </p>
             <h1 id="hero-title">
               <span class="hero-serif">Keep up with the code</span>
               <span class="hero-pixel">your agents write.</span>
             </h1>
             <p class="hero-lead">
-              Vibe coding makes code move faster than memory. Repo-Docs turns each real run into
-              walkthroughs, concepts, references, and sync rules that live beside the source.
+              When code moves quickly, context is easy to leave behind. Repo-Docs helps you turn one
+              real run into a few clear pages that live with the source: walkthroughs, concepts,
+              references, and sync notes.
             </p>
-            <p class="hero-aside">Understand the repo before you memorize paths.</p>
+            <p class="hero-aside">Start with understanding, then follow the paths.</p>
 
             <div class="hero-install" aria-label="Install prompt">
               <div class="hero-install-top">
@@ -81,7 +82,7 @@ in my agent skill directory.</code></pre>
             </div>
 
             <div class="hero-actions" aria-label="Primary actions">
-              <a class="button button-primary" href="#cases">Explore live output</a>
+              <a class="button button-primary" href="#cases">See generated docs</a>
               <a class="button button-secondary" href="https://github.com/YurunChen/repo-docs-skills">GitHub</a>
               <a class="button button-secondary" href="#contribute">Contribute</a>
             </div>
@@ -102,20 +103,21 @@ in my agent skill directory.</code></pre>
 
       <section class="contrast-band" id="contrast" aria-labelledby="contrast-title">
         <div class="contrast-head">
-          <h2 id="contrast-title" class="contrast-title">Vibe coding moves faster than memory.</h2>
+          <h2 id="contrast-title" class="contrast-title">Fast-moving code needs a place for context.</h2>
           <p class="contrast-lead">
-            Repo-Docs is not a file-tree tour or a chat transcript. It keeps a small project guide
-            beside the source so the next reader can follow proof, not guesswork.
+            Repo-Docs is not a file-tree tour or a chat archive. It keeps a modest project guide
+            beside the source, so the next person can see why things work instead of piecing it
+            together from old messages.
           </p>
         </div>
         <div class="contrast-grid">
           <article class="contrast-card contrast-card--before">
-            <span class="contrast-tag contrast-tag--dim">Without repo-docs</span>
+            <span class="contrast-tag contrast-tag--dim">When context stays in chat</span>
             <ul>
-              <li>Code changed quickly, but the reason stayed in chat.</li>
-              <li>Files exist, yet no one can explain the real behavior path.</li>
-              <li>README, source, tests, and agent memory drift apart.</li>
-              <li>The next agent starts by rediscovering the same context.</li>
+              <li>The code changed, but the reason is hard to find later.</li>
+              <li>There are many files, yet the real behavior path is still unclear.</li>
+              <li>README, source, tests, and agent notes slowly drift apart.</li>
+              <li>The next reader has to rediscover the same context again.</li>
             </ul>
           </article>
           <div class="contrast-bridge" aria-hidden="true">
@@ -123,12 +125,12 @@ in my agent skill directory.</code></pre>
             <span class="contrast-bridge-node"></span>
           </div>
           <article class="contrast-card contrast-card--after">
-            <span class="contrast-tag contrast-tag--bright">With repo-docs</span>
+            <span class="contrast-tag contrast-tag--bright">When context lives with source</span>
             <ul>
-              <li>A walkthrough of one real run from entry to output.</li>
-              <li>Concept pages for the few ideas that actually matter.</li>
-              <li>Reference pages for commands, fields, schemas, and evidence.</li>
-              <li>A sync rule that keeps future answers tied to current source.</li>
+              <li>A walkthrough follows one real run from entry to output.</li>
+              <li>Short concept pages name the ideas worth remembering.</li>
+              <li>Reference pages keep commands, fields, schemas, and evidence easy to check.</li>
+              <li>A sync note tells future agents when a page needs a small update.</li>
             </ul>
           </article>
         </div>
@@ -136,27 +138,27 @@ in my agent skill directory.</code></pre>
 
       <section class="world-strip" aria-label="Repo-Docs operating promises">
         <article>
-          <span>Observe first</span>
-          <strong>One real behavior before file inventory.</strong>
+          <span>Start from a run</span>
+          <strong>Follow one real behavior before making a file inventory.</strong>
         </article>
         <article>
-          <span>Evidence path</span>
-          <strong>Commands, contracts, and source links stay attached.</strong>
+          <span>Keep the evidence close</span>
+          <strong>Commands, contracts, and source links stay with the explanation.</strong>
         </article>
         <article>
-          <span>Minimal sync</span>
-          <strong>Only the stale page gets patched.</strong>
+          <span>Update gently</span>
+          <strong>When something changes, patch the page that owns it.</strong>
         </article>
       </section>
 
       <section class="section case-section case-section--featured" id="cases" aria-labelledby="case-title">
         <div class="case-copy">
-          <p class="section-note">GitHub demo cases</p>
-          <h2 id="case-title">Demo output from real GitHub repos.</h2>
+          <p class="section-note">GitHub examples</p>
+          <h2 id="case-title">A few real repositories, with the generated docs visible.</h2>
           <p>
-            These samples come from three popular public GitHub repositories that are not skill
-            projects. Each panel shows generated repo-docs files, and every file opens the complete
-            Markdown content grounded in inspected source.
+            These examples come from public GitHub repositories that are not skill projects. Each
+            panel shows the files Repo-Docs generated, and each file opens the Markdown content
+            written from inspected source.
           </p>
         </div>
 
@@ -259,29 +261,30 @@ in my agent skill directory.</code></pre>
       <section class="section map-section" id="map" aria-labelledby="map-title">
         <div class="section-copy">
           <p class="section-note">Evidence loop</p>
-          <h2 id="map-title">Keep understanding tied to the path code actually took.</h2>
+          <h2 id="map-title">Keep the guide close to what the code actually does.</h2>
           <p>
-            Observe one real behavior, name the concepts, anchor lookup in source evidence, then repair
-            only the page that drifted. The loop keeps repo docs current without another full rewrite.
+            Start with one behavior you can observe, name the concepts that help explain it, and
+            keep the exact source evidence nearby. When the code changes, update the smallest page
+            that needs it.
           </p>
         </div>
 
         <div class="pixel-ledger" aria-label="Repo-Docs map rules">
           <div class="ledger-row" data-step="observe" tabindex="0">
             <strong>Observe</strong>
-            <span>Run a behavior through source, tests, data, or UI.</span>
+            <span>Follow a behavior through source, tests, data, or UI.</span>
           </div>
           <div class="ledger-row" data-step="name" tabindex="0">
             <strong>Name</strong>
-            <span>Give the stable concepts their own module pages.</span>
+            <span>Give stable concepts their own small module pages.</span>
           </div>
           <div class="ledger-row" data-step="anchor" tabindex="0">
             <strong>Anchor</strong>
-            <span>Move exact lookup into references with source evidence.</span>
+            <span>Keep exact lookup details in references with source evidence.</span>
           </div>
           <div class="ledger-row" data-step="repair" tabindex="0">
             <strong>Repair</strong>
-            <span>When code drifts, update the smallest owning page.</span>
+            <span>When code changes, update the page that owns that knowledge.</span>
           </div>
         </div>
       </section>
@@ -291,14 +294,14 @@ in my agent skill directory.</code></pre>
           <p class="section-note">Generated artifacts</p>
           <h2 id="artifacts-title">What Repo-Docs generates</h2>
           <p>
-            The result is not a single long README. It is a small set of pages with different jobs,
-            so narrative and lookup do not fight each other.
+            The output is intentionally small. Instead of one long README, Repo-Docs creates a few
+            pages with clear jobs, so reading and lookup both stay manageable.
           </p>
           <div class="inventory-grid" aria-label="Repo-Docs generated artifacts">
             <article class="inventory-card">
               <div class="inventory-meta">
                 <h3>Walkthroughs</h3>
-                <p>Follow one behavior from entry point to output.</p>
+                <p>Walk through one behavior from entry point to output.</p>
                 <dl class="inventory-stats">
                   <div><dt>Depth</dt><dd>Route</dd></div>
                   <div><dt>Proof</dt><dd>High</dd></div>
@@ -308,7 +311,7 @@ in my agent skill directory.</code></pre>
             <article class="inventory-card">
               <div class="inventory-meta">
                 <h3>Module pages</h3>
-                <p>Name the concepts and ownership boundaries.</p>
+                <p>Explain the concepts and ownership boundaries worth keeping.</p>
                 <dl class="inventory-stats">
                   <div><dt>Scope</dt><dd>Concept</dd></div>
                   <div><dt>Drift</dt><dd>Low</dd></div>
@@ -318,7 +321,7 @@ in my agent skill directory.</code></pre>
             <article class="inventory-card">
               <div class="inventory-meta">
                 <h3>References</h3>
-                <p>Store commands, schemas, fields, and exact links.</p>
+                <p>Keep commands, schemas, fields, and exact links easy to check.</p>
                 <dl class="inventory-stats">
                   <div><dt>Lookup</dt><dd>Exact</dd></div>
                   <div><dt>Links</dt><dd>Source</dd></div>
@@ -328,7 +331,7 @@ in my agent skill directory.</code></pre>
             <article class="inventory-card">
               <div class="inventory-meta">
                 <h3>Sync rules</h3>
-                <p>Tell future agents how to keep pages current.</p>
+                <p>Tell future agents how to keep the pages current.</p>
                 <dl class="inventory-stats">
                   <div><dt>Trigger</dt><dd>Drift</dd></div>
                   <div><dt>Patch</dt><dd>Minimal</dd></div>
@@ -342,50 +345,50 @@ in my agent skill directory.</code></pre>
       <section class="section quest-section" id="quests" aria-labelledby="quest-title">
         <div class="quest-heading">
           <p class="section-note">Skill modes</p>
-          <h2 id="quest-title">Four modes, one rule: prove before writing.</h2>
+          <h2 id="quest-title">Use the mode that matches where the repo is.</h2>
           <p>
-            Repo-Docs changes shape with the state of the project, but it keeps the same evidence
-            discipline each time.
+            You can use Repo-Docs when a repo is new, when docs drift, or when a plan needs a
+            clearer starting point. In each case, the work starts by checking what is actually true.
           </p>
         </div>
 
         <div class="quest-advisor" aria-label="Pick your situation">
-          <p>What happened?</p>
+          <p>What are you trying to do?</p>
           <div class="quest-chips">
             <button type="button" class="is-active" data-quest-pick="build">New repo, no guide yet</button>
             <button type="button" data-quest-pick="sync">Code changed, docs stale</button>
             <button type="button" data-quest-pick="seed">Planning before code exists</button>
-            <button type="button" data-quest-pick="refine">Reader model was wrong</button>
+            <button type="button" data-quest-pick="refine">Existing guide needs care</button>
           </div>
         </div>
 
         <div class="quest-board" aria-label="Repo-Docs skill modes">
           <article class="quest-large is-highlighted" data-quest="build">
             <span>Build</span>
-            <h3>First durable guide for a repo that already exists.</h3>
+            <h3>Start a useful guide for a repo that already exists.</h3>
           </article>
           <article data-quest="sync">
             <span>Sync</span>
-            <h3>Repair stale understanding after code, config, data, or tests change.</h3>
+            <h3>Refresh the pages affected by code, config, data, or test changes.</h3>
           </article>
           <article data-quest="seed">
             <span>Seed</span>
-            <h3>Separate planned work, unknowns, and confirmed facts before code exists.</h3>
+            <h3>Separate planned work, open questions, and confirmed facts before code exists.</h3>
           </article>
           <article data-quest="refine">
             <span>Refine</span>
-            <h3>Adjust the guide when a repo question reveals the wrong reader model.</h3>
+            <h3>Improve the guide when a real question shows what readers still need.</h3>
           </article>
         </div>
       </section>
 
       <section class="section path-section" aria-labelledby="path-title">
         <p class="section-note">Sync loop</p>
-        <h2 id="path-title">A small loop that keeps the guide current.</h2>
+        <h2 id="path-title">A practical loop for keeping docs current.</h2>
         <div class="path-track" aria-label="Repo-Docs sync loop">
           <article class="loop-step">
             <strong>Read</strong>
-            <p>Open the guide page that should answer the question.</p>
+            <p>Open the page that should help answer the question.</p>
           </article>
           <article class="loop-step">
             <strong>Inspect</strong>
@@ -393,11 +396,11 @@ in my agent skill directory.</code></pre>
           </article>
           <article class="loop-step">
             <strong>Patch</strong>
-            <p>Update the owning page only when the gap is durable.</p>
+            <p>Update the page only when the gap is likely to matter again.</p>
           </article>
           <article class="loop-step">
             <strong>Answer</strong>
-            <p>Reply from evidence and leave the repo easier to continue.</p>
+            <p>Answer from evidence and leave the repo a little easier to continue.</p>
           </article>
         </div>
       </section>
@@ -406,19 +409,26 @@ in my agent skill directory.</code></pre>
         <div class="install-glow" aria-hidden="true"></div>
         <div class="install-copy">
           <p class="section-note">Open source</p>
-          <h2 id="contribute-title">Help make repo understanding easier to maintain.</h2>
+          <h2 id="contribute-title">Help make Repo-Docs easier to trust and maintain.</h2>
           <p>
-            Repo-Docs is open source. Issues, examples, documentation fixes, and pull requests are
-            welcome, especially when they make agent-built repositories easier to understand.
+            Repo-Docs is open source. If it misses something in a real workflow, issues and PRs are
+            welcome. Small fixes, examples, and clearer docs all help.
           </p>
         </div>
-        <div class="terminal-panel" aria-label="Open source contribution">
-          <div class="terminal-top">open source contribution</div>
-          <pre><code class="contribution-snippet">Issues: bugs, stale docs, missing workflows
-PRs: fixes, examples, guide improvements</code></pre>
-          <div class="terminal-actions">
-            <a class="button button-primary" href="https://github.com/YurunChen/repo-docs-skills/issues">Open issue</a>
-            <a class="button button-secondary" href="https://github.com/YurunChen/repo-docs-skills/pulls">Send PR</a>
+        <div class="contribute-panel" aria-label="GitHub contribution links">
+          <div class="contribute-panel-head">
+            <span>GitHub</span>
+            <strong>Open source contribution</strong>
+          </div>
+          <div class="contribute-actions">
+            <a class="contribute-action contribute-action--primary" href="https://github.com/YurunChen/repo-docs-skills/issues">
+              <span>GitHub Issues</span>
+              <strong>Open issue</strong>
+            </a>
+            <a class="contribute-action" href="https://github.com/YurunChen/repo-docs-skills/pulls">
+              <span>Pull Requests</span>
+              <strong>Send PR</strong>
+            </a>
           </div>
         </div>
       </section>
@@ -437,6 +447,6 @@ PRs: fixes, examples, guide improvements</code></pre>
     </footer>
 
     <script src="assets/gsap.min.js"></script>
-    <script src="assets/site.js?v=20260628-contribute"></script>
+    <script src="assets/site.js?v=20260628-copy-warm1"></script>
   </body>
 </html>

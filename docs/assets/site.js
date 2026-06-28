@@ -16,10 +16,10 @@ https://github.com/YurunChen/repo-docs-skills
       lang: "en",
       title: "Repo-Docs — Keep up with the code your agents write.",
       description:
-        "Vibe coding makes code move faster than memory. Repo-Docs turns each real run into walkthroughs, concepts, references, and sync rules that live beside the source.",
-      copied: "Install prompt copied",
-      copyFailed: "Copy failed - select text manually",
-      loadingFile: "Loading generated file...",
+        "Repo-Docs helps turn real coding runs into small, source-backed pages that stay beside the repository.",
+      copied: "Install prompt copied.",
+      copyFailed: "Could not copy automatically. You can select the text manually.",
+      loadingFile: "Opening generated file...",
       bindings: {
         ".skip-link": "Skip to content",
         ".nav-links a[href='#map']": "Map",
@@ -28,120 +28,122 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#quests']": "Modes",
         ".nav-links a[href='#contribute']": "Contribute",
         ".nav-action": "Docs",
-        ".eyebrow-text": "An evidence atlas for agent-built code.",
+        ".eyebrow-text": "A source-backed guide for agent-built code.",
         ".hero-serif": "Keep up with the code",
         ".hero-pixel": "your agents write.",
         ".hero-lead":
-          "Vibe coding makes code move faster than memory. Repo-Docs turns each real run into walkthroughs, concepts, references, and sync rules that live beside the source.",
-        ".hero-aside": "Understand the repo before you memorize paths.",
+          "When code moves quickly, context is easy to leave behind. Repo-Docs helps you turn one real run into a few clear pages that live with the source: walkthroughs, concepts, references, and sync notes.",
+        ".hero-aside": "Start with understanding, then follow the paths.",
         ".hero-install-top span": "repo-docs install prompt",
         "[data-copy-install]": "Copy",
-        ".hero-actions .button-primary": "Explore live output",
+        ".hero-actions .button-primary": "See generated docs",
         ".hero-actions a[href='https://github.com/YurunChen/repo-docs-skills']": "GitHub",
         ".hero-actions a[href='#contribute']": "Contribute",
-        ".contrast-title": "Vibe coding moves faster than memory.",
+        ".contrast-title": "Fast-moving code needs a place for context.",
         ".contrast-lead":
-          "Repo-Docs is not a file-tree tour or a chat transcript. It keeps a small project guide beside the source so the next reader can follow proof, not guesswork.",
-        ".contrast-tag--dim": "Without repo-docs",
-        ".contrast-card--before li:nth-child(1)": "Code changed quickly, but the reason stayed in chat.",
-        ".contrast-card--before li:nth-child(2)": "Files exist, yet no one can explain the real behavior path.",
-        ".contrast-card--before li:nth-child(3)": "README, source, tests, and agent memory drift apart.",
-        ".contrast-card--before li:nth-child(4)": "The next agent starts by rediscovering the same context.",
-        ".contrast-tag--bright": "With repo-docs",
-        ".contrast-card--after li:nth-child(1)": "A walkthrough of one real run from entry to output.",
-        ".contrast-card--after li:nth-child(2)": "Concept pages for the few ideas that actually matter.",
-        ".contrast-card--after li:nth-child(3)": "Reference pages for commands, fields, schemas, and evidence.",
-        ".contrast-card--after li:nth-child(4)": "A sync rule that keeps future answers tied to current source.",
+          "Repo-Docs is not a file-tree tour or a chat archive. It keeps a modest project guide beside the source, so the next person can see why things work instead of piecing it together from old messages.",
+        ".contrast-tag--dim": "When context stays in chat",
+        ".contrast-card--before li:nth-child(1)": "The code changed, but the reason is hard to find later.",
+        ".contrast-card--before li:nth-child(2)": "There are many files, yet the real behavior path is still unclear.",
+        ".contrast-card--before li:nth-child(3)": "README, source, tests, and agent notes slowly drift apart.",
+        ".contrast-card--before li:nth-child(4)": "The next reader has to rediscover the same context again.",
+        ".contrast-tag--bright": "When context lives with source",
+        ".contrast-card--after li:nth-child(1)": "A walkthrough follows one real run from entry to output.",
+        ".contrast-card--after li:nth-child(2)": "Short concept pages name the ideas worth remembering.",
+        ".contrast-card--after li:nth-child(3)": "Reference pages keep commands, fields, schemas, and evidence easy to check.",
+        ".contrast-card--after li:nth-child(4)": "A sync note tells future agents when a page needs a small update.",
         ".agents-label": "Works with",
-        ".world-strip article:nth-child(1) span": "Observe first",
-        ".world-strip article:nth-child(1) strong": "One real behavior before file inventory.",
-        ".world-strip article:nth-child(2) span": "Evidence path",
-        ".world-strip article:nth-child(2) strong": "Commands, contracts, and source links stay attached.",
-        ".world-strip article:nth-child(3) span": "Minimal sync",
-        ".world-strip article:nth-child(3) strong": "Only the stale page gets patched.",
-        "#map-title": "Keep understanding tied to the path code actually took.",
-        ".map-section .section-copy p":
-          "Observe one real behavior, name the concepts, anchor lookup in source evidence, then repair only the page that drifted. The loop keeps repo docs current without another full rewrite.",
+        ".world-strip article:nth-child(1) span": "Start from a run",
+        ".world-strip article:nth-child(1) strong": "Follow one real behavior before making a file inventory.",
+        ".world-strip article:nth-child(2) span": "Keep the evidence close",
+        ".world-strip article:nth-child(2) strong": "Commands, contracts, and source links stay with the explanation.",
+        ".world-strip article:nth-child(3) span": "Update gently",
+        ".world-strip article:nth-child(3) strong": "When something changes, patch the page that owns it.",
+        "#map-title": "Keep the guide close to what the code actually does.",
+        ".map-section .section-copy p:not(.section-note)":
+          "Start with one behavior you can observe, name the concepts that help explain it, and keep the exact source evidence nearby. When the code changes, update the smallest page that needs it.",
         ".ledger-row[data-step='observe'] strong": "Observe",
-        ".ledger-row[data-step='observe'] span": "Run a behavior through source, tests, data, or UI.",
+        ".ledger-row[data-step='observe'] span": "Follow a behavior through source, tests, data, or UI.",
         ".ledger-row[data-step='name'] strong": "Name",
-        ".ledger-row[data-step='name'] span": "Give the stable concepts their own module pages.",
+        ".ledger-row[data-step='name'] span": "Give stable concepts their own small module pages.",
         ".ledger-row[data-step='anchor'] strong": "Anchor",
-        ".ledger-row[data-step='anchor'] span": "Move exact lookup into references with source evidence.",
+        ".ledger-row[data-step='anchor'] span": "Keep exact lookup details in references with source evidence.",
         ".ledger-row[data-step='repair'] strong": "Repair",
-        ".ledger-row[data-step='repair'] span": "When code drifts, update the smallest owning page.",
+        ".ledger-row[data-step='repair'] span": "When code changes, update the page that owns that knowledge.",
         ".hotspot-workshop": "Artifacts",
         "#artifacts-title": "What Repo-Docs generates",
-        ".workshop-copy > p":
-          "The result is not a single long README. It is a small set of pages with different jobs, so narrative and lookup do not fight each other.",
+        ".workshop-copy > p:not(.section-note)":
+          "The output is intentionally small. Instead of one long README, Repo-Docs creates a few pages with clear jobs, so reading and lookup both stay manageable.",
         ".inventory-card:nth-child(1) h3": "Walkthroughs",
-        ".inventory-card:nth-child(1) p": "Follow one behavior from entry point to output.",
+        ".inventory-card:nth-child(1) p": "Walk through one behavior from entry point to output.",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dt": "Depth",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dd": "Route",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dt": "Proof",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dd": "High",
         ".inventory-card:nth-child(2) h3": "Module pages",
-        ".inventory-card:nth-child(2) p": "Name the concepts and ownership boundaries.",
+        ".inventory-card:nth-child(2) p": "Explain the concepts and ownership boundaries worth keeping.",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dt": "Scope",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dd": "Concept",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dt": "Drift",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dd": "Low",
         ".inventory-card:nth-child(3) h3": "References",
-        ".inventory-card:nth-child(3) p": "Store commands, schemas, fields, and exact links.",
+        ".inventory-card:nth-child(3) p": "Keep commands, schemas, fields, and exact links easy to check.",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dt": "Lookup",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dd": "Exact",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dt": "Links",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dd": "Source",
         ".inventory-card:nth-child(4) h3": "Sync rules",
-        ".inventory-card:nth-child(4) p": "Tell future agents how to keep pages current.",
+        ".inventory-card:nth-child(4) p": "Tell future agents how to keep the pages current.",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dt": "Trigger",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dd": "Drift",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(2) dt": "Patch",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(2) dd": "Minimal",
-        ".case-copy .section-note": "GitHub demo cases",
-        "#case-title": "Demo output from real GitHub repos.",
+        ".case-copy .section-note": "GitHub examples",
+        "#case-title": "A few real repositories, with the generated docs visible.",
         ".case-copy p:not(.section-note)":
-          "These samples come from three popular public GitHub repositories that are not skill projects. Each panel shows generated repo-docs files, and every file opens the complete Markdown content grounded in inspected source.",
+          "These examples come from public GitHub repositories that are not skill projects. Each panel shows the files Repo-Docs generated, and each file opens the Markdown content written from inspected source.",
         ".case-tree-head a": "Open full case",
         "#case-panel-aider .case-tree-head strong": "repo-docs/ terminal edit run",
         "#case-panel-bolt .case-tree-head strong": "repo-docs/ chat streaming path",
         "#case-panel-tabby .case-tree-head strong": "repo-docs/ completion service path",
-        "#quest-title": "Four modes, one rule: prove before writing.",
-        ".quest-heading p":
-          "Repo-Docs changes shape with the state of the project, but it keeps the same evidence discipline each time.",
-        ".quest-advisor > p": "What happened?",
+        "#quest-title": "Use the mode that matches where the repo is.",
+        ".quest-heading p:not(.section-note)":
+          "You can use Repo-Docs when a repo is new, when docs drift, or when a plan needs a clearer starting point. In each case, the work starts by checking what is actually true.",
+        ".quest-advisor > p": "What are you trying to do?",
         "[data-quest-pick='build']": "New repo, no guide yet",
         "[data-quest-pick='sync']": "Code changed, docs stale",
         "[data-quest-pick='seed']": "Planning before code exists",
-        "[data-quest-pick='refine']": "Reader model was wrong",
+        "[data-quest-pick='refine']": "Existing guide needs care",
         ".quest-board [data-quest='build'] span": "Build",
-        ".quest-board [data-quest='build'] h3": "First durable guide for a repo that already exists.",
+        ".quest-board [data-quest='build'] h3": "Start a useful guide for a repo that already exists.",
         ".quest-board [data-quest='sync'] span": "Sync",
         ".quest-board [data-quest='sync'] h3":
-          "Repair stale understanding after code, config, data, or tests change.",
+          "Refresh the pages affected by code, config, data, or test changes.",
         ".quest-board [data-quest='seed'] span": "Seed",
         ".quest-board [data-quest='seed'] h3":
-          "Separate planned work, unknowns, and confirmed facts before code exists.",
+          "Separate planned work, open questions, and confirmed facts before code exists.",
         ".quest-board [data-quest='refine'] span": "Refine",
         ".quest-board [data-quest='refine'] h3":
-          "Adjust the guide when a repo question reveals the wrong reader model.",
-        "#path-title": "A small loop that keeps the guide current.",
+          "Improve the guide when a real question shows what readers still need.",
+        "#path-title": "A practical loop for keeping docs current.",
         ".loop-step:nth-child(1) strong": "Read",
-        ".loop-step:nth-child(1) p": "Open the guide page that should answer the question.",
+        ".loop-step:nth-child(1) p": "Open the page that should help answer the question.",
         ".loop-step:nth-child(2) strong": "Inspect",
         ".loop-step:nth-child(2) p": "Check the current source, command, artifact, config, or data.",
         ".loop-step:nth-child(3) strong": "Patch",
-        ".loop-step:nth-child(3) p": "Update the owning page only when the gap is durable.",
+        ".loop-step:nth-child(3) p": "Update the page only when the gap is likely to matter again.",
         ".loop-step:nth-child(4) strong": "Answer",
-        ".loop-step:nth-child(4) p": "Reply from evidence and leave the repo easier to continue.",
+        ".loop-step:nth-child(4) p": "Answer from evidence and leave the repo a little easier to continue.",
         ".install-copy .section-note": "Open source",
-        "#contribute-title": "Help make repo understanding easier to maintain.",
+        "#contribute-title": "Help make Repo-Docs easier to trust and maintain.",
         ".install-copy p:not(.section-note)":
-          "Repo-Docs is open source. Issues, examples, documentation fixes, and pull requests are welcome, especially when they make agent-built repositories easier to understand.",
-        ".terminal-top": "open source contribution",
-        ".contribution-snippet": "Issues: bugs, stale docs, missing workflows\nPRs: fixes, examples, guide improvements",
-        ".terminal-actions .button-primary": "Open issue",
-        ".terminal-actions .button-secondary": "Send PR",
+          "Repo-Docs is open source. If it misses something in a real workflow, issues and PRs are welcome. Small fixes, examples, and clearer docs all help.",
+        ".contribute-panel-head span": "GitHub",
+        ".contribute-panel-head strong": "Open source contribution",
+        ".contribute-action--primary span": "GitHub Issues",
+        ".contribute-action--primary strong": "Open issue",
+        ".contribute-action:not(.contribute-action--primary) span": "Pull Requests",
+        ".contribute-action:not(.contribute-action--primary) strong": "Send PR",
         ".site-footer p": "Keep up with the code your agents write.",
         ".footer-links a[href='README.md']": "English README",
         ".footer-links a[href='README_CN.md']": "Chinese README",
@@ -152,10 +154,10 @@ https://github.com/YurunChen/repo-docs-skills
       lang: "zh-CN",
       title: "Repo-Docs — 让你跟得上 agent 写出来的代码。",
       description:
-        "Vibe coding 让代码跑得很快，但理解常常还留在聊天里。Repo-Docs 把一次真实运行写成 walkthrough、概念页、reference 和同步规则，让解释跟源码一起留在仓库里。",
-      copied: "安装提示词已复制",
-      copyFailed: "复制失败，请手动选择文本",
-      loadingFile: "正在加载生成文件...",
+        "Repo-Docs 会把真实编码过程整理成几页贴近源码的小文档，方便后来的读者继续接手。",
+      copied: "安装提示词已复制。",
+      copyFailed: "没能自动复制，可以手动选择这段文本。",
+      loadingFile: "正在打开生成文件...",
       bindings: {
         ".skip-link": "跳到正文",
         ".nav-links a[href='#map']": "地图",
@@ -164,120 +166,122 @@ https://github.com/YurunChen/repo-docs-skills
         ".nav-links a[href='#quests']": "模式",
         ".nav-links a[href='#contribute']": "贡献",
         ".nav-action": "文档",
-        ".eyebrow-text": "给 agent 写出来的代码，留一张可验证的证据地图。",
+        ".eyebrow-text": "给 agent 写出来的代码，留一份靠近源码的说明。",
         ".hero-serif": "让你跟得上 agent",
         ".hero-pixel": "写出来的代码。",
         ".hero-lead":
-          "Vibe coding 让代码跑得很快，但理解常常还留在聊天里。Repo-Docs 把一次真实运行写成 walkthrough、概念页、reference 和同步规则，让解释跟源码一起留在仓库里。",
-        ".hero-aside": "先理解仓库，再记路径。",
+          "代码走得快时，上下文很容易留在聊天里。Repo-Docs 帮你把一次真实运行整理成几页清楚的小文档：walkthrough、概念页、reference 和同步说明都跟源码放在一起。",
+        ".hero-aside": "先理解发生了什么，再顺着路径继续看。",
         ".hero-install-top span": "repo-docs 安装提示词",
         "[data-copy-install]": "复制",
-        ".hero-actions .button-primary": "查看真实输出",
+        ".hero-actions .button-primary": "查看生成文档",
         ".hero-actions a[href='https://github.com/YurunChen/repo-docs-skills']": "GitHub",
         ".hero-actions a[href='#contribute']": "参与贡献",
-        ".contrast-title": "Vibe coding 让代码跑得比记忆更快。",
+        ".contrast-title": "跑得很快的代码，也需要留下上下文。",
         ".contrast-lead":
-          "Repo-Docs 不是文件树导览，也不是聊天记录整理。它把一份小型项目指南留在源码旁边，让下一位读者跟着证据走，而不是靠猜。",
-        ".contrast-tag--dim": "没有 repo-docs",
-        ".contrast-card--before li:nth-child(1)": "代码已经变了，但为什么这么变还留在聊天记录里。",
-        ".contrast-card--before li:nth-child(2)": "文件很多，却没人能说清一条真实行为怎么从入口走到输出。",
-        ".contrast-card--before li:nth-child(3)": "README、源码、测试和 agent memory 互相漂移。",
-        ".contrast-card--before li:nth-child(4)": "下一个 agent 又要重新发现同一批上下文。",
-        ".contrast-tag--bright": "有了 repo-docs",
-        ".contrast-card--after li:nth-child(1)": "一条真实运行的 walkthrough，从可观察入口讲到产物。",
-        ".contrast-card--after li:nth-child(2)": "少数真正支撑设计的概念页。",
-        ".contrast-card--after li:nth-child(3)": "命令、字段、schema、工具和证据的 reference 页。",
-        ".contrast-card--after li:nth-child(4)": "让未来 agent 按当前源码同步文档的根规则。",
+          "Repo-Docs 不是文件树导览，也不是聊天记录整理。它只是把一份小而清楚的项目说明放在源码旁边，让后来的读者知道这些代码为什么这样工作。",
+        ".contrast-tag--dim": "上下文留在聊天里",
+        ".contrast-card--before li:nth-child(1)": "代码已经变了，但原因过几天就不好找了。",
+        ".contrast-card--before li:nth-child(2)": "文件很多，却还不清楚一条真实行为怎么走完。",
+        ".contrast-card--before li:nth-child(3)": "README、源码、测试和 agent 记录慢慢对不上。",
+        ".contrast-card--before li:nth-child(4)": "下一位读者又要重新摸一遍同样的上下文。",
+        ".contrast-tag--bright": "上下文跟着源码走",
+        ".contrast-card--after li:nth-child(1)": "walkthrough 沿着一次真实运行，从入口讲到输出。",
+        ".contrast-card--after li:nth-child(2)": "短概念页把值得记住的设计想法说明白。",
+        ".contrast-card--after li:nth-child(3)": "reference 页把命令、字段、schema 和证据放在好查的位置。",
+        ".contrast-card--after li:nth-child(4)": "同步说明提醒未来的 agent 什么时候该小修一页。",
         ".agents-label": "支持",
-        ".world-strip article:nth-child(1) span": "先观察",
-        ".world-strip article:nth-child(1) strong": "先追踪一个真实行为，再整理文件清单。",
-        ".world-strip article:nth-child(2) span": "证据路径",
-        ".world-strip article:nth-child(2) strong": "命令、契约和源码链接始终跟着叙事。",
-        ".world-strip article:nth-child(3) span": "最小同步",
-        ".world-strip article:nth-child(3) strong": "只修补真正过期的那一页。",
-        "#map-title": "让理解始终跟着代码真实走过的路径。",
-        ".map-section .section-copy p":
-          "先观察一个真实行为，再命名概念、把查找锚到源码证据，最后只修补漂移的那一页。这个循环让 repo docs 保持新鲜，而不必整本重写。",
+        ".world-strip article:nth-child(1) span": "从一次运行开始",
+        ".world-strip article:nth-child(1) strong": "先看清一个真实行为，再整理文件清单。",
+        ".world-strip article:nth-child(2) span": "证据放近一点",
+        ".world-strip article:nth-child(2) strong": "命令、契约和源码链接都跟着说明走。",
+        ".world-strip article:nth-child(3) span": "温和地同步",
+        ".world-strip article:nth-child(3) strong": "代码变了，就修补真正归属它的那一页。",
+        "#map-title": "让说明尽量贴近代码真实做的事。",
+        ".map-section .section-copy p:not(.section-note)":
+          "先从一个能观察到的行为开始，再命名有用的概念，并把精确的源码证据放在旁边。以后代码变化时，只更新真正需要更新的那一页。",
         ".ledger-row[data-step='observe'] strong": "观察",
-        ".ledger-row[data-step='observe'] span": "沿着源码、测试、数据或 UI 跑通一个真实行为。",
+        ".ledger-row[data-step='observe'] span": "沿着源码、测试、数据或 UI 看完一个真实行为。",
         ".ledger-row[data-step='name'] strong": "命名",
-        ".ledger-row[data-step='name'] span": "把稳定概念写成独立的模块页。",
+        ".ledger-row[data-step='name'] span": "把稳定概念写成小而清楚的模块页。",
         ".ledger-row[data-step='anchor'] strong": "锚定",
         ".ledger-row[data-step='anchor'] span": "把精确查找信息放进参考页，并附上源码证据。",
         ".ledger-row[data-step='repair'] strong": "修补",
-        ".ledger-row[data-step='repair'] span": "代码漂移时，只更新最小的归属页面。",
+        ".ledger-row[data-step='repair'] span": "代码变化时，只更新承载这段知识的页面。",
         ".hotspot-workshop": "产物",
         "#artifacts-title": "Repo-Docs 会生成什么",
-        ".workshop-copy > p":
-          "结果不是一篇超长 README，而是一组各司其职的小页面，让叙事和查找互不抢位。",
+        ".workshop-copy > p:not(.section-note)":
+          "输出会尽量保持小而清楚。它不是一篇很长的 README，而是几类各司其职的页面，让阅读和查找都轻松一点。",
         ".inventory-card:nth-child(1) h3": "Walkthrough",
-        ".inventory-card:nth-child(1) p": "沿着一个行为从入口追到输出。",
+        ".inventory-card:nth-child(1) p": "沿着一个行为，从入口看到输出。",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dt": "深度",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(1) dd": "路径",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dt": "证据",
         ".inventory-card:nth-child(1) .inventory-stats div:nth-child(2) dd": "高",
         ".inventory-card:nth-child(2) h3": "模块页",
-        ".inventory-card:nth-child(2) p": "命名概念和归属边界。",
+        ".inventory-card:nth-child(2) p": "说明值得保留下来的概念和边界。",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dt": "范围",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(1) dd": "概念",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dt": "漂移",
         ".inventory-card:nth-child(2) .inventory-stats div:nth-child(2) dd": "低",
         ".inventory-card:nth-child(3) h3": "参考页",
-        ".inventory-card:nth-child(3) p": "保存命令、schema、字段和精确链接。",
+        ".inventory-card:nth-child(3) p": "把命令、schema、字段和精确链接放在好查的位置。",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dt": "查找",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(1) dd": "精确",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dt": "链接",
         ".inventory-card:nth-child(3) .inventory-stats div:nth-child(2) dd": "源码",
         ".inventory-card:nth-child(4) h3": "同步规则",
-        ".inventory-card:nth-child(4) p": "告诉未来的 agent 如何保持页面新鲜。",
+        ".inventory-card:nth-child(4) p": "告诉未来的 agent 怎么继续维护这些页面。",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dt": "触发",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(1) dd": "漂移",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(2) dt": "补丁",
         ".inventory-card:nth-child(4) .inventory-stats div:nth-child(2) dd": "最小",
-        ".case-copy .section-note": "GitHub 真实案例",
-        "#case-title": "真实 GitHub 仓库的 Demo 生成效果。",
+        ".case-copy .section-note": "GitHub 示例",
+        "#case-title": "几个真实仓库，以及它们生成出来的文档。",
         ".case-copy p:not(.section-note)":
-          "这些样例来自三个热门公开 GitHub 仓库，并且都不是 skill 项目。每个面板展示生成的 repo-docs 文件，点击文件即可查看基于源码检查写出的完整 Markdown 原文。",
+          "这些示例来自公开 GitHub 仓库，它们本身都不是 skill 项目。每个面板都会展示 Repo-Docs 生成的文件，点开文件可以看到基于源码检查写出的 Markdown 内容。",
         ".case-tree-head a": "打开完整案例",
         "#case-panel-aider .case-tree-head strong": "repo-docs/ 终端编辑路径",
         "#case-panel-bolt .case-tree-head strong": "repo-docs/ 聊天流式路径",
         "#case-panel-tabby .case-tree-head strong": "repo-docs/ 补全服务路径",
-        "#quest-title": "四种模式，同一条规则：先证明，再书写。",
-        ".quest-heading p": "Repo-Docs 会随项目状态改变形态，但每次都保留同一套证据纪律。",
-        ".quest-advisor > p": "发生了什么？",
+        "#quest-title": "按仓库现在的状态，选择合适的模式。",
+        ".quest-heading p:not(.section-note)": "仓库刚开始、文档已经过期，或计划还没落到代码里，都可以用 Repo-Docs。每种情况都先回到源码和事实，再动笔写说明。",
+        ".quest-advisor > p": "你现在想做什么？",
         "[data-quest-pick='build']": "新仓库，还没有指南",
         "[data-quest-pick='sync']": "代码变了，文档过期",
         "[data-quest-pick='seed']": "代码未写，先做规划",
-        "[data-quest-pick='refine']": "读者模型需要校准",
+        "[data-quest-pick='refine']": "已有指南需要调整",
         ".quest-board [data-quest='build'] span": "构建",
-        ".quest-board [data-quest='build'] h3": "为已经存在的仓库生成第一份耐用指南。",
+        ".quest-board [data-quest='build'] h3": "为已经存在的仓库写一份有用的起步指南。",
         ".quest-board [data-quest='sync'] span": "同步",
-        ".quest-board [data-quest='sync'] h3": "代码、配置、数据或测试变化后，修复过期理解。",
+        ".quest-board [data-quest='sync'] h3": "代码、配置、数据或测试变化后，更新受影响的页面。",
         ".quest-board [data-quest='seed'] span": "铺底",
-        ".quest-board [data-quest='seed'] h3": "在代码出现前，分清计划、未知和已确认事实。",
+        ".quest-board [data-quest='seed'] h3": "在代码出现前，先分清计划、问题和已经确认的事实。",
         ".quest-board [data-quest='refine'] span": "校准",
-        ".quest-board [data-quest='refine'] h3": "当仓库问题暴露读者模型错误时，调整指南。",
-        "#path-title": "一个小循环，让指南保持最新。",
+        ".quest-board [data-quest='refine'] h3": "当真实问题暴露说明不够清楚时，温和地调整指南。",
+        "#path-title": "一个实用的小循环，让文档跟得上变化。",
         ".loop-step:nth-child(1) strong": "读取",
-        ".loop-step:nth-child(1) p": "打开本该回答问题的指南页面。",
+        ".loop-step:nth-child(1) p": "打开应该能帮助回答问题的那一页。",
         ".loop-step:nth-child(2) strong": "检查",
         ".loop-step:nth-child(2) p": "检查当前源码、命令、产物、配置或数据。",
         ".loop-step:nth-child(3) strong": "修补",
-        ".loop-step:nth-child(3) p": "只有当缺口会持续存在时，才更新归属页面。",
+        ".loop-step:nth-child(3) p": "只有当这个缺口以后还会用到时，才更新归属页面。",
         ".loop-step:nth-child(4) strong": "回答",
-        ".loop-step:nth-child(4) p": "基于证据回答，并让仓库更容易继续接手。",
+        ".loop-step:nth-child(4) p": "基于证据回答，也让仓库变得更容易继续接手。",
         ".install-copy .section-note": "开源贡献",
-        "#contribute-title": "一起让 repo 理解更容易维护。",
+        "#contribute-title": "一起让 Repo-Docs 更可靠，也更容易维护。",
         ".install-copy p:not(.section-note)":
-          "Repo-Docs 是开源项目。欢迎提交 issue、示例、文档修正和 PR，尤其是能让 agent 写出来的仓库更容易理解的改进。",
-        ".terminal-top": "开源贡献",
-        ".contribution-snippet": "Issues: bug、过期文档、缺失 workflow\nPRs: 修复、示例、guide 改进",
-        ".terminal-actions .button-primary": "提交 issue",
-        ".terminal-actions .button-secondary": "提交 PR",
+          "Repo-Docs 是开源项目。如果它在你的真实工作流里漏了什么，欢迎提 issue 或 PR。小修正、新示例、把说明写得更清楚，都会很有帮助。",
+        ".contribute-panel-head span": "GitHub",
+        ".contribute-panel-head strong": "开源贡献",
+        ".contribute-action--primary span": "GitHub Issues",
+        ".contribute-action--primary strong": "提交 issue",
+        ".contribute-action:not(.contribute-action--primary) span": "Pull Requests",
+        ".contribute-action:not(.contribute-action--primary) strong": "提交 PR",
         ".site-footer p": "让你跟得上 agent 写出来的代码。",
         ".footer-links a[href='README.md']": "英文 README",
         ".footer-links a[href='README_CN.md']": "中文 README",
-        ".footer-links a[href='SKILL.md']": "Skill 契约"
+        ".footer-links a[href='SKILL.md']": "技能契约"
       }
     }
   };
@@ -356,6 +360,13 @@ https://github.com/YurunChen/repo-docs-skills
 
   const canAnimate = () =>
     window.gsap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const MOTION = {
+    ease: "power3.out",
+    enter: 0.64,
+    fast: 0.24,
+    micro: 0.12
+  };
 
   const appendInlineMarkdown = (parent, text, basePath) => {
     const inlinePattern = /(`[^`]+`|\[[^\]]+\]\([^)]+\))/g;
@@ -555,13 +566,14 @@ https://github.com/YurunChen/repo-docs-skills
     }
 
       if (canAnimate()) {
-        window.gsap.fromTo(
-          [titleNode, contentNode],
-          { y: 8 },
+      window.gsap.fromTo(
+        [titleNode, contentNode],
+          { y: 10, opacity: 0 },
           {
             y: 0,
-            duration: 0.24,
-            ease: "expo.out",
+            opacity: 1,
+            duration: MOTION.fast,
+            ease: MOTION.ease,
             stagger: 0.04,
             overwrite: "auto"
           }
@@ -597,7 +609,7 @@ https://github.com/YurunChen/repo-docs-skills
         await navigator.clipboard.writeText(INSTALL_TEXT[getLanguage()]);
         showToast(TEXT[getLanguage()].copied);
         if (canAnimate()) {
-          window.gsap.fromTo(button, { scale: 1 }, { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1 });
+          window.gsap.fromTo(button, { scale: 1 }, { scale: 0.96, duration: MOTION.micro, yoyo: true, repeat: 1 });
         }
       } catch {
         showToast(TEXT[getLanguage()].copyFailed);
@@ -625,6 +637,13 @@ https://github.com/YurunChen/repo-docs-skills
         const active = panel.dataset.casePanel === id;
         panel.classList.toggle("is-active", active);
         panel.hidden = !active;
+        if (active && canAnimate()) {
+          window.gsap.fromTo(
+            panel,
+            { y: 14, opacity: 0 },
+            { y: 0, opacity: 1, duration: MOTION.enter, ease: MOTION.ease, overwrite: "auto" }
+          );
+        }
       });
     };
 
@@ -661,7 +680,7 @@ https://github.com/YurunChen/repo-docs-skills
         });
         const target = document.querySelector(`.quest-board article[data-quest="${quest}"]`);
         if (target && canAnimate()) {
-          window.gsap.fromTo(target, { scale: 1 }, { scale: 1.02, duration: 0.12, yoyo: true, repeat: 1 });
+          window.gsap.fromTo(target, { scale: 1 }, { scale: 1.015, duration: MOTION.micro, yoyo: true, repeat: 1 });
         }
       });
     });
@@ -720,25 +739,48 @@ https://github.com/YurunChen/repo-docs-skills
 
     if (!sections.length) return;
 
-    const onScroll = () => {
-      if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 12);
-
-      const marker = window.scrollY + (nav?.offsetHeight || 0) + 80;
-      let current = "";
-
-      sections.forEach(({ link, section }) => {
-        if (section.offsetTop <= marker) {
-          current = link.getAttribute("href") || current;
-        }
-      });
-
+    const setActiveLink = (hash) => {
       links.forEach((link) => {
-        link.classList.toggle("is-active", Boolean(current) && link.getAttribute("href") === current);
+        link.classList.toggle("is-active", Boolean(hash) && link.getAttribute("href") === hash);
       });
     };
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const topSentinel = document.createElement("span");
+    topSentinel.setAttribute("aria-hidden", "true");
+    Object.assign(topSentinel.style, {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      width: "1px",
+      height: "1px",
+      pointerEvents: "none"
+    });
+    document.body.prepend(topSentinel);
+
+    if (nav) {
+      new IntersectionObserver(([entry]) => {
+        nav.classList.toggle("is-scrolled", !entry.isIntersecting);
+      }).observe(topSentinel);
+    }
+
+    const activeSections = new Map();
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeSections.set(entry.target.id, entry.boundingClientRect.top);
+          } else {
+            activeSections.delete(entry.target.id);
+          }
+        });
+
+        const current = Array.from(activeSections.entries()).sort((a, b) => Math.abs(a[1]) - Math.abs(b[1]))[0];
+        if (current) setActiveLink(`#${current[0]}`);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.2, 0.55, 1] }
+    );
+
+    sections.forEach(({ section }) => sectionObserver.observe(section));
   };
 
   initNavScrollSpy();
@@ -746,8 +788,8 @@ https://github.com/YurunChen/repo-docs-skills
   if (!window.gsap) return;
 
   const { gsap } = window;
-  const easeOut = "expo.out";
-  gsap.defaults({ duration: 0.55, ease: easeOut });
+  const easeOut = MOTION.ease;
+  gsap.defaults({ duration: MOTION.enter, ease: easeOut });
 
   const mm = gsap.matchMedia();
   mm.add(
@@ -759,24 +801,26 @@ https://github.com/YurunChen/repo-docs-skills
       const { reduceMotion } = context.conditions;
       if (reduceMotion) return;
 
-      gsap.from(".site-nav", { y: -12, opacity: 0, duration: 0.36, ease: easeOut });
+      gsap.from(".site-nav", { y: -14, opacity: 0, duration: 0.44, ease: easeOut });
       gsap.from(".hero-atlas .hero-copy > *", {
-        y: 18,
+        y: 22,
         opacity: 0,
         stagger: 0.07,
         delay: 0.08,
+        duration: MOTION.enter,
         ease: easeOut
       });
       gsap.from(".world-strip article", {
-        y: 10,
+        y: 18,
         opacity: 0,
         stagger: 0.08,
         delay: 0.4,
+        duration: MOTION.enter,
         ease: easeOut
       });
 
       const revealTargets = document.querySelectorAll(
-        ".section, .ledger-row, .inventory-card, .case-repo-tree, .quest-board article, .loop-step, .terminal-panel, .agents-strip"
+        ".section, .ledger-row, .inventory-card, .case-repo-tree, .quest-board article, .loop-step, .contribute-panel, .agents-strip"
       );
 
       const observer = new IntersectionObserver(
@@ -785,11 +829,11 @@ https://github.com/YurunChen/repo-docs-skills
             if (!entry.isIntersecting) return;
             gsap.fromTo(
               entry.target,
-              { y: 12, opacity: 0.92 },
+              { y: 24, opacity: 0 },
               {
                 y: 0,
                 opacity: 1,
-                duration: 0.42,
+                duration: MOTION.enter,
                 ease: easeOut,
                 clearProps: "transform,opacity"
               }
