@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Repo-Docs - Evidence atlas for agent-built code</title>
+    <meta
+      name="description"
+      content="Repo-Docs is a coding-agent skill that turns fast AI code changes into walkthroughs, evidence pages, references, and sync rules that live beside the source."
+    />
+    <meta property="og:title" content="Repo-Docs" />
+    <meta
+      property="og:description"
+      content="An evidence atlas for keeping repo understanding alive after AI coding runs."
+    />
+    <meta property="og:image" content="assets/repo-docs-evidence-atlas.png" />
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preload" as="image" href="assets/repo-docs-evidence-atlas.png" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/site.css?v=20260627-demo-title" />
+  </head>
+  <body>
+    <div class="atlas-bg" aria-hidden="true">
+      <div class="aurora aurora-a"></div>
+      <div class="aurora aurora-b"></div>
+      <div class="sky-layer">
+        <span class="star star-a"></span>
+        <span class="star star-b"></span>
+        <span class="star star-c"></span>
+        <span class="star star-d"></span>
+        <span class="star star-e"></span>
+        <span class="star star-f"></span>
+        <span class="star star-g"></span>
+        <span class="star star-h"></span>
+        <span class="star star-i"></span>
+        <span class="star star-j"></span>
+      </div>
+      <div class="horizon-glow"></div>
+      <div class="pixel-tiles">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="scanlines"></div>
+    </div>
+
+    <div class="pixel-toast" role="status" aria-live="polite"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Repo-Docs home">
+        <img src="assets/logo.png" alt="" width="735" height="703" />
+        <span>Repo-Docs</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#map">Map</a>
+        <a href="#artifacts">Artifacts</a>
+        <a href="#cases">Cases</a>
+        <a href="#quests">Quests</a>
+        <a href="#install">Install</a>
+      </nav>
+      <div class="nav-utility">
+        <div class="language-switch" role="group" aria-label="Language">
+          <button type="button" data-lang-switch="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang-switch="zh" aria-pressed="false">中文</button>
+        </div>
+        <a class="nav-action" href="README.md">Docs</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero-atlas" id="top" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="eyebrow-pip" aria-hidden="true"></span>
+              <span class="eyebrow-text">Evidence atlas for agent-built code</span>
+            </p>
+            <h1 id="hero-title">
+              <span class="hero-serif">Map code chaos</span>
+              <span class="hero-pixel">into repo docs.</span>
+            </h1>
+            <p class="hero-lead">
+              Turn AI code runs into walkthroughs, evidence, references, and sync rules.
+            </p>
+
+            <div class="hero-install pixel-frame" aria-label="Install prompt">
+              <div class="hero-install-top">
+                <span>repo-docs install prompt</span>
+                <button class="button button-copy" type="button" data-copy-install aria-label="Copy install prompt">Copy</button>
+              </div>
+              <pre><code id="install-snippet-code" data-install-snippet>Install the repo-docs skill from this project:
+https://github.com/YurunChen/repo-docs-skills
+
+Make both repo-docs and repo-docs-zh available
+in my agent skill directory.</code></pre>
+            </div>
+
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button button-primary" href="#install">Install skill</a>
+              <a class="button button-secondary" href="SKILL.md">View contract</a>
+            </div>
+          </div>
+
+          <div class="hero-stage">
+            <figure class="hero-map pixel-frame">
+              <span class="hero-bloom" aria-hidden="true"></span>
+              <img
+                src="assets/repo-docs-evidence-atlas.png"
+                alt="A cinematic evidence atlas where code panels, file trees, and document islands connect through glowing source paths"
+                width="1672"
+                height="941"
+                fetchpriority="high"
+              />
+              <nav class="map-hotspots" aria-label="Jump to sections">
+                <a class="hotspot hotspot-map" href="#map" aria-label="Go to map section">Map</a>
+                <a class="hotspot hotspot-workshop" href="#artifacts" aria-label="Go to artifacts section">Workshop</a>
+                <a class="hotspot hotspot-cases" href="#cases" aria-label="Go to cases section">Cases</a>
+              </nav>
+            </figure>
+
+          </div>
+        </div>
+
+        <div class="agents-strip pixel-frame" aria-label="Compatible coding agents">
+          <span class="agents-label">Works with</span>
+          <ul>
+            <li>Cursor</li>
+            <li>Claude Code</li>
+            <li>Codex</li>
+            <li>Copilot</li>
+            <li>Windsurf</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="world-strip pixel-frame" aria-label="Repo-Docs operating promises">
+        <article>
+          <span>Start tile</span>
+          <strong>One real behavior before file inventory.</strong>
+        </article>
+        <article>
+          <span>Proof path</span>
+          <strong>Commands, contracts, and source links stay attached.</strong>
+        </article>
+        <article>
+          <span>Sync shrine</span>
+          <strong>Only the stale page gets patched.</strong>
+        </article>
+      </section>
+
+      <section class="section map-section" id="map" aria-labelledby="map-title">
+        <div class="section-copy">
+          <h2 id="map-title">The skill builds a map from the route the code actually took.</h2>
+          <p>
+            Vibe coding gets the app moving quickly. Repo-Docs makes the path durable by writing down
+            what happened, why it matters, and where the next reader can verify it.
+          </p>
+        </div>
+
+        <nav class="map-route pixel-frame" aria-label="Observe Name Anchor Repair loop">
+          <button type="button" data-step="observe" aria-pressed="false">Observe</button>
+          <button type="button" data-step="name" aria-pressed="false">Name</button>
+          <button type="button" data-step="anchor" aria-pressed="false">Anchor</button>
+          <button type="button" data-step="repair" aria-pressed="false">Repair</button>
+        </nav>
+
+        <div class="pixel-ledger pixel-frame" aria-label="Repo-Docs map rules">
+          <div class="ledger-row" data-step="observe" tabindex="0">
+            <strong>Observe</strong>
+            <span>Run a behavior through source, tests, data, or UI.</span>
+          </div>
+          <div class="ledger-row" data-step="name" tabindex="0">
+            <strong>Name</strong>
+            <span>Give the stable concepts their own module pages.</span>
+          </div>
+          <div class="ledger-row" data-step="anchor" tabindex="0">
+            <strong>Anchor</strong>
+            <span>Move exact lookup into references with source evidence.</span>
+          </div>
+          <div class="ledger-row" data-step="repair" tabindex="0">
+            <strong>Repair</strong>
+            <span>When code drifts, update the smallest owning page.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section workshop-section" id="artifacts" aria-labelledby="artifacts-title">
+        <figure class="workshop-art pixel-frame">
+          <img
+            src="assets/repo-docs-pixel-workshop.png"
+            alt="An illustrated workshop table with folders, scrolls, command tiles, reference crates, and a sync checklist"
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="workshop-copy">
+          <h2 id="artifacts-title">What comes out of the workshop</h2>
+          <p>
+            The result is not a single long README. It is a small set of pages with different jobs,
+            so narrative and lookup do not fight each other.
+          </p>
+          <div class="inventory-grid" aria-label="Repo-Docs generated artifacts">
+            <article class="inventory-card">
+              <div class="inventory-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="32" height="32"><rect x="4" y="6" width="24" height="20" fill="#f4b34f"/><rect x="6" y="8" width="20" height="3" fill="#fff3c4"/><rect x="8" y="14" width="16" height="2" fill="#0a1028"/><rect x="8" y="18" width="12" height="2" fill="#0a1028"/></svg>
+              </div>
+              <div class="inventory-meta">
+                <span class="inventory-rarity">Scroll</span>
+                <h3>Walkthrough scrolls</h3>
+                <p>Follow one behavior from entry point to output.</p>
+                <dl class="inventory-stats">
+                  <div><dt>Depth</dt><dd>Route</dd></div>
+                  <div><dt>Proof</dt><dd>High</dd></div>
+                </dl>
+              </div>
+            </article>
+            <article class="inventory-card">
+              <div class="inventory-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="32" height="32"><rect x="6" y="4" width="20" height="24" fill="#56d8ff"/><rect x="8" y="6" width="16" height="4" fill="#0a1028"/><rect x="10" y="14" width="12" height="2" fill="#0a1028"/><rect x="10" y="18" width="8" height="2" fill="#0a1028"/></svg>
+              </div>
+              <div class="inventory-meta">
+                <span class="inventory-rarity">Tablet</span>
+                <h3>Module tablets</h3>
+                <p>Name the concepts and ownership boundaries.</p>
+                <dl class="inventory-stats">
+                  <div><dt>Scope</dt><dd>Concept</dd></div>
+                  <div><dt>Drift</dt><dd>Low</dd></div>
+                </dl>
+              </div>
+            </article>
+            <article class="inventory-card">
+              <div class="inventory-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="32" height="32"><rect x="4" y="10" width="24" height="16" fill="#8c5cff"/><rect x="6" y="12" width="8" height="6" fill="#fff3c4"/><rect x="16" y="12" width="10" height="2" fill="#0a1028"/><rect x="16" y="16" width="8" height="2" fill="#0a1028"/></svg>
+              </div>
+              <div class="inventory-meta">
+                <span class="inventory-rarity">Crate</span>
+                <h3>Reference crates</h3>
+                <p>Store commands, schemas, fields, and exact links.</p>
+                <dl class="inventory-stats">
+                  <div><dt>Lookup</dt><dd>Exact</dd></div>
+                  <div><dt>Links</dt><dd>Source</dd></div>
+                </dl>
+              </div>
+            </article>
+            <article class="inventory-card">
+              <div class="inventory-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="32" height="32"><rect x="14" y="4" width="4" height="8" fill="#64e38f"/><rect x="8" y="12" width="16" height="16" fill="#f4b34f"/><rect x="12" y="16" width="8" height="2" fill="#0a1028"/><rect x="12" y="20" width="6" height="2" fill="#0a1028"/></svg>
+              </div>
+              <div class="inventory-meta">
+                <span class="inventory-rarity">Beacon</span>
+                <h3>Sync beacons</h3>
+                <p>Tell future agents how to keep pages current.</p>
+                <dl class="inventory-stats">
+                  <div><dt>Trigger</dt><dd>Drift</dd></div>
+                  <div><dt>Patch</dt><dd>Minimal</dd></div>
+                </dl>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section case-section" id="cases" aria-labelledby="case-title">
+        <div class="case-copy">
+          <p class="section-note">GitHub demo cases</p>
+          <h2 id="case-title">Demo output from real GitHub repos.</h2>
+          <p>
+            These samples come from three popular public GitHub repositories that are not skill
+            projects. Each panel shows generated repo-docs files, and every file opens the complete
+            Markdown content grounded in inspected source.
+          </p>
+        </div>
+
+        <div class="case-tabs pixel-frame" role="tablist" aria-label="Case study repositories">
+          <button type="button" role="tab" id="case-tab-aider" class="is-active" data-case-tab="aider" aria-selected="true" aria-controls="case-panel-aider">Aider-AI/aider</button>
+          <button type="button" role="tab" id="case-tab-bolt" data-case-tab="bolt" aria-selected="false" aria-controls="case-panel-bolt">stackblitz-labs/bolt.diy</button>
+          <button type="button" role="tab" id="case-tab-tabby" data-case-tab="tabby" aria-selected="false" aria-controls="case-panel-tabby">TabbyML/tabby</button>
+        </div>
+
+        <div class="case-showcase" aria-label="Repo-Docs generated file trees from public GitHub repos">
+          <article class="case-repo-tree pixel-frame is-active" id="case-panel-aider" data-case-panel="aider" role="tabpanel" aria-labelledby="case-tab-aider">
+            <div class="case-tree-head">
+              <span>Aider-AI/aider</span>
+              <strong>repo-docs/ terminal edit run</strong>
+              <a href="case-studies/aider.md">Open full case</a>
+            </div>
+            <div class="case-tree-split">
+              <div class="case-tree-pane" aria-label="Generated file tree for Aider-AI aider">
+                <div class="tree-node tree-root">repo-docs/</div>
+                <div class="tree-branch">
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/aider/repo-docs/README.md" data-title="README.md">README.md</button>
+                  <div class="tree-node tree-folder">walkthroughs/</div>
+                  <button class="tree-node tree-file tree-leaf is-active" type="button" data-file="case-studies/generated/aider/repo-docs/walkthroughs/terminal-edit-run.md" data-title="walkthroughs/terminal-edit-run.md" aria-current="true">terminal-edit-run.md</button>
+                  <div class="tree-node tree-folder">modules/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/aider/repo-docs/modules/cli-session-model.md" data-title="modules/cli-session-model.md">cli-session-model.md</button>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/aider/repo-docs/modules/git-safety.md" data-title="modules/git-safety.md">git-safety.md</button>
+                  <div class="tree-node tree-folder">references/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/aider/repo-docs/references/source-evidence.md" data-title="references/source-evidence.md">source-evidence.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/aider/repo-docs/glossary.md" data-title="glossary.md">glossary.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/aider/repo-docs/change-log.md" data-title="change-log.md">change-log.md</button>
+                </div>
+              </div>
+              <div class="case-file-preview" aria-live="polite">
+                <span>walkthroughs/terminal-edit-run.md</span>
+                <div class="case-file-content case-markdown-content">Loading generated file...</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-repo-tree pixel-frame" id="case-panel-bolt" data-case-panel="bolt" role="tabpanel" aria-labelledby="case-tab-bolt" hidden>
+            <div class="case-tree-head">
+              <span>stackblitz-labs/bolt.diy</span>
+              <strong>repo-docs/ chat streaming path</strong>
+              <a href="case-studies/bolt-diy.md">Open full case</a>
+            </div>
+            <div class="case-tree-split">
+              <div class="case-tree-pane" aria-label="Generated file tree for stackblitz-labs bolt diy">
+                <div class="tree-node tree-root">repo-docs/</div>
+                <div class="tree-branch">
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/README.md" data-title="README.md">README.md</button>
+                  <div class="tree-node tree-folder">walkthroughs/</div>
+                  <button class="tree-node tree-file tree-leaf is-active" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/walkthroughs/chat-to-stream.md" data-title="walkthroughs/chat-to-stream.md" aria-current="true">chat-to-stream.md</button>
+                  <div class="tree-node tree-folder">modules/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/modules/context-buffer.md" data-title="modules/context-buffer.md">context-buffer.md</button>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/modules/mcp-tool-loop.md" data-title="modules/mcp-tool-loop.md">mcp-tool-loop.md</button>
+                  <div class="tree-node tree-folder">references/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/references/source-evidence.md" data-title="references/source-evidence.md">source-evidence.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/glossary.md" data-title="glossary.md">glossary.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/bolt-diy/repo-docs/change-log.md" data-title="change-log.md">change-log.md</button>
+                </div>
+              </div>
+              <div class="case-file-preview" aria-live="polite">
+                <span>walkthroughs/chat-to-stream.md</span>
+                <div class="case-file-content case-markdown-content">Loading generated file...</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-repo-tree pixel-frame" id="case-panel-tabby" data-case-panel="tabby" role="tabpanel" aria-labelledby="case-tab-tabby" hidden>
+            <div class="case-tree-head">
+              <span>TabbyML/tabby</span>
+              <strong>repo-docs/ completion service path</strong>
+              <a href="case-studies/tabby.md">Open full case</a>
+            </div>
+            <div class="case-tree-split">
+              <div class="case-tree-pane" aria-label="Generated file tree for TabbyML tabby">
+                <div class="tree-node tree-root">repo-docs/</div>
+                <div class="tree-branch">
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/tabby/repo-docs/README.md" data-title="README.md">README.md</button>
+                  <div class="tree-node tree-folder">walkthroughs/</div>
+                  <button class="tree-node tree-file tree-leaf is-active" type="button" data-file="case-studies/generated/tabby/repo-docs/walkthroughs/completion-request.md" data-title="walkthroughs/completion-request.md" aria-current="true">completion-request.md</button>
+                  <div class="tree-node tree-folder">modules/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/tabby/repo-docs/modules/completion-service.md" data-title="modules/completion-service.md">completion-service.md</button>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/tabby/repo-docs/modules/retrieval-snippets.md" data-title="modules/retrieval-snippets.md">retrieval-snippets.md</button>
+                  <div class="tree-node tree-folder">references/</div>
+                  <button class="tree-node tree-file tree-leaf" type="button" data-file="case-studies/generated/tabby/repo-docs/references/source-evidence.md" data-title="references/source-evidence.md">source-evidence.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/tabby/repo-docs/glossary.md" data-title="glossary.md">glossary.md</button>
+                  <button class="tree-node tree-file" type="button" data-file="case-studies/generated/tabby/repo-docs/change-log.md" data-title="change-log.md">change-log.md</button>
+                </div>
+              </div>
+              <div class="case-file-preview" aria-live="polite">
+                <span>walkthroughs/completion-request.md</span>
+                <div class="case-file-content case-markdown-content">Loading generated file...</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section quest-section" id="quests" aria-labelledby="quest-title">
+        <div class="quest-heading">
+          <h2 id="quest-title">Four quests, one rule: prove before writing.</h2>
+          <p>
+            Repo-Docs changes shape with the state of the project, but it keeps the same evidence
+            discipline each time.
+          </p>
+        </div>
+
+        <div class="quest-advisor pixel-frame" aria-label="Pick your situation">
+          <p>What happened?</p>
+          <div class="quest-chips">
+            <button type="button" class="is-active" data-quest-pick="build">New repo, no guide yet</button>
+            <button type="button" data-quest-pick="sync">Code changed, docs stale</button>
+            <button type="button" data-quest-pick="seed">Planning before code exists</button>
+            <button type="button" data-quest-pick="refine">Reader model was wrong</button>
+          </div>
+        </div>
+
+        <div class="quest-board pixel-frame" aria-label="Repo-Docs skill modes">
+          <article class="quest-large is-highlighted" data-quest="build">
+            <span>Build</span>
+            <h3>First durable guide for a repo that already exists.</h3>
+          </article>
+          <article data-quest="sync">
+            <span>Sync</span>
+            <h3>Repair stale understanding after code, config, data, or tests change.</h3>
+          </article>
+          <article data-quest="seed">
+            <span>Seed</span>
+            <h3>Separate planned work, unknowns, and confirmed facts before code exists.</h3>
+          </article>
+          <article data-quest="refine">
+            <span>Refine</span>
+            <h3>Adjust the guide when a repo question reveals the wrong reader model.</h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="section path-section" aria-labelledby="path-title">
+        <h2 id="path-title">A small loop that keeps the atlas alive.</h2>
+        <div class="path-track" aria-label="Repo-Docs sync loop">
+          <article class="loop-step">
+            <strong>Read</strong>
+            <p>Open the guide page that should answer the question.</p>
+          </article>
+          <article class="loop-step">
+            <strong>Inspect</strong>
+            <p>Check the current source, command, artifact, config, or data.</p>
+          </article>
+          <article class="loop-step">
+            <strong>Patch</strong>
+            <p>Update the owning page only when the gap is durable.</p>
+          </article>
+          <article class="loop-step">
+            <strong>Answer</strong>
+            <p>Reply from evidence and leave the repo easier to continue.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section install-section" id="install" aria-labelledby="install-title">
+        <div class="install-copy">
+          <p class="section-note">Quick start</p>
+          <h2 id="install-title">Drop the atlas into your agent skill directory.</h2>
+          <p>
+            Use the English or Chinese skill, then ask your coding agent to build or sync docs for
+            the repository you are working in.
+          </p>
+        </div>
+        <div class="terminal-panel pixel-frame" aria-label="Installation prompt">
+          <div class="terminal-top">repo-docs install prompt</div>
+          <pre><code data-install-snippet>Install the repo-docs skill from this project:
+https://github.com/YurunChen/repo-docs-skills
+
+Make both repo-docs and repo-docs-zh available
+in my agent skill directory.</code></pre>
+          <div class="terminal-actions">
+            <a class="button button-primary" href="README.md#install-in-30-seconds">Open install notes</a>
+            <a class="button button-secondary" href="README_CN.md#30-秒安装">中文说明</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer pixel-frame">
+      <div>
+        <a class="footer-brand" href="#top">Repo-Docs</a>
+        <p>A living evidence atlas for agent-built repositories.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="README.md">English README</a>
+        <a href="README_CN.md">中文 README</a>
+        <a href="SKILL.md">Skill contract</a>
+      </nav>
+    </footer>
+
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/site.js?v=20260627-demo-title"></script>
+  </body>
+</html>
