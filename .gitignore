@@ -1,3 +1,6 @@
 # Python
 __pycache__/
 *.py[cod]
+
+# Local OS files
+.DS_Store

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" width="86" alt="Repo-Docs logo" />
+  <img src="site/assets/logo.png" width="86" alt="Repo-Docs logo" />
   <h1>Repo-Docs: Keep up with the code your agents write.</h1>
   <p><strong>An evidence atlas for agent-built code.</strong></p>
   <p>
@@ -19,7 +19,7 @@
 
 <p align="center">
   <a href="README_CN.md">Chinese README</a> |
-  <a href="SKILL.md">Skill contract</a> |
+  <a href="skills/repo-docs/SKILL.md">Skill contract</a> |
   <a href="https://yurunchen.github.io/repo-docs-skills/">Project homepage</a> |
   <a href="#install-in-30-seconds">Install</a>
 </p>
@@ -33,7 +33,7 @@
 
 <p align="center">
   <img
-    src="assets/main.png"
+    src="site/assets/main.png"
     alt="Repo-Docs main preview"
     width="900"
   />
@@ -76,7 +76,7 @@ behavior moves, where the proof lives, and how to keep that understanding fresh.
 
 ## Why This Exists Now
 
-AI coding is no longer a niche workflow. Recent open-source studies make the
+AI coding is no longer a niche workflow. Two 2026 open-source studies make the
 scale visible: [AIDev](https://arxiv.org/abs/2602.09185) reports 932,791
 agent-authored pull requests across 116,211 GitHub repositories, while a
 [multi-method census of 180 million repositories](https://arxiv.org/abs/2606.24429)
@@ -118,7 +118,7 @@ would otherwise mislead the next reader, not every page that could be polished.
 
 ## Install In 30 Seconds
 
-Give this project link to your coding agent:
+Give this natural-language install request to your coding agent:
 
 ```text
 Install the repo-docs skill from this project:
@@ -134,15 +134,30 @@ Use the repo-docs skill to create docs for this repository.
 ```
 
 <details>
-<summary>Command install from this source checkout</summary>
+<summary>Command-line install</summary>
+
+Use this when you prefer a shell install. The URL is a GitHub repository raw-file URL; GitHub serves the raw script bytes through its raw content host after redirect.
 
 ```bash
-mkdir -p ~/.agents/skills/repo-docs/scripts
-cp SKILL.md REFERENCE.md WRITING.md PAGE_RULES.md SCOPE_MODES.md SYNC_RULES.md QUALITY_RULES.md EXAMPLES.md ~/.agents/skills/repo-docs/
-cp scripts/validate_repo_docs.py ~/.agents/skills/repo-docs/scripts/
-cp validate_repo_docs.py ~/.agents/skills/repo-docs/
-mkdir -p ~/.agents/skills/repo-docs-zh
-cp repo-docs-zh/SKILL.md ~/.agents/skills/repo-docs-zh/SKILL.md
+curl -fsSL https://github.com/YurunChen/repo-docs-skills/raw/main/install.sh | bash
+```
+
+Windows PowerShell:
+
+```powershell
+irm https://github.com/YurunChen/repo-docs-skills/raw/main/install.ps1 | iex
+```
+
+From this source checkout:
+
+```bash
+./install.sh
+
+# Install into all known locations: ~/.codex/skills, ~/.claude/skills, ~/.agents/skills
+./install.sh --agent all
+
+# Install into one explicit skills directory
+./install.sh --target ~/.agents/skills
 ```
 
 </details>
@@ -158,7 +173,7 @@ Use repo-docs-zh to create a Chinese repo guide for this project.
 ```
 
 ```text
-Run an Understanding Sync check before answering how this subsystem works.
+Explain how this subsystem works using repo-docs and the current source.
 ```
 
 ## Modes
@@ -167,14 +182,14 @@ Run an Understanding Sync check before answering how this subsystem works.
 | --- | --- | --- |
 | Seed | The repo is new or has little runtime evidence | Goals, decisions, planned work, and unknowns |
 | Build | The repo needs its first guide | Walkthrough, concepts, references, glossary, and sync rule |
-| Sync | Code, config, data, scripts, or tests changed | The smallest page that would otherwise become stale |
+| Sync | A repo question or guide-covered behavior may make docs stale | The smallest page that would otherwise mislead |
 | Cleanup | The user asks to remove generated docs | Docs package and stale root-agent pointers |
 | Question refinement | A question exposes a wrong reader model | The corrected page, then an answer linked to it |
 
 ## Validation
 
 ```bash
-python scripts/validate_repo_docs.py /path/to/repo-docs --repo-root /path/to/repo
+python skills/repo-docs/scripts/validate_repo_docs.py /path/to/repo-docs --repo-root /path/to/repo
 ```
 
 Use `--lite` for small projects and `--seed` for repositories that still need
@@ -193,7 +208,24 @@ A good Repo-Docs package is useful after the chat ends.
 | Evidence stays visible | Current source, tests, config, data, commands, and artifacts outrank memory or stale docs. |
 | Patches stay surgical | When understanding drifts, update the smallest page that fixes the reader model. |
 
-## Package Contents
+## Source Layout
+
+```text
+repo-docs-skills/
+├── skills/
+│   ├── repo-docs/        # installable skill package
+│   └── repo-docs-zh/     # Chinese language overlay
+├── site/                 # homepage source
+├── docs/                 # GitHub Pages publish tree
+├── install.sh
+├── install.ps1
+├── README.md
+└── README_CN.md
+```
+
+The installable skill source lives under `skills/`. The `site/` directory is homepage source, while `docs/` is the GitHub Pages publish tree.
+
+## Installed Package Contents
 
 ```text
 <skills-dir>/
