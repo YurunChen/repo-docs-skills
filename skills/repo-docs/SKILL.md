@@ -110,6 +110,7 @@ The rule should say:
 - The main behavior trace lives in `repo-docs/walkthroughs/one-real-run.md` when that file exists.
 - Before answering architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer.
 - If the guide is missing, stale, or wrong for current source, patch the smallest owning page in the same turn before answering.
+- If stable project knowledge comes from the user conversation or memory sync and `repo-docs/` does not already contain it, add it to the smallest owning guide page instead of leaving it only in chat or memory.
 - When code, config, data, scripts, tests, or behavior change in ways the guide covers, decide whether future readers would be misled; patch the smallest owning guide page before finishing unless the user asked not to touch docs.
 - Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 
@@ -120,7 +121,7 @@ Default block to write:
 
 The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; when `repo-docs/walkthroughs/one-real-run.md` exists, use it as the main behavior trace.
 
-Before answering repo architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer. If the guide is missing, stale, or wrong, update the smallest owning page in the same turn before answering.
+Before answering repo architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer. If the guide is missing, stale, or wrong, update the smallest owning page in the same turn before answering. If stable project knowledge surfaces from the conversation and is not represented in `repo-docs/`, add it to the smallest owning guide page instead of leaving it only in chat or agent memory.
 
 When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing. If future readers would be misled, patch only the owning guide pages. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 ```
@@ -143,7 +144,7 @@ Keep this root rule short. Do not copy the guide into `AGENTS.md` or `CLAUDE.md`
 
 When `repo-docs/` exists, ask: what would a new reader misunderstand if they read the guide as it stands?
 
-Patch the smallest owning page when this turn changed guide-covered or reader-visible behavior-bearing source, data, config, scripts, or tests; a user correction revealed a stable understanding gap; or validator warnings show stale links, missing sync anchors, or likely drift.
+Patch the smallest owning page when this turn changed guide-covered or reader-visible behavior-bearing source, data, config, scripts, or tests; a user correction revealed a stable understanding gap; stable project knowledge surfaced by the user conversation or memory sync is absent from `repo-docs/`; or validator warnings show stale links, missing sync anchors, or likely drift.
 
 Do not patch for one-off debug state, local environment quirks, or personal preference unless the user asks to preserve it.
 
@@ -159,6 +160,7 @@ Use this loop during coding-agent interaction:
    - concept changed or became clearer -> module
    - exact field, command, config, schema, metric, or artifact changed -> reference
    - term meaning changed -> glossary
+   - stable conversation or memory knowledge is missing from the guide -> smallest owning guide page; root rule only if it changes agent behavior
    - material guide sync happened -> change log
    - root agent routing is missing or stale -> `AGENTS.md` / `CLAUDE.md`
 5. Run the smallest useful check: validator, link check, relevant test, command, or source inspection.

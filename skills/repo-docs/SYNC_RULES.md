@@ -8,7 +8,7 @@ During the user ↔ coding agent conversation, when a repo question appears and 
 
 1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference/glossary pages.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
-3. Ask whether the question means the guide should already have covered this; apply the stable-gap vs chat-only table.
+3. Ask whether the question means the guide should already have covered this, or whether the conversation surfaced stable project knowledge that belongs there; apply the stable-gap vs chat-only table.
 4. If stable: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
 5. Answer with the conclusion and a link to the updated section (or to the existing section if no patch was needed).
 
@@ -45,9 +45,12 @@ Agent memory often grows by appending. Docs converge by editing current facts in
 | Same lesson appears repeatedly | Owning guide page, module doc, or root rule. |
 | Item explains how the system works | `repo-docs/`, with memory reduced to a pointer if useful. |
 | Item records a project fact that is now current | Current-state docs plus `change-log.md` when the change is meaningful. |
+| Durable conversation fact missing from `repo-docs/` | Smallest owning guide page, plus `change-log.md` when the change is meaningful. |
 | Item is a personal or cross-project preference | Agent memory. |
 
 The deciding question: will the next maintainer, teammate, downstream integrator, or future agent need this knowledge to understand or operate the project? If yes, make docs the source of truth.
+
+When syncing user-conversation knowledge, compare each durable fact with `repo-docs/`. If no current guide page owns it, add the smallest page that should own the fact before leaving only a memory pointer. Use root `AGENTS.md` / `CLAUDE.md` only for operational rules that future agents must follow.
 
 ### Size and freshness check
 
@@ -105,7 +108,7 @@ For a new capability, cover four reader questions: how to use it, how it works, 
 ### Sync checklist
 
 - [ ] Size checks ran for root agent files, docs pages, and memory indexes when present.
-- [ ] Stable memory knowledge graduated into docs or root rules.
+- [ ] Stable memory or conversation knowledge missing from `repo-docs/` graduated into the smallest owning guide page or root rule.
 - [ ] Root agent instructions contain operational rules and guide policy.
 - [ ] README and docs explain how to understand, run, integrate, and operate the project.
 - [ ] Changed APIs/routes appear in integration and architecture docs.
