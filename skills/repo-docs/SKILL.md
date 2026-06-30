@@ -89,7 +89,7 @@ Use the smallest package that teaches the repo honestly.
 8. Add reference pages for exact names, catalogs, schemas, commands, artifacts, metrics, or evidence subsets that readers need beyond `references/source-evidence.md`.
 9. Run an understandability review before delivery. For small repos this can be internal. For case studies, generated examples, source-heavy docs, or handoff-sensitive work, write it under `references/quality-review.md`. Include a reader-simulation section answered from the guide itself: main path, hard part, phase changes, boundary/failure, verification, and remaining caveats. Record whether a reader can state the hard part, follow the steps without source links, find a real boundary path, audit evidence, and see remaining caveats.
 10. Add `glossary.md` and `change-log.md`.
-11. Wire the guide into the project's agent instruction Markdown. Search for existing files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, or `.cursor/rules/*.md`; patch the ones that clearly govern coding agents for this repo. If none exists, create `AGENTS.md`. The rule must say that future repo questions and behavior-changing edits should check `repo-docs/`, patch stale guide pages in the same turn when needed, and record meaningful guide work in `repo-docs/change-log.md`.
+11. Wire the guide into the project's agent instruction Markdown. Search for existing files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, or `.cursor/rules/*.md`; patch the ones that clearly govern coding agents for this repo. If none exists, create `AGENTS.md`. The rule must say that future repo questions, behavior-changing edits, and conversation or memory sync should use the `repo-docs` skill in Sync mode when available, check `repo-docs/`, patch stale guide pages in the same turn when needed, and record meaningful guide work in `repo-docs/change-log.md`.
 12. Run the validator and fix structure, link, and evidence problems.
 
 For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
@@ -108,9 +108,10 @@ The rule should say:
 
 - The living guide is in `repo-docs/`; start with `repo-docs/README.md`.
 - The main behavior trace lives in `repo-docs/walkthroughs/one-real-run.md` when that file exists.
+- For repo questions, behavior-changing edits, and conversation or memory sync, use the `repo-docs` skill in Sync mode when available.
 - Before answering architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer.
 - If the guide is missing, stale, or wrong for current source, patch the smallest owning page in the same turn before answering.
-- If stable project knowledge comes from the user conversation or memory sync and `repo-docs/` does not already contain it, add it to the smallest owning guide page instead of leaving it only in chat or memory.
+- During conversation or memory sync, if stable project knowledge is not already represented in `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
 - When code, config, data, scripts, tests, or behavior change in ways the guide covers, decide whether future readers would be misled; patch the smallest owning guide page before finishing unless the user asked not to touch docs.
 - Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 
@@ -121,7 +122,11 @@ Default block to write:
 
 The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; when `repo-docs/walkthroughs/one-real-run.md` exists, use it as the main behavior trace.
 
-Before answering repo architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer. If the guide is missing, stale, or wrong, update the smallest owning page in the same turn before answering. If stable project knowledge surfaces from the conversation and is not represented in `repo-docs/`, add it to the smallest owning guide page instead of leaving it only in chat or agent memory.
+For repo questions, behavior-changing edits, and conversation or memory sync, use the `repo-docs` skill in Sync mode when available.
+
+Before answering repo architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer. If the guide is missing, stale, or wrong, update the smallest owning page in the same turn before answering.
+
+During conversation or memory sync, if stable project knowledge is not already represented in `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
 
 When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing. If future readers would be misled, patch only the owning guide pages. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 ```

@@ -442,7 +442,9 @@ Look for files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.m
 Keep the block short and operational:
 
 - Where the living guide lives.
+- That repo questions, behavior-changing edits, and conversation or memory sync should use the `repo-docs` skill in Sync mode when available.
 - That future repo questions and behavior-changing edits should check `repo-docs/` and patch stale pages only when the guide would mislead.
+- That conversation or memory-sync knowledge must be added to the smallest owning guide page when it is stable and missing from `repo-docs/`.
 - Which repo-specific questions should refine it.
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.
