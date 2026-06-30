@@ -1,5 +1,23 @@
 # Repo-Docs Sync Rules
 
+## Sync Scenario Map
+
+Use the smallest scenario that matches the turn. When a trigger appears, run the relevant sync check before the final response. The agent must judge stable project knowledge during ordinary conversation, including knowledge the user asked about because they did not know it. The user does not need to explicitly ask for memory sync. Do not run widened content sync just because a normal repo question or code edit happened.
+
+| Scenario | Trigger | Goal | Scope |
+| --- | --- | --- | --- |
+| Per-turn Understanding Sync | A repo question, architecture/onboarding answer, user correction, user uncertainty, or behavior-bearing source/config/data/test change touches guide-covered knowledge. | Prevent the current guide from misleading the next reader. | Relevant guide page, current source evidence, and `change-log.md` only when the patch is meaningful. |
+| Conversation / Memory Promotion Sync | Stable project knowledge surfaces, is discovered, or is clarified in conversation; the agent is about to write or update memory; or the user asks to preserve/sync handoff knowledge. | Make `repo-docs/` the source of truth before leaving only a chat or memory pointer. | Compare each durable fact with `repo-docs/`; patch the smallest owning guide page; use root agent files only for future-agent operating rules. |
+| Widened Docs Sync | The user explicitly asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. | Align the whole knowledge system with current code and decisions. | Inventory memory when available, root agent files, README, `repo-docs/`, nearby docs, and affected cross-project docs. |
+
+Store facts by ownership:
+
+- Project behavior, architecture, operations, APIs, data, and current decisions -> `repo-docs/` or README.
+- Future-agent operating constraints and routing rules -> `AGENTS.md` / `CLAUDE.md`.
+- Meaningful guide changes and historical sync anchors -> `repo-docs/change-log.md`.
+- Personal preferences and cross-project reminders -> agent memory when available.
+- One-off debug state, temporary run output, and local quirks -> chat unless the user asks to preserve them.
+
 ## Follow-up Question Loop
 
 Canonical pipeline: [Understanding sync](SKILL.md#understanding-sync) — **interaction-driven**, not a post-hoc doc sprint.
@@ -8,7 +26,7 @@ During the user ↔ coding agent conversation, when a repo question appears and 
 
 1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference/glossary pages.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
-3. Ask whether the question means the guide should already have covered this, or whether the conversation surfaced stable project knowledge that belongs there; apply the stable-gap vs chat-only table.
+3. Ask whether the question means the guide should already have covered this, whether the user's uncertainty reveals a missing explanation, or whether the conversation surfaced stable project knowledge that belongs there; apply the stable-gap vs chat-only table.
 4. If stable: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
 5. Answer with the conclusion and a link to the updated section (or to the existing section if no patch was needed).
 
@@ -45,12 +63,12 @@ Agent memory often grows by appending. Docs converge by editing current facts in
 | Same lesson appears repeatedly | Owning guide page, module doc, or root rule. |
 | Item explains how the system works | `repo-docs/`, with memory reduced to a pointer if useful. |
 | Item records a project fact that is now current | Current-state docs plus `change-log.md` when the change is meaningful. |
-| Durable conversation fact missing from `repo-docs/` | Smallest owning guide page, plus `change-log.md` when the change is meaningful. |
+| Durable conversation fact, user-uncertainty answer, or source-discovered explanation missing from `repo-docs/` | Smallest owning guide page, plus `change-log.md` when the change is meaningful. |
 | Item is a personal or cross-project preference | Agent memory. |
 
 The deciding question: will the next maintainer, teammate, downstream integrator, or future agent need this knowledge to understand or operate the project? If yes, make docs the source of truth.
 
-When syncing user-conversation knowledge, compare each durable fact with `repo-docs/`. If no current guide page owns it, add the smallest page that should own the fact before leaving only a memory pointer. Use root `AGENTS.md` / `CLAUDE.md` only for operational rules that future agents must follow.
+When stable project knowledge surfaces in conversation, is discovered while answering user uncertainty, or is about to be written to memory, compare each durable fact with `repo-docs/` even if the user did not ask for memory sync. If no current guide page owns it, add the smallest page that should own the fact before leaving only a chat answer or memory pointer. Use root `AGENTS.md` / `CLAUDE.md` only for operational rules that future agents must follow.
 
 ### Size and freshness check
 
@@ -107,6 +125,7 @@ For a new capability, cover four reader questions: how to use it, how it works, 
 
 ### Sync checklist
 
+- [ ] The smallest matching sync scenario was chosen; widened content sync ran only when explicitly triggered.
 - [ ] Size checks ran for root agent files, docs pages, and memory indexes when present.
 - [ ] Stable memory or conversation knowledge missing from `repo-docs/` graduated into the smallest owning guide page or root rule.
 - [ ] Root agent instructions contain operational rules and guide policy.

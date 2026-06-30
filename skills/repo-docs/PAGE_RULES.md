@@ -381,6 +381,19 @@ To make later syncs incremental, every sync or material question-driven patch sh
 
 ### Module docs
 
+Use this ownership test before creating or patching a module or reference page:
+
+| Reader need | Put it in | Do not put it in |
+| --- | --- | --- |
+| "I need to understand what this concept means and how it behaves." | `modules/<concept>.md` | `references/`, unless the page is only a lookup table |
+| "I need exact names, fields, commands, tool args, schemas, metrics, artifacts, or exhaustive cases." | `references/<lookup-job>.md` | `modules/`, except for one small representative example |
+| "I need proof for claims across the guide." | `references/source-evidence.md` | narrative pages, except for direct source links that prove one claim |
+| "I need to audit quality, coverage, or residual risk." | `references/quality-review.md` | modules or walkthroughs |
+| "This concept needs a plain model, a code model, and a read-next path." | `modules/<concept>.md` | `references/` |
+| "This page is mostly a table or catalog." | `references/` | `modules/` |
+
+When both needs are present, split them. Put the explanation, representative example, caveat, and source locator in `modules/<concept>.md`; put exhaustive fields, config keys, command catalogs, schema rows, artifact lists, metrics, or evidence tables in `references/<lookup-job>.md`. Link the module to the reference from `## Read next`, and link the reference back only when the reader needs the concept model first.
+
 Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. The default module page has exactly three sections: `## Plain model`, `## Code model`, and `## Read next`.
 
 For seed projects, planned concepts belong in `README.md` or `references/decisions.md` until source evidence exists.
@@ -442,9 +455,10 @@ Look for files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.m
 Keep the block short and operational:
 
 - Where the living guide lives.
-- That repo questions, behavior-changing edits, and conversation or memory sync should use the `repo-docs` skill in Sync mode when available.
+- That repo questions, behavior-changing edits, user uncertainty, stable project knowledge discovered or clarified in conversation, and knowledge about to be written to memory are explicit Sync triggers before the final response.
+- That triggered work should use the `repo-docs` skill in Sync mode when available, with a manual equivalent when the skill is unavailable.
 - That future repo questions and behavior-changing edits should check `repo-docs/` and patch stale pages only when the guide would mislead.
-- That conversation or memory-sync knowledge must be added to the smallest owning guide page when it is stable and missing from `repo-docs/`.
+- That stable project knowledge discovered or clarified during conversation must be added to the smallest owning guide page when it is missing from `repo-docs/`; a user does not need to explicitly ask for memory sync.
 - Which repo-specific questions should refine it.
 - Which docs to update before answering when guide content is missing or stale.
 - Which changes deserve `change-log.md` entries.
