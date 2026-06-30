@@ -92,9 +92,11 @@ add_target_once() {
   local target
   target="$(expand_path "$1")"
   local existing
-  for existing in "${TARGETS[@]}"; do
-    [[ "$existing" == "$target" ]] && return
-  done
+  if [[ ${#TARGETS[@]} -gt 0 ]]; then
+    for existing in "${TARGETS[@]}"; do
+      [[ "$existing" == "$target" ]] && return
+    done
+  fi
   TARGETS+=("$target")
 }
 

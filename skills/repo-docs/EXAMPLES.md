@@ -285,9 +285,13 @@ Create at the **repository root** when no existing project agent instruction Mar
 
 The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; when `repo-docs/walkthroughs/one-real-run.md` exists, use it as the main behavior trace.
 
-Before answering repo architecture, onboarding, or "how does this work" questions, read the relevant guide pages and inspect the current source behind the answer. If the guide is missing, stale, or wrong, update the smallest owning page in the same turn before answering.
+Repo-docs sync triggers before the final response: repo questions; architecture, onboarding, or "how does this work" answers; behavior-bearing code/config/data/script/test edits; user uncertainty or correction about stable project behavior; stable project knowledge discovered or clarified in conversation; and knowledge about to be written to memory.
 
-When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing. If future readers would be misled, patch only the owning guide pages. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
+When a trigger happens, use the `repo-docs` skill in Sync mode when available. If the skill is unavailable, run the same check manually: read the relevant guide pages, inspect current source, decide whether the guide is missing/stale/wrong/incomplete, and patch the smallest owning guide page before answering when future readers would otherwise be misled.
+
+A user does not need to explicitly ask for memory sync. If stable project knowledge is missing from `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
+
+When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing unless the user asked not to touch docs. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 ````
 
 ## Mini Style Example

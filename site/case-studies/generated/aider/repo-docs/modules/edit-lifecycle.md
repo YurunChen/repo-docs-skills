@@ -1,6 +1,6 @@
 # Edit Lifecycle
 
-## Plain Model
+## Why edits are gated before writes
 
 An assistant reply is only a proposal. Before any file changes, the tool asks a short sequence of questions: does the proposal make sense, is the target allowed, would it overwrite user work, and what feedback should return if something fails?
 
@@ -18,7 +18,7 @@ The lifecycle gates are:
 
 This is the concept behind the walkthrough’s hard part: the system is designed for model output that may be wrong, incomplete, or pointed at the wrong file.
 
-## Code Model
+## How proposals become checked file changes
 
 The shared lifecycle lives in `Coder.apply_updates()`. It asks the concrete coder for edits, runs a dry-run application, filters edits through the preparation step, then asks the concrete coder to apply the edits for real. For diff-style edits, `EditBlockCoder` parses and applies SEARCH/REPLACE blocks.
 
@@ -28,7 +28,7 @@ The file authority rules live in the allowed-to-edit step: in-chat files are all
 
 The git protection rules live in the dirty-check, preparation, and dirty-commit steps. A dirty target file can be committed before Aider writes the model edit. Later, the auto-commit step commits the Aider edit itself when repo and options allow it.
 
-## Verification
+## How to verify the lifecycle
 
 Use these focused tests to verify the concept:
 
@@ -39,7 +39,7 @@ python -m pytest tests/basic/test_coder.py::TestCoder::test_gpt_edit_to_dirty_fi
 
 The tests prove successful edit application, dry-run no-write behavior, dirty-file pre-commit, and edited-file-only commit scope.
 
-## Read Next
+## Where to read next
 
 For the end-to-end flow, read [the walkthrough of one terminal request becoming an edit](../walkthroughs/one-real-run.md). For exact claim support, audit [the source evidence ledger](../references/source-evidence.md).
 
