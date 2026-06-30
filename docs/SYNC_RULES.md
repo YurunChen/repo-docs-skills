@@ -2,13 +2,17 @@
 
 ## Sync Scenario Map
 
-Use the smallest scenario that matches the turn. When a trigger appears, run the relevant sync check before the final response. The agent must judge stable project knowledge during ordinary conversation, including knowledge the user asked about because they did not know it. The user does not need to explicitly ask for memory sync. Do not run widened content sync just because a normal repo question or code edit happened.
+Use the smallest scenario that matches the turn. When a trigger appears, run a foreground sync gate before the final response: inspect enough guide and source context to decide whether the guide would mislead. The agent must judge stable project knowledge during ordinary conversation, including knowledge the user asked about because they did not know it. The user does not need to explicitly ask for memory sync.
+
+Do not run widened content sync just because a normal repo question or code edit happened. Use a background sync agent for broader, non-answer-critical documentation work when the platform supports it, so the user is not blocked by a doc sweep.
 
 | Scenario | Trigger | Goal | Scope |
 | --- | --- | --- | --- |
-| Per-turn Understanding Sync | A repo question, architecture/onboarding answer, user correction, user uncertainty, or behavior-bearing source/config/data/test change touches guide-covered knowledge. | Prevent the current guide from misleading the next reader. | Relevant guide page, current source evidence, and `change-log.md` only when the patch is meaningful. |
-| Conversation / Memory Promotion Sync | Stable project knowledge surfaces, is discovered, or is clarified in conversation; the agent is about to write or update memory; or the user asks to preserve/sync handoff knowledge. | Make `repo-docs/` the source of truth before leaving only a chat or memory pointer. | Compare each durable fact with `repo-docs/`; patch the smallest owning guide page; use root agent files only for future-agent operating rules. |
-| Widened Docs Sync | The user explicitly asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. | Align the whole knowledge system with current code and decisions. | Inventory memory when available, root agent files, README, `repo-docs/`, nearby docs, and affected cross-project docs. |
+| Foreground Sync Gate | Any repo-docs trigger appears. | Decide quickly whether the current answer/code path would mislead without a guide update. | Relevant guide page, current source evidence, and a foreground/background decision. |
+| Per-turn Understanding Sync | A repo question, architecture/onboarding answer, user correction, user uncertainty, or behavior-bearing source/config/data/test change touches guide-covered knowledge and the guide gap is answer-critical or small/local. | Prevent the current answer and guide from misleading the user or next reader. | Relevant guide page, current source evidence, and `change-log.md` only when the patch is meaningful. |
+| Background Repo-Docs Sync | A durable guide gap exists, but the required update is broader than a small local patch and is not required for the current answer to be correct. | Keep user interaction moving while still making `repo-docs/` converge. | Background agent handoff with trigger, durable facts or changed source areas, candidate guide pages, verification, and expected `change-log.md` update. |
+| Conversation / Memory Promotion Sync | Stable project knowledge surfaces, is discovered, or is clarified in conversation; the agent is about to write or update memory; or the user asks to preserve/sync handoff knowledge. | Make `repo-docs/` the source of truth before leaving only a chat or memory pointer. | Compare each durable fact with `repo-docs/`; patch the smallest owning guide page in foreground when answer-critical or small, otherwise launch a background sync handoff; use root agent files only for future-agent operating rules. |
+| Widened Docs Sync | The user explicitly asks to sync, tidy, clean up docs, update memory, prepare a handoff, finish a milestone, repair stale docs, or make the repo ready for a newcomer. | Align the whole knowledge system with current code and decisions. | Prefer a background sync agent when available; otherwise inventory memory when available, root agent files, README, `repo-docs/`, nearby docs, and affected cross-project docs. |
 
 Store facts by ownership:
 
@@ -27,14 +31,50 @@ During the user ↔ coding agent conversation, when a repo question appears and 
 1. Read `repo-docs/README.md`, the main walkthrough, and any relevant module/reference/glossary pages.
 2. Inspect the source-of-truth code, data, config, tests, or artifacts behind the answer.
 3. Ask whether the question means the guide should already have covered this, whether the user's uncertainty reveals a missing explanation, or whether the conversation surfaced stable project knowledge that belongs there; apply the stable-gap vs chat-only table.
-4. If stable: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
-5. Answer with the conclusion and a link to the updated section (or to the existing section if no patch was needed).
+4. If stable and answer-critical, or if the patch is small/local: patch the smallest narrative home **in this turn**; record meaningful work in `change-log.md` with `Synced through <sha>` when git is available.
+5. If stable but broader than the current answer needs: launch or hand off to a background `repo-docs` sync agent and continue the user-facing answer. The final response should say that a background docs sync was started or could not be started.
+6. Answer with the conclusion and a link to the updated section, the existing section, or the background handoff status.
 
 ## Project Change Sync
 
 Canonical pipeline: [Understanding sync](SKILL.md#understanding-sync) — judged **per turn** while coding with the user.
 
-If this conversation changed code, data, config, scripts, tests, or architecture and `repo-docs/` exists, compare the change with the guide before the final response unless the user asked to leave docs untouched. Patch only when the changed behavior is covered by the guide or would otherwise mislead the next reader. Do not defer guide fixes to a later "sync session" when the thread already shows which reader model broke.
+If this conversation changed code, data, config, scripts, tests, or architecture and `repo-docs/` exists, compare the change with the guide before the final response unless the user asked to leave docs untouched. Patch before the final response when the changed behavior is covered by the guide and the current answer or edit would otherwise mislead the next reader. Use a background sync agent for broader follow-up guide work that is not required for answer correctness. Do not leave a known answer-critical guide break for a later "sync session" when the thread already shows which reader model broke.
+
+## Background Sync Delegation
+
+Background delegation is for user-latency control, not for skipping sync judgment. The current agent still performs the foreground sync gate: identify the trigger, inspect enough guide/source context to classify the gap, and decide whether a foreground patch is required.
+
+Use background sync when all are true:
+
+- The gap is durable and belongs in `repo-docs/`.
+- The current answer or code edit remains correct without waiting for the full doc update.
+- The update is broader than a small owning-page patch, such as widened inventory, several guide pages, cross-project docs, large evidence review, or cleanup of repeated memory.
+- The platform can actually run or track a background agent, thread, job, or handoff. A vague TODO is not background sync.
+
+Do not background the sync when:
+
+- The current answer depends on the corrected guide fact.
+- The guide currently says the opposite of the answer in the touched area.
+- The missing or stale content is a small local patch.
+- The user explicitly asks to complete docs before proceeding.
+- No background agent or trackable handoff mechanism is available and silently deferring would hide the gap.
+
+Background handoff contract:
+
+```text
+Task: repo-docs background sync
+Trigger: <repo question | behavior change | user uncertainty | memory promotion | widened sync>
+Durable facts or changed source areas: <specific facts/files/commands/tests>
+Current guide pages to inspect first: <README, walkthrough, module, reference, glossary, change-log>
+Likely owning pages: <smallest pages to patch>
+Must preserve: <answer-critical facts already given to user, user constraints, language>
+Verification: <validator/link check/test/source inspection>
+History: update repo-docs/change-log.md with trigger, changed pages, verification, and Synced through <sha> when git is available
+Return: summary of changed files, verification result, unresolved gaps
+```
+
+If a background sync is launched, the foreground answer should mention only the useful status: what the user can proceed with now, and that docs sync is running or queued. Do not make the user wait for a broad sync unless they asked for that.
 
 ## Documentation Content Sync Alignment
 
@@ -68,7 +108,7 @@ Agent memory often grows by appending. Docs converge by editing current facts in
 
 The deciding question: will the next maintainer, teammate, downstream integrator, or future agent need this knowledge to understand or operate the project? If yes, make docs the source of truth.
 
-When stable project knowledge surfaces in conversation, is discovered while answering user uncertainty, or is about to be written to memory, compare each durable fact with `repo-docs/` even if the user did not ask for memory sync. If no current guide page owns it, add the smallest page that should own the fact before leaving only a chat answer or memory pointer. Use root `AGENTS.md` / `CLAUDE.md` only for operational rules that future agents must follow.
+When stable project knowledge surfaces in conversation, is discovered while answering user uncertainty, or is about to be written to memory, compare each durable fact with `repo-docs/` even if the user did not ask for memory sync. If no current guide page owns it, add the smallest page that should own the fact before leaving only a chat answer or memory pointer; use background sync only when the platform has a real trackable handoff and the current answer remains correct while it runs. Use root `AGENTS.md` / `CLAUDE.md` only for operational rules that future agents must follow.
 
 ### Size and freshness check
 
@@ -125,7 +165,8 @@ For a new capability, cover four reader questions: how to use it, how it works, 
 
 ### Sync checklist
 
-- [ ] The smallest matching sync scenario was chosen; widened content sync ran only when explicitly triggered.
+- [ ] The foreground sync gate ran for each trigger; widened content sync ran only when explicitly triggered or delegated as background follow-up.
+- [ ] Background sync, when used, had a concrete handoff and did not hide an answer-critical guide break.
 - [ ] Size checks ran for root agent files, docs pages, and memory indexes when present.
 - [ ] Stable memory or conversation knowledge missing from `repo-docs/` graduated into the smallest owning guide page or root rule.
 - [ ] Root agent instructions contain operational rules and guide policy.
@@ -177,7 +218,7 @@ For **widened-scope sync**, handoff, and milestone closeouts—not first-time **
 
 ### Sync checklist
 
-- [ ] If `repo-docs/` exists and source/data/config/test behavior changed in a guide-covered or reader-visible way, guide impact was checked before final response and stale owning pages were patched.
+- [ ] If `repo-docs/` exists and source/data/config/test behavior changed in a guide-covered or reader-visible way, guide impact was checked before final response; answer-critical or small stale owning pages were patched, while broader non-answer-critical work was delegated to a trackable background sync when available.
 - [ ] Every changed source area maps to a current doc or a local caveat beside the affected topic.
 - [ ] Module docs explain current concepts that readers actually need.
 - [ ] Main guide includes quick understanding, reproduce/run, and verify paths.

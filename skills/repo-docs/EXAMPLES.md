@@ -287,7 +287,9 @@ The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; w
 
 Repo-docs sync triggers before the final response: repo questions; architecture, onboarding, or "how does this work" answers; behavior-bearing code/config/data/script/test edits; user uncertainty or correction about stable project behavior; stable project knowledge discovered or clarified in conversation; and knowledge about to be written to memory.
 
-When a trigger happens, use the `repo-docs` skill in Sync mode when available. If the skill is unavailable, run the same check manually: read the relevant guide pages, inspect current source, decide whether the guide is missing/stale/wrong/incomplete, and patch the smallest owning guide page before answering when future readers would otherwise be misled.
+When a trigger happens, run a foreground repo-docs sync gate before answering: use the `repo-docs` skill in Sync mode when available, or manually read the relevant guide pages, inspect current source, and decide whether the guide is missing/stale/wrong/incomplete. Patch the smallest owning guide page before the final response when the current answer depends on the correction, the stale or missing guide content would mislead the user now, or the patch is small and local.
+
+If the needed guide work is broader and not required for the current answer to be correct, delegate it to a background `repo-docs` sync agent when the platform supports that. The handoff must name the trigger, durable facts or changed source areas, candidate guide pages, verification to run, and the expected `repo-docs/change-log.md` update. If no background agent is available, do not silently defer: make a scoped foreground patch or mention the pending doc sync.
 
 A user does not need to explicitly ask for memory sync. If stable project knowledge is missing from `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
 

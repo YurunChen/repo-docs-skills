@@ -450,8 +450,9 @@ Keep the block short and operational:
 
 - Where the living guide lives.
 - That repo questions, behavior-changing edits, user uncertainty, stable project knowledge discovered or clarified in conversation, and knowledge about to be written to memory are explicit Sync triggers before the final response.
-- That triggered work should use the `repo-docs` skill in Sync mode when available, with a manual equivalent when the skill is unavailable.
-- That future repo questions and behavior-changing edits should check `repo-docs/` and patch stale pages only when the guide would mislead.
+- That triggered work should run a foreground sync gate: use the `repo-docs` skill in Sync mode when available, with a manual equivalent when the skill is unavailable.
+- That future repo questions and behavior-changing edits should check `repo-docs/` and patch stale pages before the final response when the current answer or edit would otherwise mislead.
+- That broader, non-answer-critical guide work may be delegated to a background `repo-docs` sync agent when the platform supports a real tracked handoff.
 - That stable project knowledge discovered or clarified during conversation must be added to the smallest owning guide page when it is missing from `repo-docs/`; a user does not need to explicitly ask for memory sync.
 - Which repo-specific questions should refine it.
 - Which docs to update before answering when guide content is missing or stale.
