@@ -1,12 +1,12 @@
 # Provider and model selection
 
-## Plain model
+## Why provider choice starts in message text
 
 Provider selection is text-driven at the chat boundary and registry-driven at the model boundary. The browser writes the selected provider and model into the user message. The server extracts those tags, removes them from model-visible content, and asks the provider registry for a model instance that the AI SDK can call.
 
 This matters because bolt.diy supports many providers with different model discovery rules. A provider may have static models, dynamic models fetched from an API, cached dynamic models, custom settings, and environment-bound credentials. The chat route should not know each provider's API shape; it delegates that to provider classes registered by `LLMManager`.
 
-## Code model
+## How the selected provider becomes a callable model
 
 `extractPropertiesFromMessage()` reads `[Model: ...]` and `[Provider: ...]` from user message content and returns cleaned content. Source: [tag extraction](https://github.com/stackblitz-labs/bolt.diy/blob/2e254ac19a696394030601bc602f54945b12bfc4/app/lib/.server/llm/utils.ts#L8).
 
@@ -26,7 +26,7 @@ Minimal message prefix:
 Build a dashboard for my app.
 ```
 
-## Read next
+## Where to read next
 
 To place this concept in the full request path, read [how a user prompt becomes a streamed answer](../walkthroughs/one-real-run.md). For the exact request fields carrying provider state, use [the chat API contract](../references/chat-api-contract.md).
 

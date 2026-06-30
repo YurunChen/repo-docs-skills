@@ -69,11 +69,12 @@ Bad:
 
 - A paragraph should still make sense after removing backticked identifiers. If not, rewrite around Chinese actions first.
 - Lower code-name density by changing explanation order, not by hiding evidence.
-- Give the reader a concrete handle first: a user action, visible state change, plain concept, or question they already have.
+- Give the reader a concrete handle first: a user action, visible state change, reader concept, or question they already have.
 - 中文技术文档的真人感是具体、直接、敢标未确认；不要为了“有灵魂”加入第一人称、金句或情绪化评价。
 - 成稿前做一次去 AI 表达：删掉“此外”“值得注意”“至关重要”“关键作用”“彰显”等空转词，少用破折号和粗体小标题。
 - 避免让“不仅……而且……”或“不是……而是……”承担主解释；改成正面机制句。
 - Put dense fields, command lists, schemas, artifacts, and metrics in `references/`.
+- 按读者问题选择展示策略，而不是按模板固定写法：因果解释用 prose；对比、before/after、字段查找用 table；命令、数据形状、调用形状用 fenced block；生命周期或顺序关系用短时间线 / 有序列表；分支、阶段、状态交接、多路径关系难以用 prose 承载时再用 Mermaid / flowchart。
 - Flowcharts support prose; they do not replace it.
 - A walkthrough step links to the module where a durable concept first matters.
 
@@ -81,7 +82,7 @@ Bad:
 
 - README: Chinese opening prose followed by a stable `## 阅读路径` reader-goal table. Use columns `读者目标 | 从这里开始 | 读完后获得什么`, including one row that routes evidence audit to `references/source-evidence.md`.
 - Walkthrough: numbered `## Step N: 行为名` headings; prose explains mechanism; verification appears once near the end.
-- Module: keep `## 白话模型`, `## 代码模型`, `## 接下去阅读`.
+- Module: use Chinese concept headings shaped by the reader problem. Preserve the module job: concept first, representative source locator later, onward route, and the evidence note. If the reader's easiest path is a question sequence, lifecycle, comparison, timeline, or concept-first flow, use that structure.
 - Reference: lookup table only; if it starts explaining why behavior exists, move that explanation to a walkthrough or module.
 
 ## Agent Instruction Block

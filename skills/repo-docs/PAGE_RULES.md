@@ -257,7 +257,7 @@ Design document types by reader state, not by source-tree structure:
 | "I do not understand this project yet." | Natural first model and next step. | `README.md` |
 | "I want to understand the project idea." | A plain model of the problem, main behavior, and caveats. | README and the main walkthrough |
 | "Show me one real thing working." | A worked example with observable behavior and state changes. | `walkthroughs/one-real-run.md` |
-| "I understand the behavior, but this concept is still fuzzy." | Plain model, code model, and where to read next. | `modules/*.md` |
+| "I understand the behavior, but this concept is still fuzzy." | Concept explanation, representative evidence, and where to read next. | `modules/*.md` |
 | "I need exact names." | Fields, commands, schemas, tools, metrics, artifacts. | `references/*.md` |
 | "These project terms blur together." | Plain meaning for this project, with little or no code. | `glossary.md` |
 
@@ -389,24 +389,18 @@ Use this ownership test before creating or patching a module or reference page:
 | "I need exact names, fields, commands, tool args, schemas, metrics, artifacts, or exhaustive cases." | `references/<lookup-job>.md` | `modules/`, except for one small representative example |
 | "I need proof for claims across the guide." | `references/source-evidence.md` | narrative pages, except for direct source links that prove one claim |
 | "I need to audit quality, coverage, or residual risk." | `references/quality-review.md` | modules or walkthroughs |
-| "This concept needs a plain model, a code model, and a read-next path." | `modules/<concept>.md` | `references/` |
+| "This concept needs explanation, a representative example, and an onward route." | `modules/<concept>.md` | `references/` |
 | "This page is mostly a table or catalog." | `references/` | `modules/` |
 
-When both needs are present, split them. Put the explanation, representative example, caveat, and source locator in `modules/<concept>.md`; put exhaustive fields, config keys, command catalogs, schema rows, artifact lists, metrics, or evidence tables in `references/<lookup-job>.md`. Link the module to the reference from `## Read next`, and link the reference back only when the reader needs the concept model first.
+When both needs are present, split them. Put the explanation, representative example, caveat, and source locator in `modules/<concept>.md`; put exhaustive fields, config keys, command catalogs, schema rows, artifact lists, metrics, or evidence tables in `references/<lookup-job>.md`. Link the module to the reference from the point where exact names become useful, and link the reference back only when the reader needs the concept model first.
 
-Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. The default module page has exactly three sections: `## Plain model`, `## Code model`, and `## Read next`.
+Create one module doc when a concept needs more explanation than the walkthrough can carry without becoming dense. Shape headings from the concept and reader problem. A good module usually has a clear concept entry, one representative example or source locator, a caveat or verification hook when useful, and an onward route. Use a question sequence, lifecycle, comparison, timeline, or concept-first flow when that is the easiest path for the reader.
 
 For seed projects, planned concepts belong in `README.md` or `references/decisions.md` until source evidence exists.
 
-Use the sections this way:
+Full field tables and command catalogs belong in `references/`. A module still needs the same reader job: concept first, representative source locator later, a route to the next useful page, and the page-level evidence note.
 
-1. `## Plain model`: the reader question and the concept in human terms, before code names.
-2. `## Code model`: how this repo represents and uses the concept, with structure, API explanation, source locators, and the smallest inspected code block or command needed to make the mechanism concrete.
-3. `## Read next`: where this concept appears in the walkthrough, which reference page holds exact names, and which related concept to read next.
-
-Full field tables and command catalogs belong in `references/`.
-
-The code block in `## Code model` is not a mini source dump. Use it when the reader needs to see a call shape, data shape, branch, lifecycle handoff, or command to understand the concept. Keep it short, inspectable, and tied to prose. If a source locator plus explanation is enough, do not add a code block just to satisfy form.
+Code blocks in modules are not mini source dumps. Use one only when the reader needs to see a call shape, data shape, branch, lifecycle handoff, or command to understand the concept. Keep it short, inspectable, and tied to prose. If a source locator plus explanation is enough, do not add a code block just to satisfy form.
 
 Before writing a module doc, hold this brief in mind:
 

@@ -196,7 +196,7 @@ Before delivery, confirm:
 - `references/source-evidence.md` exists and includes Pass 1/Pass 2 traversal rows, a coverage/exclusion note, a falsifying check, a likely reader follow-up, and a `Claim | Evidence | Confidence | Caveat | Used by` audit table.
 - For case studies, generated examples, source-heavy docs, or handoff-sensitive work, `references/quality-review.md` includes reader-simulation answers, falsifying-check review, next-reader-question review, and residual risk.
 - Any weak evidence discovered while writing was resolved by inspecting source, tests, config, data, commands, or artifacts; otherwise the claim is labeled `Inferred` / `Unknown` or omitted.
-- Module pages use `Plain model`, `Code model`, and `Read next` when they exist.
+- Module pages use headings shaped by the reader problem: concept-first explanation, representative example or source locator, caveat or verification hook when useful, and an onward route.
 - Exact fields, commands, schemas, metrics, artifacts, evidence maps, and quality audit notes live in `references/`, not in the main narrative.
 - Project agent instruction Markdown contains the `Repo docs` sync rule, or `AGENTS.md` was created.
 - `change-log.md` records meaningful guide work and includes `Synced through <sha>` when git is available.

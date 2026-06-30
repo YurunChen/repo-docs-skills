@@ -79,7 +79,7 @@ This project [what it does in one or two sentences]. [Why that matters / what re
 | Reader goal | Start here | What this page gives you |
 | --- | --- | --- |
 | Understand the main behavior | [Follow one real run](walkthroughs/one-real-run.md) | A concrete input-to-output trace and the project model behind it |
-| Clarify core concepts | [Open the concept pages](modules/) | Plain models for ideas introduced by the walkthrough |
+| Clarify core concepts | [Open the concept pages](modules/) | Reader-facing explanations for ideas introduced by the walkthrough |
 | Audit the evidence base | [Check source evidence](references/source-evidence.md) | Source, tests, configs, commands, artifacts, caveats, and page consumers |
 | Look up exact names | [Use the references](references/) | Commands, fields, artifacts, schemas, and audit notes |
 | Decode repeated terms | [Use the glossary](glossary.md) | Project-specific meanings in one place |
@@ -96,7 +96,7 @@ Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered step
 ````markdown
 # [Human behavior title]
 
-[Opening: the concrete scenario you are following, the first input, why this path has real pressure, what output or state counts as success, the plain model in one or two paragraphs, and optional links to concept pages you will need later.]
+[Opening: the concrete scenario you are following, the first input, why this path has real pressure, what output or state counts as success, the reader model in one or two paragraphs, and optional links to concept pages you will need later.]
 
 ## Step 1: [first behavior]
 
@@ -171,16 +171,16 @@ pytest path/to/tests -q
 
 ## Module Doc Skeleton
 
-Default module shape. Keep the three sections unless the user explicitly asks for a different format.
+Shape module headings from the concept and reader problem. This is one compact example, not a required template.
 
 ````markdown
 # [Readable Concept]
 
-## Plain model
+## [Reader-facing concept question]
 
 [Reader question or statement.] [Explain the concept without code names first. Say what confusion this page removes and where the reader saw the concept in the first real run.]
 
-## Code model
+## [How the repo makes it concrete]
 
 [Explain how this repo represents and uses the concept: structure, key APIs, source locator, then the smallest inspected snippet or command needed to make the mechanism concrete.]
 
@@ -191,7 +191,7 @@ Default module shape. Keep the three sections unless the user explicitly asks fo
 
 If edit order matters for understanding, say why here in one short caveat.
 
-## Read next
+## [Where to go next]
 
 Return to [the first real run](../walkthroughs/one-real-run.md) where this concept first appears. Exact names live in [the relevant reference](../references/reference-name.md). If the next concept matters, link it with a label that says what the reader will learn.
 
@@ -465,7 +465,7 @@ record = normalize_input(source="upload", payload={"name": "  demo  "})
 
 Use this as an internal coverage checklist, or render it when scoping which concepts still need a readable home.
 
-| Reader moment | Plain concept | Optional concept page | Exact lookup | Verification |
+| Reader moment | Reader concept | Optional concept page | Exact lookup | Verification |
 | --- | --- | --- | --- | --- |
 | User runs/imports/calls ... | How a run starts | `modules/entrypoint.md` if the walkthrough gets dense | `references/commands.md` | `...` |
 | System parses ... | How input becomes usable state | `modules/data-shape.md` if this concept needs explanation | `references/schema.md` | `...` |
@@ -476,7 +476,7 @@ Use this as an internal coverage checklist, or render it when scoping which conc
 - Each durable fact lives in one best home; other pages link to it.
 - Walkthrough: numbered `## Step N: [behavior]` headings; link to the matching `modules/<concept>.md` in the step where that concept appears; add a small flowchart when branches are hard to follow in prose alone; one verify block at page end.
 - README: opening prose followed by a stable `## Reader Routes` table with reader goals, links, and payoffs, including a source-evidence audit row.
-- Module: default three H2 sections (`## Plain model`, `## Code model`, `## Read next`); snippet in Code model when it helps; weave edit-order caveats there when they clarify understanding.
+- Module: concept-shaped H2 sections; include a representative snippet or source locator only when it helps; weave caveats where they clarify understanding.
 - Reference: lookup warning plus table; narrative stays in walkthrough or module.
 - Mermaid and tables support prose; the paragraph still carries the reasoning. Use a flowchart when it teaches the model, not when it only repeats the file tree.
 - Every behavior claim points to a test, command, artifact, schema, or source locator.

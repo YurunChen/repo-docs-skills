@@ -75,8 +75,8 @@ LOW_SCENT_LABELS = {
 SOURCE_LOCATOR_PATTERN = re.compile(r"^[\w.@-]+(?:/[\w.@-]+)+\.[A-Za-z0-9]{1,8}(?::\d+(?:-\d+)?)?$")
 READER_STATE_H3_PATTERN = re.compile(
     r"^###\s+("
-    r"What You Are Looking At|Plain Model|What To Notice|What Changes|Source Locator|Verification|"
-    r"你正在看什么|白话模型|发生了什么变化|源码定位|验证方法"
+    r"What You Are Looking At|What To Notice|What Changes|Source Locator|Verification|"
+    r"你正在看什么|发生了什么变化|源码定位|验证方法"
     r")",
     re.MULTILINE | re.IGNORECASE,
 )
@@ -88,20 +88,15 @@ MODULE_TEMPLATE_H2_PATTERN = re.compile(
     r")",
     re.MULTILINE | re.IGNORECASE,
 )
-MODULE_REQUIRED_H2 = [
-    ("Plain model", re.compile(r"^##\s+(Plain [Mm]odel|白话模型)\s*$", re.MULTILINE)),
-    ("Code model", re.compile(r"^##\s+(Code [Mm]odel|代码模型)\s*$", re.MULTILINE)),
-    ("Read next", re.compile(r"^##\s+(Read [Nn]ext|接下去阅读|接下来阅读)\s*$", re.MULTILINE)),
-]
 REDUNDANT_WALKTHROUGH_H2_PATTERN = re.compile(
     r"^##\s+("
-    r"What changes|Change risk|Verification|Plain model|What you are looking at|"
-    r"发生了什么变化|改动风险|验证方法|白话模型|你正在看什么"
+    r"What changes|Change risk|Verification|What you are looking at|"
+    r"发生了什么变化|改动风险|验证方法|你正在看什么"
     r")",
     re.MULTILINE | re.IGNORECASE,
 )
 INLINE_LABEL_PATTERN = re.compile(
-    r"\*\*(Source locator|Verification|Code [Mm]odel|源码定位|验证方法|代码模型)。\*\*",
+    r"\*\*(Source locator|Verification|源码定位|验证方法)。\*\*",
     re.IGNORECASE,
 )
 PATH_IN_PROSE_PATTERN = re.compile(
@@ -558,16 +553,13 @@ def check_explanation_structure(root: Path) -> list[Finding]:
     for path in sorted((root / "modules").glob("*.md")) if (root / "modules").is_dir() else []:
         text = read_text(path)
         relative = path.relative_to(root)
-        for label, pattern in MODULE_REQUIRED_H2:
-            if not pattern.search(text):
-                findings.append(Finding("WARN", f"{relative} is missing module section: {label}"))
 
-        has_code_model = contains_any(
+        has_code_shape = contains_any(
             text,
-            ["Code model", "Code Model", "代码模型", "In code", "在代码中"],
+            ["In code", "在代码中", "source locator", "源码定位"],
         ) or "```" in text
         has_usage_example = "```" in text
-        if has_code_model and not has_usage_example:
+        if has_code_shape and not has_usage_example:
             findings.append(
                 Finding(
                     "WARN",
@@ -589,7 +581,7 @@ def check_explanation_structure(root: Path) -> list[Finding]:
             findings.append(
                 Finding(
                     "WARN",
-                    f"{relative}: {template_h2} module ## headings; keep the default Plain model / Code model / Read next shape unless extra sections reduce confusion",
+                    f"{relative}: {template_h2} template-like module ## headings; use clearer concept-first headings",
                 )
             )
 
@@ -797,23 +789,6 @@ def check_reading_experience(root: Path) -> list[Finding]:
                 Finding("WARN", f"{relative}: opening has high code-name density; move dense source names later or into references")
             )
 
-        if relative.parts[0] == "modules":
-            plain = section_text(text, r"^##\s+(Plain [Mm]odel|白话模型)\s*$")
-            code_model = section_text(text, r"^##\s+(Code [Mm]odel|代码模型)\s*$")
-            read_next = section_text(text, r"^##\s+(Read [Nn]ext|接下去阅读|接下来阅读)\s*$")
-            if code_density_count(plain) > 2:
-                findings.append(
-                    Finding("WARN", f"{relative}: Plain model has high code-name density; move source names to Code model")
-                )
-            if code_density_count(code_model) > 12:
-                findings.append(
-                    Finding("WARN", f"{relative}: Code model is dense; consider moving lookup material to references/")
-                )
-            if len(LINK_WITH_TEXT_PATTERN.findall(read_next)) > 4:
-                findings.append(
-                    Finding("WARN", f"{relative}: Read next has many links; route to the next useful page, not a link list")
-                )
-
         label_count = len(CONFIDENCE_LABEL_PATTERN.findall(FENCE_PATTERN.sub("", text)))
         h3_count = len(re.findall(r"^###\s+", text, re.MULTILINE))
         if relative.parts[0] == "walkthroughs" and h3_count >= 6:
@@ -833,7 +808,7 @@ def check_reading_experience(root: Path) -> list[Finding]:
             )
 
         readme_meta_h2 = re.compile(
-            r"^##\s+(Project Model|First Path|Current Scope|Plain [Mm]odel|项目模型|首读路径|当前范围)",
+            r"^##\s+(Project Model|First Path|Current Scope|项目模型|首读路径|当前范围)",
             re.MULTILINE,
         )
         if relative == Path("README.md") and len(readme_meta_h2.findall(text)) >= 2:

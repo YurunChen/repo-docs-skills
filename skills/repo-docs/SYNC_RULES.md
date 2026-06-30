@@ -183,7 +183,7 @@ For **widened-scope sync**, handoff, and milestone closeouts—not first-time **
 - [ ] Main guide includes quick understanding, reproduce/run, and verify paths.
 - [ ] Non-Seed repos include `walkthroughs/one-real-run.md`, linked from README.
 - [ ] Walkthroughs use numbered `## Step N: [behavior]` sections and connected prose; no template `###` stack under every step; no duplicate closing sections that repeat the steps.
-- [ ] README orients the reader without repeating the walkthrough's full plain model.
+- [ ] README orients the reader without repeating the walkthrough's full explanation.
 - [ ] Module docs deepen concepts without copying walkthrough paragraphs; link back instead.
 - [ ] If module pages exist, the README route map points readers to the useful concept pages.
 - [ ] Repo-root agent instruction files mention `repo-docs/` guide synchronization when they exist.
@@ -191,7 +191,7 @@ For **widened-scope sync**, handoff, and milestone closeouts—not first-time **
 - [ ] `change-log.md` entries use precise local timestamps with date, time, and timezone.
 - [ ] `change-log.md` is recent enough to scan; older entries are archived when needed.
 - [ ] If `flows.md` exists, it maps relationships between multiple paths, phases, states, or outputs instead of duplicating the main walkthrough; detailed flows live under `flows/<topic>.md` when useful.
-- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain plain concepts, representative examples, source locators, and short understanding caveats or verify hooks when they clarify the mechanism.
+- [ ] Reference docs contain stable catalogs and exhaustive tables; module docs contain reader concepts, representative examples, source locators, and short understanding caveats or verify hooks when they clarify the mechanism.
 - [ ] Local Markdown links resolve.
 - [ ] Current facts are edited in place; historical notes are used for durable history.
 - [ ] Documentation content sync alignment ran when the user asked for sync, tidy, handoff, milestone closeout, memory refresh, or stale-doc repair.
