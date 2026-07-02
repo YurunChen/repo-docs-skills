@@ -2,13 +2,13 @@
 
 ## Positioning
 
-`repo-docs` is a Markdown documentation pack under `repo-docs/` in the repository. It explains the project in plain technical language, follows one real behavior end to end, deepens named concepts in `modules/`, and keeps exact names in `references/`. The guide is maintained during coding conversations—not regenerated as a separate doc pass.
+`repo-docs` is a Markdown documentation pack under `repo-docs/` in the repository. It explains the project in plain technical language, follows one real behavior end to end, deepens named concepts in `modules/`, and uses `references/` only for fixed generated artifacts: source evidence and optional quality review. The guide is maintained during coding conversations—not regenerated as a separate doc pass.
 
 ## Explanation Design
 
 `repo-docs` should feel like a capable engineer explaining the repo at a whiteboard, then pointing to the exact code. The first job is understanding. The second job is verification. Evidence is the guardrail that keeps the easy explanation true; it is not the reader's first handle. Page ownership lives in [PAGE_RULES.md](PAGE_RULES.md); this file only governs how the explanation should sound and unfold.
 
-A good guide lets a newcomer answer in about 15 minutes: what the repo is for, what one real run looks like, which ideas matter, where exact contracts live, and how to verify their understanding.
+A good guide lets a newcomer answer in about 15 minutes: what the repo is for, what one real run looks like, which ideas matter, how the important details work, and how to verify their understanding.
 
 The style target is plain, alive, and technically sharp. Use Andrej Karpathy and Kaiming He as references for the feel: simple words, real mechanism, no pomp, no fake certainty, no long preamble. Explain the idea first. Then show the code.
 
@@ -27,13 +27,13 @@ Use Socratic interrogation as an internal modeling tool, not as a visible writin
 | What would break if the repo skipped this step? | The failure, wrong output, lost state, invalid contract, or misleading result that makes the mechanism matter. |
 | What evidence would prove this explanation wrong? | Source, test, config, data, artifact, or command output that must be inspected before the prose claims certainty. |
 | Where do assumptions stop? | The boundary, caveat, fallback, unsupported path, or unknown that prevents overclaiming. |
-| What would a careful newcomer ask next? | The next page, reference, glossary row, verify command, or explicit out-of-scope note. |
+| What would a careful newcomer ask next? | The next page, source-evidence audit, glossary row, verify command, or explicit out-of-scope note. |
 
 Turn the answers into connected prose. Do not publish a Socratic Q&A unless the page is intentionally an FAQ or audit note. If a question has no inspected evidence, re-search the relevant code paths and inspect source, tests, config, data, commands, or artifacts. If evidence is still missing, mark the point as `Inferred` or `Unknown`, defer it explicitly, or leave it out.
 
 Keep stable knowledge in the guide. Keep transient run state, one-off debugging notes, and chat history in chat unless the user explicitly asks to preserve them. Each sync may delete, merge, or shorten docs when that makes the reader's model cleaner.
 
-Each page is an explanation unit answering one durable reader question. Pages that mainly catalog files, fields, commands, or classes belong under `references/`. Narrative pages carry connected prose split by story beats. For non-Seed repos, the first explanation unit is `walkthroughs/one-real-run.md`.
+Each page is an explanation unit answering one durable reader question. Module pages may include files, fields, commands, classes, schemas, call shapes, and artifacts when those details are necessary to understand the concept. Narrative pages carry connected prose split by story beats. For non-Seed repos, the first explanation unit is `walkthroughs/one-real-run.md`.
 
 Use the discipline of a good engineering note while keeping the guide a living project document:
 

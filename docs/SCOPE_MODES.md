@@ -37,13 +37,11 @@ repo-docs/
   README.md
   change-log.md
   glossary.md
-  references/
-    decisions.md
 ```
 
-`glossary.md` records confirmed terms or states that no project-specific terms are confirmed yet. `references/decisions.md` records explicit user or project decisions, or states that no durable decisions are confirmed yet.
+`glossary.md` records confirmed terms or states that no project-specific terms are confirmed yet. `README.md` records current decisions and planned direction; `change-log.md` records when those decisions were added or changed.
 
-Do not write current-state `modules/`, detailed `flows/`, API references, schema references, or metrics references until there is code, config, data, or an explicit accepted architecture to support them. If the user asks for a planned architecture, mark every unimplemented module or flow as `Planned`.
+Do not write current-state `modules/`, detailed walkthroughs, or API/schema/metrics module pages until there is code, config, data, or an explicit accepted architecture to support them. If the user asks for a planned architecture, mark every unimplemented module or walkthrough as `Planned`.
 
 ### Seed main guide
 
@@ -67,7 +65,7 @@ Good seed README sections:
 
 ### Seed next steps
 
-Record planned implementation work in `README.md` (Next implementation steps) and explicit decisions in `references/decisions.md`. Use `change-log.md` for initialization and decision history. Do not create a separate change-plan page—the guide serves understanding, not maintenance routing.
+Record planned implementation work in `README.md` (Next implementation steps) and explicit decisions in `README.md` plus `change-log.md`. Do not create a separate decision or change-plan page—the guide serves understanding, not maintenance routing.
 
 ### Seed change log
 
@@ -94,10 +92,10 @@ For benchmark, evaluation, safety, data-heavy, or research repositories, make su
 | Specialized concept | Typical location |
 | --- | --- |
 | Project question and motivation | `README.md` or main guide |
-| Method / benchmark design | main guide, module docs, design reference |
-| Experiment entrypoints | main guide, `flows.md` for multi-phase runs, entrypoint module |
-| Metrics and evaluation protocol | evaluation module, metrics reference |
-| Data/task/schema contracts | data module, schema/task references |
-| Reproduction path | main guide, scripts/reference docs |
-| Baselines / ablations / compared methods | method or experiment references |
-| Output artifacts | artifacts reference |
+| Method / benchmark design | main guide, module docs |
+| Experiment entrypoints | main guide, walkthroughs for multi-phase runs, entrypoint module |
+| Metrics and evaluation protocol | evaluation or metrics module |
+| Data/task/schema contracts | data, task, or schema module |
+| Reproduction path | main guide, walkthroughs, scripts module when needed |
+| Baselines / ablations / compared methods | method or experiment module |
+| Output artifacts | artifacts or output module |

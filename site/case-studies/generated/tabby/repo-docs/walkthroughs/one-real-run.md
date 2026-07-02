@@ -10,7 +10,7 @@ The run starts when a user chooses the `serve` subcommand. At startup, Tabby loa
 
 The route is only useful if that completion model exists. `serve::main` downloads local models when needed, creates embedding-backed code search only when `TABBY_EMBEDDING_ENABLED=yes`, then calls `create_completion_service_and_chat` to obtain the completion service. The completion route is installed when that service exists; otherwise `/v1/completions` is registered as `501 Not Implemented`. The route is also wrapped in `server.completion_timeout`, which defaults to 30 seconds.
 
-Source: [`main.rs` dispatches `Serve`](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/main.rs#L53-L73), [`serve.rs` builds services and routes](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/serve.rs#L117-L232), and [`api_router` installs `/v1/completions`](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/serve.rs#L289-L310). Exact knobs are listed in [the completion contract reference](../references/completion-contract.md).
+Source: [`main.rs` dispatches `Serve`](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/main.rs#L53-L73), [`serve.rs` builds services and routes](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/serve.rs#L117-L232), and [`api_router` installs `/v1/completions`](https://github.com/TabbyML/tabby/blob/e8608d6d8f4016b9836a72037f72630d7e993468/crates/tabby/src/serve.rs#L289-L310). Exact knobs are listed in [the completion contract module](../modules/completion-contract.md).
 
 ## Step 2: The HTTP route adds request context
 

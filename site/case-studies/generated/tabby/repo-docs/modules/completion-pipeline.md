@@ -26,6 +26,6 @@ The main boundary to remember is `CompletionError::EmptyPrompt`: a standard comp
 
 ## Where to read next
 
-Read [the walkthrough](../walkthroughs/one-real-run.md) to see the pipeline as one request. Read [how retrieval context enters the prompt](retrieval-context.md) for the non-trivial prompt enrichment path, or use [the completion contract reference](../references/completion-contract.md) for exact fields and commands.
+Read [the walkthrough](../walkthroughs/one-real-run.md) to see the pipeline as one request. Read [how retrieval context enters the prompt](retrieval-context.md) for the non-trivial prompt enrichment path, or use [the completion contract module](../modules/completion-contract.md) for exact fields and commands.
 
 Evidence status: Confirmed unless noted.

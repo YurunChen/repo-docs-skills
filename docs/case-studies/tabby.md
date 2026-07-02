@@ -10,7 +10,7 @@ Generated files:
 - [walkthroughs/one-real-run.md](generated/tabby/repo-docs/walkthroughs/one-real-run.md)
 - [modules/completion-pipeline.md](generated/tabby/repo-docs/modules/completion-pipeline.md)
 - [modules/retrieval-context.md](generated/tabby/repo-docs/modules/retrieval-context.md)
-- [references/completion-contract.md](generated/tabby/repo-docs/references/completion-contract.md)
+- [modules/completion-contract.md](generated/tabby/repo-docs/modules/completion-contract.md)
 - [references/source-evidence.md](generated/tabby/repo-docs/references/source-evidence.md)
 - [references/quality-review.md](generated/tabby/repo-docs/references/quality-review.md)
 - [glossary.md](generated/tabby/repo-docs/glossary.md)

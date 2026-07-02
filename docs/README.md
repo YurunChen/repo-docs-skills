@@ -63,7 +63,7 @@
       <ul>
         <li>A walkthrough of one real run from entry to output.</li>
         <li>Concept pages for the few ideas that actually matter.</li>
-        <li>Reference pages for commands, fields, schemas, and evidence.</li>
+        <li>Evidence pages for source proof and quality review.</li>
         <li>A sync rule that keeps future answers tied to current source.</li>
       </ul>
     </td>
@@ -111,7 +111,7 @@ would otherwise mislead the next reader, not every page that could be polished.
 | `repo-docs/README.md` | Orient the reader and point to the first useful path. |
 | `walkthroughs/one-real-run.md` | Follow one real behavior from observable entry to output. |
 | `modules/` | Explain durable concepts the walkthrough names. |
-| `references/` | Hold exact commands, schemas, fields, tools, and source maps. |
+| `references/` | Hold source evidence and optional quality review. |
 | `glossary.md` | Translate repeated project terms into plain meaning. |
 | `change-log.md` | Record meaningful guide work, verification, and sync anchors. |
 | `AGENTS.md` / `CLAUDE.md` | Tell future coding agents when and how to keep docs current. |
@@ -204,7 +204,7 @@ A good Repo-Docs package is useful after the chat ends.
 | --- | --- |
 | Behavior before inventory | Teach one real workflow before listing files. |
 | Reader handles before locators | Explain the concept, then link to the exact path, function, field, or command. |
-| One durable fact, one home | Concepts live in modules; lookup material lives in references; history lives in the change log. |
+| One durable fact, one home | Concepts and needed details live in modules; evidence and quality audit live in references; history lives in the change log. |
 | Evidence stays visible | Current source, tests, config, data, commands, and artifacts outrank memory or stale docs. |
 | Patches stay surgical | When understanding drifts, update the smallest page that fixes the reader model. |
 

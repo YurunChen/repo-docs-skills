@@ -13,7 +13,7 @@ This first guide is scoped to the main web chat request path. It does not yet tr
 | Understand one real run | [follow a user prompt into the streaming response](walkthroughs/one-real-run.md) | The main request path from the browser hook to server-sent stream. |
 | Understand why the path is not a pass-through | [see how chat streaming protects context and output](modules/chat-stream.md) | The plain model for summaries, selected files, continuation, and stream errors. |
 | Understand provider/model lookup | [see how provider tags become a model instance](modules/provider-model-selection.md) | How selected model/provider text is resolved against registered providers and model lists. |
-| Look up exact request fields | [inspect the chat API contract](references/chat-api-contract.md) | Payload fields, cookies, stream annotations, and verification commands. |
+| Look up exact request fields | [inspect the chat API contract](modules/chat-api-contract.md) | Payload fields, cookies, stream annotations, and verification commands. |
 | Audit the guide | [review the source evidence](references/source-evidence.md) | Evidence passes, claims, caveats, and out-of-scope paths. |
 
 ## The short model

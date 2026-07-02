@@ -53,14 +53,13 @@ Use this as the tone target for the **user-facing reply** after Build—not as a
 Use the same reader-goal shape as the README so the reader sees goals before files.
 
 ````markdown
-`repo-docs/` is ready. You can follow one input from entry to written result, then drill into concepts or field names when needed.
+`repo-docs/` is ready. You can follow one input from entry to written result, then drill into concepts and their details when needed.
 
 | Reader goal | Start here | What this page gives you |
 | --- | --- | --- |
 | Understand the main behavior | [Follow one real run](repo-docs/walkthroughs/one-real-run.md) | The end-to-end behavior trace |
-| Clarify the normalized record | [Read the concept model](repo-docs/modules/normalized-record.md) | Why later code reads a stable record |
+| Clarify the normalized record | [Read the concept model](repo-docs/modules/normalized-record.md) | Why later code reads a stable record, including its important fields |
 | Audit the evidence base | [Check source evidence](repo-docs/references/source-evidence.md) | Source, tests, configs, commands, artifacts, caveats, and page consumers |
-| Look up exact names | [Use the input schema reference](repo-docs/references/input-schema.md) | Field names and valid shapes |
 | Decode repeated terms | [Use the glossary](repo-docs/glossary.md) | Project meanings in one place |
 
 **Scope:** Covers the inbox path only; admin CLI not documented separately.
@@ -72,16 +71,15 @@ Use the same reader-goal shape as the README so the reader sees goals before fil
 ````markdown
 # Project Name Repo Docs
 
-This project [what it does in one or two sentences]. [Why that matters / what real behavior proves it.] Follow [one real run from input to output](walkthroughs/one-real-run.md) to see the behavior before the code names make sense. For exact field or command names, use the relevant page under `references/`.
+This project [what it does in one or two sentences]. [Why that matters / what real behavior proves it.] Follow [one real run from input to output](walkthroughs/one-real-run.md) to see the behavior before the code names make sense. The concept pages explain important fields, commands, shapes, and caveats when those details matter.
 
 ## Reader Routes
 
 | Reader goal | Start here | What this page gives you |
 | --- | --- | --- |
 | Understand the main behavior | [Follow one real run](walkthroughs/one-real-run.md) | A concrete input-to-output trace and the project model behind it |
-| Clarify core concepts | [Open the concept pages](modules/) | Reader-facing explanations for ideas introduced by the walkthrough |
+| Clarify core concepts | [Open the concept pages](modules/) | Reader-facing explanations, important details, and examples for ideas introduced by the walkthrough |
 | Audit the evidence base | [Check source evidence](references/source-evidence.md) | Source, tests, configs, commands, artifacts, caveats, and page consumers |
-| Look up exact names | [Use the references](references/) | Commands, fields, artifacts, schemas, and audit notes |
 | Decode repeated terms | [Use the glossary](glossary.md) | Project-specific meanings in one place |
 
 Evidence status: Confirmed unless noted.
@@ -106,7 +104,7 @@ Default shape for `walkthroughs/one-real-run.md`: connected prose, numbered step
 
 [Connected prose for the next phase.]
 
-[Closing: end state after the run, one verify command for the whole path, links to concept pages or references if still useful.]
+[Closing: end state after the run, one verify command for the whole path, links to concept pages or source-evidence audit if still useful.]
 
 ```bash
 pytest path/to/tests -q
@@ -193,22 +191,9 @@ If edit order matters for understanding, say why here in one short caveat.
 
 ## [Where to go next]
 
-Return to [the first real run](../walkthroughs/one-real-run.md) where this concept first appears. Exact names live in [the relevant reference](../references/reference-name.md). If the next concept matters, link it with a label that says what the reader will learn.
+Return to [the first real run](../walkthroughs/one-real-run.md) where this concept first appears. If the next concept matters, link it with a label that says what the reader will learn. For audit detail, link to [the source evidence](../references/source-evidence.md).
 
 Evidence status: Confirmed unless noted.
-````
-
-## Reference Opening
-
-````markdown
-# [Reference Topic]
-
-This is lookup material. Read the walkthrough first if the behavior is not clear yet.
-
-| Field / command / artifact | Meaning | Notes |
-| --- | --- | --- |
-
-Evidence status: Confirmed unless a row says otherwise.
 ````
 
 ## Evidence Map Example
@@ -218,7 +203,7 @@ Use this shape for `references/source-evidence.md` in every Build package. Creat
 ````markdown
 # Source Evidence For [Workflow]
 
-This is lookup material. Read [the walkthrough](../walkthroughs/one-real-run.md) first if the behavior is not clear yet.
+This is audit material. Read [the walkthrough](../walkthroughs/one-real-run.md) first if the behavior is not clear yet.
 
 Evidence was collected over commit `<sha>`.
 
@@ -238,7 +223,7 @@ Coverage note: this map checks adjacent paths that affect the main reader model.
 | --- | --- | --- | --- | --- |
 | [Behavior claim in reader language.] | [source/test/config/artifact link] | Confirmed | [Scope or verification caveat.] | README, walkthrough |
 | [Claim that could mislead if overbroad.] | [falsifying or boundary evidence] | Confirmed / Inferred | [What the guide answers, defers, or labels unknown.] | walkthrough, quality review |
-| [Revised claim after a later inspection.] | [new evidence that changed the model] | Confirmed / Inferred | [Why the earlier wording was too broad.] | module, reference |
+| [Revised claim after a later inspection.] | [new evidence that changed the model] | Confirmed / Inferred | [Why the earlier wording was too broad.] | module, walkthrough |
 
 Evidence status: Confirmed unless a row says otherwise.
 ````
@@ -261,14 +246,14 @@ This is an audit note for the guide. It checks whether the guide transfers a usa
 | What changes at each phase? | [The remembered state, output, decision, or handoff.] |
 | Where do assumptions stop? | [A real boundary, failure, retry, validation, caveat, or out-of-scope path.] |
 | What would prove this explanation wrong? | [The falsifying source, test, config, artifact, or missing evidence.] |
-| What would a careful newcomer ask next? | [Next page, reference, glossary row, verify command, deferred topic, or unknown.] |
+| What would a careful newcomer ask next? | [Next page, source evidence, glossary row, verify command, deferred topic, or unknown.] |
 | How can I verify it? | [Evidence map, test, command, artifact, config, or source locator.] |
 
 | Review question | Result | Evidence | Follow-up |
 | --- | --- | --- | --- |
 | Can a reader state the hard part in one sentence? | Yes / Mostly / No. | [page or evidence link] | [Next sync action.] |
 | Does the evidence map prove at least two modeling passes? | Yes / No. | [Evidence Traversal Log](source-evidence.md#evidence-traversal-log) | [Update when scope changes.] |
-| Does the guide answer the strongest likely follow-up? | Yes / Deferred / Unknown. | [page, reference, caveat, or missing evidence] | [Where to answer or label it.] |
+| Does the guide answer the strongest likely follow-up? | Yes / Deferred / Unknown. | [page, source evidence, caveat, or missing evidence] | [Where to answer or label it.] |
 | What remains out of scope or partially verified? | [Named adjacent paths or checks.] | [scope note or caveat] | [When to add another walkthrough.] |
 
 Evidence status: Confirmed unless noted.
@@ -287,11 +272,9 @@ The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; w
 
 Repo-docs sync triggers before the final response: repo questions; architecture, onboarding, or "how does this work" answers; behavior-bearing code/config/data/script/test edits; user uncertainty or correction about stable project behavior; stable project knowledge discovered or clarified in conversation; and knowledge about to be written to memory.
 
-When a trigger happens, run a foreground repo-docs sync gate before answering: use the `repo-docs` skill in Sync mode when available, or manually read the relevant guide pages, inspect current source, and decide whether the guide is missing/stale/wrong/incomplete. Patch the smallest owning guide page before the final response when the current answer depends on the correction, the stale or missing guide content would mislead the user now, or the patch is small and local.
+When a trigger happens, run a foreground repo-docs sync gate before answering: use the `repo-docs` skill in Sync mode when available, or manually read the relevant guide pages, inspect current source, and decide `none`, `answer-only`, `foreground patch`, or `background sync`. Ordinary repo questions may be `answer-only` when the guide is current enough and the answer can cite inspected guide/source evidence. Patch the smallest owning guide page before the final response only when the current answer or edit would otherwise mislead, the guide says the opposite, or the missing stable knowledge is a small local patch.
 
-If the needed guide work is broader and not required for the current answer to be correct, delegate it to a background `repo-docs` sync agent when the platform supports that. The handoff must name the trigger, durable facts or changed source areas, candidate guide pages, verification to run, and the expected `repo-docs/change-log.md` update. If no background agent is available, do not silently defer: make a scoped foreground patch or mention the pending doc sync.
-
-A user does not need to explicitly ask for memory sync. If stable project knowledge is missing from `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
+If the needed guide work is broader and not required for the current answer to be correct, delegate it to a background `repo-docs` sync agent when the platform supports a real tracked handoff. The handoff must name the trigger, durable facts or changed source areas, candidate guide pages, verification to run, and the expected `repo-docs/change-log.md` update. If no background agent is available, answer from inspected source and mention the pending docs gap when it matters.
 
 When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing unless the user asked not to touch docs. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
 ````
@@ -331,7 +314,7 @@ These read as truthful because they name an action, an observation, and the limi
 
 This project turns an input file into a written result. The core idea is simple: raw input first becomes a normalized record. The runner reads that record, applies the configured steps, and writes the result.
 
-Follow [one input from load to result](walkthroughs/one-real-run.md) for the full path. Field names live in [input schema](references/input-schema.md).
+Follow [one input from load to result](walkthroughs/one-real-run.md) for the full path. Field names and valid shapes are explained in [normalized records](modules/normalized-record.md).
 ````
 
 ### Walkthrough Step (Flat Default)
@@ -343,7 +326,7 @@ Use this inside a walkthrough `##` phase, not the expanded `###` template.
 
 The system receives one input item and turns it into a record that later code can inspect. The input is whatever the caller provided; the record is the stable version inside the system. At this point, no result has been written. This step protects later code from raw input differences.
 
-After normalization, the system holds a record with id, source, created time, and cleaned payload. Record shape is owned by `src/inputs/normalize.py` and `normalize_input(...)`; every later step trusts that output. If [why the normalized record exists](../modules/normalized-record.md) is still fuzzy, read that concept page; exact fields are in [input schema](../references/input-schema.md).
+After normalization, the system holds a record with id, source, created time, and cleaned payload. Record shape is owned by `src/inputs/normalize.py` and `normalize_input(...)`; every later step trusts that output. If the record shape or why it exists is still fuzzy, read [normalized records](../modules/normalized-record.md).
 ````
 
 ### Module Concept Page (Flat Default)
@@ -366,12 +349,12 @@ Change field names or normalization rules in `src/inputs/normalize.py` and `src/
 Evidence status: Confirmed unless noted.
 ````
 
-### Reference Lookup Page
+### Module Detail Section
 
 ````markdown
-# Input Schema Reference
+## The normalized record shape
 
-This is lookup material. Read [one-real-run.md](../walkthroughs/one-real-run.md) first if you do not yet understand why raw inputs become records.
+The normalized record is the stable handoff between raw input handling and downstream processing. A reader needs the field shape here because the next phase assumes these names and meanings.
 
 | Field | Meaning | Used by |
 | --- | --- | --- |
@@ -380,18 +363,21 @@ This is lookup material. Read [one-real-run.md](../walkthroughs/one-real-run.md)
 | `payload` | Cleaned input data | processing steps |
 | `created_at` | Record creation time | audit or run output |
 
-Evidence status: Confirmed unless a row says otherwise.
+The rejection boundary is in `src/inputs/schema.py`: records without `id`, `source`, or `payload` are invalid before processing starts.
+
+Evidence status: Confirmed unless noted.
 ````
 
 ### Glossary row
 
-Three columns: **Term | Plain meaning | Further reading**. Keep code out unless one lightweight pointer is needed; mechanism belongs in modules and exact names belong in references.
+Three columns: **Term | Plain meaning | Further reading**. Use rows for project-special common words, confusable concept families, external terms as used here, and lightweight repeated names. Keep code out unless one lightweight pointer is needed; mechanism and important details belong in modules.
 
 ````markdown
 | Term | Plain meaning | Further reading |
 | --- | --- | --- |
 | Normalized record | Stable handoff after input parsing. Later code reads this record, not the raw input. Often confused with the original file, request, or row. | — |
 | OTLP | Trace export format this repo uses. It is different from Prometheus scraping. | Inferred — [OTLP spec](https://opentelemetry.io/docs/specs/otlp/) |
+| Session | The active run state this repo carries between retrieval, model call, and result writing. It is not a login session. | [Session assembly](modules/session-assembly.md) |
 ````
 
 ### Module caveat example
@@ -410,7 +396,7 @@ record = normalize_input(raw_input)
 result = process_record(record)
 ```
 
-You saw this handoff in [one-real-run.md](../walkthroughs/one-real-run.md) when raw input became a normalized record. Field names: [input schema](../references/input-schema.md).
+You saw this handoff in [one-real-run.md](../walkthroughs/one-real-run.md) when raw input became a normalized record. Field names and valid shapes are part of [normalized records](../modules/normalized-record.md).
 
 Evidence status: Confirmed unless noted.
 ````
@@ -432,7 +418,7 @@ Fictional tone target—not real project evidence. Replace paths, functions, fie
 
 系统收到输入后，第一件事不是写结果，而是把它整理成记录。输入是入口，记录是交接物；只要记录形状稳定，后面的处理步骤就可以专心做自己的事，而不是处理输入来源的差异。这一步还没有产生结果，只是把后面步骤要读取的东西固定下来。
 
-归一化之后，系统手里有的是带有 `id`、`source`、`payload`、`created_at` 的记录。记录形状由 `src/inputs/normalize.py` 里的 `normalize_input(...)` 负责；后面所有步骤都信任这一步的输出。字段名见 [输入 schema](../references/input-schema.md)。
+归一化之后，系统手里有的是带有 `id`、`source`、`payload`、`created_at` 的记录。记录形状由 `src/inputs/normalize.py` 里的 `normalize_input(...)` 负责；后面所有步骤都信任这一步的输出。字段名和合法形状放在 [规范化记录](../modules/normalized-record.md) 里解释。
 
 ## 处理步骤读取记录并写出结果
 
@@ -471,19 +457,19 @@ record = normalize_input(source="upload", payload={"name": "  demo  "})
 
 Use this as an internal coverage checklist, or render it when scoping which concepts still need a readable home.
 
-| Reader moment | Reader concept | Optional concept page | Exact lookup | Verification |
+| Reader moment | Reader concept | Owning module | Details to explain there | Verification |
 | --- | --- | --- | --- | --- |
-| User runs/imports/calls ... | How a run starts | `modules/entrypoint.md` if the walkthrough gets dense | `references/commands.md` | `...` |
-| System parses ... | How input becomes usable state | `modules/data-shape.md` if this concept needs explanation | `references/schema.md` | `...` |
-| System writes ... | What artifact the reader can inspect | `modules/output.md` if output behavior is non-obvious | `references/artifacts.md` | `...` |
+| User runs/imports/calls ... | How a run starts | `modules/entrypoint.md` if the walkthrough gets dense | command shape, config knobs, expected first output | `...` |
+| System parses ... | How input becomes usable state | `modules/data-shape.md` if this concept needs explanation | valid/invalid shapes, required fields, rejection boundary | `...` |
+| System writes ... | What artifact the reader can inspect | `modules/output.md` if output behavior is non-obvious | artifact names, contents, lifecycle, caveats | `...` |
 
 ## Markdown Display Patterns
 
 - Each durable fact lives in one best home; other pages link to it.
 - Walkthrough: numbered `## Step N: [behavior]` headings; link to the matching `modules/<concept>.md` in the step where that concept appears; add a small flowchart when branches are hard to follow in prose alone; one verify block at page end.
 - README: opening prose followed by a stable `## Reader Routes` table with reader goals, links, and payoffs, including a source-evidence audit row.
-- Module: concept-shaped H2 sections; include a representative snippet or source locator only when it helps; weave caveats where they clarify understanding.
-- Reference: lookup warning plus table; narrative stays in walkthrough or module.
+- Module: concept-shaped H2 sections; include necessary details, representative snippets, source locators, examples, and caveats where they clarify understanding.
+- References: fixed generated artifacts only: source evidence and optional quality review.
 - Mermaid and tables support prose; the paragraph still carries the reasoning. Use a flowchart when it teaches the model, not when it only repeats the file tree.
 - Every behavior claim points to a test, command, artifact, schema, or source locator.
 

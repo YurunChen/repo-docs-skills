@@ -28,6 +28,6 @@ Build a dashboard for my app.
 
 ## Where to read next
 
-To place this concept in the full request path, read [how a user prompt becomes a streamed answer](../walkthroughs/one-real-run.md). For the exact request fields carrying provider state, use [the chat API contract](../references/chat-api-contract.md).
+To place this concept in the full request path, read [how a user prompt becomes a streamed answer](../walkthroughs/one-real-run.md). For the exact request fields carrying provider state, use [the chat API contract](../modules/chat-api-contract.md).
 
 Evidence status: Confirmed unless noted.

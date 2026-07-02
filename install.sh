@@ -184,6 +184,7 @@ prepare_source() {
   resolve_source_layout
   require_file "$SKILL_DIR/SKILL.md"
   require_file "$SKILL_DIR/REFERENCE.md"
+  require_file "$SKILL_DIR/ROOT_AGENT_RULES.md"
   require_file "$SKILL_DIR/WRITING.md"
   require_file "$SKILL_DIR/PAGE_RULES.md"
   require_file "$SKILL_DIR/SCOPE_MODES.md"
@@ -203,6 +204,7 @@ install_to_target() {
   mkdir -p "$repo_docs/scripts" "$repo_docs_zh"
   cp "$SKILL_DIR/SKILL.md" \
      "$SKILL_DIR/REFERENCE.md" \
+     "$SKILL_DIR/ROOT_AGENT_RULES.md" \
      "$SKILL_DIR/WRITING.md" \
      "$SKILL_DIR/PAGE_RULES.md" \
      "$SKILL_DIR/SCOPE_MODES.md" \

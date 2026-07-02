@@ -25,6 +25,6 @@ Minimal selector response shape:
 
 ## Where to read next
 
-To see the stream in motion, read [the prompt-to-stream walkthrough](../walkthroughs/one-real-run.md). For exact payload fields and stream annotations, use [the chat API contract](../references/chat-api-contract.md).
+To see the stream in motion, read [the prompt-to-stream walkthrough](../walkthroughs/one-real-run.md). For exact payload fields and stream annotations, use [the chat API contract](../modules/chat-api-contract.md).
 
 Evidence status: Confirmed unless noted.

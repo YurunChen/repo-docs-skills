@@ -27,7 +27,6 @@ REQUIRED_SEED_FILES = [
     "README.md",
     "change-log.md",
     "glossary.md",
-    "references/decisions.md",
 ]
 REQUIRED_LITE_FILES = [
     "README.md",
@@ -51,11 +50,10 @@ READER_ROUTES_TABLE_HEADER_PATTERN = re.compile(
 )
 GENERATED_PAGES_PATTERN = re.compile(r"^Generated pages:\s*$|^生成页面：\s*$", re.MULTILINE | re.IGNORECASE)
 CONFIDENCE_LABEL_PATTERN = re.compile(r"\b(Confirmed|Inferred|Planned|Unknown)\b|已确认|推断|计划中|未确认")
-SOURCEY_INLINE_PATTERN = re.compile(
-    r"/|\.py\b|\.js\b|\.ts\b|\.tsx\b|\.json\b|\.ya?ml\b|\.md\b|\(\.\.\.\)|^[A-Za-z_][A-Za-z0-9_]*\("
-)
-CODE_DENSITY_TOKEN_PATTERN = re.compile(
-    r"`([^`\n]*(?:/|\.py\b|\.js\b|\.ts\b|\.tsx\b|\.json\b|\.ya?ml\b|\.toml\b|\.md\b|\(\.\.\.\)|^[A-Za-z_][A-Za-z0-9_]*\()[^`\n]*)`"
+SOURCEY_OPENING_TOKEN_PATTERN = re.compile(
+    r"`[^`\n]+`|"
+    r"[\w.@-]+(?:/[\w.@-]+)+\.[A-Za-z0-9]{1,8}(?::\d+(?:-\d+)?)?|"
+    r"\b[A-Za-z_][A-Za-z0-9_]{2,}\("
 )
 BROAD_VALUE_WORD_PATTERN = re.compile(
     r"\b(robust|powerful|seamless|extensible|scalable|efficient|comprehensive|"
@@ -130,7 +128,7 @@ BOUNDARY_SIGNAL_PATTERN = re.compile(
     r"失败|错误|重试|回退|拒绝|无效|校验|验证|边界|限制|异常|权限|保护",
     re.IGNORECASE,
 )
-EVIDENCE_MAP_NAMES = {"evidence-map.md", "source-evidence.md", "cli-evidence.md"}
+EVIDENCE_MAP_NAMES = {"source-evidence.md"}
 EVIDENCE_TRAVERSAL_PATTERN = re.compile(
     r"\bPass\s*1\b[\s\S]*\bPass\s*2\b|第\s*1\s*(轮|遍)[\s\S]*第\s*2\s*(轮|遍)",
     re.IGNORECASE,
@@ -733,12 +731,26 @@ def first_content_lines(text: str, limit: int = 80) -> str:
     return "\n".join(lines)
 
 
+def readme_opening_text(text: str) -> str:
+    """Return prose before the Reader Routes table."""
+    without_fences = FENCE_PATTERN.sub("", text)
+    routes_heading = READER_ROUTES_HEADING_PATTERN.search(without_fences)
+    opening = without_fences[: routes_heading.start()] if routes_heading else without_fences
+    return first_content_lines(opening, limit=30)
+
+
 def walkthrough_opening_text(text: str) -> str:
     """Return prose before the first numbered walkthrough step."""
     without_fences = FENCE_PATTERN.sub("", text)
     first_step = STEP_PATTERN.search(without_fences)
     opening = without_fences[: first_step.start()] if first_step else without_fences
     return first_content_lines(opening, limit=40)
+
+
+def sourcey_opening_count(text: str) -> int:
+    """Count source-shaped tokens in an opening without following Markdown links."""
+    text = re.sub(r"(?<!!)\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    return len(SOURCEY_OPENING_TOKEN_PATTERN.findall(text))
 
 
 def section_text(text: str, heading_pattern: str) -> str:
@@ -751,16 +763,8 @@ def section_text(text: str, heading_pattern: str) -> str:
     return text[start:end]
 
 
-def code_density_count(text: str) -> int:
-    return len(CODE_DENSITY_TOKEN_PATTERN.findall(FENCE_PATTERN.sub("", text)))
-
-
 def check_reading_experience(root: Path) -> list[Finding]:
-    """Warn when source names appear before the reader has a handle.
-
-    These are heuristics. They do not enforce a fixed number; they catch places
-    where narrative pages are likely doing lookup work too early.
-    """
+    """Warn when page structure gets in the way of explanation."""
     findings: list[Finding] = []
     narrative_paths: list[Path] = []
     for relative in ("README.md", "walkthroughs/one-real-run.md"):
@@ -774,21 +778,12 @@ def check_reading_experience(root: Path) -> list[Finding]:
     for path in narrative_paths:
         relative = path.relative_to(root)
         text = read_text(path)
-        if relative.parts[0] == "walkthroughs":
+        if relative == Path("README.md"):
+            opening = readme_opening_text(text)
+        elif relative.parts[0] == "walkthroughs":
             opening = walkthrough_opening_text(text)
         else:
             opening = first_content_lines(text)
-        inline_tokens = [match.group(1).strip() for match in INLINE_CODE_PATTERN.finditer(opening)]
-        sourcey_tokens = [token for token in inline_tokens if SOURCEY_INLINE_PATTERN.search(token)]
-        if relative == Path("README.md") and len(sourcey_tokens) > 3:
-            findings.append(
-                Finding("WARN", f"{relative}: opening has high code-name density; explain what happens before source names")
-            )
-        elif len(sourcey_tokens) > 6:
-            findings.append(
-                Finding("WARN", f"{relative}: opening has high code-name density; move dense source names later or into references")
-            )
-
         label_count = len(CONFIDENCE_LABEL_PATTERN.findall(FENCE_PATTERN.sub("", text)))
         h3_count = len(re.findall(r"^###\s+", text, re.MULTILINE))
         if relative.parts[0] == "walkthroughs" and h3_count >= 6:
@@ -806,6 +801,15 @@ def check_reading_experience(root: Path) -> list[Finding]:
             findings.append(
                 Finding("WARN", f"{relative}: many confidence labels in the main guide; keep evidence visible but quiet")
             )
+        if relative == Path("README.md") or relative.parts[0] == "walkthroughs":
+            code_name_count = sourcey_opening_count(opening)
+            if code_name_count >= 6:
+                findings.append(
+                    Finding(
+                        "WARN",
+                        f"{relative}: opening has many code-shaped names ({code_name_count}); start with the reader situation before source locators",
+                    )
+                )
 
         readme_meta_h2 = re.compile(
             r"^##\s+(Project Model|First Path|Current Scope|项目模型|首读路径|当前范围)",
@@ -826,6 +830,25 @@ def check_reading_experience(root: Path) -> list[Finding]:
                 Finding(
                     "WARN",
                     f"{relative}: many broad value words; prefer concrete actions, observations, checks, or caveats",
+                )
+            )
+    return findings
+
+
+def check_reference_scope(root: Path) -> list[Finding]:
+    """References are fixed generated artifacts, not a second knowledge layer."""
+    references = root / "references"
+    if not references.is_dir():
+        return []
+
+    allowed = {"source-evidence.md", "quality-review.md"}
+    findings: list[Finding] = []
+    for path in sorted(references.glob("*.md")):
+        if path.name not in allowed:
+            findings.append(
+                Finding(
+                    "ERROR",
+                    f"{path.relative_to(root)} is outside the fixed references scope; keep references to source-evidence.md and optional quality-review.md, and move knowledge/details into modules",
                 )
             )
     return findings
@@ -973,6 +996,7 @@ def main() -> int:
         findings.extend(check_explanation_structure(root))
         findings.extend(check_evidence_maps(root))
         findings.extend(check_quality_review(root))
+        findings.extend(check_reference_scope(root))
         findings.extend(check_source_truth_hints(root))
         findings.extend(check_reading_experience(root))
         findings.extend(check_scent(root))

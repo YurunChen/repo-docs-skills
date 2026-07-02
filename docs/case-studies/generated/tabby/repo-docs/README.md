@@ -11,7 +11,7 @@ The current guide is scoped to the open-source `crates/tabby` completion request
 | Understand one real run | [Follow a completion request through the server](walkthroughs/one-real-run.md) | The observable request, service handoffs, prompt construction, model call, response, and boundary cases. |
 | Understand the main concept | [Read the completion pipeline model](modules/completion-pipeline.md) | A plain model for where routing ends, where prompt work begins, and where inference is called. |
 | Understand code-context enrichment | [Read how retrieval context enters the prompt](modules/retrieval-context.md) | The rules for editor-provided snippets, indexed-code snippets, repository allow checks, and graceful fallback. |
-| Look up exact fields and knobs | [Use the completion contract reference](references/completion-contract.md) | Request fields, response shape, timeout/defaults, and verification commands. |
+| Look up exact fields and knobs | [Use the completion contract module](modules/completion-contract.md) | Request fields, response shape, timeout/defaults, and verification commands. |
 | Audit the claims | [Inspect the evidence ledger](references/source-evidence.md) | Source links, tests, command evidence, caveats, and the traversal passes used to build the guide. |
 | Check guide quality and scope | [Read the quality review](references/quality-review.md) | What the guide proves, what remains out of scope, and what would falsify the model. |
 

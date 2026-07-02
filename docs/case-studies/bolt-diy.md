@@ -10,7 +10,7 @@ Generated files:
 - [walkthroughs/one-real-run.md](generated/bolt-diy/repo-docs/walkthroughs/one-real-run.md)
 - [modules/chat-stream.md](generated/bolt-diy/repo-docs/modules/chat-stream.md)
 - [modules/provider-model-selection.md](generated/bolt-diy/repo-docs/modules/provider-model-selection.md)
-- [references/chat-api-contract.md](generated/bolt-diy/repo-docs/references/chat-api-contract.md)
+- [modules/chat-api-contract.md](generated/bolt-diy/repo-docs/modules/chat-api-contract.md)
 - [references/source-evidence.md](generated/bolt-diy/repo-docs/references/source-evidence.md)
 - [references/quality-review.md](generated/bolt-diy/repo-docs/references/quality-review.md)
 - [glossary.md](generated/bolt-diy/repo-docs/glossary.md)

@@ -1,0 +1,29 @@
+# Repo-Docs Skill Evals
+
+These evals are lightweight regression checks for the `repo-docs` skill rules. They do not score an LLM. They materialize small repo-docs fixtures in a temporary directory, run the bundled validator, and assert the rule text that controls trigger precision.
+
+Run from the repository root:
+
+```bash
+python skills/repo-docs/evals/run_eval.py
+```
+
+## Cases
+
+| Case | Expected artifacts | Automated assertions | Human check |
+| --- | --- | --- | --- |
+| `standard-build` | README, walkthrough, module, source evidence, glossary, change log | Validator exits with 0 errors; no extra `references/` pages | The guide teaches behavior before inventory. |
+| `lite-build` | README, walkthrough, source evidence, change log | Validator exits with 0 errors under `--lite`; no module directory required | Lite shape does not invent concept pages. |
+| `seed-build` | README, change log, glossary | Validator exits with 0 errors under `--seed` | Planned facts are not described as implemented. |
+| `sync-decision-rules` | Skill rule files | `none`, `answer-only`, `foreground patch`, and `background sync` appear in `SKILL.md`, `SYNC_RULES.md`, and root-agent rules | Ordinary repo questions have an answer-only path. |
+| `answer-only-docs` | Skill rule files | Sync rules explicitly say ordinary repo questions are not automatic doc edits | The trigger policy will not surprise users with unnecessary patches. |
+| `stable-module-gap` | Skill rule files | Stable understanding gaps route to add/refine/merge modules | Knowledge has one durable reader home. |
+| `strict-references` | A fixture with an extra reference page | Validator fails with a fixed references-scope error | Contract/schema/catalogue content belongs in modules. |
+| `code-heavy-opening` | A fixture with a code-name-heavy opening | Validator returns 0 errors and emits the opening-density warning | The warning is useful and low noise. |
+| `zh-overlay` | Chinese Lite package | Validator exits with 0 errors under `--lite`; Chinese routes preserve English source identifiers | Chinese carries the mental model while source terms stay exact. |
+
+## Notes
+
+- Fixtures are encoded in `run_eval.py` and materialized under a temporary directory so they cannot dirty the repository.
+- Public case studies remain useful examples, but these evals are the fast regression suite for skill behavior.
+- Add a new eval whenever a rule change would otherwise rely on reviewer memory.

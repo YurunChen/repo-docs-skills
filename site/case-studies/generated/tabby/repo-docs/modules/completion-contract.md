@@ -1,6 +1,6 @@
-# Completion Contract Reference
+# Completion Contract
 
-This is lookup material. Read the walkthrough first if you do not yet understand the behavior.
+This module keeps request, response, runtime defaults, and verification details for the completion path. Read the walkthrough first if you do not yet understand the behavior.
 
 ## Request Fields
 
@@ -79,5 +79,9 @@ curl -X 'POST' \
   }
 }'
 ```
+
+## Where to read next
+
+Return to [the completion pipeline](completion-pipeline.md) for the mechanism that uses these fields, or audit the claim sources in [the source evidence ledger](../references/source-evidence.md).
 
 Evidence status: Confirmed unless noted.

@@ -1,6 +1,6 @@
 # Chat API contract
 
-This page holds lookup details for the scoped chat path. The narrative flow lives in [the prompt-to-stream walkthrough](../walkthroughs/one-real-run.md).
+This module keeps request, cookie, stream annotation, and verification details for the scoped chat path. The narrative flow lives in [the prompt-to-stream walkthrough](../walkthroughs/one-real-run.md).
 
 ## Client request body
 

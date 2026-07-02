@@ -25,35 +25,45 @@ Keep the routing narrow. `SKILL.md` defines the contract; topic files carry the 
 
 | File | Role |
 | --- | --- |
-| `SKILL.md` | Entry: mission, principles, output contract, build/sync summary, verification |
-| `REFERENCE.md` | Router to topic files—open only when detail is needed |
+| `SKILL.md` | Entry: mission, core laws, output contract, mode router, finish gate |
+| `REFERENCE.md` | Router to topic files; open only when detail is needed |
 | `WRITING.md` | Explanation design, voice, evidence discovery |
-| `PAGE_RULES.md` | Reader paths, page types, output shape, navigation |
+| `PAGE_RULES.md` | Build workflow, reader paths, page types, output shape, navigation |
 | `SCOPE_MODES.md` | Seed, large/monorepo scope, specialized repos |
-| `SYNC_RULES.md` | Question loop, change sync, widened content alignment |
+| `SYNC_RULES.md` | Sync decision gate, question loop, change sync, widened content alignment |
+| `ROOT_AGENT_RULES.md` | Root `AGENTS.md` / `CLAUDE.md` routing block and install contract |
 | `QUALITY_RULES.md` | Evidence labels, source truth, quality bar |
 | `EXAMPLES.md` | Finished-page tone and output-shape examples |
-| `scripts/validate_repo_docs.py` | Structure, links, sync anchors, freshness, evidence, and quality-review checks |
+| `scripts/validate_repo_docs.py` | Structure, links, sync anchors, freshness, evidence, references scope, and quality-review checks |
 | `validate_repo_docs.py` | Compatibility wrapper for older invocations |
+| `evals/` | Source-repository regression fixtures and assertions for this skill; not required at runtime |
 | `../repo-docs-zh/SKILL.md` | Chinese language overlay |
 
-## First Principles
+## Core Laws
 
-- Understandability is the core asset. The guide exists to lower the reader's cognitive load while preserving a correct model of the repo.
-- Behavior before inventory: teach one real workflow, request, task, failure, or data path first.
-- Reader handles before locators: the handle explains; the exact path, function, field, command, or artifact proves.
-- Direct source links by default: link one claim to one source with readable text. Create `references/source-map.md` only when repeated grouped locators would clutter pages.
-- One durable fact, one home: concepts in `modules/`, exact lookup material in `references/`, term disambiguation in `glossary.md`, guide history in `change-log.md`.
-- Evidence supports understanding: current source, tests, config, data, command output, and artifacts keep the explanation true, but they should not replace the explanation.
-- `references/source-evidence.md` is the Build evidence base. It records the source, tests, config, schemas, data, commands, artifacts, and caveats that later pages may use.
+- Behavior before inventory: teach one real workflow, request, task, failure, or data path before describing the tree.
+- Evidence before claims: inspect source, tests, config, data, commands, or artifacts before writing durable statements.
+- One durable fact, one home: reader knowledge and details live in `modules/`; fixed generated audit artifacts live in `references/`; terms live in `glossary.md`; guide history lives in `change-log.md`.
+- Sync only when the guide would mislead: ordinary repo questions require a foreground decision, not automatic doc edits.
+- Validate before delivery: run the validator or state why it could not run.
+
+Red flags that mean stop and re-route:
+
+| Thought or draft move | Better action |
+| --- | --- |
+| "I'll start with the file tree." | Pick the behavior the reader should follow. |
+| "The path/function name explains it." | Write the reader handle first; use source as proof. |
+| "This schema/catalog deserves a references page." | Put details in the owning module; keep `references/` fixed. |
+| "A repo question always means patch docs." | Run the sync decision gate and use `answer-only` when the guide is already safe. |
+| "The docs look fine; no validator needed." | Run the validator or report the blocker. |
 
 ## Output Contract
 
 Use the smallest package that teaches the repo honestly.
 
-- Standard: `README.md`, `walkthroughs/one-real-run.md`, `modules/`, `references/source-evidence.md`, other `references/` pages as needed, `glossary.md`, `change-log.md`.
+- Standard: `README.md`, `walkthroughs/one-real-run.md`, `modules/`, `references/source-evidence.md`, `glossary.md`, `change-log.md`; add `references/quality-review.md` when the guide is source-heavy, high-risk, generated, or handoff-sensitive.
 - Lite: `README.md`, `walkthroughs/one-real-run.md`, `references/source-evidence.md`, `change-log.md`; use for small repos with little durable terminology.
-- Seed: `README.md`, `change-log.md`, `glossary.md`, `references/decisions.md`; label facts as `Confirmed`, `Planned`, or `Unknown`.
+- Seed: `README.md`, `change-log.md`, optional `glossary.md`; label facts as `Confirmed`, `Planned`, or `Unknown`.
 
 ## Page Ownership
 
@@ -61,120 +71,53 @@ Use the smallest package that teaches the repo honestly.
 | --- | --- |
 | `README.md` | Orient the reader and point to the first useful path. |
 | `walkthroughs/one-real-run.md` | Follow one real behavior end to end with numbered `## Step N: behavior` headings. |
-| `modules/<concept>.md` | Explain one durable concept named by the walkthrough. |
-| `references/source-evidence.md` | Evidence base for the guide: traversal log, coverage notes, claim/evidence/confidence/caveat rows, and source material later pages may use. |
-| `references/*.md` | Hold exact lookup tables, grouped source/evidence maps, and quality audit notes that would clutter narrative pages. |
+| `modules/<concept>.md` | Explain one durable concept named by the walkthrough, including details, examples, call/data shapes, commands, fields, caveats, and verification hooks needed to understand it. |
+| `references/source-evidence.md` | Fixed generated evidence base: traversal log, coverage notes, claim/evidence/confidence/caveat rows, and source material later pages may use. |
+| `references/quality-review.md` | Optional fixed generated audit note for source-heavy, high-risk, generated, or handoff-sensitive guides. |
 | `glossary.md` | Three columns only: `Term | Plain meaning | Further reading`. |
 | `change-log.md` | Meaningful guide changes and sync anchors. |
 
-## Build Workflow
-
-1. Read project instructions, README, entrypoints, scripts, tests, schemas, config, data, artifacts, and existing docs.
-2. Choose one representative real behavior that reveals the repo shape. Treat this as a working candidate and refine it when evidence changes the model.
-3. Create `references/source-evidence.md` immediately after choosing the representative behavior. Start it as a living evidence ledger with an `## Evidence Traversal Log` section and a `Claim | Evidence | Confidence | Caveat | Used by` table.
-4. Run at least two evidence passes, updating `references/source-evidence.md` after each meaningful source inspection:
-   - Pass 1 maps the main path: real entrypoints, real inputs, output or state changes, major handoffs, and first source locators.
-   - Pass 2 challenges and fills the model with a Socratic reader interrogation: why each phase exists, what would break without it, what evidence could falsify the explanation, where assumptions stop, and which source area the first path skipped but depends on. Use this pass to find guards/failures, retries, validation, config precedence, tests or runnable checks, artifacts, and edge cases.
-   Add more passes when the model still has unexplained gaps. Add, revise, merge, split, or downgrade rows as source inspection changes the model. The evidence base covers every fact family later pages may use: source locations, tests, configs, schemas, sample data, commands, generated artifacts, external inputs, confidence labels, caveats, adjacent paths, and falsifying checks.
-5. Draft the understanding brief from `references/source-evidence.md` before writing pages. The evidence file includes a short traversal log naming at least Pass 1 and Pass 2, plus coverage/exclusion notes for adjacent paths not traced. The brief must answer:
-   - Scenario: which real command, request, task, failure, user action, or data record is followed?
-   - Input: what first enters the system, and where is that shown?
-   - Success/output: what result, state, file, response, metric, commit, or artifact proves the path ran through?
-   - Hard part: why is this path not a trivial pass-through, and which inspected evidence supports that pressure?
-   - Boundary/failure: what real validation, parse failure, retry, fallback, reflected error, permission check, caveat, or test edge case shows where assumptions stop?
-   - Skeptical reader question: after this explanation, what would a careful newcomer still ask, and does the guide answer it, defer it, or label it unknown?
-   - Evidence: which source, test, config, data, command output, or artifact proves each statement?
-6. Write `README.md` and `walkthroughs/one-real-run.md` from the understanding brief and `references/source-evidence.md`. If the brief cannot name a real input, output, hard part, evidence-backed boundary, falsifying check, and likely reader follow-up, re-inspect the project evidence before writing the walkthrough. Link to `references/source-evidence.md` from the README reader-goal table and from narrative pages where the reader needs audit detail.
-7. Add modules only for concepts the walkthrough cannot explain cleanly inline.
-8. Add reference pages for exact names, catalogs, schemas, commands, artifacts, metrics, or evidence subsets that readers need beyond `references/source-evidence.md`.
-9. Run an understandability review before delivery. For small repos this can be internal. For case studies, generated examples, source-heavy docs, or handoff-sensitive work, write it under `references/quality-review.md`. Include a reader-simulation section answered from the guide itself: main path, hard part, phase changes, boundary/failure, verification, and remaining caveats. Record whether a reader can state the hard part, follow the steps without source links, find a real boundary path, audit evidence, and see remaining caveats.
-10. Add `glossary.md` and `change-log.md`.
-11. Wire the guide into the project's agent instruction Markdown. Search for existing files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, or `.cursor/rules/*.md`; patch the ones that clearly govern coding agents for this repo. If none exists, create `AGENTS.md`. The rule must say that future repo questions, behavior-changing edits, user uncertainty about stable project behavior, and stable project knowledge surfaced in conversation should use the `repo-docs` skill in Sync mode when available, run a lightweight foreground sync gate before answering, patch stale or missing guide pages in the same turn when the current answer or edit would otherwise mislead, and delegate broader non-answer-critical sync to a background agent when available. Record meaningful guide work in `repo-docs/change-log.md`. A user does not need to explicitly ask for memory sync before this rule applies.
-12. Run the validator and fix structure, link, and evidence problems.
-
-For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
-
-Build is not finished until the next coding agent can maintain the guide without rediscovering the policy. The project agent instruction Markdown is the handoff point: it should point to `repo-docs/README.md`, name the main walkthrough, and tell future agents to read the guide plus current source for repo questions and patch stale guide pages when a durable mismatch appears.
-
-## Root Agent File Contract
-
-When Build creates or updates `repo-docs/`, search the project for agent instruction Markdown before creating anything new. Look for common project files such as `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`, `GEMINI.md`, and `.cursor/rules/*.md`, plus any nearby Markdown file whose filename or heading clearly says it is for coding agents.
-
-Patch existing agent instruction files that already govern the repo or the package being documented. Do not create extra tool-specific files just to mirror the rule. If no such file exists, create `AGENTS.md` at the project root.
-
-For nested packages, patch the nearest project agent instruction Markdown that governs the generated `repo-docs/` package. If the guide is created at the repository root, use the root file.
-
-The rule should say:
-
-- The living guide is in `repo-docs/`; start with `repo-docs/README.md`.
-- The main behavior trace lives in `repo-docs/walkthroughs/one-real-run.md` when that file exists.
-- Treat these as `repo-docs` Sync triggers before the final response: repo questions; architecture, onboarding, or "how does this work" answers; behavior-bearing code/config/data/script/test edits; user uncertainty or correction about stable project behavior; stable project knowledge discovered or clarified in conversation; and knowledge about to be written to memory.
-- When a trigger happens, run a foreground sync gate before answering: use the `repo-docs` skill in Sync mode when available, or manually read the relevant guide pages, inspect current source, and decide whether the guide is missing/stale/wrong/incomplete.
-- Patch the smallest owning guide page before the final response when the current answer depends on the correction, the stale or missing guide content would mislead the user now, or the patch is small and local.
-- If the needed guide work is broader and not required for the current answer to be correct, delegate it to a background `repo-docs` sync agent when the platform supports that. The handoff must name the trigger, durable facts or changed source areas, candidate guide pages, verification to run, and the expected `repo-docs/change-log.md` update. If no background agent is available, do not silently defer: make a scoped foreground patch or mention the pending doc sync.
-- A user does not need to explicitly ask for memory sync. If stable project knowledge is missing from `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
-- When code, config, data, scripts, tests, or behavior change in ways the guide covers, compare the change with the guide before finishing unless the user asked not to touch docs.
-- Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
-
-Default block to write:
-
-```markdown
-## Repo docs
-
-The living project guide is in `repo-docs/`. Start with `repo-docs/README.md`; when `repo-docs/walkthroughs/one-real-run.md` exists, use it as the main behavior trace.
-
-Repo-docs sync triggers before the final response: repo questions; architecture, onboarding, or "how does this work" answers; behavior-bearing code/config/data/script/test edits; user uncertainty or correction about stable project behavior; stable project knowledge discovered or clarified in conversation; and knowledge about to be written to memory.
-
-When a trigger happens, run a foreground repo-docs sync gate before answering: use the `repo-docs` skill in Sync mode when available, or manually read the relevant guide pages, inspect current source, and decide whether the guide is missing/stale/wrong/incomplete. Patch the smallest owning guide page before the final response when the current answer depends on the correction, the stale or missing guide content would mislead the user now, or the patch is small and local.
-
-If the needed guide work is broader and not required for the current answer to be correct, delegate it to a background `repo-docs` sync agent when the platform supports that. The handoff must name the trigger, durable facts or changed source areas, candidate guide pages, verification to run, and the expected `repo-docs/change-log.md` update. If no background agent is available, do not silently defer: make a scoped foreground patch or mention the pending doc sync.
-
-A user does not need to explicitly ask for memory sync. If stable project knowledge is missing from `repo-docs/`, patch the smallest owning guide page before leaving the knowledge only in chat or agent memory.
-
-When behavior-bearing code, config, data, scripts, or tests change, compare the change with the guide before finishing unless the user asked not to touch docs. Record meaningful guide updates in `repo-docs/change-log.md` with verification and `Synced through <sha>` when git is available.
-```
-
-Keep this root rule short. Do not copy the guide into `AGENTS.md` or `CLAUDE.md`; those files route future agents back to `repo-docs/`.
+`references/` is not a lookup layer. Do not add extra files there for schemas, contracts, metrics, task catalogs, command lists, scripts, artifacts, or exact-name lookup. If a detail helps understanding, put it in the owning module. If it only proves a claim, put it in `references/source-evidence.md`.
 
 ## Modes
 
-`repo-docs/` is maintained **during the user ↔ coding agent conversation**, not in a detached offline pass. For repo questions, behavior-bearing edits, user uncertainty about stable project behavior, stable project knowledge surfaced or clarified in conversation, and memory updates, judge whether [Understanding Sync](#understanding-sync) is needed from the question, changed source, surfaced knowledge, and current guide. The judgment is foreground work; broader non-answer-critical sync may run in a background agent when available. Do not force a sync for unrelated chat or source areas the guide does not cover. Modes name common situations, not detached jobs. Detail: [SCOPE_MODES.md](SCOPE_MODES.md), [SYNC_RULES.md](SYNC_RULES.md).
+Modes name common situations, not detached jobs. Use [REFERENCE.md](REFERENCE.md) to open details only when the current mode needs them.
 
 | Mode | Use when | What to do |
 | --- | --- | --- |
 | Seed | No real source/runtime/test/data contract yet | Status-labeled project memory; do not describe plans as implemented |
-| Build | First repo docs or onboarding material | One real workflow; wire root agent file; run validator; [deliver](#delivery) |
-| Sync | Interaction, repo state, user uncertainty, surfaced conversation knowledge, or memory updates show the guide may be stale or incomplete | Run the foreground sync gate; patch answer-critical or small local gaps before responding; delegate broader non-answer-critical sync to a background agent when available |
-| Cleanup / removal | User asks to delete generated repo docs | Remove the package and stale root pointers |
-| Question refinement | A repo question shows the guide built the wrong model | Smallest stable patch, anchor in `change-log.md`, answer with a link |
+| Build | First repo docs or onboarding material | Follow [PAGE_RULES.md](PAGE_RULES.md#build-workflow), wire root agent rules from [ROOT_AGENT_RULES.md](ROOT_AGENT_RULES.md), run validator, deliver |
+| Sync | Interaction, repo state, user uncertainty, surfaced conversation knowledge, or memory updates may make the guide stale or incomplete | Follow [SYNC_RULES.md](SYNC_RULES.md); decide `none`, `answer-only`, `foreground patch`, or `background sync` before answering |
+| Cleanup / removal | User asks to delete generated repo docs | Remove the package and stale root pointers; do not recreate docs unless explicitly asked |
+| Question refinement | A repo question shows the guide built the wrong model | Patch the smallest stable owning page, anchor in `change-log.md`, answer with a link |
 
-## Understanding Sync
+## Sync Gate
 
-When `repo-docs/` exists, ask: what would a new reader misunderstand if they read the guide as it stands?
+When `repo-docs/` exists and a repo-docs trigger appears, ask: what would a new reader misunderstand if they read the guide as it stands?
 
-Patch the smallest owning page before the final response when this turn changed guide-covered or reader-visible behavior-bearing source, data, config, scripts, or tests and the current answer or code change would otherwise mislead; a user correction or user uncertainty revealed a stable understanding gap that affects the answer; stable project knowledge surfaced, was discovered, or was clarified in conversation and is absent from `repo-docs/`; knowledge about to be written to memory is absent from `repo-docs/`; or validator warnings show stale links, missing sync anchors, or likely drift in the touched area. If the gap is durable but broader than the current answer needs, launch a background sync agent when available instead of blocking the user.
+The foreground gate must end in one decision:
+
+| Decision | Use when |
+| --- | --- |
+| `none` | The turn is unrelated to guide-covered knowledge or the guide is absent/out of scope. |
+| `answer-only` | The guide is current enough, or the gap is transient, non-durable, not answer-critical, and not a small local patch. Answer from inspected guide/source without editing docs. |
+| `foreground patch` | The current answer or code change would mislead without a small owning-page update, the guide says the opposite, or a stable knowledge gap is small and belongs in the guide now. |
+| `background sync` | The gap is durable but broader than the current answer needs, the answer remains correct, and the platform has a trackable handoff. |
 
 Do not patch for one-off debug state, local environment quirks, or personal preference unless the user asks to preserve it.
 
-Every material sync updates `repo-docs/change-log.md` with the trigger, changed pages, verification, and `Synced through <sha>` when git is available. A background sync must do the same before it reports completion.
+## Build Summary
 
-Use this loop during coding-agent interaction:
+Detailed Build rules live in [PAGE_RULES.md](PAGE_RULES.md#build-workflow). The short version:
 
-1. Read the current guide page that should already answer the question or describe the changed behavior.
-2. Inspect the source, config, data, tests, command output, or artifact that proves the current behavior.
-3. Decide whether the gap is durable and whether it is answer-critical. Durable means a future reader would likely misunderstand the repo, not merely miss a one-off debugging detail. Answer-critical means the current user answer, code change, or next command would be wrong or misleading without the guide patch.
-4. Patch the owning page:
-   - behavior path changed -> walkthrough
-   - concept changed or became clearer -> module
-   - exact field, command, config, schema, metric, or artifact changed -> reference
-   - concept explanation and exact lookup both changed -> split them: module for the model, reference for exhaustive names/tables
-   - term meaning changed -> glossary
-   - stable conversation or memory knowledge is missing from the guide -> smallest owning guide page; root rule only if it changes agent behavior
-   - material guide sync happened -> change log
-   - root agent routing is missing or stale -> `AGENTS.md` / `CLAUDE.md`
-5. If the gap is not answer-critical and the required work is broader than a small local patch, delegate to a background `repo-docs` sync agent with a concrete handoff instead of blocking the user.
-6. Run the smallest useful check for foreground patches: validator, link check, relevant test, command, or source inspection.
-7. Answer the user from the updated guide, the inspected source, or the background handoff status; mention what changed or what sync is running.
+1. Inspect project instructions, README, entrypoints, scripts, tests, schemas, config, data, artifacts, and existing docs.
+2. Choose one representative real behavior.
+3. Build `references/source-evidence.md` as the evidence base with at least two traversal passes.
+4. Draft the reader model, then write README, walkthrough, modules, glossary, and change log.
+5. Wire root agent instructions from [ROOT_AGENT_RULES.md](ROOT_AGENT_RULES.md).
+6. Run the validator and fix structure, links, evidence, references scope, and reading-experience issues.
+
+For large repos or monorepos, scope the guide to one subsystem or workflow and say what is not covered.
 
 ## Writing Rules
 
@@ -192,24 +135,18 @@ Before delivery, confirm:
 
 - The reader can start from `repo-docs/README.md` and reach the main walkthrough.
 - `walkthroughs/one-real-run.md` follows one real behavior with numbered steps.
-- The main walkthrough passes the understandability review:
-  - A reader can say in one sentence what makes this path hard or non-trivial.
-  - Each step's first paragraph is understandable without source names.
-  - At least one real failure, boundary, retry, validation, or caveat path is visible when source evidence exists.
+- The walkthrough names a non-trivial pressure, a real boundary/failure/caveat when evidence exists, and one verification hook.
 - Source links prove the explanation instead of replacing it.
-- If all source links disappeared, the prose would still explain the flow at a useful first-pass level.
-- `references/source-evidence.md` exists and includes Pass 1/Pass 2 traversal rows, a coverage/exclusion note, a falsifying check, a likely reader follow-up, and a `Claim | Evidence | Confidence | Caveat | Used by` audit table.
-- For case studies, generated examples, source-heavy docs, or handoff-sensitive work, `references/quality-review.md` includes reader-simulation answers, falsifying-check review, next-reader-question review, and residual risk.
-- Any weak evidence discovered while writing was resolved by inspecting source, tests, config, data, commands, or artifacts; otherwise the claim is labeled `Inferred` / `Unknown` or omitted.
-- Module pages use headings shaped by the reader problem: concept-first explanation, representative example or source locator, caveat or verification hook when useful, and an onward route.
-- Exact fields, commands, schemas, metrics, artifacts, evidence maps, and quality audit notes live in `references/`, not in the main narrative.
-- Project agent instruction Markdown contains the `Repo docs` sync rule with the foreground gate and background delegation policy, or `AGENTS.md` was created.
+- `references/source-evidence.md` exists and includes Pass 1/Pass 2 traversal rows, coverage/exclusion notes, a falsifying check, a likely reader follow-up, and a `Claim | Evidence | Confidence | Caveat | Used by` audit table.
+- Optional `references/quality-review.md`, when present, stays an audit note rather than a second walkthrough.
+- Modules carry the knowledge and details a reader needs to understand the repo; `references/` contains only fixed generated artifacts.
+- Project agent instruction Markdown contains the short `Repo docs` routing block, or the build explicitly explains why it was not written.
 - `change-log.md` records meaningful guide work and includes `Synced through <sha>` when git is available.
 - The validator ran, or the reason it could not run is stated.
 
 ## Verification
 
-Before finishing, check structure, local links, source links, narrative flow, module ownership, evidence maps, quality review, and reference-page lookup behavior.
+Before finishing, check structure, local links, source links, narrative flow, module ownership, fixed references scope, evidence maps, and quality review.
 
 Run:
 
@@ -223,4 +160,4 @@ python scripts/validate_repo_docs.py <path-to-repo-docs> --repo-root <repo-root>
 
 **Cleanup:** if the user asks to remove repo docs, delete the generated docs package and stale root-agent pointers. Do not recreate docs in the same turn unless explicitly asked.
 
-**Widened sync closeout:** when the user explicitly asks to sync, tidy, hand off, or repair stale docs, follow [SYNC_RULES.md](SYNC_RULES.md) and summarize by changed layer—not a substitute for per-turn Understanding sync.
+**Widened sync closeout:** when the user explicitly asks to sync, tidy, hand off, or repair stale docs, follow [SYNC_RULES.md](SYNC_RULES.md) and summarize by changed layer, not as a substitute for per-turn sync decisions.

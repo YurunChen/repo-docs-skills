@@ -63,7 +63,7 @@
       <ul>
         <li>一条真实运行的 walkthrough，从可观察入口讲到产物。</li>
         <li>少数真正支撑设计的概念页。</li>
-        <li>命令、字段、schema、工具和证据的 reference 页。</li>
+        <li>源码证据和质量审查页。</li>
         <li>让未来 agent 按当前源码同步文档的根规则。</li>
       </ul>
     </td>
@@ -108,7 +108,7 @@ flowchart LR
 | `repo-docs/README.md` | 帮读者定位项目，并指向第一条有用路径。 |
 | `walkthroughs/one-real-run.md` | 沿着一条真实行为，从入口讲到输出。 |
 | `modules/` | 解释 walkthrough 中出现的稳定概念。 |
-| `references/` | 保存命令、schema、字段、工具和 source map。 |
+| `references/` | 保存源码证据和可选质量检查。 |
 | `glossary.md` | 把项目内重复术语翻译成白话。 |
 | `change-log.md` | 记录文档更新、验证方式和 sync anchor。 |
 | `AGENTS.md` / `CLAUDE.md` | 告诉未来 coding agent 什么时候、怎么保持文档同步。 |
@@ -200,7 +200,7 @@ python skills/repo-docs/scripts/validate_repo_docs.py /path/to/repo-docs --repo-
 | --- | --- |
 | 先讲行为，再讲清单 | 先讲一条真实 workflow，再列文件。 |
 | 先给读者抓手，再给定位 | 先解释概念，再链接到路径、函数、字段或命令。 |
-| 一个稳定事实，一个归属页 | 概念进 modules，查表进 references，历史进 change-log。 |
+| 一个稳定事实，一个归属页 | 概念和必要细节进 modules，证据和质量检查进 references，历史进 change-log。 |
 | 证据保持可见 | 当前源码、测试、配置、数据、命令和产物优先于 memory 或旧文档。 |
 | 修补保持克制 | 理解漂移时，只更新最小的归属页面。 |
 

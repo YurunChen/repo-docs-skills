@@ -30,6 +30,6 @@ Source: [`PromptBuilder::collect`](https://github.com/TabbyML/tabby/blob/e8608d6
 
 ## Where to follow the path
 
-Return to [Step 4 of the walkthrough](../walkthroughs/one-real-run.md#step-4-optional-context-is-gathered-before-the-prompt-is-built) for the runtime path. Use [the source evidence ledger](../references/source-evidence.md) to audit the fallback claims and [the completion contract reference](../references/completion-contract.md) to find exact request fields.
+Return to [Step 4 of the walkthrough](../walkthroughs/one-real-run.md#step-4-optional-context-is-gathered-before-the-prompt-is-built) for the runtime path. Use [the source evidence ledger](../references/source-evidence.md) to audit the fallback claims and [the completion contract module](../modules/completion-contract.md) to find exact request fields.
 
 Evidence status: Confirmed unless noted.
